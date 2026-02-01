@@ -34,11 +34,11 @@ const mainSelectedSkillType = ref<[string, number] | null>(null)
 const selectedMap = ref<WeaponBaseMaterialRegion | null>(null)
 const currentMapContainsWeapons = ref<WeaponData[]>([])
 
-const mainAttributesRecommands = computed(() => {
+const mainAttributesRecommands = computed((): string => {
     return mainSelectedAttribute1.value.map(item => item ? item[0] : '').join(' ')
 })
 
-const currentMapContainsWeaponsNames = (weapon: WeaponData) => {
+const currentMapContainsWeaponsNames = (weapon: WeaponData): string => {
     if (currentMapContainsWeapons.value.find(w => w.name === weapon.name)) {
         return 'primary'
     } else {
