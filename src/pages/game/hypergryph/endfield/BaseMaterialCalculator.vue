@@ -115,7 +115,7 @@ watch(selectedWeapons, (newVal) => {
         <el-form label-width="auto">
             <el-form-item label="选择武器">
                 <div class="weapon-select-add-div">
-                    <el-select v-model="currentSelectWeapon" filterable placeholder="Select" style="width: 240px">
+                    <el-select v-model="currentSelectWeapon" filterable placeholder="Select" style="width: auto">
                         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label" />
                     </el-select>
                     <el-button type="primary" @click="addWeapon" round> 添加 </el-button>
