@@ -19,10 +19,16 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       children: [
         {
-          path: 'endfield',
-          name: 'endfield',
-          component: EndfieldPage
-        }
+          path: 'hypergryph',
+          name: 'hypergryph',
+          children: [
+            {
+              path: 'endfield',
+              name: 'endfield',
+              component: EndfieldPage
+            }
+          ]
+        },
       ]
       // component: () => import('../views/AboutView.vue'),
     },

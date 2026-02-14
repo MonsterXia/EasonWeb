@@ -27,9 +27,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
             <el-menu-item index="2-3">item three</el-menu-item> -->
             <el-sub-menu index="/game/hypergryph">
                 <template #title>鹰角</template>
-                <el-menu-item index="/game/endfield">终末地</el-menu-item>
-                <el-menu-item index="2-4-2">item two</el-menu-item>
-                <el-menu-item index="2-4-3">item three</el-menu-item>
+                <el-menu-item index="/game/hypergryph/endfield">终末地</el-menu-item>
             </el-sub-menu>
         </el-sub-menu>
     </el-menu>
