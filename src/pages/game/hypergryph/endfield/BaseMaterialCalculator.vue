@@ -1,116 +1,173 @@
 <script lang="ts" setup>
-import { endfieldWeaponBaseMaterialRegion, endfieldWeapons, type WeaponBaseMaterialRegion, type WeaponData } from '@/constant/game/hypergryph/endfield/weapons';
-import { computed, ref, watch } from 'vue';
-const currentSelectWeapon = ref<string>('')
-const options = endfieldWeapons.map(item => ({
+import {
+    endfieldWeaponBaseMaterialRegion,
+    endfieldWeapons,
+    type WeaponBaseMaterialRegion,
+    type WeaponData,
+} from "@/constant/game/hypergryph/endfield/weapons";
+import { computed, ref, watch } from "vue";
+const currentSelectWeapon = ref<string>("");
+const options = endfieldWeapons.map((item) => ({
     label: item.name,
-    value: item
-}))
+    value: item,
+}));
 
-const selectedWeapons = ref<WeaponData[]>([])
+const selectedWeapons = ref<WeaponData[]>([]);
 
 const addWeapon = (): void => {
     if (!currentSelectWeapon.value) {
-        return
+        return;
     }
-    const weapon = endfieldWeapons.find(w => w.name === currentSelectWeapon.value)
-    if (weapon && !selectedWeapons.value.find(w => w.name === weapon.name)) {
-        selectedWeapons.value.push(weapon)
+    const weapon = endfieldWeapons.find(
+        (w) => w.name === currentSelectWeapon.value
+    );
+    if (weapon && !selectedWeapons.value.find((w) => w.name === weapon.name)) {
+        selectedWeapons.value.push(weapon);
     }
-}
+};
 
 const deleteWeapon = (weapon: WeaponData): void => {
-    selectedWeapons.value = selectedWeapons.value.filter(w => w.name !== weapon.name)
-}
+    selectedWeapons.value = selectedWeapons.value.filter(
+        (w) => w.name !== weapon.name
+    );
+};
 
 const attributeOptions = ref<any>({
     attribute1Array: new Map<string, number>(),
     attribute2Array: new Map<string, number>(),
     skillTypeArray: new Map<string, number>(),
-})
+});
 
-const mainSelectedAttribute1 = ref<([string, number] | null)[]>([])
-const mainSelectedSkillType = ref<[string, number] | null>(null)
-const selectedMap = ref<WeaponBaseMaterialRegion | null>(null)
-const currentMapContainsWeapons = ref<WeaponData[]>([])
+const mainSelectedAttribute1 = ref<([string, number] | null)[]>([]);
+const mainSelectedSkillType = ref<[string, number] | null>(null);
+const selectedMap = ref<WeaponBaseMaterialRegion | null>(null);
+const currentMapContainsWeapons = ref<WeaponData[]>([]);
 
 const mainAttributesRecommands = computed((): string => {
-    return mainSelectedAttribute1.value.map(item => item ? item[0] : '').join(' ')
-})
+    return mainSelectedAttribute1.value
+        .map((item) => (item ? item[0] : ""))
+        .join(" ");
+});
 
 const currentMapContainsWeaponsNames = (weapon: WeaponData): string => {
-    if (currentMapContainsWeapons.value.find(w => w.name === weapon.name)) {
-        return 'primary'
+    if (currentMapContainsWeapons.value.find((w) => w.name === weapon.name)) {
+        return "primary";
     } else {
-        return 'info'
+        return "info";
     }
-}
+};
 
-watch(selectedWeapons, (newVal) => {
-    let attribute1HashMap = new Map<string, number>()
-    let attribute2HashMap = new Map<string, number>()
-    let skillTypeHashMap = new Map<string, number>()
-
-    newVal.forEach(weapon => {
-        attribute1HashMap.set(weapon.attribute1, (attribute1HashMap.get(weapon.attribute1) || 0) + 1)
-        if (weapon.attribute2) {
-            attribute2HashMap.set(weapon.attribute2, (attribute2HashMap.get(weapon.attribute2) || 0) + 1)
-        }
-        skillTypeHashMap.set(weapon.skill.type, (skillTypeHashMap.get(weapon.skill.type) || 0) + 1)
-    })
-
-    attributeOptions.value = {
-        attribute1Array: attribute1HashMap,
-        attribute2Array: attribute2HashMap,
-        skillTypeArray: skillTypeHashMap,
+const skill2TypeMatch = (weapon: WeaponData, region: WeaponBaseMaterialRegion): boolean => {
+    let skill2Name = weapon.attribute2;
+    if (!skill2Name) {
+        return true;
     }
 
-    const regionMap = new Map<WeaponBaseMaterialRegion, WeaponData[]>()
-    endfieldWeaponBaseMaterialRegion.forEach(region => {
-        let weaponList: WeaponData[] = []
-        newVal.forEach(weapon => {
-            if (
-                region.attribute1Array.includes(weapon.attribute1)
-                && (weapon.attribute2 ? region.attribute2Array.includes(weapon.attribute2) : true)
-                && region.skillTypeArray.includes(weapon.skill.type)
-            ) {
-                weaponList.push(weapon)
-            }
-        })
-        regionMap.set(region, weaponList)
-    })
+    if (skill2Name === '源石技艺强度提升') {
+        skill2Name = '源石技艺提升';
+    } else if (skill2Name === '终结技充能效率提升') {
+        skill2Name = '终结技效率提升';
+    }
 
-    const sortedRegionArray = new Map([...regionMap.entries()].sort((a, b) => b[1].length - a[1].length))
-    selectedMap.value = Array.from(sortedRegionArray.entries())[0]![0] || null
-    currentMapContainsWeapons.value = Array.from(sortedRegionArray.entries())[0]![1] || []
+    return region.attribute2Array.includes(skill2Name);
+};
 
-    if (selectedMap.value) {
-        const activatedAttribute1HashMap = new Map<string, number>()
-        const activatedAttribute2HashMap = new Map<string, number>()
-        const activatedSkillTypeHashMap = new Map<string, number>()
-        currentMapContainsWeapons.value.forEach(weapon => {
-            activatedAttribute1HashMap.set(weapon.attribute1, (activatedAttribute1HashMap.get(weapon.attribute1) || 0) + 1)
+watch(
+    selectedWeapons,
+    (newVal) => {
+        let attribute1HashMap = new Map<string, number>();
+        let attribute2HashMap = new Map<string, number>();
+        let skillTypeHashMap = new Map<string, number>();
+
+        newVal.forEach((weapon) => {
+            attribute1HashMap.set(
+                weapon.attribute1,
+                (attribute1HashMap.get(weapon.attribute1) || 0) + 1
+            );
             if (weapon.attribute2) {
-                activatedAttribute2HashMap.set(weapon.attribute2, (activatedAttribute2HashMap.get(weapon.attribute2) || 0) + 1)
+                attribute2HashMap.set(
+                    weapon.attribute2,
+                    (attribute2HashMap.get(weapon.attribute2) || 0) + 1
+                );
             }
-            activatedSkillTypeHashMap.set(weapon.skill.type, (activatedSkillTypeHashMap.get(weapon.skill.type) || 0) + 1)
-        })
+            skillTypeHashMap.set(
+                weapon.skill.type,
+                (skillTypeHashMap.get(weapon.skill.type) || 0) + 1
+            );
+        });
 
-        const sortedAttribute1Array = new Map([...activatedAttribute1HashMap.entries()].sort((a, b) => b[1] - a[1]))
-        const sortedAttribute2Array = new Map([...activatedAttribute2HashMap.entries()].sort((a, b) => b[1] - a[1]))
-        const sortedSkillTypeArray = new Map([...activatedSkillTypeHashMap.entries()].sort((a, b) => b[1] - a[1]))
+        attributeOptions.value = {
+            attribute1Array: attribute1HashMap,
+            attribute2Array: attribute2HashMap,
+            skillTypeArray: skillTypeHashMap,
+        };
 
-        mainSelectedAttribute1.value = Array.from(sortedAttribute1Array.entries()).filter((_, index) => index < 3) || []
-        mainSelectedSkillType.value = Array.from(sortedSkillTypeArray)[0] || null
-    }
-}, { deep: true });
+        const regionMap = new Map<WeaponBaseMaterialRegion, WeaponData[]>();
+        endfieldWeaponBaseMaterialRegion.forEach((region) => {
+            let weaponList: WeaponData[] = [];
+            newVal.forEach((weapon) => {
+                if (
+                    region.attribute1Array.includes(weapon.attribute1) &&
+                    skill2TypeMatch(weapon, region) &&
+                    region.skillTypeArray.includes(weapon.skill.type)
+                ) {
+                    weaponList.push(weapon);
+                }
+            });
+            regionMap.set(region, weaponList);
+        });
+
+        const sortedRegionArray = new Map(
+            [...regionMap.entries()].sort((a, b) => b[1].length - a[1].length)
+        );
+        selectedMap.value = Array.from(sortedRegionArray.entries())[0]![0] || null;
+        currentMapContainsWeapons.value =
+            Array.from(sortedRegionArray.entries())[0]![1] || [];
+        if (selectedMap.value) {
+            const activatedAttribute1HashMap = new Map<string, number>();
+            const activatedAttribute2HashMap = new Map<string, number>();
+            const activatedSkillTypeHashMap = new Map<string, number>();
+            currentMapContainsWeapons.value.forEach((weapon) => {
+                activatedAttribute1HashMap.set(
+                    weapon.attribute1,
+                    (activatedAttribute1HashMap.get(weapon.attribute1) || 0) + 1
+                );
+                if (weapon.attribute2) {
+                    activatedAttribute2HashMap.set(
+                        weapon.attribute2,
+                        (activatedAttribute2HashMap.get(weapon.attribute2) || 0) + 1
+                    );
+                }
+                activatedSkillTypeHashMap.set(
+                    weapon.skill.type,
+                    (activatedSkillTypeHashMap.get(weapon.skill.type) || 0) + 1
+                );
+            });
+
+            const sortedAttribute1Array = new Map(
+                [...activatedAttribute1HashMap.entries()].sort((a, b) => b[1] - a[1])
+            );
+            const sortedAttribute2Array = new Map(
+                [...activatedAttribute2HashMap.entries()].sort((a, b) => b[1] - a[1])
+            );
+            const sortedSkillTypeArray = new Map(
+                [...activatedSkillTypeHashMap.entries()].sort((a, b) => b[1] - a[1])
+            );
+
+            mainSelectedAttribute1.value =
+                Array.from(sortedAttribute1Array.entries()).filter(
+                    (_, index) => index < 3
+                ) || [];
+            mainSelectedSkillType.value = Array.from(sortedSkillTypeArray)[0] || null;
+        }
+    },
+    { deep: true }
+);
 </script>
 
 <template>
     <el-card>
-        <template #header>
-            基质计算器
-        </template>
+        <template #header> 基质计算器 </template>
 
         <el-form label-width="auto">
             <el-form-item label="选择武器">
@@ -123,11 +180,14 @@ watch(selectedWeapons, (newVal) => {
             </el-form-item>
             <el-form-item label="已选择的武器">
                 <div class="selected-weapons-tags-div">
-                    <el-tag v-if="selectedWeapons.length !== 0" v-for="weapon in selectedWeapons" :key="weapon.name"
-                        closable :type="currentMapContainsWeaponsNames(weapon)" plain round
-                        @close="deleteWeapon(weapon)">
-                        <span :class="[`rarity-${weapon.rarity}`]"> {{ weapon.name }} </span>
-                    </el-tag>
+                    <div v-if="selectedWeapons.length !== 0">
+                        <el-tag v-for="weapon in selectedWeapons" :key="weapon.name" closable
+                            :type="currentMapContainsWeaponsNames(weapon)" plain round @close="deleteWeapon(weapon)">
+                            <span :class="[`rarity-${weapon.rarity}`]">
+                                {{ weapon.name }}
+                            </span>
+                        </el-tag>
+                    </div>
                     <p v-else>
                         未选择任何武器，请添加任意把需要刷取基质的武器
                     </p>

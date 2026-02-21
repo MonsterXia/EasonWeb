@@ -734,7 +734,7 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
         attribute2Array: [
             '攻击提升', '灼热伤害提升', '电磁伤害提升',
             '寒冷伤害提升', '自然伤害提升', '源石技艺提升',
-            '终结技充能效率提升', '法术提升'
+            '终结技效率提升', '法术提升'
         ],
         skillTypeArray: [
             '强攻', '压制', '追袭',
@@ -751,7 +751,7 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
         attribute2Array: [
             '攻击提升', '物理伤害提升', '电磁伤害提升',
             '寒冷伤害提升', '自然伤害提升', '暴击率提升',
-            '终结技充能效率提升', '法术提升'
+            '终结技效率提升', '法术提升'
         ],
         skillTypeArray: [
             '压制', '追袭', '昂扬',
@@ -768,7 +768,7 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
         attribute2Array: [
             '攻击提升', '物理伤害提升', '电磁伤害提升',
             '寒冷伤害提升', '自然伤害提升', '暴击率提升',
-            '终结技充能效率提升', '法术提升'
+            '终结技效率提升', '法术提升'
         ],
         skillTypeArray: [
             '压制', '追袭', '昂扬',
@@ -818,7 +818,7 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
         ],
         attribute2Array: [
             '攻击提升', '生命提升', '电磁伤害提升',
-            '寒冷伤害提升', '暴击率提升', '终结技充能效率提升',
+            '寒冷伤害提升', '暴击率提升', '终结技效率提升',
             '法术伤害提升', '治疗效率提升'
         ],
         skillTypeArray: [
