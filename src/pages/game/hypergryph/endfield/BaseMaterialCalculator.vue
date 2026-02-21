@@ -51,10 +51,16 @@ const mainAttributesRecommands = computed((): string => {
 
 const currentMapContainsWeaponsNames = (weapon: WeaponData): string => {
     if (currentMapContainsWeapons.value.find((w) => w.name === weapon.name)) {
-        return "primary";
-    } else {
-        return "info";
+        const currentSelectAttribute1 = mainAttributesRecommands.value.split(" ");
+        const currentSelectSkill = mainSelectedSkillType.value?.[0];
+        if (
+            weapon.skill.type === currentSelectSkill
+            && currentSelectAttribute1.includes(weapon.attribute1)
+        ) {
+            return "primary";
+        }
     }
+    return "info";
 };
 
 const skill2TypeMatch = (weapon: WeaponData, region: WeaponBaseMaterialRegion): boolean => {
@@ -179,8 +185,8 @@ watch(
                 </div>
             </el-form-item>
             <el-form-item label="已选择的武器">
-                <div class="selected-weapons-tags-div">
-                    <div v-if="selectedWeapons.length !== 0">
+                <div>
+                    <div v-if="selectedWeapons.length !== 0" class="selected-weapons-tags-div">
                         <el-tag v-for="weapon in selectedWeapons" :key="weapon.name" closable
                             :type="currentMapContainsWeaponsNames(weapon)" plain round @close="deleteWeapon(weapon)">
                             <span :class="[`rarity-${weapon.rarity}`]">
