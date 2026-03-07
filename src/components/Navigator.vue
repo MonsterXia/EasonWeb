@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-}
+const activeIndex = ref('/')
 </script>
 
 <style scoped>
@@ -14,9 +11,8 @@ const handleSelect = (key: string, keyPath: string[]) => {
 </style>
 
 <template>
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false"
-        @select="handleSelect" router>
-        <el-menu-item index="0">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false" router>
+        <el-menu-item index="" disabled class="logo-menu-item">
             <!-- <img style="width: 100px" src="/images/element-plus-logo.svg" alt="Element logo" /> -->
         </el-menu-item>
         <el-menu-item index="/">首页</el-menu-item>
@@ -32,3 +28,10 @@ const handleSelect = (key: string, keyPath: string[]) => {
         </el-sub-menu>
     </el-menu>
 </template>
+
+<style scoped>
+.logo-menu-item.is-disabled {
+    cursor: default !important;
+    opacity: 1;
+}
+</style>
