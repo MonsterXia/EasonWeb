@@ -16,6 +16,7 @@ export default defineConfig({
   },
   server: {
     host: 'localhost.246801357.xyz',
+    port: 80,
     allowedHosts: [
       'localhost.246801357.xyz',
     ],
