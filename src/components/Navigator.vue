@@ -26,6 +26,11 @@ const activeIndex = ref('/')
                 <el-menu-item index="/game/hypergryph/endfield">终末地</el-menu-item>
             </el-sub-menu>
         </el-sub-menu>
+        <el-menu-item index="/user">
+            <el-icon>
+                <User />
+            </el-icon>
+        </el-menu-item>
     </el-menu>
 </template>
 

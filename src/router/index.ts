@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 const IndexPage = () => import('@/pages/home/IndexPage.vue')
 const EndfieldPage = () => import('@/pages/game/hypergryph/endfield/EndfieldPage.vue')
+const UserPage = () => import('@/pages/user/userPage.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,9 +15,6 @@ const router = createRouter({
     {
       path: '/game',
       name: 'game',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       children: [
         {
           path: 'hypergryph',
@@ -30,8 +28,12 @@ const router = createRouter({
           ]
         },
       ]
-      // component: () => import('../views/AboutView.vue'),
     },
+    {
+      path: '/user',
+      name: 'user',
+      component: UserPage
+    }
   ],
 })
 

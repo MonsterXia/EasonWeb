@@ -15,10 +15,18 @@ export default defineConfig({
     },
   },
   server: {
-    host: 'localhost.246801357.xyz',
+    host: '0.0.0.0',
     port: 80,
     allowedHosts: [
       'localhost.246801357.xyz',
+      'localhost',
     ],
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
 })
