@@ -25,7 +25,7 @@ const endfieldWeaponsSword: WeaponData[] = [
         }
     },
     {
-        name: '应急手段',
+        name: '显锋',
         type: '单手剑',
         rarity: 4,
         attribute1: '敏捷提升',
@@ -198,6 +198,17 @@ const endfieldWeaponsSword: WeaponData[] = [
         skill: {
             type: '附术',
             name: '白夜新星'
+        }
+    },
+    {
+        name: '光荣记忆',
+        type: '单手剑',
+        rarity: 6,
+        attribute1: '敏捷提升',
+        attribute2: '暴击率提升',
+        skill: {
+            type: '夜幕',
+            name: '余晖未消'
         }
     },
 ]
@@ -550,6 +561,28 @@ const endfieldWeaponsHandCannon: WeaponData[] = [
             name: '残酷清洗'
         }
     },
+    {
+        name: '落草',
+        type: '手铳',
+        rarity: 6,
+        attribute1: '敏捷提升',
+        attribute2: '攻击提升',
+        skill: {
+            type: '迸发',
+            name: '荡寇仇'
+        }
+    },
+    {
+        name: '望乡',
+        type: '手铳',
+        rarity: 6,
+        attribute1: '敏捷提升',
+        attribute2: '寒冷伤害提升',
+        skill: {
+            type: '压制',
+            name: '旧时月'
+        }
+    },
 ]
 
 const endfieldWeaponsCastingUnit: WeaponData[] = [
@@ -822,9 +855,26 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
             '法术伤害提升', '治疗效率提升'
         ],
         skillTypeArray: [
-            '强攻', '粉碎', '残暴',
+            '压制', '粉碎', '昂扬',
             '医疗', '切骨', '迸发',
             '夜幕', '流转'
+        ]
+    },
+    {
+        region: '清波寨',
+        attribute1Array: [
+            '敏捷提升', '力量提升', '意志提升',
+            '智识提升', '主能力提升'
+        ],
+        attribute2Array: [
+            '生命提升', '物理伤害提升', '电磁伤害提升',
+            '寒冷伤害提升', '源石技艺提升', '终结技效率提升',
+            '法术伤害提升', '治疗效率提升'
+        ],
+        skillTypeArray: [
+            '强攻', '粉碎', '残暴',
+            '巧技', '医疗', '切骨',
+            '迸发', '夜幕'
         ]
     },
 ]
