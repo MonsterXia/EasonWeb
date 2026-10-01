@@ -3,9 +3,6 @@ import { reactive, ref } from 'vue'
 import type { CurrentUser } from '@/common/api/user'
 import {
   apiError,
-  bindPostAPI,
-  unbindPostAPI,
-  postLoginAPI,
   hypergryphSmsAPI,
   bindHypergryphAPI,
   unbindHypergryphAPI,
@@ -19,7 +16,6 @@ const hg = reactive({
   password: '',
   code: '',
 })
-const post = reactive({ email: props.user.postAdmin?.email ?? '', password: '' })
 const busy = ref(false),
   error = ref(''),
   notice = ref('')
@@ -38,7 +34,6 @@ async function operate(action: () => Promise<unknown>, refresh = true) {
   } finally {
     busy.value = false
     hg.password = ''
-    post.password = ''
     hg.code = ''
   }
 }
@@ -67,17 +62,6 @@ function bindHg() {
       ...(hg.method === 'sms' ? { code: hg.code } : { password: hg.password }),
     }),
   )
-}
-function postAction(unbind = false) {
-  if (!post.email || !post.password) {
-    error.value = '请先填写 Post 管理员邮箱和密码，以验证账号所有权。'
-    return
-  }
-  return operate(async () => {
-    await postLoginAPI(post.email.trim(), post.password)
-    if (unbind) await unbindPostAPI()
-    else await bindPostAPI()
-  })
 }
 </script>
 <template>
@@ -147,44 +131,6 @@ function postAction(unbind = false) {
           </el-popconfirm>
         </el-form>
       </el-card>
-      <el-card class="binding-card" shadow="never">
-        <h3><span class="binding-icon pink">P</span>Post 管理员账号</h3>
-        <p>使用已有 Post 管理员账号验证身份后，即可绑定或解除绑定。</p>
-        <el-form label-position="top" :disabled="busy" @submit.prevent="postAction()">
-          <el-form-item label="Post 管理员邮箱"
-            ><el-input
-              v-model="post.email"
-              aria-label="Post 管理员邮箱"
-              type="email"
-              autocomplete="username"
-              :disabled="!!user.postAdmin"
-              required
-          /></el-form-item>
-          <el-form-item label="Post 管理员密码"
-            ><el-input
-              v-model="post.password"
-              aria-label="Post 管理员密码"
-              type="password"
-              autocomplete="current-password"
-              show-password
-              required
-          /></el-form-item>
-          <el-button v-if="!user.postAdmin" type="primary" native-type="submit" :loading="busy"
-            >登录并绑定 Post</el-button
-          >
-          <el-popconfirm
-            confirm-button-text="确认"
-            cancel-button-text="取消"
-            v-else
-            title="确认解除 Post 管理员绑定？"
-            @confirm="postAction(true)"
-          >
-            <template #reference
-              ><el-button type="danger" :loading="busy" plain>解绑 Post 账号</el-button></template
-            >
-          </el-popconfirm>
-        </el-form>
-      </el-card>
     </div>
   </section>
 </template>
@@ -205,7 +151,7 @@ function postAction(unbind = false) {
 }
 .binding-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 .binding-card {
@@ -240,18 +186,10 @@ p {
     14px ui-monospace,
     monospace;
 }
-.binding-icon.pink {
-  color: var(--pink);
-  border-color: #ff78bd29;
-  background: #ff78bd14;
-}
 .spaced {
   margin-top: 8px;
 }
 @media (max-width: 760px) {
-  .binding-grid {
-    grid-template-columns: 1fr;
-  }
   .el-form > .el-button,
   .el-form > :deep(.el-tooltip__trigger) {
     margin: 4px 8px 4px 0;

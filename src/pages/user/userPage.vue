@@ -98,9 +98,6 @@ onBeforeUnmount(() => request?.abort())
             <el-descriptions-item label="鹰角账号">{{
               user.hypergryphAccount?.phone || '未绑定'
             }}</el-descriptions-item>
-            <el-descriptions-item label="Post 管理员">{{
-              user.postAdmin?.email || '未绑定'
-            }}</el-descriptions-item>
           </el-descriptions>
         </div>
         <AccountBindings :user="user" @changed="loadUser" />
