@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import EmptyState from '@/components/EmptyState.vue'
+import { ArrowRight } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'
 import AccountBindings from '@/components/account/AccountBindings.vue'
 import { getCurrentUserAPI, logoutAPI, type CurrentUser } from '@/common/api/user'
@@ -54,26 +56,28 @@ onBeforeUnmount(() => request?.abort())
     />
     <el-card class="profile-card">
       <el-skeleton v-if="loading" :rows="4" animated aria-label="正在加载用户资料" />
-      <el-result
+      <EmptyState
         v-else-if="failed"
-        icon="warning"
-        title="用户资料加载失败"
-        sub-title="请检查网络后重试。"
+        kind="error"
+        title="资料暂时没能加载"
+        description="连接似乎出了点小问题，稍后再试一次。"
       >
-        <template #extra><el-button type="primary" @click="loadUser">重试</el-button></template>
-      </el-result>
-      <el-result
-        v-else-if="!user"
-        icon="info"
-        title="尚未登录或会话已失效"
-        sub-title="登录后可查看您的账号资料。"
-      >
-        <template #extra
-          ><router-link to="/login">登录</router-link> ·
-          <router-link to="/register">注册账号</router-link
-          ><el-button @click="loadUser">刷新登录状态</el-button></template
+        <template #actions
+          ><el-button type="primary" @click="loadUser">重新加载</el-button></template
         >
-      </el-result>
+      </EmptyState>
+      <EmptyState
+        v-else-if="!user"
+        kind="login"
+        title="登录，回到你的空间"
+        description="管理个人资料、连接鹰角账号，让游戏日常从这里开始。"
+      >
+        <template #actions>
+          <router-link to="/login">登录账号 <ArrowRight /></router-link>
+          <router-link to="/register">注册账号</router-link>
+          <el-button text @click="loadUser">刷新登录状态</el-button>
+        </template>
+      </EmptyState>
       <template v-else>
         <div class="profile-banner">
           <div class="avatar">{{ user.username.slice(0, 1).toUpperCase() }}</div>

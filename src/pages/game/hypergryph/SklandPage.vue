@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import EmptyState from '@/components/EmptyState.vue'
+import { ArrowRight } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'
 import { getCurrentUserAPI, type CurrentUser } from '@/common/api/user'
 import {
@@ -72,16 +74,39 @@ onMounted(load)
       </div>
       <el-skeleton v-if="loading" :rows="4" animated />
       <template v-else>
-        <el-alert v-if="error" :title="error" type="error" :closable="false" role="alert" />
-        <el-result v-if="!user && !error" title="请先登录" icon="info"
-          ><template #extra><router-link to="/login">前往登录</router-link></template></el-result
+        <EmptyState
+          v-if="error && !games.length"
+          kind="error"
+          title="暂时没能获取角色"
+          :description="error"
         >
-        <el-result v-else-if="user && !user.hypergryphAccount" title="请先绑定鹰角账号" icon="info"
-          ><template #extra
-            ><router-link to="/user">前往用户中心绑定</router-link></template
-          ></el-result
+          <template #actions>
+            <el-button type="primary" @click="load">重新加载</el-button>
+            <router-link v-if="user?.hypergryphAccount" to="/user">更新账号登录</router-link>
+          </template>
+        </EmptyState>
+        <EmptyState
+          v-else-if="!user"
+          kind="login"
+          title="登录，开启每日签到"
+          description="登录并连接鹰角账号，即可在这里查看角色、领取每日奖励。"
         >
+          <template #actions
+            ><router-link to="/login">前往登录 <ArrowRight /></router-link
+          ></template>
+        </EmptyState>
+        <EmptyState
+          v-else-if="!user.hypergryphAccount"
+          kind="link"
+          title="连接账号，开启你的日常"
+          description="还差一步：绑定鹰角账号，让明日方舟与终末地的角色在这里集合。"
+        >
+          <template #actions
+            ><router-link to="/user">绑定鹰角账号 <ArrowRight /></router-link
+          ></template>
+        </EmptyState>
         <template v-else-if="user?.hypergryphAccount">
+          <el-alert v-if="error" :title="error" type="error" :closable="false" role="alert" />
           <div class="actions">
             <el-button :disabled="busy" @click="load">刷新游戏账号</el-button
             ><el-button
@@ -92,7 +117,11 @@ onMounted(load)
               >全部签到</el-button
             ><router-link to="/user">更新账号登录</router-link>
           </div>
-          <el-empty v-if="!games.length && !error" description="未找到可签到的游戏角色" />
+          <EmptyState
+            v-if="!games.length && !error"
+            title="角色还没有到站"
+            description="当前账号下暂无可签到角色。确认已创建游戏角色后，刷新游戏账号再试试。"
+          />
           <ul class="game-list">
             <li v-for="game in games" :key="`${game.appCode}:${game.gameId}:${game.uid}`">
               <span class="game-avatar"
@@ -125,7 +154,7 @@ onMounted(load)
             </p>
           </section>
         </template>
-        <el-button v-if="error" @click="load">重试</el-button>
+        <el-button v-if="error && games.length" @click="load">重试</el-button>
       </template>
     </el-card>
   </div>

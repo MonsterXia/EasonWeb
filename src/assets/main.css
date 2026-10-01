@@ -81,17 +81,6 @@
 .el-alert {
   border: 1px solid var(--el-border-color);
 }
-.el-result {
-  padding: 38px 16px;
-}
-.el-result__extra {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-.el-result__extra a,
 .auth-links a {
   color: var(--accent);
 }
