@@ -1,6 +1,6 @@
 ---
 name: easonweb-development
-description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状态、主题适配、路由与导航调整、CommonServerAPI 接口对接、用户认证和账号绑定、森空岛签到及终末地计算器维护。仅在本项目相关开发、排错和代码审查时使用。
+description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状态、主题适配、国际化、路由与导航调整、CommonServerAPI 接口对接、用户认证和账号绑定、森空岛签到及终末地计算器维护。仅在本项目相关开发、排错和代码审查时使用。
 ---
 
 # EasonWeb 项目开发
@@ -25,6 +25,7 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 | 武器与地区数据、类型 | `src/constant/game/hypergryph/endfield/weapons.ts` |
 | API 封装与响应类型 | `src/common/api/basic.ts`、`user.ts`、`accounts.ts` |
 | HTTP 客户端、URL、环境配置 | `src/common/gatewayManager/`、`src/common/config/domain.ts`、`vite.config.ts` |
+| 国际化与语言切换 | `src/i18n/`、`src/components/Navigator.vue`、[国际化约定](references/i18n.md) |
 | 统一空状态与设计规范 | `src/components/EmptyState.vue`、[界面与空状态规范](references/ui-design.md) |
 | 验证码倒计时 | `src/composables/useCooldown.ts` |
 | 全局样式与颜色变量 | `src/assets/main.css`、`src/assets/base.css`、`src/assets/light.css` |
@@ -36,7 +37,7 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 
 - 使用 `<script setup lang="ts">`、Composition API 和 `@/` 源码别名；复用 Element Plus 组件。Element Plus 及其图标已在 `src/main.ts` 全局注册。
 - 路由组件采用动态导入。新增页面按需同步路由与导航；菜单的 `index` 使用路由路径，当前选中项来自 `route.path`。
-- 沿用中文界面文案、表单标签和局部 scoped 样式。保留加载、空数据、未登录、失败重试等不同状态；异步按钮防止重复提交。
+- 界面支持中英文；新增文案同时维护两种词条，表单标签及无障碍标签也要翻译。沿用局部 scoped 样式。保留加载、空数据、未登录、失败重试等不同状态；异步按钮防止重复提交。
 - 用户资料加载参考 `userPage.vue` 的 AbortController 及过期响应检查。倒计时复用 `useCooldown`，保留组件卸载时的定时器清理。
 - `.oxfmtrc.json` 约定单引号、不使用分号。历史文件格式不完全统一，避免为局部任务格式化整个仓库。
 
@@ -47,6 +48,10 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 - 未登录、未绑定、无数据及加载失败统一使用 `EmptyState.vue`，通过 `kind` 和 `actions` 插槽区分场景；不要恢复默认 `el-result` / `el-empty` 的灰色大图标样式。
 - 保留加载、正常数据、局部错误与整页失败的区别。适配桌面横排、手机竖排及明暗主题，验证实际按钮跳转与重试恢复。
 - Post 管理员功能尚未确定上线：前端保持隐藏关联信息、登录绑定表单及解绑入口。后端接口或响应类型仍存在不代表应展示该功能；仅在用户明确要求上线时恢复。
+
+## 国际化
+
+修改界面文案、反馈提示或语言行为时，先读 [国际化约定](references/i18n.md)。使用 Vue I18n 的 `t()` / 全局 `tr()`，维护中英文词条、命名插值和响应式反馈；语言切换保留表单与业务状态。游戏数据的规范标识及第三方内容不随显示语言改写。
 
 ## 接口与认证约定
 

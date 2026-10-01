@@ -6,6 +6,16 @@ import {
   type WeaponData,
 } from '@/constant/game/hypergryph/endfield/weapons'
 import { computed, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t, locale, te } = useI18n()
+// Translate display values only: matching and selections retain canonical data identifiers.
+const displayAttribute = (value: string): string =>
+  te(`game.attributes.${value}`) ? t(`game.attributes.${value}`) : value
+const recommendedAttributeLabels = computed(() =>
+  mainSelectedAttribute1.value
+    .flatMap((item) => (item ? [displayAttribute(item[0])] : []))
+    .join(t('game.calculator.attributeSeparator')),
+)
 const currentSelectWeapon = ref<string>('')
 const options = endfieldWeapons.map((item) => ({
   label: item.name,
@@ -161,17 +171,17 @@ watch(
     <div class="calculator-inputs">
       <el-card>
         <div class="panel-title">
-          <h2><span class="step-number">01</span>组建武器清单</h2>
-          <span class="pill">本地计算 · 无需登录</span>
+          <h2><span class="step-number">01</span>{{ t('game.calculator.buildList') }}</h2>
+          <span class="pill">{{ t('game.calculator.localCalculation') }}</span>
         </div>
         <el-form label-position="top" @submit.prevent="addWeapon">
-          <el-form-item label="搜索并选择武器">
+          <el-form-item :label="t('game.calculator.searchLabel')">
             <div class="weapon-select-add-div">
               <el-select
                 v-model="currentSelectWeapon"
                 filterable
-                placeholder="输入武器名称，或展开选择"
-                aria-label="选择武器"
+                :placeholder="t('game.calculator.searchPlaceholder')"
+                :aria-label="t('game.calculator.selectWeapon')"
               >
                 <el-option
                   v-for="item in options"
@@ -187,14 +197,19 @@ watch(
                   !currentSelectWeapon ||
                   selectedWeapons.some((w) => w.name === currentSelectWeapon)
                 "
-                ><el-icon><Plus /></el-icon>添加武器</el-button
+                ><el-icon><Plus /></el-icon>{{ t('game.calculator.addWeapon') }}</el-button
               >
             </div>
           </el-form-item>
         </el-form>
+        <p v-if="locale === 'en'" class="server-name-note">{{ t('game.calculator.namesNote') }}</p>
         <div class="selection-heading">
-          <span>已选择的武器</span
-          ><span>{{ selectedWeapons.length.toString().padStart(2, '0') }} SELECTED</span>
+          <span>{{ t('game.calculator.selectedWeapons') }}</span
+          ><span>{{
+            t('game.calculator.selectedCount', {
+              count: selectedWeapons.length.toString().padStart(2, '0'),
+            })
+          }}</span>
         </div>
         <div v-if="selectedWeapons.length" class="selected-weapons-tags-div">
           <el-tag
@@ -209,24 +224,30 @@ watch(
         </div>
         <div v-else class="selection-empty">
           <el-icon><Aim /></el-icon>
-          <h3>你的下一把毕业武器是？</h3>
-          <p>添加需要刷取基质的武器，开始规划。</p>
+          <h3>{{ t('game.calculator.emptyTitle') }}</h3>
+          <p>{{ t('game.calculator.emptyDescription') }}</p>
         </div>
         <p v-if="selectedWeapons.length" class="selection-note">
-          高亮标签表示同时匹配推荐地图、主属性和技能的武器。
+          {{ t('game.calculator.highlightNote') }}
         </p>
       </el-card>
       <el-card class="stats-card">
         <div class="panel-title">
-          <h2><span class="step-number">02</span>武器属性统计</h2>
+          <h2><span class="step-number">02</span>{{ t('game.calculator.statsTitle') }}</h2>
           <span>ATTRIBUTE OVERVIEW</span>
         </div>
         <div class="weapon-attribute-summary-div">
           <section
             v-for="(group, index) in [
-              { title: '主属性', data: attributeOptions.attribute1Array },
-              { title: '副属性', data: attributeOptions.attribute2Array },
-              { title: '技能', data: attributeOptions.skillTypeArray },
+              {
+                title: t('game.calculator.primaryAttribute'),
+                data: attributeOptions.attribute1Array,
+              },
+              {
+                title: t('game.calculator.secondaryAttribute'),
+                data: attributeOptions.attribute2Array,
+              },
+              { title: t('game.calculator.skill'), data: attributeOptions.skillTypeArray },
             ]"
             :key="group.title"
           >
@@ -234,9 +255,11 @@ watch(
               <span>{{ ['◈', '◇', '✧'][index] }}</span
               >{{ group.title }}
             </h3>
-            <p v-if="!group.data.size" class="stat-empty">等待添加武器</p>
+            <p v-if="!group.data.size" class="stat-empty">
+              {{ t('game.calculator.waitingWeapons') }}
+            </p>
             <div v-for="item in group.data" :key="item[0]" class="stat-row">
-              <span>{{ item[0] }}</span
+              <span>{{ displayAttribute(item[0]) }}</span
               ><b>{{ item[1] }}</b>
             </div>
           </section>
@@ -248,37 +271,50 @@ watch(
         <p class="eyebrow">YOUR EXPLORATION PLAN</p>
         <span aria-hidden="true">↗</span>
       </div>
-      <h2>下一站，<br />高效探索。</h2>
+      <h2>{{ t('game.calculator.planTitle') }}</h2>
       <div class="map-visual" aria-hidden="true">
         <i /><i /><i /><el-icon><Location /></el-icon>
       </div>
       <template v-if="selectedWeapons.length && currentMapContainsWeapons.length">
-        <span class="section-label">推荐刷取地图</span>
+        <span class="section-label">{{ t('game.calculator.recommendedRegion') }}</span>
         <h3 class="map-name">{{ selectedMap?.region }}</h3>
         <p class="coverage">
-          覆盖清单中 {{ currentMapContainsWeapons.length }} / {{ selectedWeapons.length }} 把武器
+          {{
+            t('game.calculator.coverage', {
+              matched: currentMapContainsWeapons.length,
+              total: selectedWeapons.length,
+            })
+          }}
         </p>
         <div class="ticket">
-          <p class="section-label">定向券 / 主属性</p>
-          <strong>{{ mainAttributesRecommands || '暂无推荐' }}</strong>
+          <p class="section-label">{{ t('game.calculator.attributeTicket') }}</p>
+          <strong>{{ recommendedAttributeLabels || t('game.calculator.noRecommendation') }}</strong>
         </div>
         <div class="ticket">
-          <p class="section-label">定向券 / 技能类型</p>
-          <strong>{{ mainSelectedSkillType?.[0] || '暂无推荐' }}</strong>
+          <p class="section-label">{{ t('game.calculator.skillTicket') }}</p>
+          <strong>{{
+            mainSelectedSkillType
+              ? displayAttribute(mainSelectedSkillType[0])
+              : t('game.calculator.noRecommendation')
+          }}</strong>
         </div>
       </template>
       <div v-else class="recommendation-empty">
-        <h3>{{ selectedWeapons.length ? '暂无匹配地图' : '等待你的武器清单' }}</h3>
+        <h3>
+          {{
+            t(selectedWeapons.length ? 'game.calculator.noRegion' : 'game.calculator.waitingList')
+          }}
+        </h3>
         <p>
           {{
             selectedWeapons.length
-              ? '试试调整选择的武器组合。'
-              : '添加武器后，这里会显示推荐地图与定向券属性。'
+              ? t('game.calculator.adjustSelection')
+              : t('game.calculator.recommendationDescription')
           }}
         </p>
       </div>
       <p class="recommendation-footnote">
-        <el-icon><InfoFilled /></el-icon>根据已选武器属性匹配，推荐仅供刷取规划参考。
+        <el-icon><InfoFilled /></el-icon>{{ t('game.calculator.footnote') }}
       </p>
     </aside>
   </div>
@@ -294,6 +330,9 @@ watch(
   display: grid;
   gap: 24px;
   min-width: 0;
+}
+.panel-title {
+  flex-wrap: wrap;
 }
 .panel-title h2 {
   display: flex;
@@ -367,10 +406,12 @@ watch(
   color: #b1bbd0;
 }
 .selection-empty p,
+.server-name-note,
 .selection-note {
   color: var(--muted);
   font-size: 11px;
 }
+.server-name-note,
 .selection-note {
   margin-top: 15px;
 }
@@ -406,7 +447,12 @@ watch(
   padding: 8px 0;
   border-top: 1px solid #ffffff09;
 }
+.stat-row > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 .stat-row b {
+  flex-shrink: 0;
   color: var(--accent);
   font:
     12px ui-monospace,
@@ -435,6 +481,7 @@ watch(
   font-size: 25px;
 }
 .recommendation > h2 {
+  white-space: pre-line;
   font-size: 29px;
   line-height: 1.4;
   margin-top: 18px;

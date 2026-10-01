@@ -5,7 +5,7 @@
 ## 视觉方向
 
 - 延续 Eason Space 的轻量轨道主题：留白、细线轨道、小型星点、圆角图标底板，以及克制的薄边框与阴影。装饰服务于内容，不为每段文字增加徽章、渐变或多层卡片。
-- 复用 `src/components/PageHeading.vue` 的页面标题体系；页面内的状态提示从属于页面标题，不另造一套大标题。中文表达清楚、温和，主操作说明具体动作。
+- 复用 `src/components/PageHeading.vue` 的页面标题体系；页面内的状态提示从属于页面标题，不另造一套大标题。中英文表达都要清楚、温和，主操作说明具体动作；文案遵循 [国际化约定](i18n.md)。
 - 沿用 `src/assets/base.css` 的字体栈与语义颜色变量、`src/assets/main.css` 的公共控件样式，以及 `src/assets/light.css` 的浅色适配。
 - 使用 `--color-heading`、`--color-text`、`--muted` 表达文字层级；使用 `--color-background-soft`、`--color-border` 表达表面和边界。主操作使用 `--accent` 与 `--on-accent`，不要在新组件中硬编码只适用于某一主题的黑、白或绿色。
 - 状态装饰可用 `color-mix()` 从语义颜色派生低透明度边框、底色与阴影。文字、图标与按钮在明暗两种主题下都必须清晰。
@@ -56,16 +56,18 @@
 <script setup lang="ts">
 import EmptyState from '@/components/EmptyState.vue'
 import { ArrowRight } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 </script>
 
 <template>
   <EmptyState
     kind="link"
-    title="连接账号，开启你的日常"
-    description="还差一步：绑定鹰角账号，让明日方舟与终末地的角色在这里集合。"
+    :title="t('game.skland.linkTitle')"
+    :description="t('game.skland.linkDescription')"
   >
     <template #actions>
-      <router-link to="/user">绑定鹰角账号 <ArrowRight /></router-link>
+      <router-link to="/user">{{ t('game.skland.link') }} <ArrowRight /></router-link>
     </template>
   </EmptyState>
 </template>

@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import en from 'element-plus/es/locale/lang/en'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { RouterView } from 'vue-router'
 import Navigator from './components/Navigator.vue'
+const { t, locale } = useI18n()
+const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
 </script>
 
 <template>
-  <el-config-provider :locale="zhCn">
+  <el-config-provider :locale="elementLocale">
     <div class="ambient" aria-hidden="true">
       <i /><i />
       <div class="aurora-ribbon" />
       <div class="ambient-stars" />
     </div>
-    <a class="skip-link" href="#main-content">跳至主要内容</a>
+    <a class="skip-link" href="#main-content">{{ t('shell.skip') }}</a>
     <Navigator />
     <main id="main-content" class="site-main" tabindex="-1">
       <RouterView v-slot="{ Component }">
@@ -21,7 +26,7 @@ import Navigator from './components/Navigator.vue'
     </main>
     <footer class="site-footer">
       <router-link to="/" class="footer-brand">EASON<span> / </span>PLAYGROUND</router-link>
-      <span>为热爱而造 · 让日常多一点好玩</span>
+      <span>{{ t('shell.footer') }}</span>
       <span class="footer-note">STAY CURIOUS <b>✦</b></span>
     </footer>
   </el-config-provider>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue'
+import { computed, reactive, ref, shallowRef, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import {
   loginAPI,
   registerAPI,
@@ -8,79 +9,83 @@ import {
   resetCodeAPI,
   resetPasswordAPI,
   usernameExistsAPI,
-  passwordError,
+  passwordErrorKey,
   apiError,
 } from '@/common/api/accounts'
 import OrbitScene from '@/components/OrbitScene.vue'
 import { useCooldown } from '@/composables/useCooldown'
+const { t } = useI18n()
 const route = useRoute(),
   router = useRouter()
 const mode = computed(() =>
   route.path === '/register' ? 'register' : route.path === '/reset-password' ? 'reset' : 'login',
 )
-const title = computed(() =>
-  mode.value === 'register' ? '注册账号' : mode.value === 'reset' ? '重置密码' : '登录',
-)
+const title = computed(() => t(`account.${mode.value}`))
 const form = reactive({ username: '', email: '', password: '', confirm: '', code: '' })
 const busy = ref(false),
   sending = ref(false),
-  error = ref(''),
-  notice = ref('')
+  error = shallowRef<(() => string) | null>(null),
+  notice = shallowRef<(() => string) | null>(null)
+const errorMessage = computed(() => error.value?.() ?? '')
+const noticeMessage = computed(() => notice.value?.() ?? '')
 const { remaining, start } = useCooldown()
 watch(mode, () => {
   form.password = ''
   form.confirm = ''
   form.code = ''
-  error.value = ''
-  notice.value = ''
+  error.value = null
+  notice.value = null
   start(0)
 })
 async function sendCode() {
   if (sending.value || remaining.value || busy.value) return
-  error.value = ''
-  notice.value = ''
+  error.value = null
+  notice.value = null
   if (
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()) ||
     (mode.value === 'reset' && !form.username.trim())
   ) {
-    error.value = '请先填写正确的邮箱和所需用户名。'
+    error.value = () => t('account.auth.codeFieldsRequired')
     return
   }
   sending.value = true
   try {
     if (mode.value === 'register') await registrationCodeAPI(form.email.trim())
     else await resetCodeAPI(form.username.trim(), form.email.trim())
-    notice.value = '若账号信息符合要求，验证码将发送至邮箱，5 分钟内有效。'
+    notice.value = () => t('account.auth.codeSent')
     start(300)
   } catch (e) {
-    error.value = apiError(e)
+    error.value = () => apiError(e)
   } finally {
     sending.value = false
   }
 }
 async function submit() {
   if (busy.value || sending.value) return
-  error.value = ''
-  notice.value = ''
+  error.value = null
+  notice.value = null
   const username = form.username.trim(),
     email = form.email.trim()
   if (!username || !form.password) {
-    error.value = '请填写用户名和密码。'
+    error.value = () => t('account.auth.credentialsRequired')
     return
   }
   if (mode.value !== 'login') {
     if (mode.value === 'register' && (username.length < 3 || username.length > 30)) {
-      error.value = '用户名长度为 3–30 个字符。'
+      error.value = () => t('account.auth.usernameLength')
       return
     }
-    error.value = passwordError(form.password)
-    if (error.value) return
+    const passwordIssue = passwordErrorKey(form.password)
+    if (passwordIssue) {
+      error.value = () => t(passwordIssue)
+      return
+    }
     if (form.password !== form.confirm) {
-      error.value = '两次输入的密码不一致。'
+      error.value = () => t('account.auth.passwordMismatch')
       return
     }
     if (!/^\d{6}$/.test(form.code)) {
-      error.value = '请输入 6 位邮箱验证码。'
+      error.value = () => t('account.auth.codeRequired')
       return
     }
   }
@@ -89,19 +94,19 @@ async function submit() {
     if (mode.value === 'login') await loginAPI(username, form.password)
     else if (mode.value === 'register') {
       if (await usernameExistsAPI(username)) {
-        error.value = '用户名已存在。'
+        error.value = () => t('account.auth.usernameExists')
         return
       }
       await registerAPI({ username, email, password: form.password, registrationCode: form.code })
     } else {
       await resetPasswordAPI({ username, email, password: form.password, code: form.code })
       await router.push('/login')
-      notice.value = '密码已重置，请使用新密码登录。'
+      notice.value = () => t('account.auth.passwordReset')
       return
     }
     await router.push('/user')
   } catch (e) {
-    error.value = apiError(e)
+    error.value = () => apiError(e)
   } finally {
     busy.value = false
     form.password = ''
@@ -113,47 +118,63 @@ async function submit() {
 <template>
   <div class="auth-layout">
     <section class="auth-story">
-      <p class="eyebrow">YOUR NEXT CHAPTER</p>
-      <h1>欢迎回到<br /><span>你的轨道。</span></h1>
-      <p class="story-description">连接你的账号，继续你的冒险。<br />游戏与日常，在这里相遇。</p>
+      <p class="eyebrow">{{ t('account.auth.eyebrow') }}</p>
+      <h1>
+        {{ t('account.auth.heading') }}<br /><span>{{ t('account.auth.headingAccent') }}</span>
+      </h1>
+      <p class="story-description">
+        {{ t('account.auth.story') }}<br />{{ t('account.auth.storySecond') }}
+      </p>
       <OrbitScene class="auth-orbit" />
-      <router-link to="/" class="text-link">← 回到首页</router-link>
+      <router-link to="/" class="text-link">{{ t('account.auth.backHome') }}</router-link>
     </section>
     <el-card class="auth-card">
-      <p class="section-label">EASON SPACE / ACCOUNT</p>
+      <p class="section-label">{{ t('account.auth.section') }}</p>
       <h2>{{ title }}<span> ✦</span></h2>
       <p class="form-description">
         {{
           mode === 'login'
-            ? '很高兴再次见到你，准备好出发了吗？'
+            ? t('account.auth.loginDescription')
             : mode === 'register'
-              ? '创建你的账号，开启全新探索。'
-              : '验证你的邮箱，重新连接你的空间。'
+              ? t('account.auth.registerDescription')
+              : t('account.auth.resetDescription')
         }}
       </p>
-      <el-alert v-if="error" :title="error" type="error" :closable="false" role="alert" />
-      <el-alert v-if="notice" :title="notice" type="success" :closable="false" role="status" />
+      <el-alert
+        v-if="errorMessage"
+        :title="errorMessage"
+        type="error"
+        :closable="false"
+        role="alert"
+      />
+      <el-alert
+        v-if="noticeMessage"
+        :title="noticeMessage"
+        type="success"
+        :closable="false"
+        role="status"
+      />
       <el-form label-position="top" @submit.prevent="submit" :disabled="busy || sending">
-        <el-form-item label="用户名"
+        <el-form-item :label="t('account.username')"
           ><el-input
             v-model="form.username"
-            aria-label="用户名"
+            :aria-label="t('account.username')"
             autocomplete="username"
             required
             maxlength="30"
         /></el-form-item>
-        <el-form-item v-if="mode !== 'login'" label="邮箱"
+        <el-form-item v-if="mode !== 'login'" :label="t('account.email')"
           ><el-input
             v-model="form.email"
-            aria-label="邮箱"
+            :aria-label="t('account.email')"
             type="email"
             autocomplete="email"
             required
         /></el-form-item>
-        <el-form-item v-if="mode !== 'login'" label="邮箱验证码">
+        <el-form-item v-if="mode !== 'login'" :label="t('account.emailCode')">
           <el-input
             v-model="form.code"
-            aria-label="邮箱验证码"
+            :aria-label="t('account.emailCode')"
             inputmode="numeric"
             maxlength="6"
             autocomplete="one-time-code"
@@ -163,36 +184,44 @@ async function submit() {
             :disabled="remaining > 0"
             :loading="sending"
             @click="sendCode"
-            >{{ remaining ? `${remaining} 秒后重发` : '发送验证码' }}</el-button
+            >{{
+              remaining ? t('account.resendIn', { seconds: remaining }) : t('account.sendCode')
+            }}</el-button
           >
         </el-form-item>
-        <el-form-item :label="mode === 'reset' ? '新密码' : '密码'"
+        <el-form-item :label="mode === 'reset' ? t('account.newPassword') : t('account.password')"
           ><el-input
             v-model="form.password"
-            :aria-label="mode === 'reset' ? '新密码' : '密码'"
+            :aria-label="mode === 'reset' ? t('account.newPassword') : t('account.password')"
             type="password"
             show-password
             :autocomplete="mode === 'login' ? 'current-password' : 'new-password'"
             required
         /></el-form-item>
-        <el-form-item v-if="mode !== 'login'" label="确认密码"
+        <el-form-item v-if="mode !== 'login'" :label="t('account.confirmPassword')"
           ><el-input
             v-model="form.confirm"
-            aria-label="确认密码"
+            :aria-label="t('account.confirmPassword')"
             type="password"
             show-password
             autocomplete="new-password"
             required
         /></el-form-item>
         <p v-if="mode !== 'login'" class="hint">
-          密码至少 6 个字符，包含大小写字母和特殊字符；最多 72 个 UTF-8 字节。
+          {{ t('account.passwordHint') }}
         </p>
         <el-button type="primary" native-type="submit" :loading="busy">{{ title }}</el-button>
       </el-form>
       <div v-if="!busy && !sending" class="auth-links">
-        <router-link v-if="mode !== 'login'" to="/login">返回登录</router-link>
-        <router-link v-if="mode !== 'register'" to="/register">注册账号</router-link>
-        <router-link v-if="mode !== 'reset'" to="/reset-password">忘记密码</router-link>
+        <router-link v-if="mode !== 'login'" to="/login">{{
+          t('account.backToLogin')
+        }}</router-link>
+        <router-link v-if="mode !== 'register'" to="/register">{{
+          t('account.register')
+        }}</router-link>
+        <router-link v-if="mode !== 'reset'" to="/reset-password">{{
+          t('account.forgotPassword')
+        }}</router-link>
       </div>
     </el-card>
   </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import EmptyState from '@/components/EmptyState.vue'
 import { ArrowRight } from '@element-plus/icons-vue'
@@ -7,6 +8,9 @@ import PageHeading from '@/components/PageHeading.vue'
 import AccountBindings from '@/components/account/AccountBindings.vue'
 import { getCurrentUserAPI, logoutAPI, type CurrentUser } from '@/common/api/user'
 
+const { t, locale } = useI18n()
+let logoutMessage: ReturnType<typeof ElMessage.error> | undefined
+watch(locale, () => logoutMessage?.close())
 const user = ref<CurrentUser | null>(null)
 const loading = ref(true)
 const failed = ref(false)
@@ -36,7 +40,7 @@ async function logout() {
     await logoutAPI()
     user.value = null
   } catch {
-    ElMessage.error('退出失败，请稍后重试。')
+    logoutMessage = ElMessage.error(t('account.profile.logoutFailed'))
   } finally {
     loggingOut.value = false
   }
@@ -49,65 +53,86 @@ onBeforeUnmount(() => request?.abort())
 <template>
   <div>
     <PageHeading
-      eyebrow="YOUR PERSONAL SPACE"
-      title="用户中心"
-      description="你的资料、你的账号、你的游戏日常，都在这里。"
+      :eyebrow="t('account.profile.eyebrow')"
+      :title="t('account.profile.title')"
+      :description="t('account.profile.description')"
       number="03"
     />
     <el-card class="profile-card">
-      <el-skeleton v-if="loading" :rows="4" animated aria-label="正在加载用户资料" />
+      <el-skeleton v-if="loading" :rows="4" animated :aria-label="t('account.profile.loading')" />
       <EmptyState
         v-else-if="failed"
         kind="error"
-        title="资料暂时没能加载"
-        description="连接似乎出了点小问题，稍后再试一次。"
+        :title="t('account.profile.failedTitle')"
+        :description="t('account.profile.failedDescription')"
       >
         <template #actions
-          ><el-button type="primary" @click="loadUser">重新加载</el-button></template
+          ><el-button type="primary" @click="loadUser">{{
+            t('account.profile.reload')
+          }}</el-button></template
         >
       </EmptyState>
       <EmptyState
         v-else-if="!user"
         kind="login"
-        title="登录，回到你的空间"
-        description="管理个人资料、连接鹰角账号，让游戏日常从这里开始。"
+        :title="t('account.profile.loginTitle')"
+        :description="t('account.profile.loginDescription')"
       >
         <template #actions>
-          <router-link to="/login">登录账号 <ArrowRight /></router-link>
-          <router-link to="/register">注册账号</router-link>
-          <el-button text @click="loadUser">刷新登录状态</el-button>
+          <router-link to="/login">{{ t('account.profile.login') }} <ArrowRight /></router-link>
+          <router-link to="/register">{{ t('account.register') }}</router-link>
+          <el-button text @click="loadUser">{{ t('account.profile.refreshSession') }}</el-button>
         </template>
       </EmptyState>
       <template v-else>
         <div class="profile-banner">
           <div class="avatar">{{ user.username.slice(0, 1).toUpperCase() }}</div>
           <div>
-            <p class="eyebrow">NICE TO SEE YOU</p>
+            <p class="eyebrow">{{ t('account.profile.greeting') }}</p>
             <h2>{{ user.username }}</h2>
-            <p>欢迎回到你的专属空间。</p>
+            <p>{{ t('account.profile.welcome') }}</p>
           </div>
-          <span class="pill">{{ user.isAdmin ? '管理员' : '探索者' }}</span>
+          <span class="pill">{{
+            user.isAdmin ? t('account.profile.admin') : t('account.profile.explorer')
+          }}</span>
         </div>
         <div class="profile-details">
-          <el-descriptions title="用户资料" :column="1" border>
-            <el-descriptions-item label="ID">{{ user.id }}</el-descriptions-item>
-            <el-descriptions-item label="用户名">{{ user.username }}</el-descriptions-item>
-            <el-descriptions-item label="邮箱">{{ user.email || '未设置' }}</el-descriptions-item>
-            <el-descriptions-item label="手机号">{{ user.phone || '未设置' }}</el-descriptions-item>
-            <el-descriptions-item label="身份">{{
-              user.isAdmin ? '管理员' : '普通用户'
+          <el-descriptions :title="t('account.profile.details')" :column="1" border>
+            <el-descriptions-item :label="t('account.profile.id')">{{
+              user.id
+            }}</el-descriptions-item>
+            <el-descriptions-item :label="t('account.username')">{{
+              user.username
+            }}</el-descriptions-item>
+            <el-descriptions-item :label="t('account.email')">{{
+              user.email || t('account.profile.notSet')
+            }}</el-descriptions-item>
+            <el-descriptions-item :label="t('account.phone')">{{
+              user.phone || t('account.profile.notSet')
+            }}</el-descriptions-item>
+            <el-descriptions-item :label="t('account.profile.role')">{{
+              user.isAdmin ? t('account.profile.admin') : t('account.profile.member')
             }}</el-descriptions-item>
           </el-descriptions>
-          <el-descriptions title="关联账号" :column="1" border class="linked-accounts">
-            <el-descriptions-item label="鹰角账号">{{
-              user.hypergryphAccount?.phone || '未绑定'
+          <el-descriptions
+            :title="t('account.profile.linkedAccounts')"
+            :column="1"
+            border
+            class="linked-accounts"
+          >
+            <el-descriptions-item :label="t('account.binding.hypergryph')">{{
+              user.hypergryphAccount?.phone || t('account.profile.notBound')
             }}</el-descriptions-item>
           </el-descriptions>
         </div>
         <AccountBindings :user="user" @changed="loadUser" />
         <div class="actions">
-          <el-button :disabled="loggingOut" @click="loadUser">刷新资料</el-button>
-          <el-button type="primary" :loading="loggingOut" @click="logout">退出登录</el-button>
+          <el-button :disabled="loggingOut" @click="loadUser">{{
+            t('account.profile.refresh')
+          }}</el-button>
+          <el-button type="primary" :loading="loggingOut" @click="logout">{{
+            t('account.profile.logout')
+          }}</el-button>
         </div>
       </template>
     </el-card>

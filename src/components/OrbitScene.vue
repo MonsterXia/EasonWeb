@@ -1,6 +1,14 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <div class="orbit-scene" aria-hidden="true">
-    <div class="coordinate coordinate-top">E / 001 <span>EXPLORE THE UNKNOWN</span></div>
+    <div class="coordinate coordinate-top">
+      E / 001 <span>{{ t('home.orbit.explore') }}</span>
+    </div>
     <div class="orbit-glow" />
     <div class="starfield">
       <i
@@ -24,12 +32,18 @@
       <div class="planet-grid" />
       <span class="planet-letter">e<span>✦</span></span>
     </div>
-    <div class="orbital-caption">MAKE ROOM<br /><strong>FOR WONDER.</strong></div>
+    <div class="orbital-caption">
+      {{ t('home.orbit.captionFirst') }}<br /><strong>{{ t('home.orbit.captionSecond') }}</strong>
+    </div>
     <div class="satellite satellite-one">✦</div>
     <div class="satellite satellite-two">+</div>
-    <div class="floating-label label-one"><span>✧</span> CREATE. PLAY. REPEAT.</div>
-    <div class="floating-label label-two"><span class="signal" /> 好奇心持续在线</div>
-    <div class="coordinate coordinate-bottom">23° / PLAYGROUND <span>∞ POSSIBILITIES</span></div>
+    <div class="floating-label label-one"><span>✧</span> {{ t('home.orbit.create') }}</div>
+    <div class="floating-label label-two">
+      <span class="signal" /> {{ t('home.orbit.curiosity') }}
+    </div>
+    <div class="coordinate coordinate-bottom">
+      {{ t('home.orbit.playground') }} <span>{{ t('home.orbit.possibilities') }}</span>
+    </div>
   </div>
 </template>
 <style scoped>

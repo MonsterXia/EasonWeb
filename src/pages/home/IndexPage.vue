@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import OrbitScene from '@/components/OrbitScene.vue'
 import { basicCheckAPI } from '@/common/api/basic'
 
+const { t, locale } = useI18n()
 const checking = ref(false)
 const status = ref<'idle' | 'success' | 'error'>('idle')
-const message = ref('')
+const message = computed(() => (status.value === 'idle' ? '' : t(`home.health.${status.value}`)))
 async function checkHealth() {
   if (checking.value) return
   checking.value = true
@@ -14,10 +16,8 @@ async function checkHealth() {
     const response = await basicCheckAPI()
     if (typeof response.message !== 'string' || !response.message)
       throw new Error('Invalid health response')
-    message.value = response.message
     status.value = 'success'
   } catch {
-    message.value = '无法连接服务，请稍后重试。'
     status.value = 'error'
   } finally {
     checking.value = false
@@ -26,7 +26,7 @@ async function checkHealth() {
 </script>
 
 <template>
-  <div class="home-page">
+  <div class="home-page" :class="{ 'is-english': locale === 'en' }">
     <section class="hero">
       <div class="hero-watermark" aria-hidden="true">PLAY</div>
       <span class="hero-corner corner-one" aria-hidden="true" /><span
@@ -35,44 +35,54 @@ async function checkHealth() {
       />
       <div class="hero-copy">
         <div class="hero-kicker">
-          <span class="eyebrow">WELCOME TO MY ORBIT</span
-          ><span class="edition">PERSONAL SPACE / 01</span>
+          <span class="eyebrow">{{ t('home.hero.welcome') }}</span
+          ><span class="edition">{{ t('home.hero.edition') }}</span>
         </div>
         <h1>
-          让热爱，<br /><span class="gradient-text"
-            >自由生长<span class="title-star" aria-hidden="true">✳</span></span
+          {{ t('home.hero.titleFirst') }}<br /><span class="gradient-text"
+            >{{ t('home.hero.titleSecond')
+            }}<span class="title-star" aria-hidden="true">✳</span></span
           >
         </h1>
         <p class="hero-description">
-          这里是 Eason 的数字游乐场。<br />收集灵感，探索游戏，用小工具解锁更多可能。
+          {{ t('home.hero.descriptionFirst') }}<br />{{ t('home.hero.descriptionSecond') }}
         </p>
         <div class="hero-actions">
           <router-link class="primary-link" to="/game/hypergryph/endfield"
-            >探索游戏工具 <span>↗</span></router-link
-          ><router-link class="secondary-link" to="/user">进入我的空间 <span>→</span></router-link>
+            >{{ t('home.hero.explore') }} <span>↗</span></router-link
+          ><router-link class="secondary-link" to="/user"
+            >{{ t('home.hero.mySpace') }} <span>→</span></router-link
+          >
         </div>
         <div class="hero-bottom">
-          <span class="tiny-stars">✦ ✦ ✦</span><span>一点好奇心，和无限的可能。</span><i />
+          <span class="tiny-stars">✦ ✦ ✦</span><span>{{ t('home.hero.tagline') }}</span
+          ><i />
         </div>
       </div>
       <div class="hero-visual">
-        <span class="visual-index" aria-hidden="true">∞<span>IDEAS IN ORBIT</span></span
+        <span class="visual-index" aria-hidden="true"
+          >∞<span>{{ t('home.hero.ideas') }}</span></span
         ><OrbitScene class="hero-art" /><span class="visual-sticker" aria-hidden="true"
-          >保持好奇 <span>↗</span></span
+          >{{ t('home.hero.curious') }} <span>↗</span></span
         >
       </div>
     </section>
     <div class="ticker" aria-hidden="true">
-      <span>TOOLS FOR YOUR NEXT ADVENTURE</span><b>✦</b><span>灵感不设限</span><b>✦</b
-      ><span>LESS GRIND, MORE PLAY</span><b>✦</b><span>探索 · 创造 · 热爱</span><b>✦</b>
+      <span>{{ t('home.ticker.adventure') }}</span
+      ><b>✦</b><span>{{ t('home.ticker.inspiration') }}</span
+      ><b>✦</b><span>{{ t('home.ticker.play') }}</span
+      ><b>✦</b><span>{{ t('home.ticker.explore') }}</span
+      ><b>✦</b>
     </div>
     <section class="tools-section" aria-labelledby="tools-title">
       <div class="tools-heading">
         <div>
-          <p class="section-label">THE TOOLBOX / 精选工具</p>
-          <h2 id="tools-title">下一站，玩点什么<span>？</span></h2>
+          <p class="section-label">{{ t('home.tools.label') }}</p>
+          <h2 id="tools-title">
+            {{ t('home.tools.title') }}<span>{{ t('home.tools.questionMark') }}</span>
+          </h2>
         </div>
-        <span class="tools-count">03 个入口 <span>↙</span></span>
+        <span class="tools-count">{{ t('home.tools.count') }} <span>↙</span></span>
       </div>
       <div class="tool-grid">
         <router-link to="/game/hypergryph/endfield" class="tool-card tool-endfield"
@@ -80,16 +90,20 @@ async function checkHealth() {
           <div class="card-top">
             <span class="tool-icon"
               ><el-icon><Aim /></el-icon></span
-            ><span class="pill">无需登录</span>
+            ><span class="pill">{{ t('home.endfield.badge') }}</span>
           </div>
           <div class="tool-art industrial-art" aria-hidden="true">
             <i /><i /><i /><span>EF</span>
           </div>
           <div class="tool-info">
-            <p class="section-label">01 / ARKNIGHTS: ENDFIELD</p>
-            <h3>终末地 · 基质计算器</h3>
-            <p>选好武器，找到合适的刷取地图。<br />让每一次探索，都更有方向。</p>
-            <span class="tool-cta">开始计算 <span>↗</span></span>
+            <p class="section-label">{{ t('home.endfield.label') }}</p>
+            <h3>{{ t('home.endfield.title') }}</h3>
+            <p>
+              {{ t('home.endfield.descriptionFirst') }}<br />{{
+                t('home.endfield.descriptionSecond')
+              }}
+            </p>
+            <span class="tool-cta">{{ t('home.endfield.cta') }} <span>↗</span></span>
           </div></router-link
         >
         <router-link to="/game/hypergryph/skland" class="tool-card tool-skland"
@@ -97,17 +111,22 @@ async function checkHealth() {
           <div class="card-top">
             <span class="tool-icon"
               ><el-icon><Calendar /></el-icon></span
-            ><span class="pill">每日打卡</span>
+            ><span class="pill">{{ t('home.skland.badge') }}</span>
           </div>
           <div class="tool-art calendar-art" aria-hidden="true">
-            <div><span>DAILY QUEST</span><strong>✓</strong><i>＋ EXP</i></div>
+            <div>
+              <span>{{ t('home.skland.dailyQuest') }}</span
+              ><strong>✓</strong><i>{{ t('home.skland.experience') }}</i>
+            </div>
             <b>✧</b>
           </div>
           <div class="tool-info">
-            <p class="section-label">02 / SKLAND CHECK-IN</p>
-            <h3>森空岛 · 每日签到</h3>
-            <p>明日方舟与终末地，奖励不落下。<br />关联角色，一处轻松签到。</p>
-            <span class="tool-cta">前往签到 <span>↗</span></span>
+            <p class="section-label">{{ t('home.skland.label') }}</p>
+            <h3>{{ t('home.skland.title') }}</h3>
+            <p>
+              {{ t('home.skland.descriptionFirst') }}<br />{{ t('home.skland.descriptionSecond') }}
+            </p>
+            <span class="tool-cta">{{ t('home.skland.cta') }} <span>↗</span></span>
           </div></router-link
         >
         <router-link to="/user" class="tool-card tool-account"
@@ -115,7 +134,7 @@ async function checkHealth() {
           <div class="card-top">
             <span class="tool-icon"
               ><el-icon><User /></el-icon></span
-            ><span class="pill">专属空间</span>
+            ><span class="pill">{{ t('home.account.badge') }}</span>
           </div>
           <div class="tool-art account-art" aria-hidden="true">
             <div class="id-card">
@@ -126,26 +145,30 @@ async function checkHealth() {
             <span class="id-spark">✦</span>
           </div>
           <div class="tool-info">
-            <p class="section-label">03 / YOUR PERSONAL SPACE</p>
-            <h3>用户中心 · 我的账号</h3>
-            <p>管理个人资料与关联账号。<br />把你的游戏日常，安放在这里。</p>
-            <span class="tool-cta">打开我的空间 <span>↗</span></span>
+            <p class="section-label">{{ t('home.account.label') }}</p>
+            <h3>{{ t('home.account.title') }}</h3>
+            <p>
+              {{ t('home.account.descriptionFirst') }}<br />{{
+                t('home.account.descriptionSecond')
+              }}
+            </p>
+            <span class="tool-cta">{{ t('home.account.cta') }} <span>↗</span></span>
           </div></router-link
         >
       </div>
     </section>
-    <section class="health-panel" aria-label="服务状态">
+    <section class="health-panel" :aria-label="t('home.health.label')">
       <div class="health-caption">
         <span class="health-icon"
           ><el-icon><Connection /></el-icon
         ></span>
         <div>
-          <h3>一切就绪，随时出发。</h3>
-          <p>遇到连接问题？在这里检查服务状态。</p>
+          <h3>{{ t('home.health.title') }}</h3>
+          <p>{{ t('home.health.description') }}</p>
         </div>
       </div>
       <el-button :loading="checking" @click="checkHealth"
-        ><el-icon><RefreshRight /></el-icon><span>检查服务状态</span></el-button
+        ><el-icon><RefreshRight /></el-icon><span>{{ t('home.health.check') }}</span></el-button
       ><el-alert
         v-if="status !== 'idle'"
         :type="status === 'success' ? 'success' : 'error'"
@@ -166,7 +189,15 @@ async function checkHealth() {
   gap: 45px;
   padding: 8px 0 44px;
 }
+.hero-copy {
+  min-width: 0;
+}
+.is-english .hero h1 {
+  font-size: clamp(38px, 4.1vw, 59px);
+  letter-spacing: -0.055em;
+}
 .hero-kicker {
+  flex-wrap: wrap;
   display: flex;
   gap: 22px;
   align-items: center;
@@ -207,6 +238,7 @@ async function checkHealth() {
 }
 .hero-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   align-items: center;
   margin-top: 30px;
@@ -282,6 +314,7 @@ async function checkHealth() {
   padding: 37px 0 30px;
 }
 .tools-heading {
+  gap: 16px;
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -296,6 +329,7 @@ async function checkHealth() {
   color: var(--accent);
 }
 .tools-count {
+  flex-shrink: 0;
   font-size: 11px;
   color: #8f9bb6;
 }
@@ -310,6 +344,9 @@ async function checkHealth() {
   gap: 20px;
 }
 .tool-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   --card-accent: #76f7d0;
   position: relative;
   overflow: hidden;
@@ -362,6 +399,14 @@ async function checkHealth() {
   height: 116px;
   position: relative;
   margin: 8px 0 13px;
+}
+.tool-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.tool-info > p:not(.section-label) {
+  flex: 1;
 }
 .tool-info h3 {
   font-size: 19px;
@@ -529,11 +574,13 @@ async function checkHealth() {
   padding: 22px 25px;
 }
 .health-caption {
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 15px;
 }
 .health-icon {
+  flex-shrink: 0;
   font-size: 24px;
   color: #a4b4d0;
 }
@@ -634,6 +681,7 @@ async function checkHealth() {
     font-size: 22px;
   }
   .tools-count {
+    flex-shrink: 0;
     display: none;
   }
   .health-panel {

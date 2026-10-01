@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref, shallowRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import EmptyState from '@/components/EmptyState.vue'
 import { ArrowRight } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'
@@ -11,16 +12,18 @@ import {
   type GameAccount,
   type CheckInResults,
 } from '@/common/api/accounts'
+const { t } = useI18n()
+const caughtError = shallowRef<unknown>(null)
+const error = computed(() => (caughtError.value === null ? '' : apiError(caughtError.value)))
 const user = ref<CurrentUser | null>(null),
   loading = ref(true),
-  busy = ref(false),
-  error = ref('')
+  busy = ref(false)
 const games = ref<GameAccount[]>([]),
   results = ref<CheckInResults | null>(null)
 async function load() {
   if (busy.value) return
   loading.value = true
-  error.value = ''
+  caughtError.value = null
   games.value = []
   results.value = null
   user.value = null
@@ -28,7 +31,7 @@ async function load() {
     user.value = await getCurrentUserAPI()
     if (user.value?.hypergryphAccount) games.value = await gameAccountsAPI()
   } catch (e) {
-    error.value = apiError(e)
+    caughtError.value = e
   } finally {
     loading.value = false
   }
@@ -36,12 +39,12 @@ async function load() {
 async function checkIn() {
   if (busy.value) return
   busy.value = true
-  error.value = ''
+  caughtError.value = null
   results.value = null
   try {
     results.value = await checkInAPI()
   } catch (e) {
-    error.value = apiError(e)
+    caughtError.value = e
   } finally {
     busy.value = false
   }
@@ -52,8 +55,8 @@ onMounted(load)
   <div>
     <PageHeading
       eyebrow="DAILY QUEST / SKLAND"
-      title="森空岛签到"
-      description="明日方舟、终末地，每一份日常奖励都值得期待。"
+      :title="t('game.skland.title')"
+      :description="t('game.skland.description')"
       number="02"
     />
     <div class="checkin-banner">
@@ -62,14 +65,14 @@ onMounted(load)
       ></span>
       <div>
         <span class="section-label">A LITTLE RITUAL, EVERY DAY</span>
-        <h2>今天，也别忘了签个到。</h2>
-        <p>绑定鹰角账号后，查询角色并手动领取签到奖励。</p>
+        <h2>{{ t('game.skland.bannerTitle') }}</h2>
+        <p>{{ t('game.skland.bannerDescription') }}</p>
       </div>
       <span class="banner-star" aria-hidden="true">✳</span>
     </div>
     <el-card>
       <div class="panel-title">
-        <h2>我的游戏角色</h2>
+        <h2>{{ t('game.skland.characters') }}</h2>
         <span>DAILY CHECK-IN</span>
       </div>
       <el-skeleton v-if="loading" :rows="4" animated />
@@ -77,70 +80,73 @@ onMounted(load)
         <EmptyState
           v-if="error && !games.length"
           kind="error"
-          title="暂时没能获取角色"
+          :title="t('game.skland.loadFailed')"
           :description="error"
         >
           <template #actions>
-            <el-button type="primary" @click="load">重新加载</el-button>
-            <router-link v-if="user?.hypergryphAccount" to="/user">更新账号登录</router-link>
+            <el-button type="primary" @click="load">{{ t('game.skland.reload') }}</el-button>
+            <router-link v-if="user?.hypergryphAccount" to="/user">{{
+              t('game.skland.updateLogin')
+            }}</router-link>
           </template>
         </EmptyState>
         <EmptyState
           v-else-if="!user"
           kind="login"
-          title="登录，开启每日签到"
-          description="登录并连接鹰角账号，即可在这里查看角色、领取每日奖励。"
+          :title="t('game.skland.loginTitle')"
+          :description="t('game.skland.loginDescription')"
         >
           <template #actions
-            ><router-link to="/login">前往登录 <ArrowRight /></router-link
+            ><router-link to="/login">{{ t('game.skland.login') }} <ArrowRight /></router-link
           ></template>
         </EmptyState>
         <EmptyState
           v-else-if="!user.hypergryphAccount"
           kind="link"
-          title="连接账号，开启你的日常"
-          description="还差一步：绑定鹰角账号，让明日方舟与终末地的角色在这里集合。"
+          :title="t('game.skland.linkTitle')"
+          :description="t('game.skland.linkDescription')"
         >
           <template #actions
-            ><router-link to="/user">绑定鹰角账号 <ArrowRight /></router-link
+            ><router-link to="/user">{{ t('game.skland.link') }} <ArrowRight /></router-link
           ></template>
         </EmptyState>
         <template v-else-if="user?.hypergryphAccount">
           <el-alert v-if="error" :title="error" type="error" :closable="false" role="alert" />
           <div class="actions">
-            <el-button :disabled="busy" @click="load">刷新游戏账号</el-button
+            <el-button :disabled="busy" @click="load">{{ t('game.skland.refresh') }}</el-button
             ><el-button
               type="primary"
               :loading="busy"
               :disabled="!games.length || !!error"
               @click="checkIn"
-              >全部签到</el-button
-            ><router-link to="/user">更新账号登录</router-link>
+              >{{ t('game.skland.checkInAll') }}</el-button
+            ><router-link to="/user">{{ t('game.skland.updateLogin') }}</router-link>
           </div>
           <EmptyState
             v-if="!games.length && !error"
-            title="角色还没有到站"
-            description="当前账号下暂无可签到角色。确认已创建游戏角色后，刷新游戏账号再试试。"
+            :title="t('game.skland.emptyTitle')"
+            :description="t('game.skland.emptyDescription')"
           />
           <ul class="game-list">
             <li v-for="game in games" :key="`${game.appCode}:${game.gameId}:${game.uid}`">
               <span class="game-avatar"
                 ><el-icon><Aim /></el-icon></span
               ><strong>{{ game.nickName }}</strong> ·
-              {{ game.appCode === 'endfield' ? '终末地' : '明日方舟' }}<br />UID：{{ game.uid }} ·
-              区服：{{ game.gameId }}
+              {{ t(game.appCode === 'endfield' ? 'game.endfieldName' : 'game.arknightsName')
+              }}<br />
+              {{ t('game.skland.accountDetails', { uid: game.uid, server: game.gameId }) }}
             </li>
           </ul>
-          <section v-if="results" aria-label="签到结果">
-            <h2>签到结果</h2>
+          <section v-if="results" :aria-label="t('game.skland.results')">
+            <h2>{{ t('game.skland.results') }}</h2>
             <el-alert
               :type="results.errorResults.length ? 'warning' : 'success'"
               :title="
                 results.errorResults.length
-                  ? '部分角色签到失败，请查看详情后重试。'
+                  ? t('game.skland.partialFailure')
                   : results.checkInResults.length
-                    ? '签到完成'
-                    : '没有可签到的角色'
+                    ? t('game.skland.completed')
+                    : t('game.skland.noCharacters')
               "
               :closable="false"
             />
@@ -150,11 +156,13 @@ onMounted(load)
               :key="`${item.appCode}:${item.uid}`"
               class="failure"
             >
-              {{ item.nickName }}：{{ item.error }}
+              {{ t('game.skland.characterError', { name: item.nickName, error: item.error }) }}
             </p>
           </section>
         </template>
-        <el-button v-if="error && games.length" @click="load">重试</el-button>
+        <el-button v-if="error && games.length" @click="load">{{
+          t('game.skland.retry')
+        }}</el-button>
       </template>
     </el-card>
   </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref, shallowRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { CurrentUser } from '@/common/api/user'
 import {
   apiError,
@@ -8,6 +9,7 @@ import {
   unbindHypergryphAPI,
 } from '@/common/api/accounts'
 import { useCooldown } from '@/composables/useCooldown'
+const { t } = useI18n()
 const props = defineProps<{ user: CurrentUser }>()
 const emit = defineEmits<{ changed: [] }>()
 const hg = reactive({
@@ -17,20 +19,22 @@ const hg = reactive({
   code: '',
 })
 const busy = ref(false),
-  error = ref(''),
-  notice = ref('')
+  error = shallowRef<(() => string) | null>(null),
+  notice = shallowRef<(() => string) | null>(null)
+const errorMessage = computed(() => error.value?.() ?? '')
+const noticeMessage = computed(() => notice.value?.() ?? '')
 const { remaining, start } = useCooldown()
 async function operate(action: () => Promise<unknown>, refresh = true) {
   if (busy.value) return
   busy.value = true
-  error.value = ''
-  notice.value = ''
+  error.value = null
+  notice.value = null
   try {
     await action()
-    notice.value = '操作成功。'
+    notice.value = () => t('account.binding.success')
     if (refresh) emit('changed')
   } catch (e) {
-    error.value = apiError(e)
+    error.value = () => apiError(e)
   } finally {
     busy.value = false
     hg.password = ''
@@ -39,7 +43,7 @@ async function operate(action: () => Promise<unknown>, refresh = true) {
 }
 function sendSms() {
   if (remaining.value || !/^1\d{10}$/.test(hg.phone)) {
-    error.value = '请输入 11 位大陆手机号。'
+    error.value = () => t('account.binding.phoneRequired')
     return
   }
   return operate(async () => {
@@ -52,7 +56,7 @@ function bindHg() {
     !/^1\d{10}$/.test(hg.phone) ||
     (hg.method === 'sms' ? !/^\d{6}$/.test(hg.code) : !hg.password)
   ) {
-    error.value = '请填写正确的手机号及验证码或密码。'
+    error.value = () => t('account.binding.credentialsRequired')
     return
   }
   return operate(() =>
@@ -67,66 +71,82 @@ function bindHg() {
 <template>
   <section class="bindings">
     <div class="binding-heading">
-      <h2>连接你的世界</h2>
-      <p>绑定账号，让游戏工具准备就绪。</p>
+      <h2>{{ t('account.binding.title') }}</h2>
+      <p>{{ t('account.binding.description') }}</p>
     </div>
-    <el-alert v-if="error" :title="error" type="error" :closable="false" role="alert" />
-    <el-alert v-if="notice" :title="notice" type="success" :closable="false" role="status" />
+    <el-alert
+      v-if="errorMessage"
+      :title="errorMessage"
+      type="error"
+      :closable="false"
+      role="alert"
+    />
+    <el-alert
+      v-if="noticeMessage"
+      :title="noticeMessage"
+      type="success"
+      :closable="false"
+      role="status"
+    />
     <div class="binding-grid">
       <el-card class="binding-card" shadow="never">
-        <h3><span class="binding-icon">H</span>鹰角账号</h3>
+        <h3><span class="binding-icon">H</span>{{ t('account.binding.hypergryph') }}</h3>
         <p v-if="user.hypergryphAccount">
-          当前绑定：{{ user.hypergryphAccount.phone }}。会话失效时可重新登录更新。
+          {{ t('account.binding.boundPhone', { phone: user.hypergryphAccount.phone }) }}
         </p>
         <el-form label-position="top" :disabled="busy" @submit.prevent="bindHg">
-          <el-form-item label="鹰角手机号"
+          <el-form-item :label="t('account.binding.phone')"
             ><el-input
               v-model="hg.phone"
-              aria-label="鹰角手机号"
+              :aria-label="t('account.binding.phone')"
               inputmode="tel"
               autocomplete="tel"
               maxlength="11"
               :disabled="!!user.hypergryphAccount"
               required
           /></el-form-item>
-          <el-form-item label="登录方式"
+          <el-form-item :label="t('account.binding.method')"
             ><el-radio-group v-model="hg.method"
-              ><el-radio-button value="sms">短信验证码</el-radio-button
-              ><el-radio-button value="password">密码登录</el-radio-button></el-radio-group
+              ><el-radio-button value="sms">{{ t('account.smsCode') }}</el-radio-button
+              ><el-radio-button value="password">{{
+                t('account.binding.passwordLogin')
+              }}</el-radio-button></el-radio-group
             ></el-form-item
           >
-          <el-form-item v-if="hg.method === 'sms'" label="短信验证码">
+          <el-form-item v-if="hg.method === 'sms'" :label="t('account.smsCode')">
             <el-input
               v-model="hg.code"
-              aria-label="短信验证码"
+              :aria-label="t('account.smsCode')"
               inputmode="numeric"
               maxlength="6"
               autocomplete="one-time-code"
             />
             <el-button class="spaced" :disabled="remaining > 0" @click="sendSms">{{
-              remaining ? `${remaining} 秒后重发` : '发送短信验证码'
+              remaining ? t('account.resendIn', { seconds: remaining }) : t('account.sendSms')
             }}</el-button>
           </el-form-item>
-          <el-form-item v-else label="鹰角密码"
+          <el-form-item v-else :label="t('account.binding.password')"
             ><el-input
               v-model="hg.password"
-              aria-label="鹰角密码"
+              :aria-label="t('account.binding.password')"
               type="password"
               show-password
               autocomplete="current-password"
           /></el-form-item>
           <el-button type="primary" native-type="submit" :loading="busy">{{
-            user.hypergryphAccount ? '更新鹰角登录' : '登录并绑定鹰角'
+            user.hypergryphAccount ? t('account.binding.update') : t('account.binding.bind')
           }}</el-button>
           <el-popconfirm
-            confirm-button-text="确认"
-            cancel-button-text="取消"
+            :confirm-button-text="t('account.binding.confirm')"
+            :cancel-button-text="t('account.binding.cancel')"
             v-if="user.hypergryphAccount"
-            title="确认解除鹰角账号绑定？"
+            :title="t('account.binding.unbindConfirm')"
             @confirm="operate(unbindHypergryphAPI)"
           >
             <template #reference
-              ><el-button :disabled="busy" type="danger" plain>解绑鹰角账号</el-button></template
+              ><el-button :disabled="busy" type="danger" plain>{{
+                t('account.binding.unbind')
+              }}</el-button></template
             >
           </el-popconfirm>
         </el-form>

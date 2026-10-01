@@ -1,92 +1,138 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useTheme } from '@/composables/useTheme'
+import { localePreference, setLocalePreference } from '@/i18n'
+const { t, locale } = useI18n()
 const { preference, isDark, setTheme } = useTheme()
 const route = useRoute()
 const links = [
-  { path: '/', title: '首页', icon: 'House' },
-  { path: '/game/hypergryph/endfield', title: '终末地', icon: 'Aim' },
-  { path: '/game/hypergryph/skland', title: '森空岛', icon: 'Calendar' },
+  { path: '/', title: 'shell.home', icon: 'House' },
+  { path: '/game/hypergryph/endfield', title: 'shell.endfield', icon: 'Aim' },
+  { path: '/game/hypergryph/skland', title: 'shell.skland', icon: 'Calendar' },
+]
+const themes = [
+  { value: 'light', icon: 'Sunny' },
+  { value: 'dark', icon: 'Moon' },
+  { value: 'system', icon: 'Monitor' },
 ]
 </script>
 <template>
   <header class="site-header">
     <div class="nav-inner">
-      <router-link to="/" class="brand" aria-label="Eason 首页"
-        ><span class="brand-mark">e<span>✦</span></span
-        ><span>EASON<span class="brand-suffix">.SPACE</span></span></router-link
-      >
-      <nav aria-label="主导航">
+      <router-link to="/" class="brand" :aria-label="t('shell.brandHome')">
+        <span class="brand-mark">e<span>✦</span></span>
+        <span>EASON<span class="brand-suffix">.SPACE</span></span>
+      </router-link>
+      <nav :aria-label="t('shell.navigation')">
         <router-link
           v-for="link in links"
           :key="link.path"
           :to="link.path"
           :class="{ active: route.path === link.path }"
           :aria-current="route.path === link.path ? 'page' : undefined"
-          ><el-icon><component :is="link.icon" /></el-icon>{{ link.title }}</router-link
         >
+          <el-icon><component :is="link.icon" /></el-icon>{{ t(link.title) }}
+        </router-link>
       </nav>
       <div class="nav-actions">
-        <el-dropdown trigger="click" @command="setTheme">
+        <el-dropdown trigger="click" @command="setLocalePreference">
           <button
-            class="theme-button"
+            class="theme-button language-button"
             type="button"
-            :aria-label="`切换主题，当前${preference === 'system' ? '跟随系统' : isDark ? '深色模式' : '浅色模式'}`"
-            title="切换主题"
+            :aria-label="
+              t('shell.languageCurrent', { language: locale === 'en' ? 'English' : '简体中文' })
+            "
+            :title="t('shell.language')"
           >
-            <el-icon
-              ><Monitor v-if="preference === 'system'" /><Moon v-else-if="isDark" /><Sunny v-else
-            /></el-icon>
-            <span class="theme-label">{{
-              preference === 'system' ? '自动' : isDark ? '深色' : '浅色'
-            }}</span>
+            <span aria-hidden="true" class="language-symbol">文/A</span>
+            <span class="language-label">{{ locale === 'en' ? 'EN' : '中文' }}</span>
           </button>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item
-                command="light"
-                :class="{ 'theme-selected': preference === 'light' }"
-                ><el-icon><Sunny /></el-icon>浅色模式<span
-                  v-if="preference === 'light'"
-                  aria-label="已选择"
-                >
-                  ✓</span
-                ></el-dropdown-item
+                command="zh-CN"
+                :class="{ 'theme-selected': localePreference === 'zh-CN' }"
               >
-              <el-dropdown-item command="dark" :class="{ 'theme-selected': preference === 'dark' }"
-                ><el-icon><Moon /></el-icon>深色模式<span
-                  v-if="preference === 'dark'"
-                  aria-label="已选择"
+                <span lang="zh-CN">简体中文</span
+                ><span v-if="localePreference === 'zh-CN'" :aria-label="t('shell.selected')"
+                  >✓</span
                 >
-                  ✓</span
-                ></el-dropdown-item
+              </el-dropdown-item>
+              <el-dropdown-item
+                command="en"
+                :class="{ 'theme-selected': localePreference === 'en' }"
               >
+                <span lang="en">English</span
+                ><span v-if="localePreference === 'en'" :aria-label="t('shell.selected')">✓</span>
+              </el-dropdown-item>
               <el-dropdown-item
                 command="system"
-                :class="{ 'theme-selected': preference === 'system' }"
-                ><el-icon><Monitor /></el-icon>跟随系统<span
-                  v-if="preference === 'system'"
-                  aria-label="已选择"
-                >
-                  ✓</span
-                ></el-dropdown-item
+                :class="{ 'theme-selected': localePreference === 'system' }"
               >
+                {{ t('shell.system')
+                }}<span v-if="localePreference === 'system'" :aria-label="t('shell.selected')"
+                  >✓</span
+                >
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+        <el-dropdown trigger="click" @command="setTheme">
+          <button
+            class="theme-button"
+            type="button"
+            :aria-label="t('shell.themeCurrent', { theme: t('shell.' + preference) })"
+            :title="t('shell.theme')"
+          >
+            <el-icon
+              ><Monitor v-if="preference === 'system'" /><Moon v-else-if="isDark" /><Sunny v-else
+            /></el-icon>
+            <span class="theme-label">{{ t('shell.' + preference + 'Short') }}</span>
+          </button>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                v-for="theme in themes"
+                :key="theme.value"
+                :command="theme.value"
+                :class="{ 'theme-selected': preference === theme.value }"
+              >
+                <el-icon><component :is="theme.icon" /></el-icon>{{ t('shell.' + theme.value) }}
+                <span v-if="preference === theme.value" :aria-label="t('shell.selected')">✓</span>
+              </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
         <router-link
           to="/user"
-          aria-label="用户中心"
+          :aria-label="t('shell.account')"
           class="account-link"
           :class="{ active: route.path === '/user' }"
-          ><el-icon><User /></el-icon><span>用户中心</span
-          ><span class="account-arrow">↗</span></router-link
         >
+          <el-icon><User /></el-icon><span>{{ t('shell.account') }}</span
+          ><span class="account-arrow">↗</span>
+        </router-link>
       </div>
     </div>
   </header>
 </template>
 <style scoped>
+.language-symbol {
+  font-size: 11px;
+  font-weight: 700;
+}
+.language-button {
+  white-space: nowrap;
+}
+@media (max-width: 420px) {
+  .language-label {
+    display: none;
+  }
+  .nav-actions {
+    gap: 6px;
+  }
+}
 .nav-actions {
   display: flex;
   align-items: center;
@@ -228,7 +274,7 @@ nav a.active {
   margin-left: 7px;
   color: var(--accent);
 }
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .nav-inner {
     flex-wrap: wrap;
     padding: 16px 18px 10px;
