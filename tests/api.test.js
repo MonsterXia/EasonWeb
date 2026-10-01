@@ -71,7 +71,7 @@ test('account operations use correct HTTP methods and never use query-string cre
     ['post','/api/user/login'],['post','/api/user/register'],['post','/api/user/email/verify'],
     ['post','/api/user/password/reset/code'],['post','/api/user/password/reset'],
     ['post','/api/post/admin/login'],['post','/api/post/admin/binding'],['delete','/api/post/admin/binding'],
-    ['post','/api/game/hypergryph/account/sms'],['post','/api/game/hypergryph/account/'],['delete','/api/game/hypergryph/account/'],
+    ['post','/api/game/hypergryph/account/sms'],['post','/api/game/hypergryph/account'],['delete','/api/game/hypergryph/account'],
     ['get','/api/game/hypergryph/account/games'],['post','/api/game/hypergryph/account/check-in'],['get','/api/user/username/alice/exist'],
   ])
   assert.ok(calls.every(c=>c.withCredentials && !c.params))

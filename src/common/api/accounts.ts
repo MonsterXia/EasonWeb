@@ -17,8 +17,8 @@ export const postLoginAPI = (email: string, password: string) => post('post/admi
 export const bindPostAPI = () => post('post/admin/binding')
 export const unbindPostAPI = () => gateway.delete(url('post/admin/binding'))
 export const hypergryphSmsAPI = (phone: string) => post('game/hypergryph/account/sms', { phone })
-export const bindHypergryphAPI = (data: { phone: string; method: 'password' | 'sms'; password?: string; code?: string }) => post('game/hypergryph/account/', data)
-export const unbindHypergryphAPI = () => gateway.delete(url('game/hypergryph/account/'))
+export const bindHypergryphAPI = (data: { phone: string; method: 'password' | 'sms'; password?: string; code?: string }) => post('game/hypergryph/account', data)
+export const unbindHypergryphAPI = () => gateway.delete(url('game/hypergryph/account'))
 export interface GameAccount { appCode: string; nickName: string; uid: string; gameId: string }
 export interface CheckInResults { checkInResults: string[]; errorResults: (GameAccount & { error: string })[] }
 export const gameAccountsAPI = async () => (await gateway.get<ApiResponse<GameAccount[]>>(url('game/hypergryph/account/games'), undefined, { timeout: 60000 })).data
