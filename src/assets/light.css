@@ -1,0 +1,313 @@
+/* Daylight palette: keep the same illustrations and layout, with readable light surfaces. */
+:root:not(.dark) {
+  --el-color-primary: #087963;
+  --el-color-primary-light-3: #399481;
+  --el-color-primary-light-5: #77b6a4;
+  --el-color-primary-light-7: #b2d8cb;
+  --el-color-primary-light-8: #d2e9e0;
+  --el-color-primary-light-9: #edf7f3;
+  --el-color-primary-dark-2: #05604e;
+  --el-color-success: #087963;
+  --el-color-success-light-9: #edf7f3;
+  --el-color-warning: #94600b;
+  --el-color-warning-light-9: #fff8e9;
+  --el-color-danger: #bf3656;
+  --el-color-danger-light-9: #fff0f3;
+  --el-color-info: #606e86;
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #f5f7fc;
+  --el-bg-color-overlay: #ffffff;
+  --el-fill-color-blank: #ffffff;
+  --el-fill-color-light: #f0f3f9;
+  --el-fill-color-lighter: #f7f9fc;
+  --el-text-color-primary: #1e2941;
+  --el-text-color-regular: #46536b;
+  --el-text-color-secondary: #606e86;
+  --el-text-color-placeholder: #69778f;
+  --el-border-color: #ced8e6;
+  --el-border-color-light: #dde4ee;
+  --el-border-color-lighter: #e5eaf2;
+  --el-border-radius-base: 10px;
+  --el-box-shadow-light: 0 16px 48px #364b6b12;
+}
+:root:not(.dark) .el-card {
+  --el-card-border-color: #d6deeb;
+  background: linear-gradient(130deg, #ffffffed, #f9fbffed);
+  box-shadow: 0 10px 35px #35496808;
+}
+:root:not(.dark) .site-header {
+  background: #f9fbffe8;
+  border-color: var(--color-border);
+}
+:root:not(.dark) .brand,
+:root:not(.dark) .footer-brand,
+:root:not(.dark) .secondary-link,
+:root:not(.dark) nav a:hover,
+:root:not(.dark) .text-link:hover {
+  color: var(--color-heading);
+}
+:root:not(.dark) .brand-mark {
+  background: #76f7d0;
+}
+:root:not(.dark) nav a {
+  color: var(--color-text);
+}
+:root:not(.dark) nav a.active {
+  color: var(--accent);
+  background: #dff3eb;
+  border-color: #bfded3;
+}
+:root:not(.dark) .account-link,
+:root:not(.dark) .site-footer,
+:root:not(.dark) .ticker {
+  border-color: var(--color-border);
+}
+:root:not(.dark) .brand-suffix,
+:root:not(.dark) .site-footer,
+:root:not(.dark) .edition,
+:root:not(.dark) .hero-description,
+:root:not(.dark) .hero-bottom,
+:root:not(.dark) .ticker,
+:root:not(.dark) .tools-count,
+:root:not(.dark) .tool-info > p:not(.section-label),
+:root:not(.dark) .health-icon,
+:root:not(.dark) .coordinate {
+  color: var(--muted);
+}
+:root:not(.dark) .gradient-text {
+  background-image: linear-gradient(95deg, #087963, #236f85 58%, #7350a8);
+}
+:root:not(.dark) .primary-link {
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+:root:not(.dark) .tiny-stars {
+  color: #8358ad;
+}
+:root:not(.dark) .hero-bottom i {
+  background: var(--color-border);
+}
+:root:not(.dark) .ambient {
+  background-image:
+    linear-gradient(#617ea008 1px, transparent 1px),
+    linear-gradient(90deg, #617ea008 1px, transparent 1px);
+}
+:root:not(.dark) .ambient i {
+  background: radial-gradient(circle, #b797e62b, transparent 65%);
+}
+:root:not(.dark) .ambient i + i {
+  background: radial-gradient(circle, #62c3a523, transparent 65%);
+}
+:root:not(.dark) .skip-link {
+  color: var(--on-accent);
+}
+:root:not(.dark) .pill {
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+:root:not(.dark) .page-number {
+  color: #08796322;
+}
+
+/* Orbit art keeps its luminous planet, surrounded by daytime labels and rings. */
+:root:not(.dark) .orbit-ring {
+  border-color: #7786b34a;
+}
+:root:not(.dark) .ring-two {
+  border-color: #308d7977;
+}
+:root:not(.dark) .ring-three {
+  border-color: #b34f8e40;
+}
+:root:not(.dark) .floating-label {
+  background: #ffffffdf;
+  border-color: #cbd6e6;
+  color: #455371;
+  box-shadow: 0 5px 20px #3549680b;
+}
+:root:not(.dark) .planet-letter span {
+  color: #76f7d0;
+}
+
+/* Tool cards use pale mint, lilac and rose; the miniature artwork stays saturated. */
+:root:not(.dark) .tool-card {
+  --card-accent: #087963;
+  background: linear-gradient(145deg, #e8f7f0, #ffffff);
+  border-color: #c9e3d8;
+}
+:root:not(.dark) .tool-skland {
+  --card-accent: #7750ad;
+  background: linear-gradient(145deg, #f1eafd, #ffffff);
+  border-color: #ddd0ef;
+}
+:root:not(.dark) .tool-account {
+  --card-accent: #ae3c79;
+  background: linear-gradient(145deg, #fceaf4, #ffffff);
+  border-color: #edcfe1;
+}
+:root:not(.dark) .tool-card:hover {
+  border-color: var(--card-accent);
+  box-shadow: 0 18px 45px #47577316;
+}
+:root:not(.dark) .tool-icon,
+:root:not(.dark) .tool-card .pill {
+  background: #ffffff88;
+  border-color: #53617d25;
+}
+:root:not(.dark) .tool-cta {
+  border-color: #53617d20;
+}
+:root:not(.dark) .health-panel {
+  background: #ffffffb0;
+  border-color: var(--color-border);
+}
+:root:not(.dark) .auth-card {
+  box-shadow: 0 25px 90px #47577312;
+}
+:root:not(.dark) .binding-card {
+  background: #f7f9fc;
+}
+:root:not(.dark) .binding-icon {
+  background: #dff3eb;
+  border-color: #b5dace;
+}
+:root:not(.dark) .binding-icon.pink {
+  background: #fae6f1;
+  border-color: #eac2d9;
+}
+
+/* Check-in and character panels. */
+:root:not(.dark) .checkin-banner {
+  background:
+    radial-gradient(ellipse at 85% 40%, #c6a5f233, transparent 50%),
+    linear-gradient(120deg, #f0e8fb, #fbf9ff);
+  border-color: #d8c8ec;
+}
+:root:not(.dark) .banner-icon {
+  color: #7953b0;
+  border-color: #cdb8e7;
+  background: #e8ddf5;
+}
+:root:not(.dark) .checkin-banner p {
+  color: #6b5b81;
+}
+:root:not(.dark) .banner-star,
+:root:not(.dark) .game-avatar {
+  color: #8861b5;
+}
+:root:not(.dark) .game-list li {
+  background: #f5f2fb;
+  border-color: #ded5ec;
+}
+:root:not(.dark) .game-list strong {
+  color: var(--color-heading);
+}
+
+/* Calculator inputs, statistics, and recommendation output. */
+:root:not(.dark) .step-number {
+  border-color: #b7d9cd;
+  background: #e5f5ed;
+}
+:root:not(.dark) .selection-heading,
+:root:not(.dark) .selection-empty h3 {
+  color: var(--color-text);
+}
+:root:not(.dark) .selection-empty {
+  background: #f4f7fb;
+  border-color: #cbd5e5;
+}
+:root:not(.dark) .weapon-attribute-summary-div section {
+  background: #f5f7fb;
+  border-color: #dce3ed;
+}
+:root:not(.dark) .weapon-attribute-summary-div h3 > span {
+  color: #7d5cab;
+}
+:root:not(.dark) .stat-row {
+  border-color: #dce3ed;
+}
+:root:not(.dark) .recommendation {
+  background:
+    radial-gradient(ellipse at 90% 0%, #76d7b62b, transparent 55%),
+    linear-gradient(145deg, #e3f4eb, #f5faf8 60%);
+  border-color: #bbdace;
+}
+:root:not(.dark) .map-name {
+  color: #13664d;
+}
+:root:not(.dark) .coverage,
+:root:not(.dark) .recommendation-empty p,
+:root:not(.dark) .recommendation-footnote {
+  color: #527264;
+}
+:root:not(.dark) .ticket,
+:root:not(.dark) .recommendation-footnote {
+  border-color: #c6dfd3;
+}
+:root:not(.dark) .ticket strong,
+:root:not(.dark) .recommendation-empty h3 {
+  color: #254e3d;
+}
+:root:not(.dark) .map-visual i {
+  background: linear-gradient(135deg, #9bdcbe88, #d4eadf);
+  border-color: #399d78;
+}
+:root:not(.dark) .rarity-3 {
+  color: #086e9b;
+}
+:root:not(.dark) .rarity-4 {
+  color: #7642b5;
+}
+:root:not(.dark) .rarity-5 {
+  color: #986000;
+}
+:root:not(.dark) .rarity-6 {
+  color: #b04505;
+}
+
+/* Daylight variants of the richer space treatment. */
+:root:not(.dark) .hero {
+  border-color: #d2cde7;
+  background:
+    radial-gradient(ellipse at 90% 15%, #c0a1fa24, transparent 55%),
+    linear-gradient(120deg, #ffffffb3, #effaf788 50%, #f9effb88);
+  box-shadow:
+    0 18px 65px #82659b0b,
+    inset 0 1px 0 #ffffff;
+}
+:root:not(.dark) .hero-watermark {
+  -webkit-text-stroke-color: #58749a1c;
+}
+:root:not(.dark) .card-index {
+  -webkit-text-stroke-color: #58749a26;
+}
+:root:not(.dark) .tool-card::after {
+  background: linear-gradient(90deg, transparent, #ffffff99, transparent);
+}
+:root:not(.dark) .orbital-scale {
+  opacity: 0.8;
+}
+:root:not(.dark) .orbital-halo {
+  opacity: 0.5;
+}
+:root:not(.dark) .orbit-traveler i {
+  background: #087963;
+  box-shadow: 0 0 8px #37bb9666;
+}
+:root:not(.dark) .traveler-two i {
+  background: #b9317b;
+  box-shadow: 0 0 8px #b9317b44;
+}
+:root:not(.dark) .aurora-ribbon {
+  background: linear-gradient(
+    120deg,
+    transparent 15%,
+    #76f7d014 35%,
+    #a889ff22 52%,
+    #ff78bd14 65%,
+    transparent 80%
+  );
+}
+:root:not(.dark) .ambient-stars {
+  opacity: 0.25;
+}

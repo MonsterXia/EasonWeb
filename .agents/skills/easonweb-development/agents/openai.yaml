@@ -1,0 +1,4 @@
+interface:
+  display_name: "EasonWeb 项目开发"
+  short_description: "EasonWeb 项目的页面开发、接口对接与账号游戏功能维护指南"
+  default_prompt: "请使用 $easonweb-development，依据项目现有结构和接口约定完成本次开发并执行相关验证。"
