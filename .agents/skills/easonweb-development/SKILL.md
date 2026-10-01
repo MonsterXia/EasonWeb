@@ -1,6 +1,6 @@
 ---
 name: easonweb-development
-description: 用于 EasonWeb 仓库的 Vue 页面开发、路由与导航调整、CommonServerAPI 接口对接、用户认证和账号绑定、森空岛签到及终末地计算器维护。仅在本项目相关开发、排错和代码审查时使用。
+description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状态、主题适配、路由与导航调整、CommonServerAPI 接口对接、用户认证和账号绑定、森空岛签到及终末地计算器维护。仅在本项目相关开发、排错和代码审查时使用。
 ---
 
 # EasonWeb 项目开发
@@ -25,8 +25,9 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、路由与导航调整�
 | 武器与地区数据、类型 | `src/constant/game/hypergryph/endfield/weapons.ts` |
 | API 封装与响应类型 | `src/common/api/basic.ts`、`user.ts`、`accounts.ts` |
 | HTTP 客户端、URL、环境配置 | `src/common/gatewayManager/`、`src/common/config/domain.ts`、`vite.config.ts` |
+| 统一空状态与设计规范 | `src/components/EmptyState.vue`、[界面与空状态规范](references/ui-design.md) |
 | 验证码倒计时 | `src/composables/useCooldown.ts` |
-| 全局样式与颜色变量 | `src/assets/main.css`、`src/assets/base.css` |
+| 全局样式与颜色变量 | `src/assets/main.css`、`src/assets/base.css`、`src/assets/light.css` |
 | 接口回归测试 | `tests/api.test.js` |
 
 `src/views/`、欢迎组件和 `src/stores/counter.ts` 含模板示例；不要将其误认为当前业务入口或现成的认证 store。
@@ -39,6 +40,14 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、路由与导航调整�
 - 用户资料加载参考 `userPage.vue` 的 AbortController 及过期响应检查。倒计时复用 `useCooldown`，保留组件卸载时的定时器清理。
 - `.oxfmtrc.json` 约定单引号、不使用分号。历史文件格式不完全统一，避免为局部任务格式化整个仓库。
 
+## 界面设计规范
+
+涉及视觉、空状态、主题或响应式修改时，先读 [界面与空状态规范](references/ui-design.md)。延续轻量轨道主题，复用语义颜色、现有图标与共享组件；明确标题、说明和操作层级。
+
+- 未登录、未绑定、无数据及加载失败统一使用 `EmptyState.vue`，通过 `kind` 和 `actions` 插槽区分场景；不要恢复默认 `el-result` / `el-empty` 的灰色大图标样式。
+- 保留加载、正常数据、局部错误与整页失败的区别。适配桌面横排、手机竖排及明暗主题，验证实际按钮跳转与重试恢复。
+- Post 管理员功能尚未确定上线：前端保持隐藏关联信息、登录绑定表单及解绑入口。后端接口或响应类型仍存在不代表应展示该功能；仅在用户明确要求上线时恢复。
+
 ## 接口与认证约定
 
 调用链为页面/组件 → `src/common/api/*` → `gatewayManager` → 共享 Axios 客户端。新增业务请求放入适当的 API 模块，使用 `buildStandardURL`，不要在页面硬编码域名或另建遗漏 Cookie 配置的客户端。
@@ -49,7 +58,7 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、路由与导航调整�
 - 网关返回 Axios 的 `response.data`，即响应体；不会自动解开业务层的 `data`。普通业务响应是 `ApiResponse<T> = { message, data, httpStatus }`，由业务 API 解包；健康检查直接返回 `{ message }`。
 - 普通会话使用 HttpOnly `auth_token`，Post 管理员使用独立的 `post_auth_token`。保持 Cookie 认证，不将密码、JWT 或第三方 token 写入浏览器持久存储、URL 查询参数或日志。
 - 仅 `getCurrentUserAPI` 将 HTTP 401/404 映射为 `null`；其他故障继续抛出供页面展示重试。不要将此规则扩展到所有 API。退出成功后清除用户资料，退出失败保留当前资料。
-- Post 绑定和解绑都先执行 `postLoginAPI` 验证管理员身份，再操作绑定接口；成功后由 `changed` 事件触发父页面刷新资料。
+- `accounts.ts` 仍保留 Post API 封装，但当前页面不调用。鹰角账号绑定或解绑成功后由 `changed` 事件触发父页面刷新资料。
 - 注册与重置密码复用 `passwordError`：至少 6 字符、最多 72 个 UTF-8 字节，并含大小写字母及实现支持的特殊字符；不要把字节上限改成字符上限。字段和验证规则以 `accounts.ts` 为准。
 - 森空岛签到由用户手动触发，分别展示 `checkInResults` 和 `errorResults`；HTTP 207 部分成功也要呈现失败明细。
 
