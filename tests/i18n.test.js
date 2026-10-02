@@ -111,3 +111,24 @@ test('validation and API errors follow the selected language without changing er
     assert.equal(apiError(response), '手机号码有误')
   } finally { i18n.global.locale.value = previous }
 })
+
+test('server labels use upstream names, localize known channels and never mix game ID namespaces', async () => {
+  const { gameServerName } = await vite.ssrLoadModule('/src/common/gameServers.ts')
+  const { i18n } = await vite.ssrLoadModule('/src/i18n/index.ts')
+  const previous = i18n.global.locale.value
+  const official = Object.freeze({ appCode: 'arknights', gameId: '1' })
+  try {
+    i18n.global.locale.value = 'zh-CN'
+    assert.equal(gameServerName(official, i18n.global.t), '官服')
+    assert.equal(gameServerName({ ...official, gameId: '2', serverName: ' B服 ' }, i18n.global.t), 'B服')
+    assert.equal(gameServerName({ ...official, serverName: '新区服' }, i18n.global.t), '新区服')
+    assert.equal(gameServerName({ appCode: 'endfield', gameId: '1', serverName: '测试服务器' }, i18n.global.t), '测试服务器')
+    assert.equal(gameServerName({ appCode: 'endfield', gameId: '1' }, i18n.global.t), '未知区服（1）')
+    assert.equal(gameServerName({ ...official, gameId: '99', serverName: ' ' }, i18n.global.t), '未知区服（99）')
+    i18n.global.locale.value = 'en'
+    assert.equal(gameServerName({ ...official, serverName: '官服' }, i18n.global.t), 'Official')
+    assert.equal(gameServerName({ ...official, gameId: '2', serverName: 'B服' }, i18n.global.t), 'Bilibili')
+    assert.equal(gameServerName({ appCode: 'endfield', gameId: '2' }, i18n.global.t), 'Unknown server (2)')
+    assert.equal(official.gameId, '1')
+  } finally { i18n.global.locale.value = previous }
+})

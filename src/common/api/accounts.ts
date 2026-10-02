@@ -49,6 +49,7 @@ export interface GameAccount {
   nickName: string
   uid: string
   gameId: string
+  serverName?: string
 }
 export interface CheckInResults {
   checkInResults: string[]

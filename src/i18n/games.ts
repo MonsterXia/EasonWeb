@@ -1,4 +1,5 @@
 export const zhCN = {
+  servers: { official: '官服', bilibili: 'B服', unknown: '未知区服（{id}）' },
   endfieldName: '终末地',
   arknightsName: '明日方舟',
   skland: {
@@ -102,6 +103,7 @@ export const zhCN = {
 }
 
 export const en = {
+  servers: { official: 'Official', bilibili: 'Bilibili', unknown: 'Unknown server ({id})' },
   endfieldName: 'Endfield',
   arknightsName: 'Arknights',
   skland: {

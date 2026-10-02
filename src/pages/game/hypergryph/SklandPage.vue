@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import EmptyState from '@/components/EmptyState.vue'
 import { ArrowRight } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'
+import { gameServerName } from '@/common/gameServers'
 import { getCurrentUserAPI, type CurrentUser } from '@/common/api/user'
 import {
   apiError,
@@ -132,7 +133,9 @@ onMounted(load)
               ><strong>{{ game.nickName }}</strong> ·
               {{ t(game.appCode === 'endfield' ? 'game.endfieldName' : 'game.arknightsName')
               }}<br />
-              {{ t('game.skland.accountDetails', { uid: game.uid, server: game.gameId }) }}
+              {{
+                t('game.skland.accountDetails', { uid: game.uid, server: gameServerName(game, t) })
+              }}
             </li>
           </ul>
           <section v-if="results" :aria-label="t('game.skland.results')">
