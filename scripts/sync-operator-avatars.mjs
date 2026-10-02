@@ -23,7 +23,11 @@ if (tree.truncated || !Array.isArray(tree.tree))
   throw new Error('Incomplete Endfield resource tree')
 const catalog = { arknights: {}, endfield: {}, endfieldVariants: {} }
 for (const id of Object.keys(characters).sort()) {
-  if (!/^char_\d+_[a-z0-9]+$/.test(id) || characters[id].isNotObtainable) continue
+  if (
+    !/^char_\d+_[a-z0-9]+$/.test(id) ||
+    (characters[id].isNotObtainable && !ark.additionalCharacterIds?.includes(id))
+  )
+    continue
   catalog.arknights[id] =
     `https://web.hycdn.cn/arknights/game/assets/char_skin/portrait/${encodeURIComponent(`${id}#1`)}.png`
 }

@@ -70,3 +70,12 @@ test('shared Endministrator ID resolves only when the game appearance is known',
   assert.equal(operatorAvatar('endfield', id, null), undefined)
   assert.equal(operatorAvatar('arknights', id, 'female'), undefined)
 })
+
+test('Amiya class changes keep their own portraits despite upstream non-obtainable flags', () => {
+  for (const id of ['char_1001_amiya2', 'char_1037_amiya3']) {
+    assert.equal(
+      operatorAvatar('arknights', id),
+      `https://web.hycdn.cn/arknights/game/assets/char_skin/portrait/${id}%231.png`,
+    )
+  }
+})

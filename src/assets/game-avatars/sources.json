@@ -2,7 +2,11 @@
   "arknights": {
     "repository": "yuanyan3060/ArknightsGameResource",
     "revision": "d89e2600c7214e13ab1042a616a9f690f7f5dd95",
-    "path": "gamedata/excel/character_table.json"
+    "path": "gamedata/excel/character_table.json",
+    "additionalCharacterIds": [
+      "char_1001_amiya2",
+      "char_1037_amiya3"
+    ]
   },
   "endfield": {
     "repository": "555me/EndfieldAssets",
