@@ -169,8 +169,8 @@ const progress = (metric: OverviewMetric) =>
             clearable
           />
         </div>
-        <ul v-if="visible.length" class="operator-grid">
-          <li v-for="char in visible" :key="char.id">
+        <ul v-if="visible.length" class="operator-grid" :data-game="account.appCode">
+          <li v-for="char in visible" :key="char.id" :data-operator-id="char.id">
             <OperatorAvatar :name="char.name" :src="operatorAvatar(account.appCode, char.id)" />
             <div>
               <strong>{{ char.name }}</strong>
