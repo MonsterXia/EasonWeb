@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, shallowRef } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import GameOverviewPanel from '@/components/game/GameOverviewPanel.vue'
+import { gameOverviewAPI, type GameOverview } from '@/common/api/gameOverview'
 import EmptyState from '@/components/EmptyState.vue'
 import { ArrowRight } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'
@@ -21,34 +23,93 @@ const user = ref<CurrentUser | null>(null),
   busy = ref(false)
 const games = ref<GameAccount[]>([]),
   results = ref<CheckInResults | null>(null)
+const roleKey = (game: GameAccount) => `${game.appCode}:${game.gameId}:${game.uid}`
+const selected = ref<GameAccount | null>(null)
+const overview = shallowRef<GameOverview | null>(null)
+const detailLoading = ref(false),
+  detailFailed = ref(false)
+const checkInError = shallowRef<unknown>(null)
+const checkInMessage = computed(() =>
+  checkInError.value === null ? '' : apiError(checkInError.value),
+)
+let detailRequest: AbortController | null = null
+let accountRequest: AbortController | null = null
+let alive = true
+function cancelDetail() {
+  detailRequest?.abort()
+  detailRequest = null
+  detailLoading.value = false
+  detailFailed.value = false
+  overview.value = null
+}
+function selectRole(game: GameAccount) {
+  if (selected.value && roleKey(selected.value) === roleKey(game)) return
+  void loadOverview(game)
+}
+async function loadOverview(game = selected.value) {
+  if (!game) return
+  cancelDetail()
+  selected.value = game
+  const request = new AbortController()
+  detailRequest = request
+  detailLoading.value = true
+  try {
+    const data = await gameOverviewAPI(game, request.signal)
+    if (!request.signal.aborted && alive) overview.value = data
+  } catch {
+    if (!request.signal.aborted && alive) detailFailed.value = true
+  } finally {
+    if (detailRequest === request && alive) detailLoading.value = false
+  }
+}
 async function load() {
   if (busy.value || loading.value) return
+  const previous = selected.value && roleKey(selected.value)
+  cancelDetail()
+  selected.value = null
   loading.value = true
   caughtError.value = null
+  checkInError.value = null
   games.value = []
   results.value = null
+  const request = new AbortController()
+  accountRequest = request
   try {
-    user.value = await getCurrentUserAPI()
-    if (user.value?.hypergryphAccount) games.value = await gameAccountsAPI()
+    const current = await getCurrentUserAPI(request.signal)
+    if (request.signal.aborted) return
+    user.value = current
+    if (current?.hypergryphAccount) {
+      const accounts = await gameAccountsAPI(request.signal)
+      if (request.signal.aborted) return
+      games.value = accounts
+      const next = accounts.find((game) => roleKey(game) === previous) ?? accounts[0]
+      if (next) void loadOverview(next)
+    }
   } catch (e) {
-    caughtError.value = e
+    if (!request.signal.aborted) caughtError.value = e
   } finally {
-    loading.value = false
+    if (!request.signal.aborted) loading.value = false
   }
 }
 async function checkIn() {
   if (busy.value || loading.value || !games.value.length || error.value) return
   busy.value = true
-  caughtError.value = null
+  checkInError.value = null
   results.value = null
   try {
-    results.value = await checkInAPI()
+    const data = await checkInAPI()
+    if (alive) results.value = data
   } catch (e) {
-    caughtError.value = e
+    if (alive) checkInError.value = e
   } finally {
-    busy.value = false
+    if (alive) busy.value = false
   }
 }
+onBeforeUnmount(() => {
+  alive = false
+  accountRequest?.abort()
+  cancelDetail()
+})
 onMounted(load)
 </script>
 <template>
@@ -59,21 +120,10 @@ onMounted(load)
       :description="t('game.skland.description')"
       number="02"
     />
-    <div class="checkin-banner">
-      <span class="banner-icon"
-        ><el-icon><Calendar /></el-icon
-      ></span>
-      <div>
-        <span class="section-label">A LITTLE RITUAL, EVERY DAY</span>
-        <h2>{{ t('game.skland.bannerTitle') }}</h2>
-        <p>{{ t('game.skland.bannerDescription') }}</p>
-      </div>
-      <span class="banner-star" aria-hidden="true">✳</span>
-    </div>
     <el-card>
       <div class="panel-title">
         <h2>{{ t('game.skland.characters') }}</h2>
-        <span>DAILY CHECK-IN</span>
+        <span>SKLAND</span>
       </div>
       <div v-if="user?.hypergryphAccount" class="actions">
         <el-button :loading="loading" :disabled="busy || loading" @click="load">{{
@@ -126,18 +176,34 @@ onMounted(load)
             :title="t('game.skland.emptyTitle')"
             :description="t('game.skland.emptyDescription')"
           />
-          <ul class="game-list">
-            <li v-for="game in games" :key="`${game.appCode}:${game.gameId}:${game.uid}`">
-              <span class="game-avatar"
-                ><el-icon><Aim /></el-icon></span
-              ><strong>{{ game.nickName }}</strong> ·
-              {{ t(game.appCode === 'endfield' ? 'game.endfieldName' : 'game.arknightsName')
-              }}<br />
-              {{
-                t('game.skland.accountDetails', { uid: game.uid, server: gameServerName(game, t) })
-              }}
-            </li>
-          </ul>
+          <div
+            v-if="games.length"
+            class="role-selector"
+            role="group"
+            :aria-label="t('game.overview.select')"
+          >
+            <button
+              v-for="game in games"
+              :key="roleKey(game)"
+              type="button"
+              class="role-option"
+              :aria-pressed="selected !== null && roleKey(selected) === roleKey(game)"
+              @click="selectRole(game)"
+            >
+              <span class="role-game">{{
+                t(game.appCode === 'endfield' ? 'game.endfieldName' : 'game.arknightsName')
+              }}</span>
+              <strong>{{ game.nickName }}</strong>
+              <span>{{ gameServerName(game, t) }} · {{ game.uid }}</span>
+            </button>
+          </div>
+          <el-alert
+            v-if="checkInMessage"
+            :title="checkInMessage"
+            type="error"
+            :closable="false"
+            role="alert"
+          />
           <section v-if="results" :aria-label="t('game.skland.results')">
             <h2>{{ t('game.skland.results') }}</h2>
             <el-alert
@@ -160,53 +226,22 @@ onMounted(load)
               {{ t('game.skland.characterError', { name: item.nickName, error: item.error }) }}
             </p>
           </section>
+          <GameOverviewPanel
+            v-if="selected"
+            :account="selected"
+            :data="overview"
+            :loading="detailLoading"
+            :failed="detailFailed"
+            @refresh="loadOverview()"
+          />
         </template>
       </template>
     </el-card>
   </div>
 </template>
 <style scoped>
-.checkin-banner {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  padding: 30px;
-  margin-bottom: 25px;
-  border: 1px solid #54416c;
-  border-radius: 20px;
-  background:
-    radial-gradient(ellipse at 85% 40%, #8e5bd633, transparent 50%),
-    linear-gradient(120deg, #211a34, #171626);
-}
-.banner-icon {
-  width: 64px;
-  height: 64px;
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  color: #c8aaff;
-  border: 1px solid #b9a4ff40;
-  background: #b9a4ff10;
-  border-radius: 18px;
-  font-size: 29px;
-}
-.checkin-banner h2 {
-  font-size: 23px;
-  margin: 7px 0;
-}
-.checkin-banner p {
-  color: #b0a2c7;
-  font-size: 12px;
-}
-.banner-star {
-  margin-left: auto;
-  color: #bda0ff;
-  font-size: 65px;
-  line-height: 1;
-  animation: orbit 40s linear infinite;
-}
 .el-alert {
-  margin-bottom: 16px;
+  margin: 16px 0;
 }
 .actions {
   display: flex;
@@ -223,33 +258,44 @@ onMounted(load)
 .actions .el-button {
   margin-left: 0;
 }
-.game-list {
-  padding: 0;
+.role-selector {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  list-style: none;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
 }
-.game-list li {
-  position: relative;
-  padding: 20px 20px 20px 65px;
-  border: 1px solid #30364c;
+.role-option {
+  text-align: left;
+  min-width: 0;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  background: #181e2e;
-  overflow-wrap: anywhere;
+  background: var(--color-background-soft);
   color: var(--muted);
-  font-size: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  overflow-wrap: anywhere;
 }
-.game-list strong {
-  color: #f1f4fc;
+.role-option strong {
+  color: var(--color-heading);
   font-size: 15px;
 }
-.game-avatar {
-  position: absolute;
-  left: 18px;
-  top: 25px;
-  color: #c8aaff;
-  font-size: 25px;
+.role-game {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+.role-option[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--color-background-soft));
+  box-shadow: inset 3px 0 var(--accent);
+}
+.role-option[aria-pressed='true'] .role-game {
+  color: var(--accent);
+}
+.role-option:hover {
+  border-color: var(--accent);
 }
 section[aria-label] {
   margin-top: 28px;
@@ -267,24 +313,19 @@ section[aria-label] p {
   color: var(--el-color-danger);
 }
 @media (max-width: 650px) {
-  .checkin-banner {
-    padding: 22px;
-    gap: 15px;
+  .role-selector {
+    grid-template-columns: 1fr 1fr;
   }
-  .banner-icon {
-    display: none;
-  }
-  .checkin-banner h2 {
-    font-size: 20px;
-  }
-  .banner-star {
-    font-size: 35px;
-  }
-  .game-list {
-    grid-template-columns: 1fr;
+  .role-option {
+    padding: 12px;
   }
   .actions a {
     margin-left: 0;
+  }
+}
+@media (max-width: 400px) {
+  .role-selector {
+    grid-template-columns: 1fr;
   }
 }
 </style>

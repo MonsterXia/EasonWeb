@@ -1,10 +1,13 @@
+import { zhCN as overviewZh, en as overviewEn } from './overview'
+
 export const zhCN = {
+  overview: overviewZh,
   servers: { official: '官服', bilibili: 'B服', unknown: '未知区服（{id}）' },
   endfieldName: '终末地',
   arknightsName: '明日方舟',
   skland: {
-    title: '森空岛签到',
-    description: '明日方舟、终末地，每一份日常奖励都值得期待。',
+    title: '森空岛',
+    description: '查看角色日常、基建与养成进度，安排今天的游戏时光。',
     bannerTitle: '今天，也别忘了签个到。',
     bannerDescription: '绑定鹰角账号后，查询角色并手动领取签到奖励。',
     characters: '我的游戏角色',
@@ -12,7 +15,7 @@ export const zhCN = {
     reload: '重新加载',
     retry: '重试',
     updateLogin: '更新账号登录',
-    loginTitle: '登录，开启每日签到',
+    loginTitle: '登录，查看你的游戏日常',
     loginDescription: '登录并连接鹰角账号，即可在这里查看角色、领取每日奖励。',
     login: '前往登录',
     linkTitle: '连接账号，开启你的日常',
@@ -103,12 +106,13 @@ export const zhCN = {
 }
 
 export const en = {
+  overview: overviewEn,
   servers: { official: 'Official', bilibili: 'Bilibili', unknown: 'Unknown server ({id})' },
   endfieldName: 'Endfield',
   arknightsName: 'Arknights',
   skland: {
-    title: 'Skland Check-in',
-    description: 'A little reward to look forward to, every day in Arknights and Endfield.',
+    title: 'Skland',
+    description: 'Your characters, daily resources and progression, together in one place.',
     bannerTitle: 'Make time for today’s check-in.',
     bannerDescription:
       'Link your Hypergryph account to find your characters and claim daily rewards manually.',
@@ -117,7 +121,7 @@ export const en = {
     reload: 'Reload',
     retry: 'Retry',
     updateLogin: 'Update account login',
-    loginTitle: 'Sign in for daily check-ins',
+    loginTitle: 'Sign in to view your game day',
     loginDescription:
       'Sign in and link your Hypergryph account to view characters and claim daily rewards here.',
     login: 'Sign in',

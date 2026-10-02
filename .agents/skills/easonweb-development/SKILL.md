@@ -20,7 +20,7 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 | 首页 | `src/pages/home/IndexPage.vue` |
 | 登录、注册、重置密码 | `src/pages/auth/AuthPage.vue`，同一组件按路由切换模式 |
 | 用户资料、退出、账号绑定 | `src/pages/user/userPage.vue`、`src/components/account/AccountBindings.vue` |
-| 森空岛角色与签到 | `src/pages/game/hypergryph/SklandPage.vue` |
+| 森空岛角色概览与签到 | `src/pages/game/hypergryph/SklandPage.vue`、`src/components/game/GameOverviewPanel.vue`、`src/common/api/gameOverview.ts` |
 | 终末地计算器 | `src/pages/game/hypergryph/endfield/EndfieldPage.vue`、同目录 `BaseMaterialCalculator.vue` |
 | 武器与地区数据、类型 | `src/constant/game/hypergryph/endfield/weapons.ts` |
 | API 封装与响应类型 | `src/common/api/basic.ts`、`user.ts`、`accounts.ts` |
@@ -68,6 +68,15 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 - 森空岛签到由用户手动触发，分别展示 `checkInResults` 和 `errorResults`；HTTP 207 部分成功也要呈现失败明细。
 
 新增接口时先确认后端契约，不根据页面需求猜测 URL、方法或字段。后端不可用时使用测试响应，说明尚未验证的真实服务行为。
+
+## 森空岛角色概览
+
+- 通过 `GET /game/hypergryph/account/overview` 读取已绑定角色，查询参数为 `appCode`、`uid`、`gameId`；Cookie 身份由后端校验，客户端不传第三方凭证。角色唯一键同时包含这三个字段。
+- 选中角色后按需读取资料，切换角色/刷新账号/卸载时取消旧请求并忽略过期结果；资料加载与签到保持独立状态。选中项、标题及刷新按钮原位保留，骨架仅替换数据内容。
+- `GameOverview` 是后端整理后的展示契约。`updatedAt` 表示上游游戏记录时间，`fetchedAt` 表示本次读取时间，均为秒；界面解释记录有延迟，不自动推算实时理智或把读取时间冒充同步时间。
+- 数字 `0` 是有效值，`null` 显示缺失状态；进度条仅在当前值存在、上限大于 0 时展示。允许理智超上限，文字保留真实值，进度条最多填满。
+- 角色概览按日常、基建、收藏和干员档案分组；终末地 `profile.level` 显示权限等阶，`worldLevel` 显示探索等级。干员与任务名称保留游戏原文，其余词条与日期格式同步中英文。
+- 上游字段与来源见 CommonServerAPI 的项目 skill；不要从签到响应推导资源或伪造资料。浏览器验证至少包含角色切换的响应竞态、缺失值、局部失败恢复及刷新时工具栏可见。
 
 ## 终末地计算器
 

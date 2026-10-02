@@ -55,9 +55,10 @@ export interface CheckInResults {
   checkInResults: string[]
   errorResults: (GameAccount & { error: string })[]
 }
-export const gameAccountsAPI = async () =>
+export const gameAccountsAPI = async (signal?: AbortSignal) =>
   (
     await gateway.get<ApiResponse<GameAccount[]>>(url('game/hypergryph/account/games'), undefined, {
+      signal,
       timeout: 60000,
     })
   ).data

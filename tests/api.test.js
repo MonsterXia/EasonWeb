@@ -80,3 +80,23 @@ test('account operations use correct HTTP methods and never use query-string cre
   assert.equal(api.passwordError('Secret1!'), '')
   assert.notEqual(api.passwordError('Ab!'+ '中'.repeat(24)), '')
 })
+
+test('game overview reads a selected role with cookie auth and forwards cancellation and failures', async () => {
+  const { gameOverviewAPI } = await vite.ssrLoadModule('/src/common/api/gameOverview.ts')
+  let sent
+  const overview = { account: { appCode: 'endfield', uid: '42', gameId: '99' }, metrics: [] }
+  request.defaults.adapter = async config => {
+    sent = config
+    return { data: { data: overview }, status: 200, statusText: 'OK', headers: {}, config }
+  }
+  const controller = new AbortController()
+  assert.deepEqual(await gameOverviewAPI({ ...overview.account, nickName: 'Private name' }, controller.signal), overview)
+  assert.equal(sent.method, 'get')
+  assert.equal(sent.url, '/api/game/hypergryph/account/overview')
+  assert.deepEqual(sent.params, overview.account)
+  assert.equal(sent.withCredentials, true)
+  assert.equal(sent.signal, controller.signal)
+  assert.equal(sent.timeout, 60000)
+  request.defaults.adapter = async () => { throw { isAxiosError: true, response: { status: 502 } } }
+  await assert.rejects(gameOverviewAPI(overview.account))
+})
