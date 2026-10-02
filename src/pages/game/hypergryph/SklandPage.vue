@@ -16,17 +16,16 @@ const { t } = useI18n()
 const caughtError = shallowRef<unknown>(null)
 const error = computed(() => (caughtError.value === null ? '' : apiError(caughtError.value)))
 const user = ref<CurrentUser | null>(null),
-  loading = ref(true),
+  loading = ref(false),
   busy = ref(false)
 const games = ref<GameAccount[]>([]),
   results = ref<CheckInResults | null>(null)
 async function load() {
-  if (busy.value) return
+  if (busy.value || loading.value) return
   loading.value = true
   caughtError.value = null
   games.value = []
   results.value = null
-  user.value = null
   try {
     user.value = await getCurrentUserAPI()
     if (user.value?.hypergryphAccount) games.value = await gameAccountsAPI()
@@ -37,7 +36,7 @@ async function load() {
   }
 }
 async function checkIn() {
-  if (busy.value) return
+  if (busy.value || loading.value || !games.value.length || error.value) return
   busy.value = true
   caughtError.value = null
   results.value = null
@@ -75,6 +74,18 @@ onMounted(load)
         <h2>{{ t('game.skland.characters') }}</h2>
         <span>DAILY CHECK-IN</span>
       </div>
+      <div v-if="user?.hypergryphAccount" class="actions">
+        <el-button :loading="loading" :disabled="busy || loading" @click="load">{{
+          t('game.skland.refresh')
+        }}</el-button>
+        <el-button
+          type="primary"
+          :loading="busy"
+          :disabled="loading || busy || !games.length || !!error"
+          @click="checkIn"
+          >{{ t('game.skland.checkInAll') }}</el-button
+        ><router-link to="/user">{{ t('game.skland.updateLogin') }}</router-link>
+      </div>
       <el-skeleton v-if="loading" :rows="4" animated />
       <template v-else>
         <EmptyState
@@ -83,11 +94,8 @@ onMounted(load)
           :title="t('game.skland.loadFailed')"
           :description="error"
         >
-          <template #actions>
+          <template v-if="!user?.hypergryphAccount" #actions>
             <el-button type="primary" @click="load">{{ t('game.skland.reload') }}</el-button>
-            <router-link v-if="user?.hypergryphAccount" to="/user">{{
-              t('game.skland.updateLogin')
-            }}</router-link>
           </template>
         </EmptyState>
         <EmptyState
@@ -112,16 +120,6 @@ onMounted(load)
         </EmptyState>
         <template v-else-if="user?.hypergryphAccount">
           <el-alert v-if="error" :title="error" type="error" :closable="false" role="alert" />
-          <div class="actions">
-            <el-button :disabled="busy" @click="load">{{ t('game.skland.refresh') }}</el-button
-            ><el-button
-              type="primary"
-              :loading="busy"
-              :disabled="!games.length || !!error"
-              @click="checkIn"
-              >{{ t('game.skland.checkInAll') }}</el-button
-            ><router-link to="/user">{{ t('game.skland.updateLogin') }}</router-link>
-          </div>
           <EmptyState
             v-if="!games.length && !error"
             :title="t('game.skland.emptyTitle')"
@@ -160,9 +158,6 @@ onMounted(load)
             </p>
           </section>
         </template>
-        <el-button v-if="error && games.length" @click="load">{{
-          t('game.skland.retry')
-        }}</el-button>
       </template>
     </el-card>
   </div>
