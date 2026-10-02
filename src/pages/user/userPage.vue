@@ -3,7 +3,7 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import EmptyState from '@/components/EmptyState.vue'
-import { ArrowRight } from '@element-plus/icons-vue'
+import { ArrowRight, Message, Iphone, RefreshRight, SwitchButton } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'
 import AccountBindings from '@/components/account/AccountBindings.vue'
 import { getCurrentUserAPI, logoutAPI, type CurrentUser } from '@/common/api/user'
@@ -86,54 +86,42 @@ onBeforeUnmount(() => request?.abort())
       </EmptyState>
       <template v-else>
         <div class="profile-banner">
-          <div class="avatar">{{ user.username.slice(0, 1).toUpperCase() }}</div>
-          <div>
-            <p class="eyebrow">{{ t('account.profile.greeting') }}</p>
-            <h2>{{ user.username }}</h2>
-            <p>{{ t('account.profile.welcome') }}</p>
+          <div class="avatar" aria-hidden="true">{{ user.username.slice(0, 1).toUpperCase() }}</div>
+          <div class="identity">
+            <div class="identity-heading">
+              <h2>{{ user.username }}</h2>
+              <span class="role-badge">{{
+                user.isAdmin ? t('account.profile.admin') : t('account.profile.explorer')
+              }}</span>
+            </div>
+            <p>
+              {{ t('account.profile.welcome') }} <span class="user-id">#{{ user.id }}</span>
+            </p>
           </div>
-          <span class="pill">{{
-            user.isAdmin ? t('account.profile.admin') : t('account.profile.explorer')
-          }}</span>
+          <div class="profile-actions">
+            <el-button text :disabled="loggingOut" @click="loadUser"
+              ><el-icon><RefreshRight /></el-icon>{{ t('account.profile.refresh') }}</el-button
+            >
+            <el-button text :loading="loggingOut" @click="logout"
+              ><el-icon><SwitchButton /></el-icon>{{ t('account.profile.logout') }}</el-button
+            >
+          </div>
         </div>
-        <div class="profile-details">
-          <el-descriptions :title="t('account.profile.details')" :column="1" border>
-            <el-descriptions-item :label="t('account.profile.id')">{{
-              user.id
-            }}</el-descriptions-item>
-            <el-descriptions-item :label="t('account.username')">{{
-              user.username
-            }}</el-descriptions-item>
-            <el-descriptions-item :label="t('account.email')">{{
-              user.email || t('account.profile.notSet')
-            }}</el-descriptions-item>
-            <el-descriptions-item :label="t('account.phone')">{{
-              user.phone || t('account.profile.notSet')
-            }}</el-descriptions-item>
-            <el-descriptions-item :label="t('account.profile.role')">{{
-              user.isAdmin ? t('account.profile.admin') : t('account.profile.member')
-            }}</el-descriptions-item>
-          </el-descriptions>
-          <el-descriptions
-            :title="t('account.profile.linkedAccounts')"
-            :column="1"
-            border
-            class="linked-accounts"
-          >
-            <el-descriptions-item :label="t('account.binding.hypergryph')">{{
-              user.hypergryphAccount?.phone || t('account.profile.notBound')
-            }}</el-descriptions-item>
-          </el-descriptions>
-        </div>
+        <dl class="contact-details">
+          <div>
+            <dt>
+              <el-icon><Message /></el-icon>{{ t('account.email') }}
+            </dt>
+            <dd>{{ user.email || t('account.profile.notSet') }}</dd>
+          </div>
+          <div>
+            <dt>
+              <el-icon><Iphone /></el-icon>{{ t('account.phone') }}
+            </dt>
+            <dd>{{ user.phone || t('account.profile.notSet') }}</dd>
+          </div>
+        </dl>
         <AccountBindings :user="user" @changed="loadUser" />
-        <div class="actions">
-          <el-button :disabled="loggingOut" @click="loadUser">{{
-            t('account.profile.refresh')
-          }}</el-button>
-          <el-button type="primary" :loading="loggingOut" @click="logout">{{
-            t('account.profile.logout')
-          }}</el-button>
-        </div>
       </template>
     </el-card>
   </div>
@@ -144,66 +132,118 @@ onBeforeUnmount(() => request?.abort())
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 8px 0 28px;
-  margin-bottom: 28px;
-  border-bottom: 1px solid var(--color-border);
+  padding: 10px 6px 28px;
 }
 .avatar {
-  flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, #76f7d0, #b8a3ff);
-  color: #142b30;
-  font-size: 30px;
-  font-weight: 800;
-  box-shadow: 0 0 30px #76f7d014;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  border-radius: 21px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--color-background-soft));
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+  font-size: 29px;
+  font-weight: 650;
 }
-.profile-banner h2 {
-  margin: 4px 0;
-  font-size: 24px;
+.identity {
+  min-width: 0;
+  flex: 1;
+}
+.identity-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.identity h2 {
+  font-size: 27px;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
   overflow-wrap: anywhere;
 }
-.profile-banner p:not(.eyebrow) {
-  font-size: 12px;
+.identity p {
+  margin-top: 7px;
+  font-size: 13px;
   color: var(--muted);
 }
-.profile-banner > .pill {
-  margin-left: auto;
-  flex-shrink: 0;
+.user-id {
+  margin-left: 9px;
+  font-family: ui-monospace, monospace;
+  color: var(--muted);
 }
-.profile-details {
+.role-badge {
+  padding: 3px 9px;
+  border-radius: 6px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.profile-actions .el-button {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.profile-actions :deep(.el-icon) {
+  margin-right: 7px;
+}
+.contact-details {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr;
+  margin: 0;
+  padding: 24px 6px 28px;
+  border-top: 1px solid var(--color-border);
   gap: 24px;
 }
-.actions {
+.contact-details dt {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 28px;
-  border-top: 1px solid var(--color-border);
-  padding-top: 24px;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
 }
-.actions .el-button {
-  margin: 0;
+.contact-details dd {
+  margin: 9px 0 0;
+  color: var(--color-heading);
+  font-size: 14px;
+  overflow-wrap: anywhere;
 }
-@media (max-width: 760px) {
-  .profile-details {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 700px) {
   .profile-banner {
-    gap: 13px;
-  }
-  .profile-banner > .pill {
-    display: none;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-inline: 0;
   }
   .avatar {
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
+    flex-basis: 52px;
+    width: 52px;
+    height: 52px;
+    border-radius: 17px;
+    font-size: 24px;
+  }
+  .identity h2 {
+    font-size: 23px;
+  }
+  .identity p {
+    font-size: 12px;
+  }
+  .profile-actions {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: -12px;
+  }
+  .contact-details {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-inline: 0;
   }
 }
 </style>
