@@ -1,5 +1,4 @@
-import gatewayManager from '../gatewayManager/gatewayManager'
-import type { ApiResponse } from './user'
+import { getData, ACCOUNT_REQUEST_TIMEOUT } from './client'
 import type { GameAccount } from './accounts'
 
 export interface OverviewMetric {
@@ -28,12 +27,9 @@ export async function gameOverviewAPI(
   account: GameAccount,
   signal?: AbortSignal,
 ): Promise<GameOverview> {
-  const gateway = gatewayManager.getInstance()
-  return (
-    await gateway.get<ApiResponse<GameOverview>>(
-      gateway.buildStandardURL('game/hypergryph/account/overview'),
-      { appCode: account.appCode, uid: account.uid, gameId: account.gameId },
-      { timeout: 60000, signal },
-    )
-  ).data
+  return getData<GameOverview>(
+    'game/hypergryph/account/overview',
+    { appCode: account.appCode, uid: account.uid, gameId: account.gameId },
+    { timeout: ACCOUNT_REQUEST_TIMEOUT, signal },
+  )
 }

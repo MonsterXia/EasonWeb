@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ElCard, ElButton, ElSkeleton, ElAlert } from 'element-plus'
 import { computed, onMounted, onBeforeUnmount, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameOverviewPanel from '@/components/game/GameOverviewPanel.vue'

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { House, Aim, Calendar, Sunny, Moon, Monitor, User } from '@element-plus/icons-vue'
+import { ElIcon, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
 import SakuraBlossom from './SakuraBlossom.vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
@@ -8,14 +10,14 @@ const { t, locale } = useI18n()
 const { preference, isDark, setTheme } = useTheme()
 const route = useRoute()
 const links = [
-  { path: '/', title: 'shell.home', icon: 'House' },
-  { path: '/game/hypergryph/endfield', title: 'shell.endfield', icon: 'Aim' },
-  { path: '/game/hypergryph/skland', title: 'shell.skland', icon: 'Calendar' },
+  { path: '/', title: 'shell.home', icon: House },
+  { path: '/game/hypergryph/endfield', title: 'shell.endfield', icon: Aim },
+  { path: '/game/hypergryph/skland', title: 'shell.skland', icon: Calendar },
 ]
 const themes = [
-  { value: 'light', icon: 'Sunny' },
-  { value: 'dark', icon: 'Moon' },
-  { value: 'system', icon: 'Monitor' },
+  { value: 'light', icon: Sunny },
+  { value: 'dark', icon: Moon },
+  { value: 'system', icon: Monitor },
 ]
 </script>
 <template>

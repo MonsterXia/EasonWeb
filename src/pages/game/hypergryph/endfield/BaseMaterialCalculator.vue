@@ -1,4 +1,16 @@
 <script lang="ts" setup>
+import { Plus, Aim, Location, InfoFilled } from '@element-plus/icons-vue'
+import {
+  ElCard,
+  ElForm,
+  ElFormItem,
+  ElSelect,
+  ElOption,
+  ElButton,
+  ElIcon,
+  ElTag,
+  type TagProps,
+} from 'element-plus'
 import {
   endfieldWeaponBaseMaterialRegion,
   endfieldWeapons,
@@ -53,7 +65,7 @@ const mainAttributesRecommands = computed((): string => {
   return mainSelectedAttribute1.value.map((item) => (item ? item[0] : '')).join(' ')
 })
 
-const currentMapContainsWeaponsNames = (weapon: WeaponData): string => {
+const currentMapContainsWeaponsNames = (weapon: WeaponData): TagProps['type'] => {
   if (currentMapContainsWeapons.value.find((w) => w.name === weapon.name)) {
     const currentSelectAttribute1 = mainAttributesRecommands.value.split(' ')
     const currentSelectSkill = mainSelectedSkillType.value?.[0]

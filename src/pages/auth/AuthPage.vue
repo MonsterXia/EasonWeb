@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ElCard, ElAlert, ElForm, ElFormItem, ElInput, ElButton } from 'element-plus'
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'

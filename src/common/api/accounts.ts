@@ -1,12 +1,12 @@
 import { isAxiosError } from 'axios'
 import { i18n, tr } from '../../i18n'
 import gatewayManager from '../gatewayManager/gatewayManager'
-import type { ApiResponse } from './user'
+import { getData, postData, ACCOUNT_REQUEST_TIMEOUT } from './client'
 
 const gateway = gatewayManager.getInstance()
 const url = (path: string) => gateway.buildStandardURL(path)
 async function post<T = null>(path: string, body?: unknown): Promise<T> {
-  return (await gateway.post<ApiResponse<T>>(url(path), body, { timeout: 60000 })).data
+  return postData<T>(path, body, { timeout: ACCOUNT_REQUEST_TIMEOUT })
 }
 export const loginAPI = (username: string, password: string) =>
   post('user/login', { username, password })
@@ -16,12 +16,8 @@ export const registerAPI = (data: {
   password: string
   registrationCode: string
 }) => post('user/register', data)
-export const usernameExistsAPI = async (username: string) =>
-  (
-    await gateway.get<ApiResponse<boolean>>(
-      url(`user/username/${encodeURIComponent(username)}/exist`),
-    )
-  ).data
+export const usernameExistsAPI = (username: string) =>
+  getData<boolean>(`user/username/${encodeURIComponent(username)}/exist`)
 export const registrationCodeAPI = (email: string) =>
   post('user/email/verify', { email, type: 'register' })
 export const resetCodeAPI = (username: string, email: string) =>
@@ -55,13 +51,11 @@ export interface CheckInResults {
   checkInResults: string[]
   errorResults: (GameAccount & { error: string })[]
 }
-export const gameAccountsAPI = async (signal?: AbortSignal) =>
-  (
-    await gateway.get<ApiResponse<GameAccount[]>>(url('game/hypergryph/account/games'), undefined, {
-      signal,
-      timeout: 60000,
-    })
-  ).data
+export const gameAccountsAPI = (signal?: AbortSignal) =>
+  getData<GameAccount[]>('game/hypergryph/account/games', undefined, {
+    signal,
+    timeout: ACCOUNT_REQUEST_TIMEOUT,
+  })
 export const checkInAPI = () => post<CheckInResults>('game/hypergryph/account/check-in')
 
 // Server messages are external text; show a localized fallback when Chinese has no English equivalent.

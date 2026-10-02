@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { after, test } from 'node:test'
 import { createServer } from 'vite'
 
-const vite = await createServer({ configFile: false, cacheDir: 'node_modules/.vite-tests', server: { middlewareMode: true }, appType: 'custom', optimizeDeps: { noDiscovery: true, include: [] } })
+const vite = await createServer({ configFile: false, cacheDir: 'node_modules/.vite-tests', server: { middlewareMode: true, hmr: false, ws: false }, appType: 'custom', optimizeDeps: { noDiscovery: true, include: [] } })
 after(() => vite.close())
 const { request } = await vite.ssrLoadModule('/src/common/gatewayManager/axiosClient.ts')
 const { default: Gateway } = await vite.ssrLoadModule('/src/common/gatewayManager/gatewayManager.ts')
@@ -99,4 +99,30 @@ test('game overview reads a selected role with cookie auth and forwards cancella
   assert.equal(sent.timeout, 60000)
   request.defaults.adapter = async () => { throw { isAxiosError: true, response: { status: 502 } } }
   await assert.rejects(gameOverviewAPI(overview.account))
+})
+
+test('shared API client preserves empty values, explicit request options, and HTTP failures', async () => {
+  const { getData, postData } = await vite.ssrLoadModule('/src/common/api/client.ts')
+  const controller = new AbortController()
+  const calls = []
+  request.defaults.adapter = async config => {
+    calls.push(config)
+    return { data: { data: config.method === 'get' ? false : null }, status: 200, statusText: 'OK', headers: {}, config }
+  }
+  assert.equal(await getData('/test', { query: 'a b' }, { signal: controller.signal, timeout: 60000 }), false)
+  assert.equal(await postData('test', { name: 'Alice' }), null)
+  assert.equal(calls[0].url, '/api/test')
+  assert.deepEqual(calls[0].params, { query: 'a b' })
+  assert.equal(calls[0].signal, controller.signal)
+  assert.equal(calls[0].timeout, 60000)
+  assert.equal(calls[1].timeout, 10000)
+  assert.ok(calls.every(call => call.withCredentials))
+  const failure = { isAxiosError: true, response: { status: 503 } }
+  request.defaults.adapter = async () => { throw failure }
+  await assert.rejects(getData('test'), error => error === failure)
+  await assert.rejects(postData('test'), error => error === failure)
+  controller.abort()
+  const count = calls.length
+  await assert.rejects(getData('test', undefined, { signal: controller.signal }), error => error.code === 'ERR_CANCELED')
+  assert.equal(calls.length, count)
 })

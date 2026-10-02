@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElCard, ElSkeleton, ElButton, ElIcon } from 'element-plus'
 import EmptyState from '@/components/EmptyState.vue'
 import { ArrowRight, Message, Iphone, RefreshRight, SwitchButton } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'

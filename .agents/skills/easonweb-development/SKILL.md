@@ -5,11 +5,11 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 
 # EasonWeb 项目开发
 
-本项目是中文个人站点与游戏工具前端，使用 Vue 3、TypeScript、Vite、Vue Router、Pinia、Element Plus 和 Axios。后端 CommonServerAPI 是独立项目。本 skill 的路径均相对于仓库根目录，具体行为以当前源码为准。
+本项目是中文个人站点与游戏工具前端，使用 Vue 3、TypeScript、Vite、Vue Router、Element Plus 和 Axios。后端 CommonServerAPI 是独立项目。本 skill 的路径均相对于仓库根目录，具体行为以当前源码为准。
 
 ## 开始工作
 
-先读 `package.json`、`src/router/index.ts`、相关业务文件与 `git status --short`。`README.md` 前半部分仍是 Vue 模板说明，后半部分包含后端对接信息；与源码不一致时核对实际实现。保留已有未提交工作，围绕本次请求修改。
+先读 `package.json`、`src/router/index.ts`、相关业务文件与 `git status --short`。`README.md` 包含运行方式与后端对接信息；与源码不一致时核对实际实现。保留已有未提交工作，围绕本次请求修改。
 
 ## 代码入口
 
@@ -31,11 +31,11 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 | 全局样式与颜色变量 | `src/assets/main.css`、`src/assets/base.css`、`src/assets/light.css` |
 | 接口回归测试 | `tests/api.test.js` |
 
-`src/views/`、欢迎组件和 `src/stores/counter.ts` 含模板示例；不要将其误认为当前业务入口或现成的认证 store。
+Vue 模板页、欢迎组件与未使用的 Pinia counter store 已移除。业务页面从 `src/pages/` 与实际路由入口追踪。
 
 ## 页面与交互约定
 
-- 使用 `<script setup lang="ts">`、Composition API 和 `@/` 源码别名；复用 Element Plus 组件。Element Plus 及其图标已在 `src/main.ts` 全局注册。
+- 使用 `<script setup lang="ts">`、Composition API 和 `@/` 源码别名；复用 Element Plus 组件。Element Plus 组件及图标在使用它们的组件中具名导入，不在 `src/main.ts` 全量注册。动态 `:is` 直接传导入的组件，不用依赖全局注册的字符串名称。公共 Element Plus 样式仍在入口统一导入，以保持主题覆盖顺序。
 - 路由组件采用动态导入。新增页面按需同步路由与导航；菜单的 `index` 使用路由路径，当前选中项来自 `route.path`。
 - 界面支持中英文；新增文案同时维护两种词条，表单标签及无障碍标签也要翻译。沿用局部 scoped 样式。保留加载、空数据、未登录、失败重试等不同状态；异步按钮防止重复提交。
 - 用户资料加载参考 `userPage.vue` 的 AbortController 及过期响应检查。倒计时复用 `useCooldown`，保留组件卸载时的定时器清理。
@@ -60,7 +60,7 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 - `domain.ts` 优先使用构建时的 `VITE_API_BASE_URL`；默认开发地址为 `/api`，生产地址为 `https://api.246801357.xyz`。
 - Vite 将 `/api` 代理到 `http://localhost:8787` 并移除前缀。本地使用 `http://localhost:5173`，注意后端 Origin 校验与生产 SameSite Cookie 条件。
 - Axios 设置 `withCredentials: true`，默认超时 10 秒；`accounts.ts` 的公共 POST 封装与游戏账号查询单独使用 60 秒。调整时按接口判断，不要将默认超时误当作所有请求的实际值。
-- 网关返回 Axios 的 `response.data`，即响应体；不会自动解开业务层的 `data`。普通业务响应是 `ApiResponse<T> = { message, data, httpStatus }`，由业务 API 解包；健康检查直接返回 `{ message }`。
+- 网关返回 Axios 的 `response.data`，即响应体；不会自动解开业务层的 `data`。`src/common/api/client.ts` 的 `getData` / `postData` 统一解开 `ApiResponse<T> = { message, data, httpStatus }`，保留 false/null、取消信号及原始 HTTP 错误。账号长请求使用 `ACCOUNT_REQUEST_TIMEOUT`；健康检查无业务 envelope，直接使用网关。
 - 普通会话使用 HttpOnly `auth_token`，Post 管理员使用独立的 `post_auth_token`。保持 Cookie 认证，不将密码、JWT 或第三方 token 写入浏览器持久存储、URL 查询参数或日志。
 - 仅 `getCurrentUserAPI` 将 HTTP 401/404 映射为 `null`；其他故障继续抛出供页面展示重试。不要将此规则扩展到所有 API。退出成功后清除用户资料，退出失败保留当前资料。
 - `accounts.ts` 仍保留 Post API 封装，但当前页面不调用。鹰角账号绑定或解绑成功后由 `changed` 事件触发父页面刷新资料。
@@ -105,8 +105,14 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 
 按改动选择验证：
 
-- 修改 API 或认证逻辑：运行 `npm test` 与 `npm run build`。现有测试用 Vite `ssrLoadModule` 加载 TS，并替换共享 Axios adapter；扩展契约测试时沿用此方式，覆盖方法、路径、请求体、响应与错误语义。
+- 修改 API 或认证逻辑：运行 `npm test` 与 `npm run build`。现有接口测试用 Vite `ssrLoadModule` 加载 TS，并替换共享 Axios adapter；扩展契约测试时沿用此方式，覆盖方法、路径、请求体、响应与错误语义。
 - 修改页面、路由或计算逻辑：运行 `npm run build`，验证对应页面流程。账号页检查失败重试和重复提交；签到检查部分失败；计算器检查添加、去重、删除和属性筛选；布局检查窄屏。
 - 仅修改说明或 skill：检查结构、引用路径与源码事实，无需为此重跑全部应用测试。
 
 测试响应不证明邮件、短信或第三方游戏服务真实可用；README 中历史验证记录也不等于本次验证。交付时说明实际修改、已执行的检查及尚未验证的部分。涉及部署时再核对 README 的后端迁移要求，不在普通前端修改中自动执行数据库迁移或发布。
+
+- 组件按需引入的回归见 `tests/components.test.js`：在无全局组件注册时渲染真实页面，检查未解析组件和图标。SSR 测试提供主题桥接替身，不能替代浏览器交互、布局或真实账号联调。
+
+## 中间过程与提交
+
+Superpowers plan 等执行计划保存在仓库外（例如 `/tmp/eason-legacy-refactor/`），不创建在项目目录、不提交。持久维护的开发约定、测试和项目文档可随代码提交。

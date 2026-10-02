@@ -1,45 +1,17 @@
 # EasonWeb
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 + TypeScript 的个人站点与游戏工具，包含用户中心、鹰角账号管理、森空岛角色资料与签到、终末地基质计算器，支持中英文与明暗主题。
 
-## Recommended IDE Setup
+## 开发与验证
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+使用 Node.js 24，执行 `npm ci` 安装锁定依赖。
 
-## Recommended Browser Setup
+- `npm run dev`：本地开发。
+- `npm test`：接口契约、国际化、主题、头像资源及组件渲染回归。
+- `npm run build`：类型检查与生产构建。
+- `npm run preview`：预览构建产物。
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+页面在 `src/pages/`，共享组件在 `src/components/`；Element Plus 组件及图标局部具名导入，公共样式仍由入口加载。业务 API 用 `src/common/api/client.ts` 解开响应，传递取消信号和请求选项。项目约定见 [.agents/skills/easonweb-development/SKILL.md](.agents/skills/easonweb-development/SKILL.md)。
 
 ## CommonServerAPI 对接
 
@@ -52,7 +24,7 @@ npm run build
 - 生产：默认请求 `https://api.246801357.xyz`。可通过 `.env.production.local` 的
   `VITE_API_BASE_URL` 覆盖；该值在构建时生效。生产站点须符合后端允许的 HTTPS Origin，
   并与 API 同站点，才能使用 SameSite Cookie。
-- 所有请求携带 Cookie，超时 10 秒。普通用户会话为 HttpOnly `auth_token`，与 Post
+- 所有请求携带 Cookie，默认超时 10 秒，账号提交、角色列表和角色资料查询为 60 秒。普通用户会话为 HttpOnly `auth_token`，与 Post
   管理员的 `post_auth_token` 独立；不从 localStorage 读取 JWT。
 - 根路径健康检查直接返回 `{ message }`；业务接口返回 `{ message, data, httpStatus }`。
   用户页读取 `GET /user/current` 的 `data`，401/404 显示未登录，其他失败允许重试。
@@ -62,7 +34,7 @@ npm run build
 - `/login`：用户名、密码登录，成功后进入用户中心。
 - `/register`：用户名占用检查、邮件验证码、密码校验；注册成功恢复 Cookie 会话。
 - `/reset-password`：用户名与邮箱匹配、验证码验证、新密码设置，成功后重新登录。
-- `/user`：个人资料，鹰角短信/密码登录和绑定/解绑，Post 管理员验证与绑定/解绑。
+- `/user`：个人资料与鹰角账号状态，通过管理弹窗进行绑定、更新登录与解绑。Post 管理员功能暂不在客户端展示。
 - `/game/hypergryph/skland`：读取已绑定鹰角账号的游戏角色，手动执行签到，展示成功和失败明细。
 
 密码及第三方 token 不写入浏览器持久存储。鹰角 token 保存在 CommonServerAPI 中；
