@@ -1,0 +1,12 @@
+{
+  "arknights": {
+    "repository": "yuanyan3060/ArknightsGameResource",
+    "revision": "d89e2600c7214e13ab1042a616a9f690f7f5dd95",
+    "path": "gamedata/excel/character_table.json"
+  },
+  "endfield": {
+    "repository": "555me/EndfieldAssets",
+    "revision": "a62f3d8da607c912918d78f1209430719dc4124f",
+    "path": "assets/beyond/dynamicassets/gameplay/ui/sprites/charicon/"
+  }
+}

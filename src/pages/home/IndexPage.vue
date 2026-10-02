@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import OrbitScene from '@/components/OrbitScene.vue'
+import SakuraBlossom from '@/components/SakuraBlossom.vue'
 import { basicCheckAPI } from '@/common/api/basic'
 
 const { t, locale } = useI18n()
@@ -40,9 +41,8 @@ async function checkHealth() {
         </div>
         <h1>
           {{ t('home.hero.titleFirst') }}<br /><span class="gradient-text"
-            >{{ t('home.hero.titleSecond')
-            }}<span class="title-star" aria-hidden="true">✳</span></span
-          >
+            >{{ t('home.hero.titleSecond') }}<SakuraBlossom class="title-star"
+          /></span>
         </h1>
         <p class="hero-description">
           {{ t('home.hero.descriptionFirst') }}<br />{{ t('home.hero.descriptionSecond') }}
@@ -206,7 +206,7 @@ async function checkHealth() {
   font:
     8px ui-monospace,
     monospace;
-  color: #7d89a5;
+  color: var(--muted);
   letter-spacing: 0.06em;
 }
 .hero h1 {
@@ -218,21 +218,22 @@ async function checkHealth() {
 }
 .gradient-text {
   color: var(--accent);
-  background: linear-gradient(95deg, #8dffda, #83dfdf 58%, #c0a4fb);
+  background: linear-gradient(95deg, #ffccdf, #eeafcf 58%, #d7b5ed);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .title-star {
   display: inline-block;
-  font-size: 47px;
+  width: 44px;
+  height: 44px;
   margin-left: 18px;
   color: var(--pink);
   -webkit-text-fill-color: var(--pink);
   vertical-align: top;
-  animation: orbit 32s linear infinite;
+  transform: rotate(12deg);
 }
 .hero-description {
-  color: #9da9c1;
+  color: var(--muted);
   font-size: 14px;
   line-height: 1.9;
 }
@@ -249,18 +250,18 @@ async function checkHealth() {
   justify-content: space-between;
   gap: 28px;
   background: var(--accent);
-  border: 1px solid #a4fbe1;
-  color: #09271e;
+  border: 1px solid #ffd0e1;
+  color: var(--on-accent);
   font-size: 13px;
   font-weight: 700;
   border-radius: 10px;
   padding: 12px 20px;
-  box-shadow: 0 0 30px #76f7d01c;
+  box-shadow: 0 0 30px #f3abc51c;
   transition: 0.2s;
 }
 .primary-link:hover {
   transform: translateY(-3px);
-  box-shadow: 0 7px 28px #76f7d033;
+  box-shadow: 0 7px 28px #f3abc533;
 }
 .primary-link span {
   font-size: 20px;
@@ -268,7 +269,7 @@ async function checkHealth() {
 }
 .secondary-link {
   font-size: 12px;
-  color: #cbd2e2;
+  color: var(--color-text);
 }
 .secondary-link span {
   margin-left: 10px;
@@ -279,7 +280,7 @@ async function checkHealth() {
   align-items: center;
   gap: 12px;
   font-size: 10px;
-  color: #858fa7;
+  color: var(--muted);
   margin-top: 33px;
 }
 .tiny-stars {
@@ -289,7 +290,7 @@ async function checkHealth() {
 .hero-bottom i {
   height: 1px;
   width: 60px;
-  background: #323a4b;
+  background: var(--color-border);
 }
 .ticker {
   display: flex;
@@ -297,12 +298,12 @@ async function checkHealth() {
   align-items: center;
   gap: 20px;
   padding: 17px 0;
-  border-block: 1px solid #272f43;
+  border-block: 1px solid var(--color-border);
   font:
     10px ui-monospace,
     monospace;
   letter-spacing: 0.1em;
-  color: #a0abc2;
+  color: var(--muted);
   overflow: hidden;
   white-space: nowrap;
 }
@@ -331,7 +332,7 @@ async function checkHealth() {
 .tools-count {
   flex-shrink: 0;
   font-size: 11px;
-  color: #8f9bb6;
+  color: var(--muted);
 }
 .tools-count span {
   color: var(--accent);
@@ -347,12 +348,12 @@ async function checkHealth() {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  --card-accent: #76f7d0;
+  --card-accent: #f3abc5;
   position: relative;
   overflow: hidden;
   padding: 24px;
-  background: linear-gradient(145deg, #161e2c, #0e1420);
-  border: 1px solid #2a3645;
+  background: linear-gradient(145deg, #2e202b, #211821);
+  border: 1px solid var(--color-border);
   border-radius: 18px;
   transition:
     transform 0.3s,
@@ -366,13 +367,13 @@ async function checkHealth() {
 }
 .tool-skland {
   --card-accent: #b9a4ff;
-  background: linear-gradient(145deg, #211c35, #121321);
-  border-color: #353047;
+  background: linear-gradient(145deg, #302132, #201720);
+  border-color: #4b3347;
 }
 .tool-account {
   --card-accent: #ff9fc9;
-  background: linear-gradient(145deg, #2b1d2e, #171321);
-  border-color: #3c2b3d;
+  background: linear-gradient(145deg, #34202e, #251921);
+  border-color: #503346;
 }
 .card-top {
   display: flex;
@@ -414,7 +415,7 @@ async function checkHealth() {
 }
 .tool-info > p:not(.section-label) {
   font-size: 12px;
-  color: #9da8be;
+  color: var(--muted);
   line-height: 1.9;
 }
 .tool-cta {
@@ -444,23 +445,23 @@ async function checkHealth() {
 .industrial-art i {
   width: 49px;
   height: 82px;
-  border: 1px solid #76f7d076;
-  background: linear-gradient(130deg, #76f7d03d, #142822);
+  border: 1px solid #f3abc576;
+  background: linear-gradient(130deg, #f3abc53d, #542a40);
   transform: rotate(-27deg) skewY(15deg);
-  box-shadow: 8px 8px 0 #76f7d011;
+  box-shadow: 8px 8px 0 #f3abc511;
 }
 .industrial-art i:nth-child(2) {
   height: 105px;
-  background: linear-gradient(130deg, #96f8d883, #174137);
+  background: linear-gradient(130deg, #f7bdd483, #793c58);
 }
 .industrial-art span {
   position: absolute;
   font:
     italic 48px ui-monospace,
     monospace;
-  color: #c7ffec;
+  color: #ffe4ef;
   letter-spacing: -0.1em;
-  text-shadow: 0 2px 12px #132a22;
+  text-shadow: 0 2px 12px #4b263b;
 }
 .calendar-art > div {
   width: 108px;
@@ -568,9 +569,9 @@ async function checkHealth() {
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
-  border: 1px solid #293244;
+  border: 1px solid var(--color-border);
   border-radius: 14px;
-  background: #111726b0;
+  background: #251923b0;
   padding: 22px 25px;
 }
 .health-caption {
@@ -582,7 +583,7 @@ async function checkHealth() {
 .health-icon {
   flex-shrink: 0;
   font-size: 24px;
-  color: #a4b4d0;
+  color: var(--muted);
 }
 .health-caption h3 {
   font-size: 13px;
@@ -619,7 +620,8 @@ async function checkHealth() {
     font-size: 55px;
   }
   .title-star {
-    font-size: 35px;
+    width: 35px;
+    height: 35px;
     margin-left: 8px;
   }
   .tool-card {
@@ -701,8 +703,8 @@ async function checkHealth() {
   border-radius: 28px;
   border: 1px solid #8fa2d327;
   background:
-    radial-gradient(ellipse at 90% 20%, #9d78f512, transparent 50%),
-    linear-gradient(120deg, #101d253b, #17132340);
+    radial-gradient(ellipse at 90% 20%, #d9a2c712, transparent 50%),
+    linear-gradient(120deg, #2b1b293b, #34213240);
   margin: 0 -24px 30px;
   padding: 38px 24px 42px;
 }
@@ -774,12 +776,12 @@ async function checkHealth() {
   right: 6%;
   border-radius: 5px;
   padding: 7px 12px;
-  background: #e7ffc2;
-  color: #344929;
+  background: #ffd6e5;
+  color: #72354f;
   transform: rotate(-8deg);
   font-size: 11px;
   font-weight: 700;
-  box-shadow: 3px 4px 0 #11282044;
+  box-shadow: 3px 4px 0 #4b233644;
 }
 .visual-sticker span {
   margin-left: 14px;
@@ -843,7 +845,7 @@ async function checkHealth() {
 }
 .ticker {
   position: relative;
-  background: linear-gradient(90deg, #76f7d007, #bb98fb0b, #ff78bd07);
+  background: linear-gradient(90deg, #f3abc507, #bb98fb0b, #ff78bd07);
 }
 .ticker::after {
   content: '';

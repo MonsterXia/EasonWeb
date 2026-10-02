@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SakuraBlossom from './SakuraBlossom.vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useTheme } from '@/composables/useTheme'
@@ -21,7 +22,7 @@ const themes = [
   <header class="site-header">
     <div class="nav-inner">
       <router-link to="/" class="brand" :aria-label="t('shell.brandHome')">
-        <span class="brand-mark">e<span>✦</span></span>
+        <span class="brand-mark">e<SakuraBlossom class="brand-blossom" /></span>
         <span>EASON<span class="brand-suffix">.SPACE</span></span>
       </router-link>
       <nav :aria-label="t('shell.navigation')">
@@ -185,7 +186,7 @@ const themes = [
   top: 0;
   z-index: 30;
   border-bottom: 1px solid #ffffff0c;
-  background: #090d17dc;
+  background: #1b121adc;
   backdrop-filter: blur(20px);
 }
 .nav-inner {
@@ -208,7 +209,7 @@ const themes = [
   font-weight: 800;
 }
 .brand-suffix {
-  color: #8791ab;
+  color: var(--muted);
   font-weight: 400;
   font-size: 12px;
 }
@@ -218,19 +219,21 @@ const themes = [
   display: grid;
   place-items: center;
   position: relative;
-  color: #0a1c18;
+  color: var(--on-accent);
   background: var(--accent);
   border-radius: 10px;
   font-size: 29px;
   font-style: italic;
   line-height: 1;
 }
-.brand-mark span {
+.brand-mark .brand-blossom {
   position: absolute;
   color: var(--pink);
   right: -7px;
   top: -6px;
-  font-size: 16px;
+  width: 19px;
+  height: 19px;
+  transform: rotate(12deg);
 }
 nav {
   display: flex;
@@ -243,7 +246,7 @@ nav a {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #a7b1c6;
+  color: var(--color-text);
   font-size: 13px;
   transition: 0.2s;
 }
@@ -253,22 +256,22 @@ nav a:hover {
 }
 nav a.active {
   color: var(--accent);
-  background: #76f7d00b;
-  border-color: #76f7d01f;
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 12%, transparent);
 }
 .account-link {
   display: flex;
   align-items: center;
   gap: 9px;
   font-size: 12px;
-  border: 1px solid #343c50;
+  border: 1px solid var(--color-border);
   padding: 8px 13px;
   border-radius: 9px;
 }
 .account-link:hover,
 .account-link.active {
   color: var(--accent);
-  border-color: #76f7d066;
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
 }
 .account-arrow {
   margin-left: 7px;

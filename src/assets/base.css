@@ -1,29 +1,30 @@
 /* Light is the default; the bootstrap script resolves the saved/system preference. */
 :root {
   color-scheme: light;
-  --color-background: #f5f7fc;
+  --color-background: #fff7fa;
   --color-background-soft: #ffffff;
-  --color-background-mute: #edf1f8;
-  --color-border: #d6deeb;
-  --color-heading: #1e2941;
-  --color-text: #46536b;
-  --accent: #087963;
-  --pink: #b9317b;
-  --muted: #606e86;
+  --color-background-mute: #f9edf2;
+  --color-border: #ead4df;
+  --color-heading: #382632;
+  --color-text: #654e5c;
+  --accent: #ad365e;
+  --pink: #96517f;
+  --muted: #826575;
   --on-accent: #ffffff;
+  --sakura: #f5b9ce;
 }
 :root.dark {
   color-scheme: dark;
-  --on-accent: #081b16;
-  --color-background: #080b14;
-  --color-background-soft: #111624;
-  --color-background-mute: #191f30;
-  --color-border: #293044;
-  --color-heading: #f4f6ff;
-  --color-text: #bcc4d8;
-  --accent: #76f7d0;
-  --pink: #ff78bd;
-  --muted: #929db6;
+  --on-accent: #301521;
+  --color-background: #160f16;
+  --color-background-soft: #211821;
+  --color-background-mute: #30232e;
+  --color-border: #493340;
+  --color-heading: #fff1f6;
+  --color-text: #dec9d4;
+  --accent: #f3abc5;
+  --pink: #d7b5ed;
+  --muted: #ba9eae;
 }
 *,
 *::before,
@@ -66,7 +67,7 @@ input {
   -webkit-tap-highlight-color: transparent;
 }
 ::selection {
-  background: #76f7d044;
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
   color: var(--color-heading);
 }
 :focus-visible {

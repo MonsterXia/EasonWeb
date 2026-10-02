@@ -35,7 +35,7 @@ defineProps<{ eyebrow: string; title: string; description: string; number?: stri
   max-width: 600px;
 }
 .page-number {
-  color: #76f7d020;
+  color: color-mix(in srgb, var(--accent) 13%, transparent);
   font:
     italic 90px/1 ui-monospace,
     monospace;

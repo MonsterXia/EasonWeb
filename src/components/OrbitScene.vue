@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import SakuraBlossom from './SakuraBlossom.vue'
 
 const { t } = useI18n()
 </script>
@@ -35,8 +36,8 @@ const { t } = useI18n()
     <div class="orbital-caption">
       {{ t('home.orbit.captionFirst') }}<br /><strong>{{ t('home.orbit.captionSecond') }}</strong>
     </div>
-    <div class="satellite satellite-one">✦</div>
-    <div class="satellite satellite-two">+</div>
+    <div class="satellite satellite-one"><SakuraBlossom class="orbit-blossom" /></div>
+    <div class="satellite satellite-two"><SakuraBlossom /></div>
     <div class="floating-label label-one"><span>✧</span> {{ t('home.orbit.create') }}</div>
     <div class="floating-label label-two">
       <span class="signal" /> {{ t('home.orbit.curiosity') }}
@@ -47,6 +48,11 @@ const { t } = useI18n()
   </div>
 </template>
 <style scoped>
+.orbit-blossom {
+  width: 54px;
+  height: 54px;
+  transform: rotate(12deg);
+}
 .starfield {
   position: absolute;
   inset: 0;
@@ -80,8 +86,8 @@ const { t } = useI18n()
   background: conic-gradient(
     from 20deg,
     transparent 5%,
-    #76f7d052,
-    #9d78f560,
+    #f3abc552,
+    #d9a2c760,
     transparent 50%,
     #ff78bd40,
     transparent 85%
@@ -118,10 +124,10 @@ const { t } = useI18n()
   top: 50%;
   left: -4px;
   border-radius: 50%;
-  background: #adffe6;
+  background: #ffe0eb;
   box-shadow:
-    0 0 8px #76f7d0,
-    0 0 22px #76f7d099;
+    0 0 8px #f3abc5,
+    0 0 22px #f3abc599;
 }
 .traveler-two {
   width: 290px;
@@ -198,7 +204,7 @@ const { t } = useI18n()
 .orbit-glow {
   position: absolute;
   inset: 2%;
-  background: radial-gradient(ellipse, #9866ee25, transparent 66%);
+  background: radial-gradient(ellipse, #ef9ec025, transparent 66%);
 }
 .planet {
   position: absolute;
@@ -208,10 +214,10 @@ const { t } = useI18n()
   top: 50%;
   transform: translate(-50%, -50%) rotate(-15deg);
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 26%, #b1e8da, #6775ab 29%, #5b427e 50%, #181b36 75%);
+  background: radial-gradient(circle at 32% 26%, #ffdae6, #c486a5 29%, #834761 50%, #3a1c32 75%);
   box-shadow:
-    inset -20px -20px 35px #050b23,
-    inset 3px 3px 14px #ddffe380,
+    inset -20px -20px 35px #280f22,
+    inset 3px 3px 14px #fff0f680,
     0 0 80px #9176ff21;
   overflow: hidden;
 }
@@ -229,11 +235,11 @@ const { t } = useI18n()
   position: absolute;
   top: 4px;
   left: 57px;
-  color: #effff9;
+  color: #fff2f8;
   font:
     italic 180px/1.1 Georgia,
     serif;
-  text-shadow: 0 8px 20px #13222650;
+  text-shadow: 0 8px 20px #4c1e3850;
 }
 .planet-letter span {
   font-size: 42px;
@@ -260,8 +266,8 @@ const { t } = useI18n()
   width: 440px;
   height: 176px;
   transform: translate(-50%, -50%) rotate(-32deg);
-  border-color: #a4f7db80;
-  box-shadow: 0 0 16px #76f7d00b;
+  border-color: #f3abc580;
+  box-shadow: 0 0 16px #f3abc50b;
   animation: orbit-precess 18s ease-in-out infinite;
 }
 .ring-three {
@@ -290,11 +296,11 @@ const { t } = useI18n()
 .floating-label {
   position: absolute;
   padding: 10px 14px;
-  background: #192036c9;
+  background: #352333c9;
   backdrop-filter: blur(12px);
-  border: 1px solid #687a9844;
+  border: 1px solid #aa6d8c44;
   border-radius: 10px;
-  color: #d9e3f4;
+  color: var(--color-text);
   font:
     10px ui-monospace,
     monospace;
@@ -331,7 +337,7 @@ const { t } = useI18n()
   right: 0;
   display: flex;
   justify-content: space-between;
-  color: #77829c;
+  color: var(--muted);
   font:
     8px ui-monospace,
     monospace;

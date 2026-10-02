@@ -1,31 +1,34 @@
 @import './base.css';
 @import './light.css';
 :root.dark {
-  --el-color-primary: #76f7d0;
-  --el-color-primary-light-3: #9af9dd;
-  --el-color-primary-light-5: #365e55;
-  --el-color-primary-light-7: #253f3a;
-  --el-color-primary-light-8: #1d302e;
-  --el-color-primary-light-9: #152725;
-  --el-color-primary-dark-2: #58d9b4;
-  --el-color-success: #76f7d0;
+  --el-color-primary: var(--accent);
+  --el-color-primary-light-3: #f8c4d7;
+  --el-color-primary-light-5: #966077;
+  --el-color-primary-light-7: #694254;
+  --el-color-primary-light-8: #513341;
+  --el-color-primary-light-9: #36242f;
+  --el-color-primary-dark-2: #ffd0e0;
+  --el-color-success: #8bd8b2;
+  --el-color-success-light-9: #20372c;
+  --el-color-warning-light-9: #392e22;
+  --el-color-danger-light-9: #3d252d;
   --el-color-warning: #ffd18a;
   --el-color-danger: #ff839d;
-  --el-color-info: #a4afc8;
-  --el-bg-color: #111624;
-  --el-bg-color-page: #080b14;
-  --el-bg-color-overlay: #191f30;
-  --el-fill-color-blank: #111624;
-  --el-fill-color-light: #1b2233;
-  --el-fill-color-lighter: #171d2c;
-  --el-fill-color-dark: #242d41;
-  --el-text-color-primary: #f4f6ff;
-  --el-text-color-regular: #bcc4d8;
-  --el-text-color-secondary: #929db6;
-  --el-text-color-placeholder: #8893aa;
-  --el-border-color: #30394e;
-  --el-border-color-light: #252e41;
-  --el-border-color-lighter: #20283a;
+  --el-color-info: var(--muted);
+  --el-bg-color: var(--color-background-soft);
+  --el-bg-color-page: var(--color-background);
+  --el-bg-color-overlay: var(--color-background-mute);
+  --el-fill-color-blank: var(--color-background-soft);
+  --el-fill-color-light: #342631;
+  --el-fill-color-lighter: #2b2029;
+  --el-fill-color-dark: #42303d;
+  --el-text-color-primary: var(--color-heading);
+  --el-text-color-regular: var(--color-text);
+  --el-text-color-secondary: var(--muted);
+  --el-text-color-placeholder: #b095a4;
+  --el-border-color: var(--color-border);
+  --el-border-color-light: #402d3a;
+  --el-border-color-lighter: #382834;
   --el-border-radius-base: 10px;
   --el-box-shadow-light: 0 16px 48px #0005;
 }
@@ -34,9 +37,9 @@
   isolation: isolate;
 }
 .el-card {
-  --el-card-border-color: #293247;
+  --el-card-border-color: var(--color-border);
   --el-card-border-radius: 20px;
-  background: linear-gradient(130deg, #151b2bea, #0e1320ed);
+  background: linear-gradient(130deg, #2b1e28ea, #211821ed);
 }
 .el-card__body,
 .el-card__header {
@@ -66,7 +69,7 @@
   transform: translateY(-2px);
 }
 .el-button--primary:not(.is-disabled):hover {
-  box-shadow: 0 6px 24px #76f7d02a;
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .el-input__wrapper,
 .el-select__wrapper {
@@ -131,11 +134,11 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  border: 1px solid #354052;
+  border: 1px solid var(--color-border);
   padding: 5px 11px;
   border-radius: 100px;
   font-size: 11px;
-  color: #c2cbe0;
+  color: var(--color-text);
 }
 .panel-title {
   display: flex;
@@ -199,7 +202,7 @@
   right: 10%;
   height: 1px;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, #76f7d060, #bfa0ff70, #ff78bd50, transparent);
+  background: linear-gradient(90deg, transparent, var(--sakura), var(--pink), transparent);
 }
 .hero::after {
   content: '';
@@ -235,7 +238,7 @@
   background: var(--color-background-soft);
 }
 .page-heading h1 {
-  text-shadow: 0 0 45px #9b88ee22;
+  text-shadow: 0 0 45px color-mix(in srgb, var(--accent) 13%, transparent);
 }
 .recommendation,
 .checkin-banner {

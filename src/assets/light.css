@@ -1,42 +1,42 @@
-/* Daylight palette: keep the same illustrations and layout, with readable light surfaces. */
+/* Sakura daylight palette; status and rarity colors retain their own meanings. */
 :root:not(.dark) {
-  --el-color-primary: #087963;
-  --el-color-primary-light-3: #399481;
-  --el-color-primary-light-5: #77b6a4;
-  --el-color-primary-light-7: #b2d8cb;
-  --el-color-primary-light-8: #d2e9e0;
-  --el-color-primary-light-9: #edf7f3;
-  --el-color-primary-dark-2: #05604e;
+  --el-color-primary: var(--accent);
+  --el-color-primary-light-3: #b8476d;
+  --el-color-primary-light-5: #d18ba5;
+  --el-color-primary-light-7: #e8b8ca;
+  --el-color-primary-light-8: #f2d2df;
+  --el-color-primary-light-9: #fcecf2;
+  --el-color-primary-dark-2: #902b4d;
   --el-color-success: #087963;
   --el-color-success-light-9: #edf7f3;
   --el-color-warning: #94600b;
   --el-color-warning-light-9: #fff8e9;
   --el-color-danger: #bf3656;
   --el-color-danger-light-9: #fff0f3;
-  --el-color-info: #606e86;
+  --el-color-info: var(--muted);
   --el-bg-color: #ffffff;
-  --el-bg-color-page: #f5f7fc;
+  --el-bg-color-page: var(--color-background);
   --el-bg-color-overlay: #ffffff;
   --el-fill-color-blank: #ffffff;
-  --el-fill-color-light: #f0f3f9;
-  --el-fill-color-lighter: #f7f9fc;
-  --el-text-color-primary: #1e2941;
-  --el-text-color-regular: #46536b;
-  --el-text-color-secondary: #606e86;
-  --el-text-color-placeholder: #69778f;
-  --el-border-color: #ced8e6;
-  --el-border-color-light: #dde4ee;
-  --el-border-color-lighter: #e5eaf2;
+  --el-fill-color-light: #faedf3;
+  --el-fill-color-lighter: #fff8fb;
+  --el-text-color-primary: var(--color-heading);
+  --el-text-color-regular: var(--color-text);
+  --el-text-color-secondary: var(--muted);
+  --el-text-color-placeholder: #876b7b;
+  --el-border-color: #e2c8d5;
+  --el-border-color-light: #eedbe5;
+  --el-border-color-lighter: #f2e4eb;
   --el-border-radius-base: 10px;
-  --el-box-shadow-light: 0 16px 48px #364b6b12;
+  --el-box-shadow-light: 0 16px 48px #783c5712;
 }
 :root:not(.dark) .el-card {
-  --el-card-border-color: #d6deeb;
-  background: linear-gradient(130deg, #ffffffed, #f9fbffed);
-  box-shadow: 0 10px 35px #35496808;
+  --el-card-border-color: var(--color-border);
+  background: linear-gradient(130deg, #ffffffed, #fff8fbed);
+  box-shadow: 0 10px 35px #783c5708;
 }
 :root:not(.dark) .site-header {
-  background: #f9fbffe8;
+  background: #fff9fce8;
   border-color: var(--color-border);
 }
 :root:not(.dark) .brand,
@@ -47,15 +47,15 @@
   color: var(--color-heading);
 }
 :root:not(.dark) .brand-mark {
-  background: #76f7d0;
+  background: var(--sakura);
 }
 :root:not(.dark) nav a {
   color: var(--color-text);
 }
 :root:not(.dark) nav a.active {
   color: var(--accent);
-  background: #dff3eb;
-  border-color: #bfded3;
+  background: #fae2ec;
+  border-color: #edc0d2;
 }
 :root:not(.dark) .account-link,
 :root:not(.dark) .site-footer,
@@ -75,28 +75,28 @@
   color: var(--muted);
 }
 :root:not(.dark) .gradient-text {
-  background-image: linear-gradient(95deg, #087963, #236f85 58%, #7350a8);
+  background-image: linear-gradient(95deg, #ad365e, #b64779 58%, #8c537f);
 }
 :root:not(.dark) .primary-link {
   color: var(--on-accent);
   border-color: var(--accent);
 }
 :root:not(.dark) .tiny-stars {
-  color: #8358ad;
+  color: var(--pink);
 }
 :root:not(.dark) .hero-bottom i {
   background: var(--color-border);
 }
 :root:not(.dark) .ambient {
   background-image:
-    linear-gradient(#617ea008 1px, transparent 1px),
-    linear-gradient(90deg, #617ea008 1px, transparent 1px);
+    linear-gradient(#a56b8908 1px, transparent 1px),
+    linear-gradient(90deg, #a56b8908 1px, transparent 1px);
 }
-:root:not(.dark) .ambient i {
-  background: radial-gradient(circle, #b797e62b, transparent 65%);
+:root:not(.dark) .ambient > i {
+  background: radial-gradient(circle, #ec9eba2b, transparent 65%);
 }
-:root:not(.dark) .ambient i + i {
-  background: radial-gradient(circle, #62c3a523, transparent 65%);
+:root:not(.dark) .ambient > i + i {
+  background: radial-gradient(circle, #eaa5c823, transparent 65%);
 }
 :root:not(.dark) .skip-link {
   color: var(--on-accent);
@@ -106,70 +106,70 @@
   border-color: var(--color-border);
 }
 :root:not(.dark) .page-number {
-  color: #08796322;
+  color: color-mix(in srgb, var(--accent) 13%, transparent);
 }
 
 /* Orbit art keeps its luminous planet, surrounded by daytime labels and rings. */
 :root:not(.dark) .orbit-ring {
-  border-color: #7786b34a;
+  border-color: #bc819a4a;
 }
 :root:not(.dark) .ring-two {
-  border-color: #308d7977;
+  border-color: #b8476d77;
 }
 :root:not(.dark) .ring-three {
-  border-color: #b34f8e40;
+  border-color: #b17da840;
 }
 :root:not(.dark) .floating-label {
   background: #ffffffdf;
-  border-color: #cbd6e6;
-  color: #455371;
-  box-shadow: 0 5px 20px #3549680b;
+  border-color: var(--color-border);
+  color: var(--color-text);
+  box-shadow: 0 5px 20px #783c570b;
 }
 :root:not(.dark) .planet-letter span {
-  color: #76f7d0;
+  color: var(--sakura);
 }
 
-/* Tool cards use pale mint, lilac and rose; the miniature artwork stays saturated. */
+/* Tool cards use petal, mauve and rose; artwork stays richly shaded. */
 :root:not(.dark) .tool-card {
-  --card-accent: #087963;
-  background: linear-gradient(145deg, #e8f7f0, #ffffff);
-  border-color: #c9e3d8;
+  --card-accent: var(--accent);
+  background: linear-gradient(145deg, #fce5ed, #ffffff);
+  border-color: #efc9d8;
 }
 :root:not(.dark) .tool-skland {
-  --card-accent: #7750ad;
-  background: linear-gradient(145deg, #f1eafd, #ffffff);
-  border-color: #ddd0ef;
+  --card-accent: #995b88;
+  background: linear-gradient(145deg, #f8eaf4, #ffffff);
+  border-color: #ead0e2;
 }
 :root:not(.dark) .tool-account {
-  --card-accent: #ae3c79;
-  background: linear-gradient(145deg, #fceaf4, #ffffff);
-  border-color: #edcfe1;
+  --card-accent: #b04470;
+  background: linear-gradient(145deg, #fff0f5, #ffffff);
+  border-color: #efd1df;
 }
 :root:not(.dark) .tool-card:hover {
   border-color: var(--card-accent);
-  box-shadow: 0 18px 45px #47577316;
+  box-shadow: 0 18px 45px #783c5716;
 }
 :root:not(.dark) .tool-icon,
 :root:not(.dark) .tool-card .pill {
   background: #ffffff88;
-  border-color: #53617d25;
+  border-color: #995d7c25;
 }
 :root:not(.dark) .tool-cta {
-  border-color: #53617d20;
+  border-color: #995d7c20;
 }
 :root:not(.dark) .health-panel {
   background: #ffffffb0;
   border-color: var(--color-border);
 }
 :root:not(.dark) .auth-card {
-  box-shadow: 0 25px 90px #47577312;
+  box-shadow: 0 25px 90px #783c5712;
 }
 :root:not(.dark) .binding-card {
-  background: #f7f9fc;
+  background: #fff8fb;
 }
 :root:not(.dark) .binding-icon {
-  background: #dff3eb;
-  border-color: #b5dace;
+  background: #fae2ec;
+  border-color: #edbfd1;
 }
 :root:not(.dark) .binding-icon.pink {
   background: #fae6f1;
@@ -179,25 +179,25 @@
 /* Check-in and character panels. */
 :root:not(.dark) .checkin-banner {
   background:
-    radial-gradient(ellipse at 85% 40%, #c6a5f233, transparent 50%),
-    linear-gradient(120deg, #f0e8fb, #fbf9ff);
-  border-color: #d8c8ec;
+    radial-gradient(ellipse at 85% 40%, #eda8c333, transparent 50%),
+    linear-gradient(120deg, #f9e5ef, #fff9fc);
+  border-color: #ebcada;
 }
 :root:not(.dark) .banner-icon {
-  color: #7953b0;
-  border-color: #cdb8e7;
-  background: #e8ddf5;
+  color: #a54e7b;
+  border-color: #e6b7cc;
+  background: #f7ddea;
 }
 :root:not(.dark) .checkin-banner p {
-  color: #6b5b81;
+  color: var(--muted);
 }
 :root:not(.dark) .banner-star,
 :root:not(.dark) .game-avatar {
-  color: #8861b5;
+  color: var(--pink);
 }
 :root:not(.dark) .game-list li {
-  background: #f5f2fb;
-  border-color: #ded5ec;
+  background: #fbf0f5;
+  border-color: var(--color-border);
 }
 :root:not(.dark) .game-list strong {
   color: var(--color-heading);
@@ -205,52 +205,52 @@
 
 /* Calculator inputs, statistics, and recommendation output. */
 :root:not(.dark) .step-number {
-  border-color: #b7d9cd;
-  background: #e5f5ed;
+  border-color: #edbfd1;
+  background: #fce8f0;
 }
 :root:not(.dark) .selection-heading,
 :root:not(.dark) .selection-empty h3 {
   color: var(--color-text);
 }
 :root:not(.dark) .selection-empty {
-  background: #f4f7fb;
-  border-color: #cbd5e5;
+  background: #fff8fb;
+  border-color: var(--color-border);
 }
 :root:not(.dark) .weapon-attribute-summary-div section {
-  background: #f5f7fb;
-  border-color: #dce3ed;
+  background: #fff8fb;
+  border-color: var(--color-border);
 }
 :root:not(.dark) .weapon-attribute-summary-div h3 > span {
-  color: #7d5cab;
+  color: var(--pink);
 }
 :root:not(.dark) .stat-row {
-  border-color: #dce3ed;
+  border-color: var(--color-border);
 }
 :root:not(.dark) .recommendation {
   background:
-    radial-gradient(ellipse at 90% 0%, #76d7b62b, transparent 55%),
-    linear-gradient(145deg, #e3f4eb, #f5faf8 60%);
-  border-color: #bbdace;
+    radial-gradient(ellipse at 90% 0%, #efa3bf2b, transparent 55%),
+    linear-gradient(145deg, #fbe3ed, #fff8fb 60%);
+  border-color: #eac0d1;
 }
 :root:not(.dark) .map-name {
-  color: #13664d;
+  color: var(--accent);
 }
 :root:not(.dark) .coverage,
 :root:not(.dark) .recommendation-empty p,
 :root:not(.dark) .recommendation-footnote {
-  color: #527264;
+  color: var(--muted);
 }
 :root:not(.dark) .ticket,
 :root:not(.dark) .recommendation-footnote {
-  border-color: #c6dfd3;
+  border-color: #ebc8d8;
 }
 :root:not(.dark) .ticket strong,
 :root:not(.dark) .recommendation-empty h3 {
-  color: #254e3d;
+  color: var(--color-heading);
 }
 :root:not(.dark) .map-visual i {
-  background: linear-gradient(135deg, #9bdcbe88, #d4eadf);
-  border-color: #399d78;
+  background: linear-gradient(135deg, #efa6c288, #f9dce8);
+  border-color: #b94c78;
 }
 :root:not(.dark) .rarity-3 {
   color: #086e9b;
@@ -267,19 +267,19 @@
 
 /* Daylight variants of the richer space treatment. */
 :root:not(.dark) .hero {
-  border-color: #d2cde7;
+  border-color: #ecd0dd;
   background:
-    radial-gradient(ellipse at 90% 15%, #c0a1fa24, transparent 55%),
-    linear-gradient(120deg, #ffffffb3, #effaf788 50%, #f9effb88);
+    radial-gradient(ellipse at 90% 15%, #efa3bf24, transparent 55%),
+    linear-gradient(120deg, #ffffffb3, #fff0f688 50%, #faeaf388);
   box-shadow:
-    0 18px 65px #82659b0b,
+    0 18px 65px #ac64840b,
     inset 0 1px 0 #ffffff;
 }
 :root:not(.dark) .hero-watermark {
-  -webkit-text-stroke-color: #58749a1c;
+  -webkit-text-stroke-color: #aa6a891c;
 }
 :root:not(.dark) .card-index {
-  -webkit-text-stroke-color: #58749a26;
+  -webkit-text-stroke-color: #aa6a8926;
 }
 :root:not(.dark) .tool-card::after {
   background: linear-gradient(90deg, transparent, #ffffff99, transparent);
@@ -291,20 +291,20 @@
   opacity: 0.5;
 }
 :root:not(.dark) .orbit-traveler i {
-  background: #087963;
-  box-shadow: 0 0 8px #37bb9666;
+  background: var(--accent);
+  box-shadow: 0 0 8px #b8476d66;
 }
 :root:not(.dark) .traveler-two i {
-  background: #b9317b;
-  box-shadow: 0 0 8px #b9317b44;
+  background: #96517f;
+  box-shadow: 0 0 8px #96517f44;
 }
 :root:not(.dark) .aurora-ribbon {
   background: linear-gradient(
     120deg,
     transparent 15%,
-    #76f7d014 35%,
-    #a889ff22 52%,
-    #ff78bd14 65%,
+    #f5b9ce24 35%,
+    #e7abc922 52%,
+    #f7b9d414 65%,
     transparent 80%
   );
 }

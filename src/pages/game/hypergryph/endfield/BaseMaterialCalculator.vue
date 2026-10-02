@@ -344,8 +344,8 @@ watch(
   font:
     12px ui-monospace,
     monospace;
-  border: 1px solid #76f7d039;
-  background: #76f7d00b;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
   padding: 5px 6px;
   border-radius: 6px;
 }
@@ -371,7 +371,7 @@ watch(
   display: flex;
   justify-content: space-between;
   gap: 14px;
-  color: #b9c3d6;
+  color: var(--color-text);
   font-size: 12px;
   margin-bottom: 15px;
 }
@@ -389,21 +389,21 @@ watch(
   align-content: start;
 }
 .selection-empty {
-  border: 1px dashed #323b50;
-  background: #080d1744;
+  border: 1px dashed var(--color-border);
+  background: #160f1644;
   border-radius: 12px;
   text-align: center;
   padding: 30px 12px;
 }
 .selection-empty > .el-icon {
   font-size: 31px;
-  color: #64768f;
+  color: var(--muted);
 }
 .selection-empty h3 {
   font-size: 14px;
   font-weight: 500;
   margin: 10px 0 4px;
-  color: #b1bbd0;
+  color: var(--color-text);
 }
 .selection-empty p,
 .server-name-note,
@@ -421,8 +421,8 @@ watch(
   gap: 12px;
 }
 .weapon-attribute-summary-div section {
-  background: #0b101bb3;
-  border: 1px solid #293247;
+  background: #211821b3;
+  border: 1px solid var(--color-border);
   padding: 15px;
   border-radius: 12px;
 }
@@ -431,7 +431,7 @@ watch(
   margin-bottom: 18px;
 }
 .weapon-attribute-summary-div h3 > span {
-  color: #a996dc;
+  color: var(--pink);
   margin-right: 8px;
 }
 .stat-empty {
@@ -459,10 +459,10 @@ watch(
     monospace;
 }
 .recommendation {
-  border: 1px solid #36534f;
+  border: 1px solid #775063;
   background:
-    radial-gradient(ellipse at 90% 0%, #39796a38, transparent 55%),
-    linear-gradient(145deg, #162b29, #101a21 60%);
+    radial-gradient(ellipse at 90% 0%, #b5678b38, transparent 55%),
+    linear-gradient(145deg, #392433, #261b25 60%);
   border-radius: 20px;
   padding: 26px;
   overflow: hidden;
@@ -497,8 +497,8 @@ watch(
   height: 105px;
   left: calc(50% - 52px);
   top: 11px;
-  background: linear-gradient(135deg, #76f7d025, #152b24);
-  border: 1px solid #76f7d077;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 15%, transparent), #522c40);
+  border: 1px solid color-mix(in srgb, var(--accent) 47%, transparent);
   transform: rotateX(60deg) rotateZ(45deg);
 }
 .map-visual i:nth-child(2) {
@@ -515,37 +515,37 @@ watch(
   left: calc(50% - 21px);
   font-size: 42px;
   color: var(--accent);
-  filter: drop-shadow(0 0 15px #76f7d033);
+  filter: drop-shadow(0 0 15px color-mix(in srgb, var(--accent) 20%, transparent));
   animation: drift 5s ease-in-out infinite;
 }
 .map-name {
   margin-top: 8px;
-  color: #b4ffe4;
+  color: #ffd2e4;
   font-size: 25px;
 }
 .coverage {
-  color: #9bbdaf;
+  color: var(--muted);
   margin: 8px 0 20px;
   font-size: 12px;
 }
 .ticket {
   padding: 16px 0;
-  border-top: 1px solid #76f7d021;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 13%, transparent);
 }
 .ticket strong {
   display: block;
   margin-top: 8px;
-  color: #dae9e2;
+  color: var(--color-text);
   font-size: 14px;
   font-weight: 500;
 }
 .recommendation-empty h3 {
   font-size: 16px;
-  color: #c7e6da;
+  color: var(--color-heading);
 }
 .recommendation-empty p {
   margin-top: 10px;
-  color: #94b3a7;
+  color: var(--muted);
   font-size: 12px;
 }
 .recommendation-footnote {
@@ -553,9 +553,9 @@ watch(
   align-items: start;
   gap: 7px;
   margin-top: 22px;
-  border-top: 1px solid #76f7d021;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 13%, transparent);
   padding-top: 18px;
-  color: #8fa99f;
+  color: var(--muted);
   font-size: 10px;
 }
 .recommendation-footnote .el-icon {

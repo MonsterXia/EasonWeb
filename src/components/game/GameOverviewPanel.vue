@@ -5,6 +5,8 @@ import { RefreshRight, Search, Sunny, OfficeBuilding, Collection } from '@elemen
 import type { GameAccount } from '@/common/api/accounts'
 import type { GameOverview, OverviewMetric } from '@/common/api/gameOverview'
 import { gameServerName } from '@/common/gameServers'
+import OperatorAvatar from './OperatorAvatar.vue'
+import { operatorAvatar } from '@/common/operatorAvatars'
 import EmptyState from '@/components/EmptyState.vue'
 const props = defineProps<{
   account: GameAccount
@@ -169,7 +171,7 @@ const progress = (metric: OverviewMetric) =>
         </div>
         <ul v-if="visible.length" class="operator-grid">
           <li v-for="char in visible" :key="char.id">
-            <span class="operator-monogram" aria-hidden="true">{{ char.name.slice(0, 1) }}</span>
+            <OperatorAvatar :name="char.name" :src="operatorAvatar(account.appCode, char.id)" />
             <div>
               <strong>{{ char.name }}</strong>
               <p>
@@ -363,16 +365,6 @@ h4 {
   min-width: 0;
   padding: 12px 0;
   border-bottom: 1px solid var(--color-border);
-}
-.operator-monogram {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 36px;
-  height: 40px;
-  border-radius: 8px;
-  background: var(--color-background-mute);
-  color: var(--muted);
 }
 .operator-grid strong {
   font-size: 13px;

@@ -6,6 +6,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterView } from 'vue-router'
 import Navigator from './components/Navigator.vue'
+import SakuraBlossom from './components/SakuraBlossom.vue'
 const { t, locale } = useI18n()
 const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
 </script>
@@ -16,6 +17,21 @@ const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
       <i /><i />
       <div class="aurora-ribbon" />
       <div class="ambient-stars" />
+      <div class="sakura-garden">
+        <SakuraBlossom class="ambient-blossom blossom-one" />
+        <SakuraBlossom class="ambient-blossom blossom-two" />
+        <i
+          v-for="n in 6"
+          :key="n"
+          class="falling-petal"
+          :style="{
+            '--petal-x': `${(n * 17) % 100}%`,
+            '--petal-y': `${(n * 23) % 90}%`,
+            '--petal-delay': `${n * -4}s`,
+            '--petal-angle': `${n * 37}deg`,
+          }"
+        />
+      </div>
     </div>
     <a class="skip-link" href="#main-content">{{ t('shell.skip') }}</a>
     <Navigator />
@@ -33,6 +49,75 @@ const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
 </template>
 
 <style scoped>
+.sakura-garden {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.ambient-blossom {
+  position: absolute;
+  width: 82px;
+  height: 82px;
+  opacity: 0.2;
+}
+.blossom-one {
+  top: 18%;
+  right: -22px;
+  transform: rotate(18deg);
+}
+.blossom-two {
+  top: 72%;
+  left: -26px;
+  transform: rotate(-24deg);
+}
+.sakura-garden .falling-petal {
+  position: absolute;
+  left: var(--petal-x);
+  top: var(--petal-y);
+  right: auto;
+  width: 10px;
+  height: 17px;
+  border-radius: 80% 12% 75% 25%;
+  background: linear-gradient(
+    145deg,
+    var(--sakura),
+    color-mix(in srgb, var(--accent) 35%, var(--sakura))
+  );
+  opacity: 0.24;
+  animation: petal-fall 26s linear var(--petal-delay) infinite;
+}
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -55px, 0) rotate(var(--petal-angle));
+    opacity: 0;
+  }
+  20%,
+  75% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate3d(38px, 100px, 0) rotate(calc(var(--petal-angle) + 120deg));
+    opacity: 0;
+  }
+}
+@media (max-width: 700px) {
+  .sakura-garden .falling-petal:nth-of-type(n + 4) {
+    display: none;
+  }
+  .ambient-blossom {
+    width: 56px;
+    height: 56px;
+    opacity: 0.15;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sakura-garden .falling-petal {
+    animation: none;
+    opacity: 0.18;
+    transform: rotate(var(--petal-angle));
+  }
+}
+
 .aurora-ribbon {
   position: absolute;
   width: 140%;
@@ -42,7 +127,7 @@ const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
   background: linear-gradient(
     120deg,
     transparent 15%,
-    #76f7d010 35%,
+    #f3abc510 35%,
     #a889ff22 52%,
     #ff78bd12 65%,
     transparent 80%
@@ -57,7 +142,7 @@ const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
   background-image:
     radial-gradient(1px 1px at 17% 23%, #b4c9ff88 98%, transparent),
     radial-gradient(1px 1px at 77% 16%, #ffb1db88 98%, transparent),
-    radial-gradient(1px 1px at 55% 63%, #9ff7d688 98%, transparent),
+    radial-gradient(1px 1px at 55% 63%, #ffd1e188 98%, transparent),
     radial-gradient(1px 1px at 89% 77%, #b4c9ff77 98%, transparent);
   background-size: 450px 390px;
   opacity: 0.5;
@@ -94,7 +179,7 @@ const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
     linear-gradient(90deg, #93a7d104 1px, transparent 1px);
   background-size: 54px 54px;
 }
-.ambient i {
+.ambient > i {
   position: absolute;
   width: 750px;
   height: 750px;
@@ -103,8 +188,8 @@ const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
   top: -250px;
   right: -150px;
 }
-.ambient i + i {
-  background: radial-gradient(circle, #1c806a13, transparent 65%);
+.ambient > i + i {
+  background: radial-gradient(circle, #a74d761a, transparent 65%);
   left: -400px;
   top: 300px;
 }
@@ -121,16 +206,16 @@ const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
   max-width: 1200px;
   margin: 0 auto;
   padding: 25px 0;
-  border-top: 1px solid #242b3c;
+  border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  color: #939eb6;
+  color: var(--muted);
   font-size: 11px;
 }
 .footer-brand {
-  color: #d4dced;
+  color: var(--color-heading);
   letter-spacing: 0.1em;
   font-weight: 700;
 }
@@ -150,7 +235,7 @@ const elementLocale = computed(() => (locale.value === 'en' ? en : zhCn))
   left: 20px;
   z-index: 100;
   background: var(--accent);
-  color: #080b14;
+  color: var(--on-accent);
   padding: 10px;
   border-radius: 8px;
 }
