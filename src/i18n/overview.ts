@@ -129,8 +129,8 @@ export const zhCN = {
   namesNote: '干员和任务名称沿用游戏原始资料。',
   metrics: {
     medals: '蚀刻章',
-    towerLower: '数据增补仪',
-    towerHigher: '数据增补条',
+    towerLower: '数据增补条',
+    towerHigher: '数据增补仪',
     manufacturing: '制造产物',
     restedOperators: '心情已回满',
     recruitAvailable: '可用公招槽位',
@@ -293,8 +293,8 @@ export const en = {
   namesNote: 'Operator and mission names follow the original game records.',
   metrics: {
     medals: 'Medals',
-    towerLower: 'Data Supplement Devices',
-    towerHigher: 'Data Supplement Sticks',
+    towerLower: 'Data Supplement Sticks',
+    towerHigher: 'Data Supplement Devices',
     manufacturing: 'Manufactured products',
     restedOperators: 'Fully rested operators',
     recruitAvailable: 'Available recruitment slots',
