@@ -1,0 +1,16 @@
+/
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/theme.js
+  Cache-Control: no-cache
+/game/*
+  Cache-Control: no-cache
+/user
+  Cache-Control: no-cache
+/login
+  Cache-Control: no-cache
+/register
+  Cache-Control: no-cache
+/reset-password
+  Cache-Control: no-cache

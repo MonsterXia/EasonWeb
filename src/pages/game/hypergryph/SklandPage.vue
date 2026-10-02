@@ -2,6 +2,7 @@
 import { ElCard, ElButton, ElSkeleton, ElAlert } from 'element-plus'
 import { computed, onMounted, onBeforeUnmount, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { sklandCache, roleKey } from '@/common/sklandCache'
 import GameOverviewPanel from '@/components/game/GameOverviewPanel.vue'
 import { gameOverviewAPI, type GameOverview } from '@/common/api/gameOverview'
 import EmptyState from '@/components/EmptyState.vue'
@@ -24,7 +25,6 @@ const user = ref<CurrentUser | null>(null),
   busy = ref(false)
 const games = ref<GameAccount[]>([]),
   results = ref<CheckInResults | null>(null)
-const roleKey = (game: GameAccount) => `${game.appCode}:${game.gameId}:${game.uid}`
 const selected = ref<GameAccount | null>(null)
 const overview = shallowRef<GameOverview | null>(null)
 const detailLoading = ref(false),
@@ -33,12 +33,11 @@ const checkInError = shallowRef<unknown>(null)
 const checkInMessage = computed(() =>
   checkInError.value === null ? '' : apiError(checkInError.value),
 )
-let detailRequest: AbortController | null = null
+let detailVersion = 0
 let accountRequest: AbortController | null = null
 let alive = true
 function cancelDetail() {
-  detailRequest?.abort()
-  detailRequest = null
+  detailVersion++
   detailLoading.value = false
   detailFailed.value = false
   overview.value = null
@@ -47,24 +46,33 @@ function selectRole(game: GameAccount) {
   if (selected.value && roleKey(selected.value) === roleKey(game)) return
   void loadOverview(game)
 }
-async function loadOverview(game = selected.value) {
+async function loadOverview(game = selected.value, force = false) {
   if (!game) return
   cancelDetail()
   selected.value = game
-  const request = new AbortController()
-  detailRequest = request
+  const version = detailVersion
+  const cached = force ? undefined : sklandCache.peekOverview(game)
+  if (cached) {
+    overview.value = cached
+    return
+  }
   detailLoading.value = true
   try {
-    const data = await gameOverviewAPI(game, request.signal)
-    if (!request.signal.aborted && alive) overview.value = data
+    const data = await sklandCache.loadOverview(
+      game,
+      (signal) => gameOverviewAPI(game, signal),
+      force,
+    )
+    if (version === detailVersion && alive) overview.value = data
   } catch {
-    if (!request.signal.aborted && alive) detailFailed.value = true
+    if (version === detailVersion && alive) detailFailed.value = true
   } finally {
-    if (detailRequest === request && alive) detailLoading.value = false
+    if (version === detailVersion && alive) detailLoading.value = false
   }
 }
-async function load() {
+async function load(force = false) {
   if (busy.value || loading.value) return
+  if (force) sklandCache.clear()
   const previous = selected.value && roleKey(selected.value)
   cancelDetail()
   selected.value = null
@@ -77,17 +85,21 @@ async function load() {
   accountRequest = request
   try {
     const current = await getCurrentUserAPI(request.signal)
-    if (request.signal.aborted) return
+    if (request.signal.aborted || !alive) return
+    sklandCache.setUser(current)
     user.value = current
     if (current?.hypergryphAccount) {
-      const accounts = await gameAccountsAPI(request.signal)
-      if (request.signal.aborted) return
+      const accounts = await sklandCache.loadAccounts((signal) => gameAccountsAPI(signal))
+      if (request.signal.aborted || !alive) return
       games.value = accounts
       const next = accounts.find((game) => roleKey(game) === previous) ?? accounts[0]
       if (next) void loadOverview(next)
     }
   } catch (e) {
-    if (!request.signal.aborted) caughtError.value = e
+    if (!request.signal.aborted && alive) {
+      sklandCache.clear()
+      caughtError.value = e
+    }
   } finally {
     if (!request.signal.aborted) loading.value = false
   }
@@ -109,14 +121,15 @@ async function checkIn() {
 onBeforeUnmount(() => {
   alive = false
   accountRequest?.abort()
+  sklandCache.cancelPending()
   cancelDetail()
 })
-onMounted(load)
+onMounted(() => load())
 </script>
 <template>
   <div>
     <PageHeading
-      eyebrow="DAILY QUEST / SKLAND"
+      eyebrow="GAME TOOLS / SKLAND"
       :title="t('game.skland.title')"
       :description="t('game.skland.description')"
       number="02"
@@ -127,7 +140,7 @@ onMounted(load)
         <span>SKLAND</span>
       </div>
       <div v-if="user?.hypergryphAccount" class="actions">
-        <el-button :loading="loading" :disabled="busy || loading" @click="load">{{
+        <el-button :loading="loading" :disabled="busy || loading" @click="load(true)">{{
           t('game.skland.refresh')
         }}</el-button>
         <el-button
@@ -147,7 +160,7 @@ onMounted(load)
           :description="error"
         >
           <template v-if="!user?.hypergryphAccount" #actions>
-            <el-button type="primary" @click="load">{{ t('game.skland.reload') }}</el-button>
+            <el-button type="primary" @click="load(true)">{{ t('game.skland.reload') }}</el-button>
           </template>
         </EmptyState>
         <EmptyState
@@ -233,7 +246,7 @@ onMounted(load)
             :data="overview"
             :loading="detailLoading"
             :failed="detailFailed"
-            @refresh="loadOverview()"
+            @refresh="loadOverview(selected, true)"
           />
         </template>
       </template>

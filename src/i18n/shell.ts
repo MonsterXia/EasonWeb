@@ -5,6 +5,7 @@ export const zhCN = {
   account: '用户中心',
   brandHome: 'Eason 首页',
   navigation: '主导航',
+  navigationFailed: '页面暂时无法打开，请检查网络后刷新重试。',
   skip: '跳至主要内容',
   footer: '为热爱而造 · 让日常多一点好玩',
   theme: '切换主题',
@@ -19,7 +20,7 @@ export const zhCN = {
   language: '切换语言',
   languageCurrent: '切换语言，当前{language}',
   metaTitle: 'Eason Space · 让热爱自由生长',
-  metaDescription: 'Eason 的个人游戏工具空间：终末地基质计算、森空岛签到与账号管理。',
+  metaDescription: 'Eason 的个人游戏工具空间：终末地基质计算、森空岛小工具与账号管理。',
 }
 export const en: Record<keyof typeof zhCN, string> = {
   home: 'Home',
@@ -28,6 +29,7 @@ export const en: Record<keyof typeof zhCN, string> = {
   account: 'My account',
   brandHome: 'Eason home',
   navigation: 'Main navigation',
+  navigationFailed: 'Unable to open this page. Check your connection and reload to try again.',
   skip: 'Skip to main content',
   footer: 'Made for what you love · More play in every day',
   theme: 'Change theme',
@@ -43,5 +45,5 @@ export const en: Record<keyof typeof zhCN, string> = {
   languageCurrent: 'Change language, currently {language}',
   metaTitle: 'Eason Space · Make room for what you love',
   metaDescription:
-    'Eason’s personal gaming space: Endfield essence planning, Skland check-in and account management.',
+    'Eason’s personal gaming space: Endfield essence planning, Skland tools and account management.',
 }

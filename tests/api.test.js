@@ -126,3 +126,33 @@ test('shared API client preserves empty values, explicit request options, and HT
   await assert.rejects(getData('test', undefined, { signal: controller.signal }), error => error.code === 'ERR_CANCELED')
   assert.equal(calls.length, count)
 })
+
+test('identity and binding changes invalidate Skland cache only after successful operations', async () => {
+  const { sklandCache } = await vite.ssrLoadModule('/src/common/sklandCache.ts')
+  const api = await vite.ssrLoadModule('/src/common/api/accounts.ts')
+  const { logoutAPI, getCurrentUserAPI } = await vite.ssrLoadModule('/src/common/api/user.ts')
+  const game = { appCode: 'arknights', gameId: '1', uid: 'fixture', nickName: 'Doctor' }
+  const profile = { id: 1, hypergryphAccount: { phone: 'fixture', updatedAt: 'v1' } }
+  const seed = async () => { sklandCache.setUser(profile); await sklandCache.loadOverview(game, async () => ({ account: game })) }
+  const changes = [
+    () => api.loginAPI('fixture', 'password'),
+    () => api.registerAPI({ username: 'fixture', email: 'user@example.com', password: 'password', registrationCode: '000000' }),
+    () => api.resetPasswordAPI({ username: 'fixture', email: 'user@example.com', password: 'password', code: '000000' }),
+    () => api.bindHypergryphAPI({ phone: 'fixture', method: 'sms', code: '000000' }),
+    () => api.unbindHypergryphAPI(),
+    () => logoutAPI(),
+  ]
+  for (const change of changes) {
+    await seed()
+    request.defaults.adapter = async () => { throw { isAxiosError: true, response: { status: 503 } } }
+    await assert.rejects(change())
+    assert.ok(sklandCache.peekOverview(game))
+    request.defaults.adapter = async config => ({ data: { data: null }, status: 200, statusText: 'OK', headers: {}, config })
+    await change()
+    assert.equal(sklandCache.peekOverview(game), undefined)
+  }
+  await seed()
+  request.defaults.adapter = async () => { throw { isAxiosError: true, response: { status: 401 } } }
+  assert.equal(await getCurrentUserAPI(), null)
+  assert.equal(sklandCache.peekOverview(game), undefined)
+})

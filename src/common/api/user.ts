@@ -1,4 +1,5 @@
 import { isAxiosError } from 'axios'
+import { sklandCache } from '../sklandCache'
 import { getData, postData } from './client'
 export type { ApiResponse } from './client'
 
@@ -30,11 +31,15 @@ export async function getCurrentUserAPI(signal?: AbortSignal): Promise<CurrentUs
     }
     return user
   } catch (error) {
-    if (isAxiosError(error) && [401, 404].includes(error.response?.status ?? 0)) return null
+    if (isAxiosError(error) && [401, 404].includes(error.response?.status ?? 0)) {
+      sklandCache.clear()
+      return null
+    }
     throw error
   }
 }
 
 export async function logoutAPI(): Promise<void> {
   await postData('user/logout')
+  sklandCache.clear()
 }

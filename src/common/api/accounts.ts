@@ -1,4 +1,5 @@
 import { isAxiosError } from 'axios'
+import { invalidateSklandAfter } from '../sklandCache'
 import { i18n, tr } from '../../i18n'
 import gatewayManager from '../gatewayManager/gatewayManager'
 import { getData, postData, ACCOUNT_REQUEST_TIMEOUT } from './client'
@@ -9,13 +10,13 @@ async function post<T = null>(path: string, body?: unknown): Promise<T> {
   return postData<T>(path, body, { timeout: ACCOUNT_REQUEST_TIMEOUT })
 }
 export const loginAPI = (username: string, password: string) =>
-  post('user/login', { username, password })
+  invalidateSklandAfter(post('user/login', { username, password }))
 export const registerAPI = (data: {
   username: string
   email: string
   password: string
   registrationCode: string
-}) => post('user/register', data)
+}) => invalidateSklandAfter(post('user/register', data))
 export const usernameExistsAPI = (username: string) =>
   getData<boolean>(`user/username/${encodeURIComponent(username)}/exist`)
 export const registrationCodeAPI = (email: string) =>
@@ -27,7 +28,7 @@ export const resetPasswordAPI = (data: {
   email: string
   code: string
   password: string
-}) => post('user/password/reset', data)
+}) => invalidateSklandAfter(post('user/password/reset', data))
 export const postLoginAPI = (email: string, password: string) =>
   post('post/admin/login', { email, password })
 export const bindPostAPI = () => post('post/admin/binding')
@@ -38,8 +39,9 @@ export const bindHypergryphAPI = (data: {
   method: 'password' | 'sms'
   password?: string
   code?: string
-}) => post('game/hypergryph/account', data)
-export const unbindHypergryphAPI = () => gateway.delete(url('game/hypergryph/account'))
+}) => invalidateSklandAfter(post('game/hypergryph/account', data))
+export const unbindHypergryphAPI = () =>
+  invalidateSklandAfter(gateway.delete(url('game/hypergryph/account')))
 export interface GameAccount {
   appCode: string
   nickName: string

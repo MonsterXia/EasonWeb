@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Aim, Calendar, User, Connection, RefreshRight } from '@element-plus/icons-vue'
+import { Aim, DataAnalysis, User, Connection, RefreshRight } from '@element-plus/icons-vue'
 import { ElIcon, ElButton, ElAlert } from 'element-plus'
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -112,13 +112,13 @@ async function checkHealth() {
           ><span class="card-index" aria-hidden="true">02</span>
           <div class="card-top">
             <span class="tool-icon"
-              ><el-icon><Calendar /></el-icon></span
+              ><el-icon><DataAnalysis /></el-icon></span
             ><span class="pill">{{ t('home.skland.badge') }}</span>
           </div>
-          <div class="tool-art calendar-art" aria-hidden="true">
+          <div class="tool-art overview-art" aria-hidden="true">
             <div>
-              <span>{{ t('home.skland.dailyQuest') }}</span
-              ><strong>✓</strong><i>{{ t('home.skland.experience') }}</i>
+              <span>{{ t('home.skland.toolLabel') }}</span
+              ><strong><DataAnalysis /></strong><i>{{ t('home.skland.toolDetail') }}</i>
             </div>
             <b>✧</b>
           </div>
@@ -465,7 +465,7 @@ async function checkHealth() {
   letter-spacing: -0.1em;
   text-shadow: 0 2px 12px #4b263b;
 }
-.calendar-art > div {
+.overview-art > div {
   width: 108px;
   height: 100px;
   position: absolute;
@@ -478,7 +478,7 @@ async function checkHealth() {
   box-shadow: 9px 7px 0 #b9a4ff0e;
   text-align: center;
 }
-.calendar-art div > span {
+.overview-art div > span {
   display: block;
   border-bottom: 1px solid #b9a4ff33;
   padding: 7px;
@@ -487,14 +487,19 @@ async function checkHealth() {
     monospace;
   color: #d8c9fa;
 }
-.calendar-art strong {
+.overview-art strong {
   display: block;
   font-size: 44px;
   line-height: 1.4;
   font-weight: 400;
   color: #d9c9ff;
 }
-.calendar-art i {
+.overview-art strong svg {
+  width: 44px;
+  height: 44px;
+  vertical-align: middle;
+}
+.overview-art i {
   position: absolute;
   bottom: 5px;
   right: -32px;
@@ -507,7 +512,7 @@ async function checkHealth() {
   padding: 6px 10px;
   color: #d5bcff;
 }
-.calendar-art b {
+.overview-art b {
   position: absolute;
   top: 8px;
   left: 23%;
@@ -750,10 +755,15 @@ async function checkHealth() {
 .hero-visual {
   position: relative;
   display: grid;
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: 12px;
   min-width: 0;
 }
 .hero-art {
   height: 440px;
+  min-width: 0;
+  min-height: 0;
 }
 .visual-index {
   position: absolute;

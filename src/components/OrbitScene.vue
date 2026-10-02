@@ -10,40 +10,42 @@ const { t } = useI18n()
     <div class="coordinate coordinate-top">
       E / 001 <span>{{ t('home.orbit.explore') }}</span>
     </div>
-    <div class="orbit-glow" />
-    <div class="starfield">
-      <i
-        v-for="n in 18"
-        :key="n"
-        :style="{
-          '--x': `${((n * 37) % 96) + 2}%`,
-          '--y': `${((n * 23) % 86) + 7}%`,
-          '--delay': `${n * -0.7}s`,
-        }"
-      />
-    </div>
-    <div class="orbital-halo" />
-    <div class="orbital-scale" />
-    <div class="orbit-traveler traveler-one"><i /></div>
-    <div class="orbit-traveler traveler-two"><i /></div>
-    <div class="orbit-ring ring-one" />
-    <div class="orbit-ring ring-two" />
-    <div class="orbit-ring ring-three" />
-    <div class="planet">
-      <div class="planet-grid" />
-      <span class="planet-letter">e<span>✦</span></span>
-    </div>
-    <div class="orbital-caption">
-      {{ t('home.orbit.captionFirst') }}<br /><strong>{{ t('home.orbit.captionSecond') }}</strong>
-    </div>
-    <div class="satellite satellite-one"><SakuraBlossom class="orbit-blossom" /></div>
-    <div class="satellite satellite-two"><SakuraBlossom /></div>
-    <div class="floating-label label-one"><span>✧</span> {{ t('home.orbit.create') }}</div>
-    <div class="floating-label label-two">
-      <span class="signal" /> {{ t('home.orbit.curiosity') }}
+    <div class="orbit-stage">
+      <div class="orbit-glow" />
+      <div class="starfield">
+        <i
+          v-for="n in 18"
+          :key="n"
+          :style="{
+            '--x': `${((n * 37) % 96) + 2}%`,
+            '--y': `${((n * 23) % 86) + 7}%`,
+            '--delay': `${n * -0.7}s`,
+          }"
+        />
+      </div>
+      <div class="orbital-halo" />
+      <div class="orbital-scale" />
+      <div class="orbit-traveler traveler-one"><i /></div>
+      <div class="orbit-traveler traveler-two"><i /></div>
+      <div class="orbit-ring ring-one" />
+      <div class="orbit-ring ring-two" />
+      <div class="orbit-ring ring-three" />
+      <div class="planet">
+        <div class="planet-grid" />
+        <span class="planet-letter">e<span>✦</span></span>
+      </div>
+      <div class="orbital-caption">
+        {{ t('home.orbit.captionFirst') }}<br /><strong>{{ t('home.orbit.captionSecond') }}</strong>
+      </div>
+      <div class="satellite satellite-one"><SakuraBlossom class="orbit-blossom" /></div>
+      <div class="satellite satellite-two"><SakuraBlossom /></div>
+      <div class="floating-label label-one"><span>✧</span> {{ t('home.orbit.create') }}</div>
+      <div class="floating-label label-two">
+        <span class="signal" /> {{ t('home.orbit.curiosity') }}
+      </div>
     </div>
     <div class="coordinate coordinate-bottom">
-      {{ t('home.orbit.playground') }} <span>{{ t('home.orbit.possibilities') }}</span>
+      <span>{{ t('home.orbit.playground') }}</span> <span>{{ t('home.orbit.possibilities') }}</span>
     </div>
   </div>
 </template>
@@ -77,8 +79,8 @@ const { t } = useI18n()
 }
 .orbital-halo {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: min(300px, 72cqw, 72cqh);
+  height: min(300px, 72cqw, 72cqh);
   top: 50%;
   left: 50%;
   border-radius: 50%;
@@ -97,8 +99,8 @@ const { t } = useI18n()
 }
 .orbital-scale {
   position: absolute;
-  width: 390px;
-  height: 390px;
+  width: min(390px, 94cqw, 94cqh);
+  height: min(390px, 94cqw, 94cqh);
   top: 50%;
   left: 50%;
   border-radius: 50%;
@@ -109,8 +111,8 @@ const { t } = useI18n()
 }
 .orbit-traveler {
   position: absolute;
-  width: 355px;
-  height: 355px;
+  width: min(355px, 86cqw, 86cqh);
+  height: min(355px, 86cqw, 86cqh);
   left: 50%;
   top: 50%;
   border-radius: 50%;
@@ -130,8 +132,8 @@ const { t } = useI18n()
     0 0 22px #f3abc599;
 }
 .traveler-two {
-  width: 290px;
-  height: 290px;
+  width: min(290px, 70cqw, 70cqh);
+  height: min(290px, 70cqw, 70cqh);
   animation: ring-spin 31s linear infinite reverse;
 }
 .traveler-two i {
@@ -197,9 +199,24 @@ const { t } = useI18n()
 
 .orbit-scene {
   position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  padding-block: 12px;
+  box-sizing: border-box;
   min-height: 400px;
   height: 100%;
+  min-width: 0;
   overflow: hidden;
+}
+/* Keep animated paint separate from captions, including every rotation angle. */
+.orbit-stage {
+  position: relative;
+  container-type: size;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
 }
 .orbit-glow {
   position: absolute;
@@ -208,8 +225,8 @@ const { t } = useI18n()
 }
 .planet {
   position: absolute;
-  width: 226px;
-  height: 226px;
+  width: min(226px, 57cqw, 57cqh);
+  height: min(226px, 57cqw, 57cqh);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) rotate(-15deg);
@@ -233,19 +250,19 @@ const { t } = useI18n()
 }
 .planet-letter {
   position: absolute;
-  top: 4px;
-  left: 57px;
+  top: 2%;
+  left: 25%;
   color: #fff2f8;
   font:
-    italic 180px/1.1 Georgia,
+    italic min(180px, 45cqw, 45cqh)/1.1 Georgia,
     serif;
   text-shadow: 0 8px 20px #4c1e3850;
 }
 .planet-letter span {
-  font-size: 42px;
+  font-size: 0.23em;
   position: absolute;
-  top: 51px;
-  left: 73px;
+  top: 28%;
+  left: 66%;
   color: var(--accent);
 }
 .orbit-ring {
@@ -256,23 +273,23 @@ const { t } = useI18n()
   border: 1px solid #9ca8d133;
 }
 .ring-one {
-  width: 355px;
-  height: 355px;
+  width: min(355px, 86cqw, 86cqh);
+  height: min(355px, 86cqw, 86cqh);
   transform: translate(-50%, -50%);
   border-style: dashed;
   animation: ring-spin 80s linear infinite;
 }
 .ring-two {
-  width: 440px;
-  height: 176px;
+  width: min(440px, 98cqw, 98cqh);
+  height: min(176px, 40cqw, 40cqh);
   transform: translate(-50%, -50%) rotate(-32deg);
   border-color: #f3abc580;
   box-shadow: 0 0 16px #f3abc50b;
   animation: orbit-precess 18s ease-in-out infinite;
 }
 .ring-three {
-  width: 320px;
-  height: 370px;
+  width: min(320px, 77cqw, 77cqh);
+  height: min(370px, 89cqw, 89cqh);
   transform: translate(-50%, -50%) rotate(42deg);
   border-color: #ee92d32e;
 }
@@ -305,6 +322,8 @@ const { t } = useI18n()
     10px ui-monospace,
     monospace;
   letter-spacing: 0.06em;
+  max-width: 85%;
+  box-sizing: border-box;
   animation: drift 7s ease-in-out infinite;
 }
 .label-one {
@@ -332,11 +351,12 @@ const { t } = useI18n()
   box-shadow: 0 0 9px var(--accent);
 }
 .coordinate {
-  position: absolute;
-  left: 0;
-  right: 0;
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   justify-content: space-between;
+  padding-inline: 8px;
   color: var(--muted);
   font:
     8px ui-monospace,
@@ -344,64 +364,29 @@ const { t } = useI18n()
   letter-spacing: 0.1em;
 }
 .coordinate-top {
-  top: 14px;
+  align-self: start;
 }
 .coordinate-bottom {
-  bottom: 8px;
+  align-self: end;
 }
 @media (max-width: 600px) {
-  .orbital-scale {
-    width: 305px;
-    height: 305px;
-  }
   .orbital-halo {
-    width: 240px;
-    height: 240px;
     filter: blur(16px);
   }
-  .orbit-traveler {
-    width: 280px;
-    height: 280px;
-  }
-  .traveler-two {
-    width: 225px;
-    height: 225px;
-  }
-  .starfield i:nth-child(n + 9) {
-    display: none;
-  }
+  .starfield i:nth-child(n + 9),
   .orbital-caption {
     display: none;
   }
   .orbit-scene {
     min-height: 320px;
   }
-  .planet {
-    width: 190px;
-    height: 190px;
-  }
-  .planet-letter {
-    font-size: 150px;
-    left: 46px;
-  }
-  .planet-letter span {
-    top: 40px;
-    left: 60px;
-  }
-  .ring-one {
-    width: 280px;
-    height: 280px;
-  }
-  .ring-two {
-    width: 335px;
-  }
-  .ring-three {
-    width: 260px;
-    height: 300px;
-  }
   .floating-label {
     font-size: 8px;
     padding: 8px;
+  }
+  .orbit-blossom {
+    width: 42px;
+    height: 42px;
   }
 }
 </style>

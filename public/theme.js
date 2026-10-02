@@ -20,7 +20,7 @@
     document.documentElement.dataset.themePreference = preference
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', dark ? '#080b14' : '#f5f7fc')
+      ?.setAttribute('content', dark ? '#160f16' : '#fff7fa')
     window.dispatchEvent(new CustomEvent('eason-theme-change'))
   }
 
@@ -42,8 +42,15 @@
 
   preference = readPreference()
   apply()
-  media.addEventListener('change', () => {
+  function syncSystemTheme() {
     if (preference === 'system') apply()
+  }
+  media.addEventListener('change', syncSystemTheme)
+  // Webviews and suspended tabs may miss the media change notification.
+  window.addEventListener('focus', syncSystemTheme)
+  window.addEventListener('pageshow', syncSystemTheme)
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') syncSystemTheme()
   })
   window.addEventListener('storage', (event) => {
     if (event.key !== key && event.key !== null) return

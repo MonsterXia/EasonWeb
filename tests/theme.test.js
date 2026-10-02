@@ -41,13 +41,19 @@ function boot({ saved = null, systemDark = false, blocked = false } = {}) {
     addEventListener: (event, handler) => events.set(event, handler),
     dispatchEvent() {},
   }
+  const document = {
+    documentElement: root,
+    querySelector: () => meta,
+    visibilityState: 'visible',
+    addEventListener: (event, handler) => events.set(event, handler),
+  }
   runInNewContext(source, {
     window,
-    document: { documentElement: root, querySelector: () => meta },
+    document,
     localStorage: storage,
     CustomEvent: class {},
   })
-  return { theme: window.EasonTheme, media, root, meta, storage, events }
+  return { theme: window.EasonTheme, media, root, meta, storage, events, document }
 }
 
 test('first paint follows the system when no valid preference is stored', () => {
@@ -56,7 +62,7 @@ test('first paint follows the system when no valid preference is stored', () => 
       const { root, theme, meta } = boot({ saved, systemDark })
       assert.equal(root.dark, systemDark)
       assert.equal(theme.preference, 'system')
-      assert.equal(meta.color, systemDark ? '#080b14' : '#f5f7fc')
+      assert.equal(meta.color, systemDark ? '#160f16' : '#fff7fa')
     }
   }
 })
@@ -100,4 +106,16 @@ test('theme changes and storage clearing synchronize across tabs', () => {
   storage.value = null
   events.get('storage')({ key: null })
   assert.equal(theme.preference, 'system')
+})
+
+test('resynchronizes system theme after a suspended page returns without a media change event', () => {
+  for (const event of ['focus', 'pageshow', 'visibilitychange']) {
+    const { theme, root, media, events } = boot({ saved: 'system', systemDark: false })
+    media.matches = true
+    events.get(event)()
+    assert.equal(root.dark, true)
+    theme.setPreference('light')
+    events.get(event)()
+    assert.equal(root.dark, false)
+  }
 })
