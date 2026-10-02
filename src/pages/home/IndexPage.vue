@@ -747,7 +747,10 @@ async function checkHealth() {
 }
 .hero-visual {
   position: relative;
+  display: grid;
   min-width: 0;
+}
+.hero-art {
   height: 440px;
 }
 .visual-index {
@@ -771,9 +774,8 @@ async function checkHealth() {
   margin-top: 4px;
 }
 .visual-sticker {
-  position: absolute;
-  bottom: 1%;
-  right: 6%;
+  justify-self: end;
+  margin: 16px 6% 8px 0;
   border-radius: 5px;
   padding: 7px 12px;
   background: #ffd6e5;
@@ -872,7 +874,7 @@ async function checkHealth() {
     margin: 0 0 24px;
     padding: 24px 18px 32px;
   }
-  .hero-visual {
+  .hero-art {
     height: 350px;
   }
   .hero-watermark {
@@ -882,9 +884,6 @@ async function checkHealth() {
   }
   .visual-index {
     display: none;
-  }
-  .visual-sticker {
-    bottom: -5px;
   }
   .card-index {
     font-size: 55px;
