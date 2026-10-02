@@ -6,7 +6,11 @@
     "additionalCharacterIds": [
       "char_1001_amiya2",
       "char_1037_amiya3"
-    ]
+    ],
+    "defaultSkins": {
+      "char_1001_amiya2": "char_1001_amiya2#2",
+      "char_1037_amiya3": "char_1037_amiya3#2"
+    }
   },
   "endfield": {
     "repository": "555me/EndfieldAssets",

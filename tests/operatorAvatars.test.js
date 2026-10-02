@@ -38,7 +38,10 @@ test('every catalog entry resolves to an official CDN link or a bundled PNG', ()
   for (const [id, url] of Object.entries(catalog.arknights)) {
     const parsed = new URL(url)
     assert.equal(parsed.origin, 'https://web.hycdn.cn')
-    assert.equal(decodeURIComponent(parsed.pathname.split('/').at(-1)), `${id}#1.png`)
+    assert.equal(
+      decodeURIComponent(parsed.pathname.split('/').at(-1)),
+      `${id}#${['char_1001_amiya2', 'char_1037_amiya3'].includes(id) ? 2 : 1}.png`,
+    )
   }
   for (const [id, file] of Object.entries(catalog.endfield)) {
     const gameId = file.replace(/\.png$/, '')
@@ -75,7 +78,7 @@ test('Amiya class changes keep their own portraits despite upstream non-obtainab
   for (const id of ['char_1001_amiya2', 'char_1037_amiya3']) {
     assert.equal(
       operatorAvatar('arknights', id),
-      `https://web.hycdn.cn/arknights/game/assets/char_skin/portrait/${id}%231.png`,
+      `https://web.hycdn.cn/arknights/game/assets/char_skin/portrait/${id}%232.png`,
     )
   }
 })

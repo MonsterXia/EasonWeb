@@ -29,7 +29,7 @@ for (const id of Object.keys(characters).sort()) {
   )
     continue
   catalog.arknights[id] =
-    `https://web.hycdn.cn/arknights/game/assets/char_skin/portrait/${encodeURIComponent(`${id}#1`)}.png`
+    `https://web.hycdn.cn/arknights/game/assets/char_skin/portrait/${encodeURIComponent(ark.defaultSkins?.[id] ?? `${id}#1`)}.png`
 }
 const icons = tree.tree
   .filter(
