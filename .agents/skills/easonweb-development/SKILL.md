@@ -76,7 +76,7 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 - `GameOverview` 是后端整理后的展示契约。`updatedAt` 表示上游游戏记录时间，`fetchedAt` 表示本次读取时间，均为秒；界面解释记录有延迟，不自动推算实时理智或把读取时间冒充同步时间。
 - 数字 `0` 是有效值，`null` 显示缺失状态；进度条仅在当前值存在、上限大于 0 时展示。允许理智超上限，文字保留真实值，进度条最多填满。
 - 角色概览按日常、基建、收藏和干员档案分组；终末地 `profile.level` 显示权限等阶，`worldLevel` 显示探索等级。干员与任务名称保留游戏原文，其余词条与日期格式同步中英文。
-- 干员头像等公共静态资源优先随前端仓库发布：`src/assets/game-avatars/catalog.json` 缓存明日方舟官方 CDN 链接，`endfield/` 内置终末地图像，`src/common/operatorAvatars.ts` 按游戏和干员 ID 查找。不得每次向 CommonServerAPI 获取头像链接或代理图片；资源来源、固定版本与显式同步命令见 [资源说明](../../../src/assets/game-avatars/README.md)。新增资源不应混入账号私有数据。
+- 干员头像等公共静态资源优先随前端仓库发布：`src/assets/game-avatars/catalog.json` 缓存明日方舟官方 CDN 链接，`endfield/` 内置终末地图像，`src/common/operatorAvatars.ts` 按游戏和干员 ID 查找。终末地森空岛 ID 是原始 `chr_...` 的 MD5，目录在同步时预生成两种键，禁止按名称猜图或在运行时请求转换服务。共用管理员 ID 使用 `profile.endministratorGender`（游戏内形象）从 `endfieldVariants` 选图；未知不猜测，图片始终来自前端静态文件。不得每次向 CommonServerAPI 获取头像链接或代理图片；资源来源、固定版本与显式同步命令见 [资源说明](../../../src/assets/game-avatars/README.md)。新增资源不应混入账号私有数据。
 - `OperatorAvatar.vue` 固定图片占位、懒加载，并在缺失或加载失败时显示文字兜底；更换 URL 后重置失败状态。不得以首字母头像替代已有可用图像。静态链接/图片更新经过审查后随前端发布，不在运行时自动同步。
 - 上游字段与来源见 CommonServerAPI 的项目 skill；不要从签到响应推导资源或伪造资料。浏览器验证至少包含角色切换的响应竞态、缺失值、局部失败恢复及刷新时工具栏可见。
 

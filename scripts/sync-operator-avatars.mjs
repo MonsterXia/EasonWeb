@@ -21,7 +21,7 @@ const tree = await (
 ).json()
 if (tree.truncated || !Array.isArray(tree.tree))
   throw new Error('Incomplete Endfield resource tree')
-const catalog = { arknights: {}, endfield: {} }
+const catalog = { arknights: {}, endfield: {}, endfieldVariants: {} }
 for (const id of Object.keys(characters).sort()) {
   if (!/^char_\d+_[a-z0-9]+$/.test(id) || characters[id].isNotObtainable) continue
   catalog.arknights[id] =
@@ -61,6 +61,18 @@ for (const entry of icons) {
     throw new Error(`Invalid image: ${id}`)
   await writeFile(file, bytes)
   catalog.endfield[id] = `${id}.png`
+  // Skland card IDs are MD5 hashes of the public game character IDs.
+  catalog.endfield[createHash('md5').update(id).digest('hex')] = `${id}.png`
+}
+for (const [id, variants] of Object.entries(end.variants ?? {})) {
+  const files = Object.fromEntries(
+    Object.entries(variants).map(([gender, charId]) => {
+      if (!catalog.endfield[charId]) throw new Error(`Missing appearance resource: ${charId}`)
+      return [gender, catalog.endfield[charId]]
+    }),
+  )
+  catalog.endfieldVariants[id] = files
+  catalog.endfieldVariants[createHash('md5').update(id).digest('hex')] = files
 }
 await writeFile(
   new URL('../src/assets/game-avatars/catalog.json', import.meta.url),

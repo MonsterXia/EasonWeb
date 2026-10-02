@@ -19,6 +19,7 @@ export interface GameOverview {
     registeredAt: number | null
     lastOnlineAt: number | null
     mainProgress: string | null
+    endministratorGender?: 'male' | 'female' | null
   }
   metrics: OverviewMetric[]
   operators: { id: string; name: string; level: number | null; phase: number | null }[] | null
