@@ -8,6 +8,21 @@ const { request } = await vite.ssrLoadModule('/src/common/gatewayManager/axiosCl
 const { default: Gateway } = await vite.ssrLoadModule('/src/common/gatewayManager/gatewayManager.ts')
 const { basicCheckAPI } = await vite.ssrLoadModule('/src/common/api/basic.ts')
 
+test('game accounts prioritize Arknights, preserve within-game order and never mutate cached lists', async () => {
+  const { sortGameAccounts } = await vite.ssrLoadModule('/src/common/gameAccountOrder.ts')
+  const accounts = [
+    { appCode: 'endfield', uid: 'ef1' },
+    { appCode: 'other', uid: 'other' },
+    { appCode: 'arknights', uid: 'ak2' },
+    { appCode: 'arknights', uid: 'ak1' },
+    { appCode: 'endfield', uid: 'ef2' },
+  ]
+  const original = structuredClone(accounts)
+  assert.deepEqual(sortGameAccounts(accounts).map(role => role.uid), ['ak2', 'ak1', 'ef1', 'ef2', 'other'])
+  assert.deepEqual(accounts, original)
+  assert.deepEqual(sortGameAccounts([]), [])
+})
+
 test('gateway includes cookie credentials and a bounded request timeout', async () => {
   let sent
   request.defaults.adapter = async config => {

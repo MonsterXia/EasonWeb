@@ -9,6 +9,7 @@ import EmptyState from '@/components/EmptyState.vue'
 import { ArrowRight } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'
 import { gameServerName } from '@/common/gameServers'
+import { sortGameAccounts } from '@/common/gameAccountOrder'
 import { getCurrentUserAPI, type CurrentUser } from '@/common/api/user'
 import {
   apiError,
@@ -91,8 +92,8 @@ async function load(force = false) {
     if (current?.hypergryphAccount) {
       const accounts = await sklandCache.loadAccounts((signal) => gameAccountsAPI(signal))
       if (request.signal.aborted || !alive) return
-      games.value = accounts
-      const next = accounts.find((game) => roleKey(game) === previous) ?? accounts[0]
+      games.value = sortGameAccounts(accounts)
+      const next = games.value.find((game) => roleKey(game) === previous) ?? games.value[0]
       if (next) void loadOverview(next)
     }
   } catch (e) {
