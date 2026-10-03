@@ -8,12 +8,35 @@ const files = import.meta.glob<string>('../assets/skland/*.png', {
 })
 export type OverviewArt = {
   src: string
-  surface: 'dark' | 'light'
+  tone: 'light-ink' | 'dark-ink' | 'color'
   kind: 'icon' | 'map' | 'landscape'
 }
+// Only neutral UI symbols may invert. Medal tiers, room colors and map artwork
+// carry game semantics and must keep their original colors.
+const colorIcons = new Set([
+  'ak-logoBase',
+  'ef-control',
+  'ef-manufacture',
+  'ef-plant',
+  'ef-reception',
+  'ef-medalLevel1',
+  'ef-medalLevel2',
+  'ef-medalLevel3',
+])
 const art = (key: string, kind: OverviewArt['kind'] = 'icon'): OverviewArt | undefined => {
   const src = files[`../assets/skland/${key}.png`]
-  return src ? { src, kind, surface: key.startsWith('ak-') ? 'dark' : 'light' } : undefined
+  return src
+    ? {
+        src,
+        kind,
+        tone:
+          kind !== 'icon' || colorIcons.has(key)
+            ? 'color'
+            : key.startsWith('ak-')
+              ? 'light-ink'
+              : 'dark-ink',
+      }
+    : undefined
 }
 const akMetrics: Record<string, string> = {
   stamina: 'icon-ap',

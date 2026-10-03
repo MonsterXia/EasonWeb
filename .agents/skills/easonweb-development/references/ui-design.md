@@ -33,6 +33,7 @@
 - 樱花元素使用 `SakuraBlossom.vue` 的五瓣花形，复用于品牌角标、首页标题和轨道卫星；全局背景最多两朵淡花与六片稀疏花瓣（移动端三片）。装饰不挡内容、不截获点击，并设 `aria-hidden`；花瓣只用 transform/opacity 缓慢运动，尊重 `prefers-reduced-motion`。工具页不在数据卡片中重复堆花。
 - Element Plus 主色各交互态与全站令牌一致，检查 hover、active、disabled、focus 和 loading；禁用时保留按钮位置与内容。
 - 成功保持绿色、警告保持琥珀色、错误保持危险色；稀有度沿用游戏语义色。不要将所有反馈染成粉色，也不要修改游戏头像、鹰角官方黑白品牌图。
+- 森空岛图片底板跟随 `--color-background-mute`，不按游戏固定黑底/白底。`overviewAssets.ts` 明确区分单色浅墨、深墨和彩色素材；`OverviewArtwork.vue` 只对单色 UI 图标反色并按主题混合，彩色设施、勋章、地图保留原色，禁止对整组图片统一 invert。检查图片自带的半透明底色在两种主题下是否形成突兀色块。
 - 优先使用语义变量及 `color-mix()`，原有插画可保留成组的明暗色阶；禁止在业务组件重新引入薄荷绿主色。
 
 ## 首页动画边界

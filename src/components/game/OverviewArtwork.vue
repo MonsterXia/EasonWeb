@@ -14,7 +14,7 @@ watch(
   <span
     v-if="art && !failed"
     class="overview-artwork"
-    :class="[art.surface, art.kind]"
+    :class="[art.tone, art.kind]"
     aria-hidden="true"
   >
     <img
@@ -39,13 +39,29 @@ watch(
   overflow: hidden;
   border-radius: 12px;
 }
-/* Original official icons include white/black artwork and baked-in translucency.
-   Keep their original pixels on a stable contrasting surface in either site theme. */
-.dark {
-  background: #302e33;
+/* Blend neutral icon pixels into the semantic surface, including the translucent
+   white pixels baked into Endfield daily icons. Colored artwork is never inverted. */
+.overview-artwork {
+  background: var(--color-background-mute);
+  isolation: isolate;
 }
-.light {
-  background: #eeeded;
+.light-ink img {
+  filter: invert(1);
+  mix-blend-mode: multiply;
+}
+.dark-ink img {
+  mix-blend-mode: multiply;
+}
+html.dark .light-ink img {
+  filter: none;
+  mix-blend-mode: screen;
+}
+html.dark .dark-ink img {
+  filter: invert(1);
+  mix-blend-mode: screen;
+}
+.color.icon {
+  background: color-mix(in srgb, #a79ca5 30%, var(--color-background-mute));
 }
 img {
   display: block;
@@ -63,8 +79,12 @@ img {
   border-radius: 8px;
 }
 .landscape img {
+  mix-blend-mode: multiply;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+html.dark .landscape img {
+  mix-blend-mode: soft-light;
 }
 </style>

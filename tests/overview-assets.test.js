@@ -64,3 +64,28 @@ test('game and facility artwork use stable identifiers, never names or remote re
   )
   assert.equal(sectionArt('unknown'), undefined)
 })
+
+test('theme image filters stay scoped to artwork rather than the document root', async () => {
+  const { parse, compileStyle } = await import('vue/compiler-sfc')
+  const source = await readFile(
+    new URL('../src/components/game/OverviewArtwork.vue', import.meta.url),
+    'utf8',
+  )
+  const { descriptor } = parse(source)
+  const result = compileStyle({
+    source: descriptor.styles[0].content,
+    filename: 'OverviewArtwork.vue',
+    id: 'data-v-artwork',
+    scoped: true,
+  })
+  assert.deepEqual(result.errors, [])
+  // Vue :global() can discard a trailing descendant selector, accidentally applying
+  // invert/blend to the entire page. Verify the actual compiled selector boundary.
+  assert.doesNotMatch(result.code, /(?:^|\})\s*html\.dark\s*\{/)
+  for (const rule of result.code.split('}')) {
+    if (!rule.includes('filter:') && !rule.includes('mix-blend-mode:')) continue
+    assert.match(rule.split('{')[0], /img\[data-v-artwork\]/)
+  }
+  assert.equal(metricArt('endfield', 'medalLevel3').tone, 'color')
+  assert.equal(metricArt('endfield', 'cnsLevel').tone, 'color')
+})
