@@ -1,0 +1,418 @@
+{
+  "ak-char": {
+    "file": "ak-char.png",
+    "sha256": "8e23ca2ff53b6cf6d7ef050de77c51557a63eb25cf1c6627b06c267817ce071e",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/char.ed2cab.png"
+  },
+  "ak-furniture": {
+    "file": "ak-furniture.png",
+    "sha256": "721805b3c1e150f3eb9e2d60adf4ea44e53afb94524a6cbb50848e70b3e9626c",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/furniture.0326b6.png"
+  },
+  "ak-icon-ap": {
+    "file": "ak-icon-ap.png",
+    "sha256": "db13924ab2bd2468c45f9c54766c136bf7395e6a5a5b5a82604da239c3ddc022",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-ap.6ad9e0.png",
+    "sourceSha256": "55ca0e0e0cc5f66195fe271771023d82e1b4577b1b7f1e40c5905e0aaa69057d",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-campaignReward": {
+    "file": "ak-icon-campaignReward.png",
+    "sha256": "72094727556831b3d8113b88585ed408e38ae0928a8f3e55da45b4eabd572fd6",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-campaignReward.276f2e.png",
+    "sourceSha256": "ed8641e514f04b12211f3047d0bc2eb91438dd3af0a69fd16f3090fe11ff6be7",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-dormitory": {
+    "file": "ak-icon-dormitory.png",
+    "sha256": "b9265cb37c8ab9db8c67c5964731716ffdbcb42d32d50b0e7ccb8ed7261ebfa9",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-dormitory.60e261.png",
+    "sourceSha256": "3265f9a63f98d3f35350d66a290fd5eb6e8b842fed5d4c01f8d4ffb6975f5774",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-hire": {
+    "file": "ak-icon-hire.png",
+    "sha256": "8759a67e845b58236b35ff8a15ff029728fcd8929785700b986f12ea2ff4a9b0",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-hire.a9c7fc.png",
+    "sourceSha256": "19973d394929067a45123e2c6fa45582e0108e69fd381c3259f99a3e79ee5036",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-labor": {
+    "file": "ak-icon-labor.png",
+    "sha256": "ecb9837d076a9cea208f6710b592064542a9328c42091540ed65d93576bc8c9a",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-labor.8e8e5d.png",
+    "sourceSha256": "31f78cb82a1b4c99db52c53b6d34a140831c00e89095ed46d6a261d5a3de6ccc",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-manufacture": {
+    "file": "ak-icon-manufacture.png",
+    "sha256": "2d9d019c68a93491a2e5bb4a41e45877e4b45cd5b9a9d3b0a1727fdd8ec08ecd",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-manufacture.b8a70d.png",
+    "sourceSha256": "47e8ea354afaf909015de025113c7f3d3a20f096e2c29ee769b3523afe0957b0",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-meeting": {
+    "file": "ak-icon-meeting.png",
+    "sha256": "f170033984cc95664ea86571e765a5bce36e9ee83cdafb23aba623e69cbe149d",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-meeting.1e8527.png",
+    "sourceSha256": "d990c4e44ef003c2e44649c44ade1db81750df4872d6cf918bd3b58f35193259",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-recruit": {
+    "file": "ak-icon-recruit.png",
+    "sha256": "0bcfa6b482bef3cbb54b00405bd566fe46edca7850a59f8ddcaa203d8a05cdb3",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-recruit.7fa2eb.png",
+    "sourceSha256": "90c33c735e1670ec7d975145166f218596e52f6185117b1769863aaa965ead91",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-routineDaily": {
+    "file": "ak-icon-routineDaily.png",
+    "sha256": "f28d873d7f3e3ecd07cdafc248aee363535e70752d25d9802d3778adc8aceb81",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-routineDaily.3ebc5d.png",
+    "sourceSha256": "a7f8388f7392da1820d9c237148949ad434fb5dde3a220617ff09125438105bc",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-routineWeekly": {
+    "file": "ak-icon-routineWeekly.png",
+    "sha256": "3cf22ad470578f90259ef63137af958d523cf2ecb3953c0f791f3623fe052e5f",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-routineWeekly.d19057.png",
+    "sourceSha256": "6374ff5209a34419ea579e8f5b16d625d502f428342e1cdb11bb0261b17ca527",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-tiredChars": {
+    "file": "ak-icon-tiredChars.png",
+    "sha256": "6021aa970879f3149021e0a69605e3f6ffdc21414eeaa5fcd2e580eb151caa6c",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-tiredChars.429e3d.png",
+    "sourceSha256": "6a81e5fc633e86aabcd0ffca6ac8cb4410d27b78f529f0169f4280b425a24b8a",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-towerRewardHigher": {
+    "file": "ak-icon-towerRewardHigher.png",
+    "sha256": "3476cb4b13ab0827661374da5163bb0571dd3d21c59dfc0972e684ac740b08db",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-towerRewardHigher.87fdd0.png",
+    "sourceSha256": "ebdaddf774f56e46898804d9c821bc62de5d1958fcc45df251b73681a446eacc",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-towerRewardLower": {
+    "file": "ak-icon-towerRewardLower.png",
+    "sha256": "3476cb4b13ab0827661374da5163bb0571dd3d21c59dfc0972e684ac740b08db",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-towerRewardLower.87fdd0.png",
+    "sourceSha256": "ebdaddf774f56e46898804d9c821bc62de5d1958fcc45df251b73681a446eacc",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-trading": {
+    "file": "ak-icon-trading.png",
+    "sha256": "31fa1d11fa84833408d4985727de5c7ff17f3425023f9023c9aa3132a384e426",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-trading.5dfbe3.png",
+    "sourceSha256": "f3c59d1b6ae422be336510907bd0542f840625ab2cff048f83f13b8d79be0de7",
+    "transform": "palette-alpha-230"
+  },
+  "ak-icon-training": {
+    "file": "ak-icon-training.png",
+    "sha256": "fe30a2f76810bd53c60298e1a86f9604f1402c53ca7a95970ffb9bc1fd479160",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/icon-training.94499c.png",
+    "sourceSha256": "6172ea79f27d8748be35bdf5f6d2a9346d77a831833e4675b12df01c388acf2b",
+    "transform": "palette-alpha-230"
+  },
+  "ak-logoBase": {
+    "file": "ak-logoBase.png",
+    "sha256": "b7f1e6249ffe44a0cd4c7d52e6caf2845a2bec93f571df3f18f7dd3d8671b583",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/logoBase.dc4f57.png"
+  },
+  "ak-logoExplore": {
+    "file": "ak-logoExplore.png",
+    "sha256": "e3c1b6ea8125a909cdfd504b73bb6d56a956338152a6baa35cb8c5af392bdf35",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/logoExplore.628d3b.png"
+  },
+  "ak-logoRecord": {
+    "file": "ak-logoRecord.png",
+    "sha256": "40259dec93760183d317ca59f562999d1c42f810e47d1012d8d34041251b8468",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/logoRecord.a80591.png"
+  },
+  "ak-medal": {
+    "file": "ak-medal.png",
+    "sha256": "26bf21eb0e02d87164cd7df86d73c51959c8383661d00c8083652d4a3ca44a47",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/medal.f76e7a.png"
+  },
+  "ak-skin": {
+    "file": "ak-skin.png",
+    "sha256": "d037486e014620b0a3bef0c72ec934da50b2dc3adc3e2baabcfb530872b8ab10",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/skin.6c05e9.png"
+  },
+  "ef-achievements": {
+    "file": "ef-achievements.png",
+    "sha256": "0fd6da3802edffe3796cfa925c5dfc1cd2994de3796d02c8b868f317159e720e",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Sn"
+  },
+  "ef-activity": {
+    "file": "ef-activity.png",
+    "sha256": "966d9e1be27cbe3d0c440c35c9fc6ff3883c36b057534d84e2cdc8aabf7b43e1",
+    "module": "https://assets.skland.com/_static_assets/game-tools/realtime-detail-Y11qUxi1.js",
+    "moduleSha256": "cbfcfeafef12ae9f36b8c2a14734b834f3808ef0f447ef9ad3fc52430106c0ce",
+    "variable": "C"
+  },
+  "ef-battlePass": {
+    "file": "ef-battlePass.png",
+    "sha256": "e4a02d4e183e5ee7a95d34b394590f12fc4a588e1595beac081b0a3365a06d66",
+    "module": "https://assets.skland.com/_static_assets/game-tools/realtime-detail-Y11qUxi1.js",
+    "moduleSha256": "cbfcfeafef12ae9f36b8c2a14734b834f3808ef0f447ef9ad3fc52430106c0ce",
+    "variable": "S"
+  },
+  "ef-blackboxes": {
+    "file": "ef-blackboxes.png",
+    "sha256": "a8a0acc7e3400d12822dff2e8c56649a308715f3ea90061dd5e19c15ce6b05d5",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "u"
+  },
+  "ef-chests": {
+    "file": "ef-chests.png",
+    "sha256": "b7b3aee5ca8682f717af6e81a80cccd9349548514037a485fa4738474fcae7eb",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "m"
+  },
+  "ef-control": {
+    "file": "ef-control.png",
+    "sha256": "5cd86091a52a12f09cc605e31250531ab9924e1769da1b99798abbbb47f882a0",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "_c"
+  },
+  "ef-domain_1": {
+    "file": "ef-domain_1.png",
+    "sha256": "21d08203b84dfe82d0a87424bcfb38fbb0eccb45b610e1709618bdc6b83ebf0b",
+    "module": "https://assets.skland.com/_static_assets/game-tools/gamedata-CqFQyFZA.js",
+    "moduleSha256": "c60478208481d4eb58196246a7f3b9ad10147fa4eccf2d038bb28c01798e0bf1",
+    "variable": "a"
+  },
+  "ef-domain_2": {
+    "file": "ef-domain_2.png",
+    "sha256": "6aed27970c1fe06bf6694a265f1143ee43abf5fa4571142a22470ec77290186d",
+    "module": "https://assets.skland.com/_static_assets/game-tools/gamedata-CqFQyFZA.js",
+    "moduleSha256": "c60478208481d4eb58196246a7f3b9ad10147fa4eccf2d038bb28c01798e0bf1",
+    "variable": "o"
+  },
+  "ef-equipChests": {
+    "file": "ef-equipChests.png",
+    "sha256": "bc62f38b6d827d737b32e0462ada5733a6cafe62cb570671737e43a8fcf1bc9b",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "d"
+  },
+  "ef-ether": {
+    "file": "ef-ether.png",
+    "sha256": "46028be6849780c0cdb7adb27c7e1686128d8e4997b032d8c13c809678336d81",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "p"
+  },
+  "ef-indie_dg016": {
+    "file": "ef-indie_dg016.png",
+    "sha256": "4997807cb5bec565d33f3687b97bd3f69d09ef3fc9accf56c39c3a2698b46452",
+    "url": "https://assets.skland.com/_static_assets/game-tools/indie_dg016-D6fVQI6a.png"
+  },
+  "ef-manufacture": {
+    "file": "ef-manufacture.png",
+    "sha256": "f1cefec7edcf8fbdec61b50f005ed670d297a3dae447202877810e98acaae99b",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "vc"
+  },
+  "ef-map01_lv001": {
+    "file": "ef-map01_lv001.png",
+    "sha256": "14439582f725efc56fcea55bfa6cecad0ceeecab62faf2a72900b32cd6c8919b",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "_"
+  },
+  "ef-map01_lv002": {
+    "file": "ef-map01_lv002.png",
+    "sha256": "59f8deb08dad5495af453f9840d1960f9b7e09a2127ba82770e88665294c43b8",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "v"
+  },
+  "ef-map01_lv003": {
+    "file": "ef-map01_lv003.png",
+    "sha256": "5c74b0d9f4323886c9eae134685544353baa679f61e38f7f1d80fe74cd957718",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "y"
+  },
+  "ef-map01_lv005": {
+    "file": "ef-map01_lv005.png",
+    "sha256": "b7236315e3b5369c08045e984f3bbbe44e8fdc74cc281c8495b42b1daf7a3ee2",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "b"
+  },
+  "ef-map01_lv006": {
+    "file": "ef-map01_lv006.png",
+    "sha256": "f46b39a31fbdc36fc47e1612611eaf2527269bbffabaa663c83e89ce133d1c40",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "x"
+  },
+  "ef-map01_lv007": {
+    "file": "ef-map01_lv007.png",
+    "sha256": "cf565212b30d59767efdcbc8633fa4f6c5db121ee23154df1803e69826108247",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "S"
+  },
+  "ef-map02_lv001": {
+    "file": "ef-map02_lv001.png",
+    "sha256": "2b95773a8b995e41a0c42d77d4cd94f06fab8c3b9424d703688b38bc3cad3a74",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "C"
+  },
+  "ef-map02_lv002": {
+    "file": "ef-map02_lv002.png",
+    "sha256": "23b9dc618389253e52ae6078d5d51e73ea8591126c702e22d09b27a36b16338a",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "w"
+  },
+  "ef-map02_lv003": {
+    "file": "ef-map02_lv003.png",
+    "sha256": "269194ddbef789af5704f77f9803eee8aa6cd2bba7b4f1a527f79141d1977c28",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "T"
+  },
+  "ef-map02_lv004": {
+    "file": "ef-map02_lv004.png",
+    "sha256": "bdd77602ffb40fb0a777ed1d48ae54c79f392c5ce77444a1fa3bcd6216bc1fc4",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "E"
+  },
+  "ef-map02_lv005": {
+    "file": "ef-map02_lv005.png",
+    "sha256": "a35f760cf28131a507df017d432b89a059111b4cf15fa78898645a57bfb269b7",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "property": "map02_lv005"
+  },
+  "ef-map02_lv006": {
+    "file": "ef-map02_lv006.png",
+    "sha256": "5f10411d0bb0c180f49b435501ec746f783e9459c38bec695d287a6e58bb755c",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "property": "map02_lv006"
+  },
+  "ef-map02_lv007": {
+    "file": "ef-map02_lv007.png",
+    "sha256": "2b4e6843bd6af7e98be65128abbe546bebe6dcf16b386053e1962afe77b2bb9e",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "property": "map02_lv007"
+  },
+  "ef-map02_lv008": {
+    "file": "ef-map02_lv008.png",
+    "sha256": "f3734db5617c64e254ea1b548a5208733c67c0b214c0518ac12908971bd9bf97",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "property": "map02_lv008"
+  },
+  "ef-map02_lv009": {
+    "file": "ef-map02_lv009.png",
+    "sha256": "3a106872992c5cace4979a5f060466de4551679747de2d8a9681835d9a051f4c",
+    "url": "https://assets.skland.com/_static_assets/game-tools/map02_lv009-B3rAi7DN.png"
+  },
+  "ef-medalLevel1": {
+    "file": "ef-medalLevel1.png",
+    "sha256": "febc69809cbc629fd1dc41aceaa9265348b59e00f15d90fb2afedacd82f92cf1",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "ja"
+  },
+  "ef-medalLevel2": {
+    "file": "ef-medalLevel2.png",
+    "sha256": "e906f5f29f58c45662309f49e1d0b940ee671616ba20d196dc70d16ff8636f5e",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Ma"
+  },
+  "ef-medalLevel3": {
+    "file": "ef-medalLevel3.png",
+    "sha256": "265a6c47709bfa507e0631826e5c72bd13643af782cceb7b07ec438fd95b7b76",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Na"
+  },
+  "ef-monolith": {
+    "file": "ef-monolith.png",
+    "sha256": "a49d404d0ccf8db2abfd7c5488f1175659229ff75729fa75a42fa23642b7edaa",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Tn"
+  },
+  "ef-pieces": {
+    "file": "ef-pieces.png",
+    "sha256": "da7d457182a9632475a9fe2dd0bb09c2742c583d0abbf1835ab9699edd3ffe4c",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "f"
+  },
+  "ef-plant": {
+    "file": "ef-plant.png",
+    "sha256": "4f5810897b683d931d6e49523a1c4a0dc4a472677af933ac3d1727c5e3852662",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "yc"
+  },
+  "ef-reception": {
+    "file": "ef-reception.png",
+    "sha256": "74417ce9c0fbe35079b1abd87ef037ddce31f015cca22a2df0602b4a9b53720e",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "bc"
+  },
+  "ef-seekSuspicion": {
+    "file": "ef-seekSuspicion.png",
+    "sha256": "c528dcabc0fd310268b70d513a8eefb50535c1cc931d197a270e72b4dc7420fc",
+    "module": "https://assets.skland.com/_static_assets/game-tools/realtime-detail-Y11qUxi1.js",
+    "moduleSha256": "cbfcfeafef12ae9f36b8c2a14734b834f3808ef0f447ef9ad3fc52430106c0ce",
+    "variable": "w"
+  },
+  "ef-spaceship": {
+    "file": "ef-spaceship.png",
+    "sha256": "ea77fe7b5647182844fd0de181ab8890731e14be04343cb39259c26623aae3a8",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "En"
+  },
+  "ef-stamina": {
+    "file": "ef-stamina.png",
+    "sha256": "ace2d83e4b7c14163b8746a2029cd96420b56adb7607e52fe6ff499f06168750",
+    "module": "https://assets.skland.com/_static_assets/game-tools/realtime-detail-Y11qUxi1.js",
+    "moduleSha256": "cbfcfeafef12ae9f36b8c2a14734b834f3808ef0f447ef9ad3fc52430106c0ce",
+    "variable": "T"
+  },
+  "ef-trstars": {
+    "file": "ef-trstars.png",
+    "sha256": "369bb048f81127c87ff02e59fa4c566653c810c5ccbf003ccc71a78d809f01b8",
+    "module": "https://assets.skland.com/_static_assets/game-tools/RegionExploreTable-D36RE3Dz.js",
+    "moduleSha256": "e736b00d3b12031fece3515b6ade41423297762a437d0b6c70947a3bc665cb3f",
+    "variable": "h"
+  },
+  "ef-warEchoes": {
+    "file": "ef-warEchoes.png",
+    "sha256": "4733afe97a7a5185fee95cdd98da3d7025e3ca8b041655994844cd89f25f73a8",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "vn"
+  },
+  "ef-weekly": {
+    "file": "ef-weekly.png",
+    "sha256": "f98e64d4b5f4218d57aa0be557d67ff274e59959c74aeb9fcd3db77a6cce0e13",
+    "module": "https://assets.skland.com/_static_assets/game-tools/realtime-detail-Y11qUxi1.js",
+    "moduleSha256": "cbfcfeafef12ae9f36b8c2a14734b834f3808ef0f447ef9ad3fc52430106c0ce",
+    "variable": "E"
+  }
+}

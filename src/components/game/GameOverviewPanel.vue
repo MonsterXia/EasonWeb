@@ -7,6 +7,8 @@ import type { GameAccount } from '@/common/api/accounts'
 import type { GameOverview, OverviewMetric } from '@/common/api/gameOverview'
 import { gameServerName } from '@/common/gameServers'
 import OperatorAvatar from './OperatorAvatar.vue'
+import OverviewArtwork from './OverviewArtwork.vue'
+import { metricArt, sectionArt, facilityArt } from '@/common/overviewAssets'
 import { operatorAvatar } from '@/common/operatorAvatars'
 import EmptyState from '@/components/EmptyState.vue'
 import { metricCurrent, overviewTime } from '@/common/resourceRecovery'
@@ -162,7 +164,10 @@ const progress = (metric: OverviewMetric) =>
               class="metric"
               :class="{ primary: metric.key === 'stamina' }"
             >
-              <h4>{{ t(`game.overview.metrics.${metric.key}`) }}</h4>
+              <div class="metric-heading">
+                <OverviewArtwork :art="metricArt(account.appCode, metric.key)" />
+                <h4>{{ t(`game.overview.metrics.${metric.key}`) }}</h4>
+              </div>
               <p class="metric-value">
                 <strong>{{ number(metric.current) }}</strong
                 ><span v-if="metric.total !== null"> / {{ number(metric.total) }}</span>
@@ -204,10 +209,12 @@ const progress = (metric: OverviewMetric) =>
           "
         >
           <summary>
+            <OverviewArtwork class="section-art" :art="sectionArt(section.key)" />
             {{ t(`game.overview.sections.${section.key}`) }}<span>{{ section.items.length }}</span>
           </summary>
           <ul v-if="section.items.length" class="facility-grid">
             <li v-for="(item, index) in section.items" :key="item.id">
+              <OverviewArtwork class="facility-art" :art="facilityArt(section.key, item)" />
               <header>
                 <OperatorAvatar
                   v-if="item.operatorId"
@@ -392,7 +399,7 @@ const progress = (metric: OverviewMetric) =>
   font-weight: 600;
   font-size: 15px;
 }
-.facility-group summary > span {
+.facility-group summary > span:not(.overview-artwork) {
   margin-left: 12px;
   color: var(--muted);
   font-size: 12px;
@@ -527,6 +534,26 @@ h3 .el-icon {
   background: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: 14px;
+}
+.metric-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.metric-heading h4 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.section-art {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.facility-art {
+  margin-bottom: 14px;
 }
 .metric.primary {
   background: color-mix(in srgb, var(--accent) 7%, var(--color-background-soft));
