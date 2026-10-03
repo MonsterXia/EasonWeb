@@ -162,7 +162,6 @@ const progress = (metric: OverviewMetric) =>
               v-for="metric in liveMetrics.filter((item) => item.group === group.key)"
               :key="metric.key"
               class="metric"
-              :class="{ primary: metric.key === 'stamina' }"
             >
               <div class="metric-heading">
                 <OverviewArtwork :art="metricArt(account.appCode, metric.key)" />
@@ -555,10 +554,6 @@ h3 .el-icon {
 .facility-art {
   margin-bottom: 14px;
 }
-.metric.primary {
-  background: color-mix(in srgb, var(--accent) 7%, var(--color-background-soft));
-  border-color: color-mix(in srgb, var(--accent) 28%, var(--color-border));
-}
 h4 {
   margin: 0 0 12px;
   font-size: 12px;
@@ -574,9 +569,6 @@ h4 {
   font-weight: 650;
   letter-spacing: -1px;
   color: var(--color-heading);
-}
-.metric.primary .metric-value strong {
-  color: var(--accent);
 }
 .metric-value span {
   font-size: 13px;
