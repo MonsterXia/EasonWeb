@@ -20,6 +20,12 @@ const props = defineProps<{
 }>()
 defineEmits<{ refresh: [] }>()
 const { t, locale } = useI18n()
+const mainProgress = computed(() => {
+  const value = props.data?.profile.mainProgress
+  return props.account.appCode === 'arknights' && value === ''
+    ? t('game.overview.storyCompleted')
+    : value || t('game.overview.missing')
+})
 const clock = ref(Date.now())
 let timer: ReturnType<typeof setInterval> | undefined
 const tick = () => {
@@ -130,7 +136,7 @@ const progress = (metric: OverviewMetric) =>
         </div>
         <div class="story">
           <dt>{{ t('game.overview.progress') }}</dt>
-          <dd>{{ data.profile.mainProgress ?? t('game.overview.missing') }}</dd>
+          <dd>{{ mainProgress }}</dd>
         </div>
         <div>
           <dt>{{ t('game.overview.lastOnline') }}</dt>

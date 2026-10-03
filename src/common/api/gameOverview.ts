@@ -20,6 +20,7 @@ export interface GameOverview {
     worldLevel: number | null
     registeredAt: number | null
     lastOnlineAt: number | null
+    /** Arknights: exact empty string means all completed; null means unavailable. */
     mainProgress: string | null
     endministratorGender?: 'male' | 'female' | null
   }

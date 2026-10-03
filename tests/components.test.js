@@ -151,6 +151,34 @@ test('renders timed resources and detailed facility states without treating miss
   assert.match(html, /公开招募/)
 })
 
+test('localizes completed Arknights stories while preserving unknown and in-progress states', async () => {
+  const { default: panel } = await vite.ssrLoadModule('/src/components/game/GameOverviewPanel.vue')
+  for (const locale of ['zh-CN', 'en']) {
+    i18n.global.locale.value = locale
+    const missing = locale === 'en' ? 'Not provided' : '未提供'
+    for (const [appCode, mainProgress, expected] of [
+      ['arknights', '', locale === 'en' ? 'All completed' : '全部完成'],
+      ['arknights', null, missing],
+      ['arknights', '1-1', '1-1'],
+      ['endfield', '', missing],
+      ['endfield', 'Mission', 'Mission'],
+    ]) {
+      const account = { appCode, uid: 'fixture', gameId: '1', nickName: 'Fixture' }
+      const data = { account, fetchedAt: 1000, updatedAt: null,
+        profile: { level: 120, worldLevel: null, registeredAt: null, lastOnlineAt: null, mainProgress },
+        metrics: [], sections: [], operators: [],
+      }
+      const app = createSSRApp(panel, { account, data, loading: false, failed: false }).use(i18n)
+      app.provide(ID_INJECTION_KEY, { prefix: 400, current: 0 })
+      app.provide(ZINDEX_INJECTION_KEY, { current: 0 })
+      const html = await renderToString(app)
+      const story = html.match(/<div class="story"[^>]*>(.*?)<\/div>/s)?.[1]
+      assert.ok(story?.includes(`>${expected}</dd>`), `${appCode} ${JSON.stringify(mainProgress)}: ${story}`)
+    }
+  }
+  i18n.global.locale.value = 'zh-CN'
+})
+
 test('renders Endfield ratings and zero-cap exploration in both languages', async () => {
   const { default: panel } = await vite.ssrLoadModule('/src/components/game/GameOverviewPanel.vue')
   const account = { appCode: 'endfield', uid: 'fixture', gameId: '1', nickName: 'Test' }
