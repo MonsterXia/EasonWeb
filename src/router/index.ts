@@ -57,6 +57,8 @@ const recoverChunk = createChunkRecovery({
   online: () => navigator.onLine,
 })
 router.onError((error, to) => {
+  // Preserve the module-load diagnostic in the browser; the UI stays localized.
+  console.error('Page navigation failed:', error)
   if (!recoverChunk(error, to.fullPath)) ElMessage.error(tr('shell.navigationFailed'))
 })
 
