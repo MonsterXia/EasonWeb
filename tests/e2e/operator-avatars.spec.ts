@@ -108,3 +108,82 @@ test('Arknights generates official avatars for roster and support, including Ami
   await expect(support).toHaveAttribute('src', `${base}char/avatar/char_002_amiya.png`)
   await expect(support).toHaveClass('loaded')
 })
+
+test('equipped skins refresh in roster and support, falling back to default then text', async ({
+  page,
+}) => {
+  const base = 'https://web.hycdn.cn/arknights/game/assets/'
+  const id = 'char_002_amiya'
+  const skins = [
+    'char_002_amiya@epoque#4',
+    'char_002_amiya@broken#1',
+    'char_99999_future@broken#2',
+    'char_002_amiya#2',
+    null,
+  ]
+  let stage = 0
+  await page.route(`${base}**`, (route) => {
+    const url = route.request().url()
+    if (url.includes('broken') || (stage === 2 && url.includes('/char/avatar/')))
+      return route.abort()
+    return route.fulfill({ contentType: 'image/png', body: png })
+  })
+  await page.route('**/api/user/current', (route) => reply(route, user))
+  await page.route('**/api/game/hypergryph/account/games', (route) => reply(route, [role()]))
+  await page.route('**/api/game/hypergryph/account/overview?*', (route) =>
+    reply(route, {
+      ...overview(),
+      operators: [
+        {
+          id: stage === 2 ? 'char_99999_future' : id,
+          name: '阿米娅',
+          skinId: skins[stage],
+          level: 80,
+          phase: 2,
+        },
+      ],
+      sections: [
+        {
+          key: 'arknightsSupport',
+          items: [
+            {
+              id: 'support',
+              operatorId: stage === 2 ? 'char_99999_future' : id,
+              skinId: skins[stage],
+              name: '阿米娅',
+              level: 80,
+              status: 'unknown',
+              current: null,
+              total: null,
+              completeAt: null,
+            },
+          ],
+        },
+      ],
+    }),
+  )
+  await page.goto('/game/hypergryph/skland')
+  const avatars = [
+    page.locator('.operator-grid .operator-avatar'),
+    page.locator('.support-grid .operator-avatar'),
+  ]
+  for (stage = 0; stage < skins.length; stage++) {
+    if (stage) await page.getByRole('button', { name: '刷新角色资料', exact: true }).click()
+    for (const avatar of avatars) {
+      await avatar.scrollIntoViewIfNeeded()
+      if (stage === 2) {
+        await expect(avatar.locator('img')).toHaveCount(0)
+        await expect(avatar.locator('.operator-initial')).toHaveText('阿')
+      } else {
+        const expected =
+          stage === 1 || stage === 4
+            ? `${base}char/avatar/${id}.png`
+            : `${base}char_skin/avatar/${encodeURIComponent(skins[stage]!)}.png`
+        await expect(avatar.locator('img')).toHaveAttribute('src', expected)
+        await expect(avatar.locator('img')).toHaveClass('loaded')
+        await expect(avatar.locator('.operator-initial')).toHaveCount(0)
+      }
+      await expect(avatar).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
+    }
+  }
+})

@@ -1,27 +1,40 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-const props = defineProps<{ name: string; src?: string }>()
-const loaded = ref(false),
-  failed = ref(false)
+import { computed, ref, watch } from 'vue'
+const props = defineProps<{ name: string; src?: string; fallbackSrc?: string }>()
+const loaded = ref(false)
+const failed = ref<string[]>([])
+const current = computed(() =>
+  [props.src, props.fallbackSrc].find((src) => src && !failed.value.includes(src)),
+)
 watch(
-  () => props.src,
+  () => [props.src, props.fallbackSrc],
   () => {
+    failed.value = []
     loaded.value = false
-    failed.value = false
   },
 )
-function imageFailed() {
-  failed.value = true
-  loaded.value = false
+watch(
+  current,
+  () => {
+    loaded.value = false
+  },
+  { flush: 'sync' },
+)
+function imageFailed(event: Event) {
+  const src = (event.target as HTMLImageElement).getAttribute('src')
+  if (src && !failed.value.includes(src)) failed.value.push(src)
+}
+function imageLoaded(event: Event) {
+  if ((event.target as HTMLImageElement).getAttribute('src') === current.value) loaded.value = true
 }
 </script>
 <template>
   <span class="operator-avatar" aria-hidden="true">
     <span v-if="!loaded" class="operator-initial">{{ name.slice(0, 1) }}</span>
     <img
-      v-if="src && !failed"
-      :key="src"
-      :src="src"
+      v-if="current"
+      :key="current"
+      :src="current"
       alt=""
       width="48"
       height="48"
@@ -29,7 +42,7 @@ function imageFailed() {
       decoding="async"
       referrerpolicy="no-referrer"
       :class="{ loaded }"
-      @load="loaded = true"
+      @load="imageLoaded"
       @error="imageFailed"
     />
   </span>
@@ -44,7 +57,7 @@ function imageFailed() {
   height: 48px;
   overflow: hidden;
   border-radius: 10px;
-  background: var(--color-background-mute);
+  background: transparent;
   color: var(--muted);
 }
 .operator-avatar img {

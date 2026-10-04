@@ -11,7 +11,9 @@ const download = (url) => {
   const parsed = new URL(url)
   if (
     parsed.protocol !== 'https:' ||
-    !['bbs.hycdn.cn', 'assets.skland.com'].includes(parsed.hostname)
+    !['bbs.hycdn.cn', 'web.hycdn.cn', 'assets.skland.com', 'media.prts.wiki'].includes(
+      parsed.hostname,
+    )
   )
     throw new Error('Unexpected asset host')
   return execFileSync(

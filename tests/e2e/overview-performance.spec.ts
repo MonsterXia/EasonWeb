@@ -41,7 +41,9 @@ test('resource ticks update live values without formatting static operator recor
   const before = await page.evaluate(
     () => (window as typeof window & { numberFormats: number }).numberFormats,
   )
-  const current = Number(await page.locator('.metric-value strong').textContent())
+  const current = Number(
+    await page.locator('[data-metric="stamina"] .metric-value strong').textContent(),
+  )
   await page.clock.runFor(2100)
   const after = await page.evaluate(
     () => (window as typeof window & { numberFormats: number }).numberFormats,
@@ -50,6 +52,8 @@ test('resource ticks update live values without formatting static operator recor
     body: JSON.stringify({ numberFormatsOverTwoTicks: after - before }),
     contentType: 'application/json',
   })
-  expect(Number(await page.locator('.metric-value strong').textContent())).toBeGreaterThan(current)
+  expect(
+    Number(await page.locator('[data-metric="stamina"] .metric-value strong').textContent()),
+  ).toBeGreaterThan(current)
   expect(after - before).toBeLessThan(6)
 })

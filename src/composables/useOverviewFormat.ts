@@ -5,12 +5,14 @@ import { useI18n } from 'vue-i18n'
 export function useOverviewFormat() {
   const { t, locale } = useI18n()
   const numbers = computed(() => new Intl.NumberFormat(locale.value))
+  const plainNumbers = computed(() => new Intl.NumberFormat(locale.value, { useGrouping: false }))
   const dates = computed(() => new Intl.DateTimeFormat(locale.value, { dateStyle: 'medium' }))
   const times = computed(
     () => new Intl.DateTimeFormat(locale.value, { dateStyle: 'medium', timeStyle: 'short' }),
   )
   return {
-    number: (value: number | null) => (value === null ? '—' : numbers.value.format(value)),
+    number: (value: number | null, useGrouping = true) =>
+      value === null ? '—' : (useGrouping ? numbers.value : plainNumbers.value).format(value),
     date: (value: number | null, dateOnly = false) =>
       value === null
         ? t('game.overview.missing')

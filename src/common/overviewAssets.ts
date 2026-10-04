@@ -18,6 +18,10 @@ export type OverviewArt = {
 // carry game semantics and must keep their original colors.
 const colorIcons = new Set([
   'ak-logoBase',
+  'ak-logoResist',
+  'ak-main-task-over',
+  'ak-day-common',
+  'ak-day-challenge',
   'ef-control',
   'ef-manufacture',
   'ef-plant',
@@ -44,6 +48,7 @@ const art = (key: string, kind: OverviewArt['kind'] = 'icon'): OverviewArt | und
 }
 const akMetrics: Record<string, string> = {
   stamina: 'icon-ap',
+  training: 'icon-training',
   daily: 'icon-routineDaily',
   weekly: 'icon-routineWeekly',
   orundum: 'icon-campaignReward',
@@ -57,6 +62,7 @@ const akMetrics: Record<string, string> = {
   medals: 'medal',
   manufacturing: 'icon-manufacture',
   restedOperators: 'icon-dormitory',
+  clueCollection: 'icon-meeting',
   recruitAvailable: 'icon-recruit',
   towerLower: 'icon-towerRewardLower',
   towerHigher: 'icon-towerRewardHigher',
@@ -90,10 +96,10 @@ const sections: Record<string, string> = {
   arknightsClues: 'ak-icon-meeting',
   arknightsTrading: 'ak-icon-trading',
   arknightsSupport: 'ak-char',
-  arknightsActivities: 'ak-logoRecord',
-  arknightsRogue: 'ak-logoExplore',
-  arknightsRogueRelics: 'ak-logoExplore',
-  arknightsRogueBank: 'ak-logoExplore',
+  arknightsActivities: 'ak-sideStory',
+  arknightsRogue: 'ak-integratedStrategies',
+  arknightsRogueRelics: 'ak-integratedStrategies',
+  arknightsRogueBank: 'ak-integratedStrategies',
   arknightsTower: 'ak-icon-towerRewardHigher',
   arknightsCampaign: 'ak-icon-campaignReward',
   arknightsSandbox: 'ak-logoBase',
@@ -111,6 +117,17 @@ const sections: Record<string, string> = {
   endfieldMonolith: 'ef-monolith',
 }
 export const sectionArt = (key: string) => (sections[key] ? art(sections[key]!) : undefined)
+const sandboxMilestones = {
+  baseLv: 'ak-logoBase',
+  unlockNode: 'ak-logoExplore',
+  enemyKill: 'ak-logoResist',
+  createRift: 'ak-logoRecord',
+} as const
+export const sandboxMilestoneArt = (key: keyof typeof sandboxMilestones) =>
+  art(sandboxMilestones[key])
+export const sandboxDayArt = (key: 'maxDay' | 'maxDayChallenge') =>
+  art(key === 'maxDay' ? 'ak-day-common' : 'ak-day-challenge')
+export const sandboxChapterArt = (chapter: number | 'over') => art(`ak-main-task-${chapter}`)
 const rooms: Record<string, string> = {
   endfieldControl: 'control',
   endfieldManufacture1: 'manufacture',

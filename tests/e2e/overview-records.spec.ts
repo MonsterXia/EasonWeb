@@ -131,7 +131,7 @@ for (const language of ['zh-CN', 'en']) {
                       { id: 'unknown', name: 'Unknown quest', done: null },
                     ],
                     baseLv: 3,
-                    unlockNode: 17,
+                    unlockNode: 4052,
                     enemyKill: 0,
                     createRift: null,
                     fixRift: { current: 0, total: 6 },
@@ -300,14 +300,50 @@ for (const language of ['zh-CN', 'en']) {
       await checkBannerScrim(page)
       await rogue.screenshot({
         path: test.info().outputPath(`rogue-${theme}.png`),
-        style: '.site-header, .site-header * { visibility: hidden !important; }',
+        style: '.site-header, .site-header *, header, nav { visibility: hidden !important; }',
       })
       const sandbox = page.locator('.sandbox-details')
       await expect(sandbox).toBeVisible()
-      await expect(sandbox.locator('.survival-grid dd').first()).toHaveText(
-        language === 'en' ? '0days' : '0天',
+      await expect(sandbox.locator('.survival-grid dd strong')).toHaveText(['0', '—'])
+      await expect(sandbox.locator('.day-unit').first()).toHaveText(
+        language === 'en' ? 'days' : '天',
       )
-      await expect(sandbox.locator('.survival-grid dd').nth(1)).toHaveText('—')
+      await expect(sandbox.locator('.day-unit').nth(1)).toBeHidden()
+      const checkStories = async () => {
+        await sandbox.locator('.stories-section').scrollIntoViewIfNeeded()
+        for (const img of await sandbox.locator('.chapter-badge img, .day-emblem img').all()) {
+          await expect
+            .poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth))
+            .toBeGreaterThan(0)
+        }
+        expect(
+          await sandbox.evaluate((el) => {
+            const cells = [...el.querySelectorAll('.chapter-grid li')]
+            const days = [...el.querySelectorAll('.survival-grid > div')]
+            return (
+              cells.every(
+                (cell) =>
+                  Math.abs(
+                    cell.getBoundingClientRect().top - cells[0]!.getBoundingClientRect().top,
+                  ) < 1 && cell.scrollWidth <= cell.clientWidth,
+              ) &&
+              days.every((cell) => cell.scrollWidth <= cell.clientWidth) &&
+              Math.abs(
+                days[0]!.querySelector('dt')!.getBoundingClientRect().top -
+                  days[1]!.querySelector('dt')!.getBoundingClientRect().top,
+              ) < 1
+            )
+          }),
+        ).toBe(true)
+      }
+      await checkStories()
+      await sandbox.locator('.survival-section').screenshot({
+        path: test.info().outputPath(`survival-${theme}.png`),
+        style: '.site-header, .site-header *, header, nav { visibility: hidden !important; }',
+      })
+      await sandbox
+        .locator('.stories-section')
+        .screenshot({ path: test.info().outputPath(`stories-${theme}.png`) })
       await expect(sandbox.locator('.chapter-grid .complete')).toHaveCount(1)
       await expect(sandbox.locator('.quest-list li').nth(0)).toContainText(
         language === 'en' ? 'Completed' : '已完成',
@@ -319,6 +355,42 @@ for (const language of ['zh-CN', 'en']) {
         language === 'en' ? 'Not provided' : '未提供',
       )
       await expect(sandbox.getByText('0 / 6', { exact: true })).toBeVisible()
+      const milestones = sandbox.locator('.sandbox-milestones')
+      await milestones.scrollIntoViewIfNeeded()
+      await expect(milestones.locator('.milestone-unlockNode strong')).toHaveText('4052')
+      await expect(milestones.locator('.milestone-enemyKill strong')).toHaveText('0')
+      await expect(milestones.locator('.milestone-createRift strong')).toHaveText('—')
+      await expect(milestones.locator('img')).toHaveCount(4)
+      for (const img of await milestones.locator('img').all()) {
+        await expect
+          .poll(() => img.evaluate((el) => (el as HTMLImageElement).naturalWidth))
+          .toBeGreaterThan(0)
+      }
+      const checkMilestones = async () => {
+        expect(
+          await milestones.evaluate((el) => {
+            const rect = (name: string) => el.querySelector(name)!.getBoundingClientRect()
+            const base = rect('.milestone-base'),
+              explore = rect('.milestone-unlockNode')
+            const defense = rect('.milestone-enemyKill'),
+              rift = rect('.milestone-createRift')
+            const commissions = rect('.milestone-commissions')
+            return (
+              Math.abs(base.top - explore.top) < 1 &&
+              Math.abs(base.bottom - defense.bottom) < 1 &&
+              base.right < explore.left &&
+              Math.abs(rift.top - commissions.top) < 1 &&
+              Math.abs(rift.left - base.left) < 1 &&
+              [...el.querySelectorAll('.milestone-grid > div')].every(
+                (cell) => cell.scrollWidth <= cell.clientWidth,
+              )
+            )
+          }),
+        ).toBe(true)
+      }
+      await checkMilestones()
+      await milestones.screenshot({ path: test.info().outputPath(`milestones-${theme}.png`) })
+
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
         true,
       )
@@ -327,11 +399,13 @@ for (const language of ['zh-CN', 'en']) {
         .nth(1)
         .screenshot({
           path: test.info().outputPath(`trials-${theme}.png`),
-          style: '.site-header, .site-header * { visibility: hidden !important; }',
+          style: '.site-header, .site-header *, header, nav { visibility: hidden !important; }',
         })
       if (isMobile) {
         await page.setViewportSize({ width: 320, height: 850 })
         await checkRogueLayout()
+        await checkMilestones()
+        await checkStories()
       }
       const long = page.locator('.record-row').filter({ hasText: 'Long activity title' })
       await long.scrollIntoViewIfNeeded()
@@ -375,7 +449,7 @@ for (const language of ['zh-CN', 'en']) {
         .first()
         .screenshot({
           path: test.info().outputPath(`banner-${theme}.png`),
-          style: '.site-header, .site-header * { visibility: hidden !important; }',
+          style: '.site-header, .site-header *, header, nav { visibility: hidden !important; }',
         })
       await page
         .locator('.facility-section')

@@ -24,7 +24,7 @@
 
 2026-10-04 改为官方来源优先，已移除 catalog.json、endfieldVariants、本地头像 PNG 和 avatars:sync 脚本。
 
-- 方舟：官方 SDK `https://bbs.hycdn.cn/skland-fe-static/skland-game/9560.b49ee94b.js` 的资源工具以 `https://web.hycdn.cn/arknights/game/assets/` 为前缀，普通头像使用 `char/avatar/{charId}.png`；转职阿米娅匹配 `char_数字_amiya数字`，使用 `char_skin/avatar/{encodeURIComponent(charId + "#2")}.png`。只实现已核实的路径规则，不引入整份网页 bundle。
+- 方舟：优先使用接口 `skinId` 生成 `char_skin/avatar/{encodeURIComponent(skinId)}.png`，档案和助战均使用账号 chars 当前装备皮肤；缺失或加载失败回退默认头像，再失败使用文字。官方 SDK `https://bbs.hycdn.cn/skland-fe-static/skland-game/9560.b49ee94b.js` 的资源工具以 `https://web.hycdn.cn/arknights/game/assets/` 为前缀，普通头像使用 `char/avatar/{charId}.png`；转职阿米娅匹配 `char_数字_amiya数字`，使用 `char_skin/avatar/{encodeURIComponent(charId + "#2")}.png`。只实现已核实的路径规则，不引入整份网页 bundle。
 - 终末地：官方 `dist-BZImVwlH.js` 的 GameDataInfoCodec → As.decode → Ft.decode 保留 `data.detail.chars[].charData.avatarSqUrl` / `avatarRtUrl`。CommonServerAPI 从已有响应选取合法官方 URL 输出 `operators[].avatarUrl`，不额外取图。优先方形头像，缺失/非法才用矩形头像。前端不通过 ID 或 profile.endministratorGender 再选图。
 - `OperatorAvatar.vue` 使用姓名首字兜底，固定尺寸、懒加载、no-referrer；缺失或加载失败保留文字，换 URL 重置加载/失败状态。终末地不回退本地游戏头像。
 
@@ -32,7 +32,9 @@
 
 ## 主题适配
 
-`OverviewArtwork.vue` 根据元数据 `tone: light-ink | dark-ink | color` 处理：已核实单色图浅色 multiply、深色 screen，必要时反色；彩色设施、勋章、地图保持原色，不批量反色。底板用主题语义色，地区背景深色用 soft-light。指标卡片统一背景、边框与数字色，不单独高亮理智卡片。
+森空岛通用布局原则见 [主 skill 的通用 UI 设计](../SKILL.md#森空岛通用-ui-设计)，方舟已核对的卡片、横幅和专属布局见 [明日方舟 UI 风格](arknights-ui.md)。本文件维护资源处理与调参，不作为终末地 UI 已核对的依据。
+
+`OverviewArtwork.vue` 根据元数据 `tone: light-ink | dark-ink | color` 处理：已核实单色图浅色 multiply、深色 screen，必要时反色；彩色设施、勋章、地图保持原色，不批量反色。分组标题图标、头像和卡片水印保持透明底；需要底板的图片容器才用主题语义色，地区背景深色用 soft-light。指标卡片统一背景、边框与数字色，不单独高亮理智卡片。
 
 图像使用固定尺寸、object-fit、懒加载；旁边已有名称则 alt 为空，图片失败仍展示完整数据。Vue scoped 样式要检查编译后选择器：不可让 filter/invert 意外作用到整个 html（回归见 `tests/overview-assets.test.js`）。
 
@@ -47,13 +49,15 @@
 
 ## 横幅与模式标识
 
-活动、集成战略、保全、剿灭、引航者试炼的 picUrl 是横幅。利用素材向右透明的特点做单层卡片：左侧只预留 60–76px 标识区域，名称/期数与成绩在同一横排覆盖背景；常规行高约 64–72px，取消上下信息栏及半幅空图片区。引航者试炼第一行是名称及右侧期数小标签，第二行是左对齐的最高进度；最新期数优先。有横幅时原图铺满整卡，使用随明暗主题切换的语义衬底、渐变遮罩和文字颜色，不能用接近不透明的主题底色盖住整幅纹理；去掉图片高度上限，换行增高后也覆盖整卡。引航者试炼单独使用紧凑网格（列宽起点 280px，卡片最大 340px），背景等比例放大为卡宽两倍并从左侧裁切，只展示有纹理的左半部；其他横幅不固定裁去半幅，按卡片比例等比铺满并裁切溢出部分。背景与官方 logo 独立渲染：logo 叠在左侧、透明底板。引航者试炼浅色主题使用浅主题底、清晰可见的原色纹理（明暗主题共用 `--skland-banner-opacity`，默认 1；渐变遮罩仅保护文字对比，不再单独覆盖各模式图片不透明度）和深色文字，单色 logo 沿用共享反色规则；深色保留暗底和白色 logo。期数标签使用淡主题底与主题色字，避免深色实心底；无图或加载失败则恢复主题底色和主题图标颜色，避免重复 logo。长标题自然换行并增高，手机同样保留左右布局；缺图/加载失败以模式图兜底并保持结构。不固定高度截断文字，也不依靠原图透明度保证文字对比。
+SideStory 与别传的分组及缺图兜底用 `ak-sideStory`（[PRTS 收录的游戏内别传图标](https://prts.wiki/w/文件:图标_别传.png)）；集成战略及其收藏品／投资分组用 `ak-integratedStrategies`（[明日方舟官网](https://ak.hypergryph.com/)集成战略入口图标），核对于 2026-10-04。保留原始透明 PNG，按 `light-ink` 适配明暗主题。`ak-logoRecord`／`ak-logoExplore` 仅用于生息演算里程碑，不得再作为这两个模式的通用图。完整 URL 和 SHA-256 见资源清单；静态同步允许 `web.hycdn.cn`、`media.prts.wiki`，不扩展运行时 `artworkUrl` 的域名规则。
 
-SDK 的 `So` / `xo` 分别使用 `game_mode/climb_tower/icon/{encodeURIComponent(id)}.png` 和 `game_mode/campaign/zone_icon/{encodeURIComponent(id)}.png`，前缀 `https://web.hycdn.cn/arknights/game/assets/`。这两个模式缺横幅时先尝试官方 ID 图标，再到本地通用图；引航者试炼使用 SDK `Eo` 中公开固定图 `https://bbs.hycdn.cn/public/skland-game/image/arknights/bossRush/6fb47c15e54385aee62ce4442acf90b0.png`。单色图仍使用共享主题底板。活动 picUrl 缺失时没有已验证的通用 ID 补图规则：act35side 的 game_mode/activity/thumb 路径核查为 404，不应据此新增猜测地址或硬编码个别活动映射。
+活动、集成战略、保全、剿灭、引航者试炼的 picUrl 是横幅。排版统一查阅 [明日方舟模式记录横幅](arknights-ui.md#模式记录横幅)：保全／剿灭／试炼使用左侧标识位，SideStory／别传和集成战略使用右侧文字列；试炼的半幅裁切只用于该模式。尺寸、文字定位、主题遮罩和缺图布局在该文档维护。
 
-保全派驻须将背景与设施 logo 独立叠加：背景仅用接口 `artworkUrl`，logo 始终按已核实的 `climb_tower/icon/{id}.png` 规则解析，失败才用通用模式图。不能把 logo 仅作为背景的兜底；背景失败后保留 logo，logo 失败后也保留背景。保全与引航者试炼复用明暗主题遮罩：浅色用浅底深字、深色单色 logo，深色用暗底白字、白色 logo；背景原色不反转，不透明度只由共享参数控制，主题遮罩保护文字对比。包括缺图兜底在内，logo 均由共享主题规则适配；不能强制浅色页面使用黑底白标。前景标识不得重复渲染在背景中。回归见 `tests/e2e/overview-tower.spec.ts`。
+SDK 的 `So` / `xo` 分别使用 `game_mode/climb_tower/icon/{encodeURIComponent(id)}.png` 和 `game_mode/campaign/zone_icon/{encodeURIComponent(id)}.png`，前缀 `https://web.hycdn.cn/arknights/game/assets/`。这两个模式缺横幅时先尝试官方 ID 图标，再到本地通用图；引航者试炼使用 SDK `Eo` 中公开固定图 `https://bbs.hycdn.cn/public/skland-game/image/arknights/bossRush/6fb47c15e54385aee62ce4442acf90b0.png`。单色前景图保持透明底，并使用共享主题反色规则。活动 picUrl 缺失时没有已验证的通用 ID 补图规则：act35side 的 game_mode/activity/thumb 路径核查为 404，不应据此新增猜测地址或硬编码个别活动映射。
 
-SideStory 与别传、集成战略共用 `banner-end-record` 布局，保留整张横幅作卡片背景；名称、通关进度／完成状态或收藏品／投资放在横幅右侧无内容区域（约 58% 处开始），不能遮挡左侧内嵌标题，也不拆成独立图片区。横幅使用等比例 cover、左对齐裁切，随卡片增高铺满上下边缘，任何窗口宽度下都不能用 contain 产生上下留白；右侧渐变保护文字，不能固定高度截断长标题。回归需结合图片原始尺寸、object-fit 和容器尺寸检查实际绘制范围，不能只比较 img 元素高度；明暗主题均用语义底色和文字，遮罩只渐变覆盖右侧。无横幅、加载中或加载失败时仍保持 58% 的右侧文字列，左侧显示兜底图标；文字定位不能依赖 `.cover` 是否存在，移动端也不能覆盖为紧凑缩进。零值和缺失的两项数据仍分别展示；活动完成状态用主题主色，不能继承暗色横幅的浅粉色文字。
+保全派驻背景仅用接口 `artworkUrl`，前景 logo 始终按已核实的 `game_mode/climb_tower/icon/{encodeURIComponent(id)}.png` 规则解析，失败才用通用模式图。背景和 logo 独立加载、独立兜底，不重复渲染前景标识；主题和布局见横幅规范。回归见 `tests/e2e/overview-tower.spec.ts`。
+
+SideStory／别传和集成战略的 cover 必须等比铺满、左对齐裁切；验证实际绘制范围时结合原图尺寸、object-fit 和容器尺寸，不能只比较 img 元素高度。文字定位及加载失败时的布局见 [横幅规范](arknights-ui.md#模式记录横幅)。
 
 剿灭作战的 `campaign/zone_icon/{id}.png` 为独立前景标志，有背景时也必须加载，图标失败只回退模式图，不移除背景。主题规则复用保全。按每条记录的接口 `artworkUrl`（上游 infoMap.picUrl）分别显示官方背景；外观相似不代表 URL 相同，禁止按视觉相似性合并或缓存为单张本地默认图。浏览器可按正常 URL 缓存策略缓存图片，不额外写入账号数据或持久化映射。回归使用不同 URL 返回相同图片字节，确认各条目保留自己的背景地址。
 

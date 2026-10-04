@@ -2,6 +2,7 @@ import type { GameOverview } from './api/gameOverview'
 
 type Section = NonNullable<GameOverview['sections']>[number]
 export type DisplayItem = Section['items'][number] & {
+  sourceSection?: string
   measures?: { key: string; current: number | null; total: number | null }[]
 }
 export type DisplaySection = { key: string; items: DisplayItem[] }
@@ -21,6 +22,24 @@ export function overviewSections(sections: Section[] = []): DisplaySection[] {
         }
       : section,
   )
+  // Keep each facility's semantics while presenting one shared disclosure.
+  const facilityKeys = ['arknightsOffice', 'arknightsTraining']
+  const facilities = facilityKeys.map((key) => sections.find((section) => section.key === key))
+  if (facilities.every((section) => section !== undefined)) {
+    const combined: DisplaySection = {
+      key: 'arknightsOfficeTraining',
+      items: facilities.flatMap((section) =>
+        section!.items.map((item) => ({ ...item, sourceSection: section!.key })),
+      ),
+    }
+    let inserted = false
+    sections = sections.flatMap((section) => {
+      if (!facilityKeys.includes(section.key)) return [section]
+      if (inserted) return []
+      inserted = true
+      return [combined]
+    })
+  }
   const isRogue = (key: string) => key === 'arknightsRogueRelics' || key === 'arknightsRogueBank'
   const groups = sections.filter((section) => isRogue(section.key))
   if (!groups.length) return sections

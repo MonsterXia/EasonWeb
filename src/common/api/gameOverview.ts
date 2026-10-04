@@ -33,6 +33,7 @@ export interface GameOverview {
       name: string | null
       nameKey?: string
       operatorId?: string
+      skinId?: string | null
       artworkUrl?: string | null
       sandbox?: SandboxRecord
       bossRush?: BossRushRecord
@@ -50,6 +51,7 @@ export interface GameOverview {
         id: string
         name: string
         avatarUrl?: string | null
+        skinId?: string | null
         level: number | null
         phase: number | null
         rarity?: number | null

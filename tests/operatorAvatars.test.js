@@ -48,3 +48,33 @@ test('invalid or nonofficial Endfield images use the text fallback', () => {
     assert.equal(operatorAvatar('endfield', 'chr_0016_laevat', url), undefined)
   }
 })
+
+test('equipped skins override default avatars, preserving encoded # and @ identifiers', () => {
+  for (const [id, skinId] of [
+    ['char_002_amiya', 'char_002_amiya#2'],
+    ['char_002_amiya', 'char_002_amiya@epoque#4'],
+    ['char_1001_amiya2', 'char_1001_amiya2@epoque#1'],
+    ['char_99999_future', 'char_99999_future@new_collection#1'],
+  ]) {
+    assert.equal(
+      operatorAvatar('arknights', id, undefined, skinId),
+      `${base}char_skin/avatar/${encodeURIComponent(skinId)}.png`,
+    )
+  }
+  for (const skin of [
+    null,
+    undefined,
+    '',
+    ' ',
+    '../other',
+    'https://evil.invalid/a',
+    'char_002_amiya/../other',
+  ]) {
+    assert.equal(
+      operatorAvatar('arknights', 'char_002_amiya', undefined, skin),
+      `${base}char/avatar/char_002_amiya.png`,
+    )
+  }
+  const url = 'https://bbs.hycdn.cn/public/skland-game/image/synthetic.png'
+  assert.equal(operatorAvatar('endfield', 'anything', url, 'char_002_amiya#2'), url)
+})

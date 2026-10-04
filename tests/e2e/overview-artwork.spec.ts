@@ -61,7 +61,7 @@ for (const theme of ['light', 'dark']) {
       expect(await own.evaluate((el) => getComputedStyle(el).filter)).toBe('none')
       expect(await own.evaluate((el) => getComputedStyle(el).mixBlendMode)).toBe('normal')
       await expect(own).toHaveAttribute('referrerpolicy', 'no-referrer')
-      const fallback = game === 'arknights' ? /ak-logoRecord/ : /ef-warEchoes/
+      const fallback = game === 'arknights' ? /ak-sideStory/ : /ef-warEchoes/
       for (const id of ['broken', 'missing', 'unsafe']) {
         const img = card(id).locator('.facility-art img')
         await img.scrollIntoViewIfNeeded()

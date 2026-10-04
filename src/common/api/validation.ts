@@ -89,6 +89,7 @@ const sectionItem = shape({
   name: nullable(string),
   nameKey: optional(string),
   operatorId: optional(string),
+  skinId: optional(nullable(string)),
   artworkUrl: optional(nullable(string)),
   sandbox: optional(
     shape({
@@ -144,6 +145,7 @@ const gameOverview = shape({
         level: nullable(number),
         phase: nullable(number),
         avatarUrl: optional(nullable(string)),
+        skinId: optional(nullable(string)),
         rarity: optional(nullable(number)),
         potential: optional(nullable(number)),
         profession: optional(nullable(string)),

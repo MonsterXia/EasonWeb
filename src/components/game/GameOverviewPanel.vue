@@ -8,6 +8,9 @@ import type { GameOverview } from '@/common/api/gameOverview'
 import { gameServerName } from '@/common/gameServers'
 import OperatorAvatar from './OperatorAvatar.vue'
 import OverviewLiveDetails from './OverviewLiveDetails.vue'
+import OverviewReveal from './OverviewReveal.vue'
+import OverviewArtwork from './OverviewArtwork.vue'
+import { metricArt } from '@/common/overviewAssets'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import { operatorAvatar } from '@/common/operatorAvatars'
 import EmptyState from '@/components/EmptyState.vue'
@@ -22,6 +25,9 @@ const props = defineProps<{
 }>()
 defineEmits<{ refresh: [] }>()
 const { t, locale } = useI18n()
+const collectionMetrics = computed(() =>
+  (props.data?.metrics ?? []).filter((metric) => metric.group === 'collection'),
+)
 const mainProgress = computed(() => {
   const value = props.data?.profile.mainProgress
   return props.account.appCode === 'arknights' && value === ''
@@ -30,11 +36,20 @@ const mainProgress = computed(() => {
 })
 const search = ref(''),
   expanded = ref(false)
+const retainingOperators = ref(false)
+watch(
+  expanded,
+  (value) => {
+    if (value) retainingOperators.value = true
+  },
+  { flush: 'sync' },
+)
 watch(
   () => props.data,
   () => {
     search.value = ''
     expanded.value = false
+    retainingOperators.value = false
   },
 )
 const { number, date } = useOverviewFormat()
@@ -44,7 +59,9 @@ const filtered = computed(() =>
   ),
 )
 const visible = computed(() =>
-  expanded.value || search.value ? filtered.value : filtered.value.slice(0, 8),
+  expanded.value || retainingOperators.value || search.value
+    ? filtered.value
+    : filtered.value.slice(0, 8),
 )
 </script>
 <template>
@@ -130,6 +147,25 @@ const visible = computed(() =>
           <dd>{{ date(data.profile.registeredAt, true) }}</dd>
         </div>
       </dl>
+      <dl
+        v-if="collectionMetrics.length"
+        class="profile-facts collection-facts"
+        :aria-label="t('game.overview.collection')"
+      >
+        <div v-for="metric in collectionMetrics" :key="metric.key">
+          <dt>
+            <OverviewArtwork
+              class="collection-icon"
+              :art="metricArt(account.appCode, metric.key)"
+            />
+            <span>{{ t(`game.overview.metrics.${metric.key}`) }}</span>
+          </dt>
+          <dd>
+            {{ number(metric.current) }}
+            <span v-if="metric.total !== null"> / {{ number(metric.total) }}</span>
+          </dd>
+        </div>
+      </dl>
       <OverviewLiveDetails :account="account" :data="data" />
       <section class="operator-section">
         <div class="operator-heading">
@@ -157,40 +193,59 @@ const visible = computed(() =>
             clearable
           />
         </div>
-        <ul v-if="visible.length" class="operator-grid" :data-game="account.appCode">
-          <li v-for="char in visible" :key="char.id" :data-operator-id="char.id">
-            <OperatorAvatar
-              :name="char.name"
-              :src="operatorAvatar(account.appCode, char.id, char.avatarUrl)"
-            />
-            <div>
-              <strong>{{ char.name }}</strong>
-              <p v-if="char.rarity != null || char.potential != null">
-                <span v-if="char.rarity != null">{{
-                  t('game.overview.rarity', { count: char.rarity })
-                }}</span>
-                <span v-if="char.potential != null">
-                  · {{ t('game.overview.potential', { value: char.potential }) }}</span
-                >
-              </p>
-              <p v-if="char.profession || char.element">
-                {{ [char.profession, char.element].filter(Boolean).join(' · ') }}
-              </p>
-              <p>
-                {{ t('game.overview.operatorLevel', { level: number(char.level) })
-                }}<span v-if="char.phase !== null">
-                  · {{ t('game.overview.phase', { phase: char.phase }) }}</span
-                >
-              </p>
-            </div>
-          </li>
-        </ul>
+        <OverviewReveal
+          v-if="filtered.length"
+          :expanded="expanded || !!search"
+          :visible-count="8"
+          @collapsed="retainingOperators = false"
+        >
+          <ul class="operator-grid" :data-game="account.appCode">
+            <li
+              v-for="(char, index) in visible"
+              :key="char.id"
+              :data-operator-id="char.id"
+              :class="{ 'overview-reveal-hidden': !expanded && !search && index >= 8 }"
+              :aria-hidden="!expanded && !search && index >= 8"
+              :inert="!expanded && !search && index >= 8"
+            >
+              <OperatorAvatar
+                :name="char.name"
+                :src="operatorAvatar(account.appCode, char.id, char.avatarUrl, char.skinId)"
+                :fallback-src="operatorAvatar(account.appCode, char.id, char.avatarUrl)"
+              />
+              <div>
+                <strong>{{ char.name }}</strong>
+                <p v-if="char.rarity != null || char.potential != null">
+                  <span v-if="char.rarity != null">{{
+                    t('game.overview.rarity', { count: char.rarity })
+                  }}</span>
+                  <span v-if="char.potential != null">
+                    · {{ t('game.overview.potential', { value: char.potential }) }}</span
+                  >
+                </p>
+                <p v-if="char.profession || char.element">
+                  {{ [char.profession, char.element].filter(Boolean).join(' · ') }}
+                </p>
+                <p>
+                  {{ t('game.overview.operatorLevel', { level: number(char.level) })
+                  }}<span v-if="char.phase !== null">
+                    · {{ t('game.overview.phase', { phase: char.phase }) }}</span
+                  >
+                </p>
+              </div>
+            </li>
+          </ul>
+        </OverviewReveal>
         <p v-else class="operator-empty">
           {{ search ? t('game.overview.noMatch') : t('game.overview.noOperators') }}
         </p>
-        <el-button v-if="!search && filtered.length > 8" text @click="expanded = !expanded">{{
-          t(expanded ? 'game.overview.showLess' : 'game.overview.showAll')
-        }}</el-button>
+        <el-button
+          v-if="!search && filtered.length > 8"
+          class="operator-toggle"
+          text
+          @click="expanded = !expanded"
+          >{{ t(expanded ? 'game.overview.showLess' : 'game.overview.showAll') }}</el-button
+        >
         <p v-if="locale === 'en'" class="source-note">{{ t('game.overview.namesNote') }}</p>
       </section>
       <footer class="snapshot-note">
@@ -215,6 +270,29 @@ const visible = computed(() =>
   </section>
 </template>
 <style scoped>
+.operator-toggle.el-button,
+.operator-toggle.el-button:hover,
+.operator-toggle.el-button:active,
+.operator-toggle.el-button:focus {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.operator-toggle.el-button:hover,
+.operator-toggle.el-button:active,
+.operator-toggle.el-button:focus-visible {
+  color: var(--accent);
+}
+.operator-toggle.el-button:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .overview {
   margin-top: 28px;
   border-top: 1px solid var(--color-border);
@@ -269,6 +347,47 @@ const visible = computed(() =>
 .profile-facts .story {
   flex: 1;
   min-width: 140px;
+}
+.profile-facts:has(+ .collection-facts) {
+  padding-bottom: 14px;
+  border-bottom: 0;
+}
+.profile-facts.collection-facts {
+  padding: 0 0 18px;
+  gap: 12px 28px;
+}
+.collection-facts > div {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.collection-facts dd {
+  font-variant-numeric: tabular-nums;
+}
+.collection-facts dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.collection-icon {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+.collection-facts .collection-icon {
+  background: transparent;
+}
+.collection-icon :deep(img) {
+  width: 100%;
+  height: 100%;
+}
+.collection-facts > div:has(.collection-icon) dd {
+  padding-left: 24px;
+}
+.collection-facts dd span {
+  color: var(--muted);
+  font-weight: 400;
 }
 h3 {
   font-size: 15px;

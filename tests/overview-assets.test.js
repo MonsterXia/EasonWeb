@@ -28,7 +28,10 @@ test('overview artwork is checked in, pinned and valid PNG, with no orphan asset
     assert.equal(createHash('sha256').update(data).digest('hex'), source.sha256)
     assert.equal(data.toString('hex', 0, 8), '89504e470d0a1a0a')
     assert.ok(data.readUInt32BE(16) > 0 && data.readUInt32BE(20) > 0)
-    assert.match(source.url ?? source.module, /^https:\/\/(bbs\.hycdn\.cn|assets\.skland\.com)\//)
+    assert.match(
+      source.url ?? source.module,
+      /^https:\/\/(bbs\.hycdn\.cn|web\.hycdn\.cn|assets\.skland\.com|media\.prts\.wiki)\//,
+    )
   }
 })
 test('local artwork uses stable identifiers and unknown items use section fallbacks', () => {

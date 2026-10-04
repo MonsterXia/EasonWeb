@@ -129,6 +129,11 @@
     "sha256": "40259dec93760183d317ca59f562999d1c42f810e47d1012d8d34041251b8468",
     "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/logoRecord.a80591.png"
   },
+  "ak-logoResist": {
+    "file": "ak-logoResist.png",
+    "sha256": "652e6805f5bdfe6432e3372115973e1a14c504396053c86cfb986181096be69e",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/logoResist.7c6f98.png"
+  },
   "ak-medal": {
     "file": "ak-medal.png",
     "sha256": "26bf21eb0e02d87164cd7df86d73c51959c8383661d00c8083652d4a3ca44a47",
@@ -419,5 +424,49 @@
     "file": "ak-bossRush.png",
     "url": "https://bbs.hycdn.cn/public/skland-game/image/arknights/bossRush/6fb47c15e54385aee62ce4442acf90b0.png",
     "sha256": "6f97a3cd58270f59087e3d71977368024f289437819aa5916125b35b188b2268"
+  },
+  "ak-main-task-1": {
+    "file": "ak-main-task-1.png",
+    "sha256": "a34a0da8b3dedd46663fb32dd6782c0b5c9599db9651a7369edc9042b42d6707",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/main-task-1.e914c2.png"
+  },
+  "ak-main-task-2": {
+    "file": "ak-main-task-2.png",
+    "sha256": "e4095fb7d768c4afcf2ec5568d2261860ea8ddfc2cecd8150f08391bbe2309c9",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/main-task-2.93cfd7.png"
+  },
+  "ak-main-task-3": {
+    "file": "ak-main-task-3.png",
+    "sha256": "6bf3d7bb2d5eb85581ddc725978b1ce43fc3ca9079bf7297bbbd211ead5944a4",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/main-task-3.e10409.png"
+  },
+  "ak-main-task-over": {
+    "file": "ak-main-task-over.png",
+    "sha256": "75d0a02902d5f95b4a827e8011104ee8e9bbc1e68aa7ac6086f05a71d493487d",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/main-task-over.11efb4.png"
+  },
+  "ak-sideStory": {
+    "file": "ak-sideStory.png",
+    "sha256": "fcc74cea17cb35169f7b9be0c6cd873cceccad8af2083e6dad89b98cb84878e6",
+    "url": "https://media.prts.wiki/e/e4/%E5%9B%BE%E6%A0%87_%E5%88%AB%E4%BC%A0.png",
+    "reference": "https://prts.wiki/w/文件:图标_别传.png",
+    "verifiedAt": "2026-10-04"
+  },
+  "ak-integratedStrategies": {
+    "file": "ak-integratedStrategies.png",
+    "sha256": "bed54d6c5594bf3a4a16f227fd9b24cfe11a5db8f20f5db23185921f574c9299",
+    "url": "https://web.hycdn.cn/arknights/official/_next/static/media/icon-integrated_strategies.05cfb26b.png",
+    "reference": "https://ak.hypergryph.com/",
+    "verifiedAt": "2026-10-04"
+  },
+  "ak-day-common": {
+    "file": "ak-day-common.png",
+    "sha256": "5b11873c7285ab2e7a6b1306e97495b5c26ab4324a13ba3507c80595a954da3a",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/day-common.cde950.png"
+  },
+  "ak-day-challenge": {
+    "file": "ak-day-challenge.png",
+    "sha256": "2b2f351d9b2cae660c02af47e8b16ce3a5884018e96fcf438999905cf6e423e6",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/day-challenge.b2209b.png"
   }
 }
