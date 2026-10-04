@@ -43,3 +43,10 @@
 终末地 `https://assets.skland.com/_static_assets/game-tools/dist-BZImVwlH.js` 的 codec 定义赛季 `kvImage` / `headerImage`、当前 indieHardGroup 的 `pic`。赛季用 kvImage，周记录用所属赛季 headerImage，秘境记录使用所属当前模式 pic；独立关卡缺少已核实封面时继续兜底，不把敌人图猜作关卡图。
 
 `artworkUrl` 可缺省，兼容旧后端。前后端仅接受 HTTPS 的 bbs.hycdn.cn、web.hycdn.cn、assets.skland.com，不允许 URL 用户密码或非默认端口。前端图片使用 no-referrer，保持原色和完整比例，不应用地图背景的混合滤镜。图片加载失败依次切换回退资源，地址变化重置失败状态。动态条目封面不入公共静态目录、不保存账号响应、不在构建中联网同步。静态资源清单仍由既有脚本维护。
+
+
+## 横幅与模式标识
+
+活动、集成战略、保全、剿灭、引航者试炼的 picUrl 是横幅，在紧凑横向比例区域完整显示，文字在独立区域保证两主题可读；不能把长横幅缩在高大封面容器中。缺图/加载失败仍保留同样的横幅占位和记录文字，避免列表高低跳动。具体布局可随屏幕调整，不裁切官方标识。
+
+SDK 的 `So` / `xo` 分别使用 `game_mode/climb_tower/icon/{encodeURIComponent(id)}.png` 和 `game_mode/campaign/zone_icon/{encodeURIComponent(id)}.png`，前缀 `https://web.hycdn.cn/arknights/game/assets/`。这两个模式缺横幅时先尝试官方 ID 图标，再到本地通用图；引航者试炼使用 SDK `Eo` 中公开固定图 `https://bbs.hycdn.cn/public/skland-game/image/arknights/bossRush/6fb47c15e54385aee62ce4442acf90b0.png`。单色图仍使用共享主题底板。活动 picUrl 缺失时没有已验证的通用 ID 补图规则：act35side 的 game_mode/activity/thumb 路径核查为 404，不应据此新增猜测地址或硬编码个别活动映射。

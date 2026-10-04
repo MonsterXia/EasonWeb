@@ -96,6 +96,7 @@ const sections: Record<string, string> = {
   arknightsTower: 'ak-icon-towerRewardHigher',
   arknightsCampaign: 'ak-icon-campaignReward',
   arknightsSandbox: 'ak-logoBase',
+  arknightsBossRush: 'ak-bossRush',
   endfieldSpaceship: 'ef-spaceship',
   endfieldExplorationPuzzles: 'ef-ether',
   endfieldExplorationChests: 'ef-chests',
@@ -135,6 +136,18 @@ function localFacilityArt(
     const id = item.id.split(':')[0]
     return id === 'domain_1' || id === 'domain_2' ? art(`ef-${id}`, 'landscape') : undefined
   }
+  const variant =
+    section === 'arknightsTower'
+      ? 'climb_tower/icon'
+      : section === 'arknightsCampaign'
+        ? 'campaign/zone_icon'
+        : null
+  if (variant && item.id)
+    return {
+      src: `https://web.hycdn.cn/arknights/game/assets/game_mode/${variant}/${encodeURIComponent(item.id)}.png`,
+      kind: 'icon' as const,
+      tone: 'light-ink' as const,
+    }
   return sectionArt(section)
 }
 

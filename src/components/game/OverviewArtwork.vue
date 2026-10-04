@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import type { OverviewArt } from '@/common/overviewAssets'
-const props = defineProps<{ art?: OverviewArt }>()
+const props = defineProps<{ art?: OverviewArt; banner?: boolean }>()
 const failed = ref<string[]>([])
 const current = computed(() => {
   let art = props.art
@@ -28,7 +28,7 @@ function onError(event: Event) {
   <span
     v-if="current"
     class="overview-artwork"
-    :class="[current.tone, current.kind, current.presentation]"
+    :class="[current.tone, current.kind, current.presentation, { banner }]"
     aria-hidden="true"
   >
     <img
@@ -95,6 +95,13 @@ img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+.banner.cover {
+  height: 100%;
+  width: 100%;
+}
+.banner.cover img {
+  object-position: left center;
 }
 /* Preserve the official artwork, enlarging its central mark on the same
    theme-aware surface used by the other icons. */

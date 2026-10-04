@@ -11,6 +11,8 @@ import { operatorAvatar } from '@/common/operatorAvatars'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import OperatorAvatar from './OperatorAvatar.vue'
 import OverviewArtwork from './OverviewArtwork.vue'
+import OverviewRecords from './OverviewRecords.vue'
+import SandboxDetails from './SandboxDetails.vue'
 const props = defineProps<{ account: GameAccount; data: GameOverview }>()
 const { t } = useI18n()
 const { number, date } = useOverviewFormat()
@@ -100,7 +102,7 @@ const progress = (metric: OverviewMetric) =>
       :key="section.key"
       class="facility-group"
       :open="
-        !/(Activities|Rogue|Tower|Campaign|Sandbox|Exploration|WarEchoes|Monolith)/.test(
+        !/(Activities|Rogue|Tower|Campaign|BossRush|Sandbox|Exploration|WarEchoes|Monolith)/.test(
           section.key,
         )
       "
@@ -110,7 +112,14 @@ const progress = (metric: OverviewMetric) =>
         <span class="section-title">{{ t(`game.overview.sections.${section.key}`) }}</span
         ><span class="section-count">{{ section.items.length }}</span>
       </summary>
-      <ul v-if="section.items.length" class="facility-grid">
+      <OverviewRecords
+        v-if="
+          section.items.length &&
+          /^arknights(Activities|RogueRelics|RogueBank|Tower|Campaign|BossRush)$/.test(section.key)
+        "
+        :section="section"
+      />
+      <ul v-else-if="section.items.length" class="facility-grid">
         <li v-for="(item, index) in section.items" :key="item.id">
           <OverviewArtwork class="facility-art" :art="facilityArt(section.key, item)" />
           <header>
@@ -128,6 +137,7 @@ const progress = (metric: OverviewMetric) =>
               t('game.overview.facilityLevel', { level: number(item.level) })
             }}</span>
           </header>
+          <SandboxDetails v-if="item.sandbox" :record="item.sandbox" />
           <p v-if="item.subtitle" class="facility-subtitle">{{ item.subtitle }}</p>
           <p v-if="item.rating" class="facility-status">
             {{ t('game.overview.rating', { rating: item.rating }) }}
@@ -174,6 +184,7 @@ const progress = (metric: OverviewMetric) =>
           </p>
           <p
             v-if="
+              !item.sandbox &&
               item.status === 'unknown' &&
               item.current === null &&
               item.level === null &&

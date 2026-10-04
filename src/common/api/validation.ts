@@ -90,6 +90,29 @@ const sectionItem = shape({
   nameKey: optional(string),
   operatorId: optional(string),
   artworkUrl: optional(nullable(string)),
+  sandbox: optional(
+    shape({
+      maxDay: nullable(number),
+      maxDayChallenge: nullable(number),
+      mainQuest: nullable(number),
+      subQuests: nullable(
+        array(shape({ id: string, name: nullable(string), done: nullable(boolean) })),
+      ),
+      baseLv: nullable(number),
+      unlockNode: nullable(number),
+      enemyKill: nullable(number),
+      createRift: nullable(number),
+      fixRift: shape({ current: nullable(number), total: nullable(number) }),
+    }),
+  ),
+  bossRush: optional(
+    shape({
+      edition: nullable(string),
+      played: nullable(boolean),
+      difficulty: oneOf(null, 'NORMAL', 'TEAM', 'EX', 'SP'),
+      stageCode: nullable(string),
+    }),
+  ),
   level: nullable(number),
   status: oneOf('idle', 'working', 'complete', 'locked', 'unknown'),
   current: nullable(number),

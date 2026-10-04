@@ -28,6 +28,8 @@ description: 维护 EasonWeb 的森空岛明日方舟与终末地角色资料、
 
 数据有误时沿 `SklandPage → gameOverviewAPI → CommonServerAPI normalizeGameOverview` 追踪，先区分上游快照、后端计算、前端计时与缓存。特别是方舟主线的精确空字符串代表全部完成，null 仍是未提供。新字段需同步后端模型/OpenAPI、前端 `GameOverview`、中英文词条及边界用例。
 
+- 方舟活动、集成战略、保全、剿灭和引航者试炼使用 `OverviewRecords.vue` 的紧凑横幅行，不套用高封面卡；缺图回退保持行布局。生息演算使用 `SandboxDetails.vue` 的生存日、见证及里程碑分区，不能退回只显示名称的通用卡片。专属字段规则见上述显示规则文档，回归在 `tests/e2e/overview-records.spec.ts`。
+
 ## 图片从哪里拿
 
 按 [资源获取与主题适配](references/assets.md) 选择来源与同步方式。现有脚本和清单是唯一同步入口，构建和页面运行不下载目录。不要为此复制一个独立同步脚本。

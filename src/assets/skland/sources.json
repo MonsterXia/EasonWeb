@@ -414,5 +414,10 @@
     "module": "https://assets.skland.com/_static_assets/game-tools/realtime-detail-Y11qUxi1.js",
     "moduleSha256": "cbfcfeafef12ae9f36b8c2a14734b834f3808ef0f447ef9ad3fc52430106c0ce",
     "variable": "E"
+  },
+  "ak-bossRush": {
+    "file": "ak-bossRush.png",
+    "url": "https://bbs.hycdn.cn/public/skland-game/image/arknights/bossRush/6fb47c15e54385aee62ce4442acf90b0.png",
+    "sha256": "6f97a3cd58270f59087e3d71977368024f289437819aa5916125b35b188b2268"
   }
 }
