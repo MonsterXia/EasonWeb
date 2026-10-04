@@ -33,6 +33,7 @@ export interface GameOverview {
       name: string | null
       nameKey?: string
       operatorId?: string
+      artworkUrl?: string | null
       level: number | null
       status: 'idle' | 'working' | 'complete' | 'locked' | 'unknown'
       current: number | null

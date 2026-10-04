@@ -89,6 +89,7 @@ const sectionItem = shape({
   name: nullable(string),
   nameKey: optional(string),
   operatorId: optional(string),
+  artworkUrl: optional(nullable(string)),
   level: nullable(number),
   status: oneOf('idle', 'working', 'complete', 'locked', 'unknown'),
   current: nullable(number),

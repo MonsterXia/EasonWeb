@@ -1,30 +1,46 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { OverviewArt } from '@/common/overviewAssets'
 const props = defineProps<{ art?: OverviewArt }>()
-const failed = ref(false)
+const failed = ref<string[]>([])
+const current = computed(() => {
+  let art = props.art
+  const seen = new Set<string>()
+  while (art && failed.value.includes(art.src)) {
+    if (seen.has(art.src)) return undefined
+    seen.add(art.src)
+    art = art.fallback
+  }
+  return art
+})
 watch(
   () => props.art?.src,
   () => {
-    failed.value = false
+    failed.value = []
   },
 )
+function onError(event: Event) {
+  const src = (event.target as HTMLImageElement).getAttribute('src')
+  if (src && !failed.value.includes(src)) failed.value.push(src)
+}
 </script>
 <template>
   <span
-    v-if="art && !failed"
+    v-if="current"
     class="overview-artwork"
-    :class="[art.tone, art.kind, art.presentation]"
+    :class="[current.tone, current.kind, current.presentation]"
     aria-hidden="true"
   >
     <img
-      :src="art.src"
+      :key="current.src"
+      :src="current.src"
       alt=""
       width="64"
       height="64"
       loading="lazy"
       decoding="async"
-      @error="failed = true"
+      referrerpolicy="no-referrer"
+      @error="onError"
     />
   </span>
 </template>
@@ -69,6 +85,16 @@ img {
 .map img {
   width: 100%;
   height: 100%;
+}
+.cover {
+  width: 100%;
+  height: 112px;
+  border-radius: 8px;
+}
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 /* Preserve the official artwork, enlarging its central mark on the same
    theme-aware surface used by the other icons. */

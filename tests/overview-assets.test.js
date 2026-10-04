@@ -31,7 +31,7 @@ test('overview artwork is checked in, pinned and valid PNG, with no orphan asset
     assert.match(source.url ?? source.module, /^https:\/\/(bbs\.hycdn\.cn|assets\.skland\.com)\//)
   }
 })
-test('game and facility artwork use stable identifiers, never names or remote requests', () => {
+test('local artwork uses stable identifiers and unknown items use section fallbacks', () => {
   for (const [game, key] of [
     ['arknights', 'stamina'],
     ['arknights', 'drones'],
@@ -56,8 +56,14 @@ test('game and facility artwork use stable identifiers, never names or remote re
   assert.equal(facilityArt('endfieldDomains', { id: 'domain_2' }).kind, 'landscape')
   assert.equal(metricArt('unknown', 'stamina'), undefined)
   assert.equal(metricArt('endfield', 'unknown'), undefined)
-  assert.equal(facilityArt('endfieldExplorationPuzzles', { id: 'domain_1:unknown' }), undefined)
-  assert.equal(facilityArt('endfieldSpaceship', { id: 'unknown', nameKey: 'unknown' }), undefined)
+  assert.equal(
+    facilityArt('endfieldExplorationPuzzles', { id: 'domain_1:unknown' }).src,
+    sectionArt('endfieldExplorationPuzzles').src,
+  )
+  assert.equal(
+    facilityArt('endfieldSpaceship', { id: 'unknown', nameKey: 'unknown' }).src,
+    sectionArt('endfieldSpaceship').src,
+  )
   assert.equal(
     facilityArt('arknightsSupport', { id: '1', operatorId: 'char_002_amiya' }),
     undefined,
@@ -88,4 +94,35 @@ test('theme image filters stay scoped to artwork rather than the document root',
   }
   assert.equal(metricArt('endfield', 'medalLevel3').tone, 'color')
   assert.equal(metricArt('endfield', 'cnsLevel').tone, 'color')
+})
+
+test('official item artwork takes priority, with local and generic fallback chains', () => {
+  const url = 'https://bbs.hycdn.cn/public/skland-game/image/fixture.png'
+  const cover = facilityArt('arknightsActivities', { id: 'fixture', artworkUrl: url })
+  assert.equal(cover.src, url)
+  assert.equal(cover.kind, 'cover')
+  assert.equal(cover.tone, 'color')
+  assert.equal(cover.fallback.src, sectionArt('arknightsActivities').src)
+  const map = facilityArt('endfieldExplorationPuzzles', {
+    id: 'domain_1:map01_lv001',
+    artworkUrl: url,
+  })
+  assert.match(map.fallback.src, /map01_lv001/)
+  assert.equal(map.fallback.fallback.src, sectionArt('endfieldExplorationPuzzles').src)
+  for (const artworkUrl of [
+    null,
+    '',
+    'https://evil.invalid/a.png',
+    'https://bbs.hycdn.cn.evil.invalid/a.png',
+    'http://bbs.hycdn.cn/a.png',
+    'https://user:pass@bbs.hycdn.cn/a.png',
+    '//bbs.hycdn.cn/a.png',
+    'data:image/png;base64,AA',
+    'bad',
+  ]) {
+    assert.equal(
+      facilityArt('arknightsActivities', { id: 'fixture', artworkUrl }).src,
+      sectionArt('arknightsActivities').src,
+    )
+  }
 })
