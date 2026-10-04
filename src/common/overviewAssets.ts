@@ -8,7 +8,7 @@ const files = import.meta.glob<string>('../assets/skland/*.png', {
 })
 export type OverviewArt = {
   src: string
-  symbol?: 'compass'
+  presentation?: 'official-logo'
   tone: 'light-ink' | 'dark-ink' | 'color'
   kind: 'icon' | 'map' | 'landscape'
 }
@@ -30,6 +30,7 @@ const art = (key: string, kind: OverviewArt['kind'] = 'icon'): OverviewArt | und
     ? {
         src,
         kind,
+        presentation: key === 'ak-logoBase' ? 'official-logo' : undefined,
         tone:
           kind !== 'icon' || colorIcons.has(key)
             ? 'color'
@@ -105,13 +106,7 @@ const sections: Record<string, string> = {
   endfieldWarEchoesStages: 'ef-warEchoes',
   endfieldMonolith: 'ef-monolith',
 }
-export const sectionArt = (key: string): OverviewArt | undefined => {
-  const image = sections[key] ? art(sections[key]!) : undefined
-  // The decorative Sandbox banner is illegible at section-icon size.
-  return key === 'arknightsSandbox' && image
-    ? { ...image, tone: 'dark-ink', symbol: 'compass' }
-    : image
-}
+export const sectionArt = (key: string) => (sections[key] ? art(sections[key]!) : undefined)
 const rooms: Record<string, string> = {
   endfieldControl: 'control',
   endfieldManufacture1: 'manufacture',
