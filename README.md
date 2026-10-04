@@ -91,3 +91,5 @@ API 边界校验用户资料、角色列表、角色概览和签到结果的必�
 2026-10-04 进一步通过 Cloudflare API 核实：生产分支为 `main`，已启用自动生产部署；预览分支规则为全部分支。构建根目录为仓库根目录，实际构建命令为 `npm run build`，输出目录为 `dist`；生产与预览均未配置项目级环境变量。正式域名为 `https://eason.246801357.xyz`，Pages 域名为 `https://easonweb.pages.dev`。发布时先运行本地验证，再推送到目标分支，核对该提交 SHA 对应的 Cloudflare 检查和部署日志，最后验证部署地址；预览通过后再将已验证提交合入并推送 `main`。
 
 Node.js 版本由仓库 `.nvmrc` 指定为 24，实际构建所用版本以 Cloudflare 日志为准。当前线上构建命令执行类型检查与打包，没有自动运行单元测试或浏览器回归。可将构建命令改为 `npm test && npm run build`，让单元测试失败也阻止发布；这仍是建议，本次未修改平台配置。浏览器回归另行运行 `npm run test:e2e`，需要预先安装 Chromium 及其系统依赖；`dist-e2e/` 只用于测试，不是发布目录。具体配置方式见[Cloudflare 构建配置](https://developers.cloudflare.com/pages/configuration/build-configuration/)。
+
+生产 API 的 Origin 规则允许 HTTPS `*.246801357.xyz`，不包含 `*.pages.dev`。因此 Pages 预览可用于静态页面、导航与本地计算器检查，直接调用生产账号 API 会被 CORS 拦截；账号接口的真实联调需使用正式域名或已配置的允许域名。浏览器测试中的合成响应不能证明预览域名已获得生产 API 访问权限。

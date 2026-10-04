@@ -115,6 +115,7 @@ Vue 模板页、欢迎组件与未使用的 Pinia counter store 已移除。业�
 - 已核实的历史依据：2026-10-04 查询时，GitHub Actions 工作流和运行记录均为 0；`main` 提交 `e608f1b` 的[部署检查](https://github.com/MonsterXia/EasonWeb/runs/111130466093)由 `cloudflare-workers-and-pages` 应用报告成功。后续排查读取目标提交的 `/repos/MonsterXia/EasonWeb/commits/{sha}/check-runs`，按应用、提交 SHA、结果及详情链接确认对应发布；不要仅查询 commit statuses，Pages 结果可能只在 check runs 中。
 - 2026-10-04 通过 Cloudflare 项目 API 核实：生产分支 `main`，自动生产部署开启，预览范围为全部分支；根目录为仓库根目录，构建命令 `npm run build`，输出目录 `dist`，生产与预览均无项目级环境变量。正式域名 `https://eason.246801357.xyz`，Pages 域名 `https://easonweb.pages.dev`。发布前读取项目配置确认未变；以 Cloudflare 控制台 **Workers & Pages → easonweb → 构建设置**或项目 API 的当前值为准。
 - `.nvmrc` 指定 Node.js 24，实际构建版本以 Cloudflare 日志为准。当前线上 `npm run build` 包含类型检查与打包，不自动执行测试；可建议改为 `npm test && npm run build`，但不要描述为已启用。浏览器回归按上节单独执行，不假设 Cloudflare 已安装 Chromium。`VITE_API_BASE_URL` 在构建时生效，生产和预览环境需分别核对；不要将 E2E 专用 `/api` 配置用于生产包。
+- 生产 API 的 Origin 规则允许 HTTPS `*.246801357.xyz`，不包含 `*.pages.dev`。已在浏览器核实：Pages 预览请求 `/user/current` 被 CORS 拦截，而正式域名的匿名请求返回可读取的 401 并展示登录入口。预览用于静态页面、路由、计算器验证；真实账号接口在正式域名或已配置的允许域名验证，不把预览 CORS 拒绝误判为这次前端回归，也不为预览擅自放宽生产后端规则。
 - 用户授权发布时，完成相应本地验证并核对 README 中的后端升级要求，再提交／推送目标改动到工作分支，跟踪该提交的 Cloudflare 检查与预览部署并验证；预览通过后将已验证提交合入并推送 `main`，再次核对生产部署 SHA、结果与正式域名。远端已前进时先整合和验证，不强制覆盖。推送会按分支规则触发部署；普通代码修改、文档维护不自动执行发布，也不自动执行独立 CommonServerAPI 的数据库迁移。
 - 维护流程及当前证据见仓库根目录 `README.md` 的“Cloudflare Pages 构建与部署”；平台行为参见 [Git 集成](https://developers.cloudflare.com/pages/configuration/git-integration/)与[构建配置](https://developers.cloudflare.com/pages/configuration/build-configuration/)。实际排障以最新记录和控制台配置为准。
 
