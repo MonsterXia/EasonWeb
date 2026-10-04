@@ -29,7 +29,11 @@ const { number } = useOverviewFormat()
       v-for="item in section.items"
       :key="item.id"
       class="record-row"
-      :class="{ 'trial-record': !!item.bossRush, 'tower-record': section.key === 'arknightsTower' }"
+      :class="{
+        'trial-record': !!item.bossRush,
+        'tower-record': section.key === 'arknightsTower',
+        'rogue-record': section.key === 'arknightsRogue',
+      }"
     >
       <div class="banner-frame">
         <OverviewArtwork class="facility-art" :art="backgroundArt(item)" banner />
@@ -173,7 +177,7 @@ const { number } = useOverviewFormat()
     color-mix(in srgb, var(--color-background-mute) 94%, transparent) 100%
   );
 }
-/* Most covers keep their dark backing. Compact trial cards adapt below to the
+/* Most covers keep their dark backing. Tower and trial cards adapt below to the
    page theme; missing artwork always keeps the shared theme surface. */
 .record-row:has(.banner-frame .cover) {
   --record-heading: #ffffff;
@@ -201,12 +205,6 @@ const { number } = useOverviewFormat()
   width: 100%;
   height: 100%;
 }
-/* Tower covers retain their dark backing in both themes; a missing cover uses
-   the normal themed icon instead. This also applies to the generic logo fallback. */
-.tower-record:has(.banner-frame .cover) .record-logo :deep(img) {
-  filter: none;
-  mix-blend-mode: normal;
-}
 /* Keep only the patterned left half of the trial banner, without stretching it
    or cropping the independent foreground logo. */
 .trial-record .banner-frame :deep(.cover) {
@@ -214,15 +212,15 @@ const { number } = useOverviewFormat()
 }
 /* Keep the artwork at full strength in both themes. Only the theme-specific
    scrim softens the text area, so the texture is not faded twice. */
-.trial-record:has(.banner-frame .cover)::after {
+:is(.trial-record, .tower-record):has(.banner-frame .cover)::after {
   background: linear-gradient(to right, #0001, #0005 var(--record-inset), #0004 100%);
 }
-:root:not(.dark) .trial-record:has(.banner-frame .cover) {
+:root:not(.dark) :is(.trial-record, .tower-record):has(.banner-frame .cover) {
   --record-heading: var(--color-heading);
   --record-text: var(--color-heading);
   background: var(--color-background-mute);
 }
-:root:not(.dark) .trial-record:has(.banner-frame .cover)::after {
+:root:not(.dark) :is(.trial-record, .tower-record):has(.banner-frame .cover)::after {
   background: linear-gradient(
     to right,
     color-mix(in srgb, var(--color-background-mute) 28%, transparent),
@@ -329,6 +327,46 @@ h4 {
 }
 .trial-record .record-progress p {
   justify-content: flex-start;
+}
+/* Rogue banners contain their own title on the left. Keep the full banner and
+   place record text over its empty right side, even when text makes a row taller. */
+.rogue-record:has(.banner-frame .cover) {
+  --record-inset: 58%;
+  --record-heading: var(--color-heading);
+  --record-text: var(--color-heading);
+  background: var(--color-background-mute);
+}
+.rogue-record .banner-frame :deep(.cover img) {
+  object-fit: contain;
+}
+.rogue-record:has(.banner-frame .cover)::after {
+  background: linear-gradient(
+    to right,
+    transparent 35%,
+    color-mix(in srgb, var(--color-background-mute) 60%, transparent) var(--record-inset),
+    color-mix(in srgb, var(--color-background-mute) 85%, transparent)
+  );
+}
+.rogue-record .record-body {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 3px;
+  padding-left: 12px;
+}
+.rogue-record .record-heading {
+  flex: 0 1 auto;
+}
+.rogue-record .record-progress {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: none;
+  gap: 2px 12px;
+  text-align: left;
+}
+.rogue-record .record-progress p {
+  justify-content: flex-start;
+  margin: 0;
 }
 @media (max-width: 480px) {
   .record-logo {

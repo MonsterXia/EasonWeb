@@ -51,4 +51,6 @@
 
 SDK 的 `So` / `xo` 分别使用 `game_mode/climb_tower/icon/{encodeURIComponent(id)}.png` 和 `game_mode/campaign/zone_icon/{encodeURIComponent(id)}.png`，前缀 `https://web.hycdn.cn/arknights/game/assets/`。这两个模式缺横幅时先尝试官方 ID 图标，再到本地通用图；引航者试炼使用 SDK `Eo` 中公开固定图 `https://bbs.hycdn.cn/public/skland-game/image/arknights/bossRush/6fb47c15e54385aee62ce4442acf90b0.png`。单色图仍使用共享主题底板。活动 picUrl 缺失时没有已验证的通用 ID 补图规则：act35side 的 game_mode/activity/thumb 路径核查为 404，不应据此新增猜测地址或硬编码个别活动映射。
 
-保全派驻须将背景与设施 logo 独立叠加：背景仅用接口 `artworkUrl`，logo 始终按已核实的 `climb_tower/icon/{id}.png` 规则解析，失败才用通用模式图。不能把 logo 仅作为背景的兜底；背景失败后保留 logo，logo 失败后也保留背景。现有保全横幅为暗底，图标保持白色；无背景时图标恢复共享明暗主题规则。前景标识不得重复渲染在背景中。回归见 `tests/e2e/overview-tower.spec.ts`。
+保全派驻须将背景与设施 logo 独立叠加：背景仅用接口 `artworkUrl`，logo 始终按已核实的 `climb_tower/icon/{id}.png` 规则解析，失败才用通用模式图。不能把 logo 仅作为背景的兜底；背景失败后保留 logo，logo 失败后也保留背景。保全与引航者试炼复用明暗主题遮罩：浅色用浅底深字、深色单色 logo，深色用暗底白字、白色 logo；背景原色不反转、背景层不额外淡化，仅由主题遮罩保护文字对比。包括缺图兜底在内，logo 均由共享主题规则适配；不能强制浅色页面使用黑底白标。前景标识不得重复渲染在背景中。回归见 `tests/e2e/overview-tower.spec.ts`。
+
+集成战略保留整张横幅作卡片背景，名称、收藏品和投资放在横幅右侧无内容区域（约 58% 处开始），不能遮挡左侧内嵌标题，也不拆成独立图片区。横幅等比例 contain、左对齐，长文本增高时不放大素材导致图案侵入文字区；明暗主题均用语义底色和文字，遮罩只渐变覆盖右侧。无横幅时恢复紧凑图标与文字布局，零值和缺失的两项数据仍分别展示。

@@ -248,6 +248,37 @@ for (const language of ['zh-CN', 'en']) {
       await expect(
         rogue.locator('.record-row').nth(1).locator('.record-measure strong'),
       ).toHaveText(['—', '0'])
+      const rogueCard = rogue.locator('.record-row').first()
+      const checkRogueLayout = async () => {
+        await rogueCard.scrollIntoViewIfNeeded()
+        const layout = await rogueCard.evaluate((el) => {
+          const row = el.getBoundingClientRect()
+          const banner = el.querySelector('.banner-frame')!.getBoundingClientRect()
+          const title = el.querySelector('h4')!.getBoundingClientRect()
+          const progress = el.querySelector('.record-progress')!.getBoundingClientRect()
+          return {
+            width: row.width,
+            bannerWidth: banner.width,
+            textStart: Math.min(title.left, progress.left) - banner.left,
+            contained:
+              title.right <= row.right &&
+              progress.right <= row.right &&
+              el.scrollWidth <= el.clientWidth,
+          }
+        })
+        expect(layout.bannerWidth).toBeCloseTo(layout.width - 2, 0)
+        expect(layout.textStart / layout.bannerWidth).toBeGreaterThanOrEqual(0.58)
+        expect(layout.contained).toBe(true)
+        await expect(rogueCard.locator('h4')).toHaveCSS(
+          'color',
+          theme === 'dark' ? 'rgb(255, 241, 246)' : 'rgb(56, 38, 50)',
+        )
+      }
+      await checkRogueLayout()
+      await rogue.screenshot({
+        path: test.info().outputPath(`rogue-${theme}.png`),
+        style: '.site-header, .site-header * { visibility: hidden !important; }',
+      })
       const sandbox = page.locator('.sandbox-details')
       await expect(sandbox).toBeVisible()
       await expect(sandbox.locator('.survival-grid dd').first()).toHaveText(
@@ -275,7 +306,10 @@ for (const language of ['zh-CN', 'en']) {
           path: test.info().outputPath(`trials-${theme}.png`),
           style: '.site-header, .site-header * { visibility: hidden !important; }',
         })
-      if (isMobile) await page.setViewportSize({ width: 320, height: 850 })
+      if (isMobile) {
+        await page.setViewportSize({ width: 320, height: 850 })
+        await checkRogueLayout()
+      }
       const long = page.locator('.record-row').filter({ hasText: 'Long activity title' })
       await long.scrollIntoViewIfNeeded()
       await expect(long.locator('h4')).toContainText('without truncation')

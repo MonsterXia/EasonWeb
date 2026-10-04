@@ -62,16 +62,26 @@ for (const theme of ['light', 'dark']) {
       const image = row.locator('.record-logo img')
       const fallback = id === 'broken-logo' || id === 'both-broken'
       const hasCover = id === 'full' || id === 'broken-logo'
-      await expect(image).toHaveAttribute(
-        'src',
-        fallback ? genericLogo! : iconRoot + id + '.png',
-      )
+      await expect(image).toHaveAttribute('src', fallback ? genericLogo! : iconRoot + id + '.png')
       await expect
         .poll(() => image.evaluate((el) => (el as HTMLImageElement).naturalWidth))
         .toBeGreaterThan(0)
       await expect(row.locator('.banner-frame img')).toHaveCount(hasCover ? 1 : 0)
       if (hasCover) {
         await expect(row.locator('.banner-frame img')).toHaveAttribute('src', cover)
+        await expect(row.locator('.banner-frame img')).toHaveCSS('filter', 'none')
+        await expect(row).toHaveCSS(
+          'background-color',
+          theme === 'dark' ? 'rgb(32, 32, 32)' : 'rgb(249, 237, 242)',
+        )
+        await expect(row.locator('h4')).toHaveCSS(
+          'color',
+          theme === 'dark' ? 'rgb(255, 255, 255)' : 'rgb(56, 38, 50)',
+        )
+        await expect(row.locator('.subtitle')).toHaveCSS(
+          'color',
+          theme === 'dark' ? 'rgb(240, 240, 240)' : 'rgb(56, 38, 50)',
+        )
         await expect
           .poll(() =>
             row
@@ -80,7 +90,7 @@ for (const theme of ['light', 'dark']) {
           )
           .toBeGreaterThan(0)
       }
-      await expect(image).toHaveCSS('filter', hasCover || theme === 'dark' ? 'none' : 'invert(1)')
+      await expect(image).toHaveCSS('filter', theme === 'dark' ? 'none' : 'invert(1)')
       await expect(row.locator('.record-progress strong')).toHaveText('6')
       expect(
         await row.evaluate((el) => {
@@ -101,7 +111,10 @@ for (const theme of ['light', 'dark']) {
       .filter({ has: page.getByText('broken-cover', { exact: true }) })
     await recovered.scrollIntoViewIfNeeded()
     await expect(recovered.locator('.banner-frame img')).toHaveAttribute('src', cover)
-    await expect(recovered.locator('.record-logo img')).toHaveCSS('filter', 'none')
+    await expect(recovered.locator('.record-logo img')).toHaveCSS(
+      'filter',
+      theme === 'dark' ? 'none' : 'invert(1)',
+    )
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
   })
 }
