@@ -5,10 +5,20 @@ import { facilityArt, sectionArt } from '@/common/overviewAssets'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import OverviewArtwork from './OverviewArtwork.vue'
 const props = defineProps<{ section: DisplaySection }>()
+function foregroundArt(item: DisplayItem) {
+  if (item.bossRush) return sectionArt('arknightsBossRush')
+  if (props.section.key === 'arknightsTower')
+    return facilityArt(props.section.key, { ...item, artworkUrl: undefined })
+}
 function backgroundArt(item: DisplayItem) {
   const art = facilityArt(props.section.key, item)
-  // Trials have an independent foreground logo; never substitute it for the background.
-  return item.bossRush ? (art?.kind === 'cover' ? { ...art, fallback: undefined } : undefined) : art
+  // Independent logos must remain visible when a cover loads or fails, without
+  // also appearing as a duplicate fallback in the background.
+  return foregroundArt(item)
+    ? art?.kind === 'cover'
+      ? { ...art, fallback: undefined }
+      : undefined
+    : art
 }
 const { t } = useI18n()
 const { number } = useOverviewFormat()
@@ -19,16 +29,12 @@ const { number } = useOverviewFormat()
       v-for="item in section.items"
       :key="item.id"
       class="record-row"
-      :class="{ 'trial-record': !!item.bossRush }"
+      :class="{ 'trial-record': !!item.bossRush, 'tower-record': section.key === 'arknightsTower' }"
     >
       <div class="banner-frame">
         <OverviewArtwork class="facility-art" :art="backgroundArt(item)" banner />
       </div>
-      <OverviewArtwork
-        v-if="item.bossRush"
-        class="record-logo"
-        :art="sectionArt('arknightsBossRush')"
-      />
+      <OverviewArtwork v-if="foregroundArt(item)" class="record-logo" :art="foregroundArt(item)" />
       <div class="record-body">
         <div class="record-heading">
           <h4>
@@ -195,25 +201,33 @@ const { number } = useOverviewFormat()
   width: 100%;
   height: 100%;
 }
+/* Tower covers retain their dark backing in both themes; a missing cover uses
+   the normal themed icon instead. This also applies to the generic logo fallback. */
+.tower-record:has(.banner-frame .cover) .record-logo :deep(img) {
+  filter: none;
+  mix-blend-mode: normal;
+}
 /* Keep only the patterned left half of the trial banner, without stretching it
    or cropping the independent foreground logo. */
 .trial-record .banner-frame :deep(.cover) {
   width: 200%;
 }
+/* Keep the artwork at full strength in both themes. Only the theme-specific
+   scrim softens the text area, so the texture is not faded twice. */
+.trial-record:has(.banner-frame .cover)::after {
+  background: linear-gradient(to right, #0001, #0005 var(--record-inset), #0004 100%);
+}
 :root:not(.dark) .trial-record:has(.banner-frame .cover) {
   --record-heading: var(--color-heading);
-  --record-text: var(--color-text);
+  --record-text: var(--color-heading);
   background: var(--color-background-mute);
-}
-:root:not(.dark) .trial-record .banner-frame {
-  opacity: 0.24;
 }
 :root:not(.dark) .trial-record:has(.banner-frame .cover)::after {
   background: linear-gradient(
     to right,
-    transparent,
-    color-mix(in srgb, var(--color-background-mute) 30%, transparent) var(--record-inset),
-    color-mix(in srgb, var(--color-background-mute) 45%, transparent)
+    color-mix(in srgb, var(--color-background-mute) 28%, transparent),
+    color-mix(in srgb, var(--color-background-mute) 60%, transparent) var(--record-inset),
+    color-mix(in srgb, var(--color-background-mute) 60%, transparent)
   );
 }
 .record-body {
