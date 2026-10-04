@@ -60,9 +60,6 @@ html.dark .dark-ink img {
   filter: invert(1);
   mix-blend-mode: screen;
 }
-.color.icon {
-  background: color-mix(in srgb, #a79ca5 30%, var(--color-background-mute));
-}
 img {
   display: block;
   width: 80%;
@@ -73,11 +70,8 @@ img {
   width: 100%;
   height: 100%;
 }
-/* This official logo has pale yellow and white details intended for a dark
-   surface. Keep its original pixels and colors; only adjust its presentation. */
-.color.icon.official-logo {
-  background: #30232e;
-}
+/* Preserve the official artwork, enlarging its central mark on the same
+   theme-aware surface used by the other icons. */
 .official-logo img {
   width: 100%;
   height: 100%;

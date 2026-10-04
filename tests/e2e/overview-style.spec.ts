@@ -39,7 +39,24 @@ for (const theme of ['light', 'dark']) {
     expect(await icon.evaluate((el) => getComputedStyle(el).filter)).toBe('none')
     expect(
       await heading.locator('.section-art').evaluate((el) => getComputedStyle(el).backgroundColor),
-    ).toBe('rgb(48, 35, 46)')
+    ).toBe(
+      await page
+        .locator('summary')
+        .filter({ hasText: '剿灭作战' })
+        .locator('.section-art')
+        .evaluate((el) => getComputedStyle(el).backgroundColor),
+    )
+    expect(
+      await heading
+        .locator('..')
+        .locator('.facility-art')
+        .evaluate((el) => getComputedStyle(el).backgroundColor),
+    ).toBe(
+      await heading.locator('.section-art').evaluate((el) => getComputedStyle(el).backgroundColor),
+    )
+    expect(await page.locator('html').evaluate((el) => el.classList.contains('dark'))).toBe(
+      theme === 'dark',
+    )
     await heading.click()
     await page.keyboard.press('Shift+Tab')
     await page.keyboard.press('Tab')
