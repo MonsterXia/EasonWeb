@@ -10,7 +10,12 @@ const { number } = useOverviewFormat()
 </script>
 <template>
   <ul class="record-list">
-    <li v-for="item in section.items" :key="item.id" class="record-row">
+    <li
+      v-for="item in section.items"
+      :key="item.id"
+      class="record-row"
+      :class="{ 'trial-record': !!item.bossRush }"
+    >
       <div class="banner-frame">
         <OverviewArtwork class="facility-art" :art="facilityArt(section.key, item)" banner />
       </div>
@@ -23,8 +28,10 @@ const { number } = useOverviewFormat()
                 ? t('game.overview.sections.arknightsBossRush')
                 : item.id)
             }}
-            <span v-if="item.bossRush?.edition" class="edition">#{{ item.bossRush.edition }}</span>
           </h4>
+          <span v-if="item.bossRush?.edition" class="record-edition"
+            >#{{ item.bossRush.edition }}</span
+          >
           <p v-if="item.subtitle" class="subtitle">{{ item.subtitle }}</p>
         </div>
         <div class="record-progress">
@@ -91,31 +98,33 @@ const { number } = useOverviewFormat()
 .record-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-  gap: 12px;
-  margin: 16px 0 0;
+  gap: 8px;
+  margin: 12px 0 0;
   padding: 0;
   list-style: none;
 }
 .record-row {
+  --record-inset: 76px;
   position: relative;
   isolation: isolate;
   min-width: 0;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   background: var(--color-background-mute);
 }
 .banner-frame {
   position: absolute;
   inset: 0;
+  z-index: -2;
   display: flex;
   align-items: center;
   pointer-events: none;
 }
 .banner-frame :deep(.overview-artwork) {
-  margin-left: 18px;
-  width: 64px;
-  height: 64px;
+  margin-left: 10px;
+  width: 48px;
+  height: 48px;
 }
 .banner-frame :deep(.cover) {
   margin: 0;
@@ -123,14 +132,13 @@ const { number } = useOverviewFormat()
   height: 100%;
   border-radius: 0;
 }
-/* Keep the official mark on the left; excess transparent pixels may extend
-   beyond the right edge. Cap scaling when unusually long text grows the row. */
+/* Scale to the short row instead of magnifying the repeated mode mark. */
 .banner-frame :deep(.cover img) {
   object-fit: cover;
   object-position: left center;
-  max-height: 144px;
+  max-height: 80px;
 }
-/* A semantic scrim protects text even if a future banner is fully opaque. */
+/* Text overlaps the texture; protect its contrast without reserving half a card. */
 .record-row::after {
   content: '';
   position: absolute;
@@ -139,24 +147,23 @@ const { number } = useOverviewFormat()
   pointer-events: none;
   background: linear-gradient(
     to right,
-    transparent 24%,
-    color-mix(in srgb, var(--color-background-mute) 96%, transparent) 48%,
-    var(--color-background-mute) 72%
+    transparent 24px,
+    color-mix(in srgb, var(--color-background-mute) 92%, transparent) var(--record-inset),
+    color-mix(in srgb, var(--color-background-mute) 94%, transparent) 100%
   );
 }
-.banner-frame {
-  z-index: -2;
-}
 .record-body {
-  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  min-height: 120px;
-  margin-left: 48%;
-  padding: 14px 16px 14px 0;
-  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  margin-left: var(--record-inset);
+  padding: 8px 12px 8px 0;
+  gap: 12px;
+}
+.record-heading {
+  min-width: 0;
+  flex: 1 1 0;
 }
 h4,
 p {
@@ -164,33 +171,38 @@ p {
 }
 h4 {
   color: var(--color-heading);
-  font-size: 1rem;
-  line-height: 1.45;
+  font-size: 0.95rem;
+  line-height: 1.4;
   overflow-wrap: anywhere;
 }
 .subtitle,
 .record-progress {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
 .subtitle,
 .record-progress p > span {
-  color: var(--muted);
+  color: var(--color-text);
 }
 .subtitle {
-  margin-top: 4px;
+  margin-top: 2px;
   overflow-wrap: anywhere;
 }
 .record-progress {
-  max-width: 100%;
+  min-width: 0;
+  max-width: 55%;
+  flex: 0 1 auto;
+  text-align: right;
 }
 .record-progress p {
   display: flex;
   align-items: baseline;
+  justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 2px 10px;
+  gap: 0 6px;
 }
 .record-measure + .record-measure {
-  margin-top: 4px;
+  margin-top: 2px;
 }
 .record-progress strong {
   color: var(--color-heading);
@@ -201,25 +213,58 @@ h4 {
 .complete {
   display: block;
   color: var(--el-color-primary);
-  margin-top: 4px;
+  margin-top: 2px;
 }
-.edition {
-  color: var(--el-color-primary);
+.record-edition {
+  display: inline-block;
+  padding: 0 5px;
+  margin-top: 3px;
+  border-radius: 3px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+.trial-record .record-body {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3px;
+}
+.trial-record .record-heading {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+.trial-record .record-edition {
+  margin-top: 0;
+}
+.trial-record .record-progress {
+  max-width: 100%;
+  flex: 0 1 auto;
+  text-align: left;
+}
+.trial-record .record-progress p {
+  justify-content: flex-start;
+}
 @media (max-width: 480px) {
-  .record-body {
-    min-height: 112px;
-    margin-left: 44%;
-    padding-right: 12px;
+  .record-row {
+    --record-inset: 60px;
   }
-  .record-row::after {
-    background: linear-gradient(
-      to right,
-      transparent 18%,
-      color-mix(in srgb, var(--color-background-mute) 96%, transparent) 44%,
-      var(--color-background-mute) 72%
-    );
+  .record-body {
+    min-height: 64px;
+    padding-right: 8px;
+    gap: 8px;
+  }
+  .banner-frame :deep(.overview-artwork:not(.cover)) {
+    margin-left: 6px;
+    width: 42px;
+    height: 42px;
   }
 }
 </style>

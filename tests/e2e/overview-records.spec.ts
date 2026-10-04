@@ -68,6 +68,11 @@ for (const language of ['zh-CN', 'en']) {
                   id: 'unplayed',
                   bossRush: { edition: '01', played: false, difficulty: null, stageCode: null },
                 },
+                {
+                  ...base,
+                  id: 'newest',
+                  bossRush: { edition: '10', played: true, difficulty: 'SP', stageCode: 'TN-1' },
+                },
               ],
             },
             {
@@ -141,12 +146,13 @@ for (const language of ['zh-CN', 'en']) {
           }
         })
       expect(boxes.banner.height).toBeCloseTo(boxes.height - 2, 0)
-      expect(boxes.body.x).toBeGreaterThan(boxes.banner.x + boxes.banner.width * 0.4)
+      expect(boxes.body.x - boxes.banner.x).toBeGreaterThanOrEqual(58)
+      expect(boxes.body.x - boxes.banner.x).toBeLessThanOrEqual(80)
       expect(boxes.body.y).toBeGreaterThanOrEqual(boxes.banner.y)
       expect(boxes.body.y + boxes.body.height).toBeLessThanOrEqual(
         boxes.banner.y + boxes.banner.height + 1,
       )
-      expect(boxes.height).toBeLessThanOrEqual(134)
+      expect(boxes.height).toBeLessThanOrEqual(82)
       expect((await banners.nth(1).boundingBox())!.height).toBeCloseTo(boxes.banner.height, 0)
       await expect(
         page.getByText(language === 'en' ? 'Spectacular Trial TN-2' : '恢弘试炼 TN-2'),
@@ -154,6 +160,34 @@ for (const language of ['zh-CN', 'en']) {
       await expect(
         page.getByText(language === 'en' ? 'No record' : '暂无记录', { exact: true }),
       ).toBeVisible()
+      await expect(page.locator('.record-edition')).toHaveText(['#10', '#02', '#01'])
+      expect(
+        await page
+          .locator('.record-edition')
+          .first()
+          .evaluate((el) => getComputedStyle(el).color),
+      ).toBe(theme === 'dark' ? 'rgb(48, 21, 33)' : 'rgb(255, 255, 255)')
+      const trialLayout = await page
+        .locator('.trial-record')
+        .first()
+        .evaluate((el) => {
+          const title = el.querySelector('h4')!.getBoundingClientRect()
+          const edition = el.querySelector('.record-edition')!.getBoundingClientRect()
+          const progress = el.querySelector('.record-progress')!.getBoundingClientRect()
+          return {
+            titleRight: title.right,
+            titleTop: title.top,
+            titleBottom: title.bottom,
+            editionLeft: edition.left,
+            editionTop: edition.top,
+            progressTop: progress.top,
+            leftDifference: Math.abs(title.left - progress.left),
+          }
+        })
+      expect(trialLayout.editionLeft).toBeGreaterThan(trialLayout.titleRight)
+      expect(trialLayout.editionTop).toBeLessThan(trialLayout.titleBottom)
+      expect(trialLayout.progressTop).toBeGreaterThanOrEqual(trialLayout.titleBottom)
+      expect(trialLayout.leftDifference).toBeLessThan(1)
       const rogue = page
         .locator('.facility-group')
         .filter({ has: page.getByText('Synthetic rogue season', { exact: true }) })
@@ -187,6 +221,13 @@ for (const language of ['zh-CN', 'en']) {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
         true,
       )
+      await page
+        .locator('.record-list')
+        .nth(1)
+        .screenshot({
+          path: test.info().outputPath(`trials-${theme}.png`),
+          style: '.site-header, .site-header * { visibility: hidden !important; }',
+        })
       if (isMobile) await page.setViewportSize({ width: 320, height: 850 })
       const long = page.locator('.record-row').filter({ hasText: 'Long activity title' })
       await long.scrollIntoViewIfNeeded()

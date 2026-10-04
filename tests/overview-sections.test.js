@@ -64,3 +64,21 @@ test('keeps an empty group and handles either measure being entirely absent', ()
     [null, 0],
   )
 })
+
+test('orders verified boss rush editions newest first without mutating cached source', () => {
+  const source = [
+    {
+      key: 'arknightsBossRush',
+      items: ['01', '02', null, '10', '06', 'unknown'].map((edition, index) => ({
+        ...item(String(index), null),
+        bossRush: { edition },
+      })),
+    },
+  ]
+  const before = structuredClone(source)
+  assert.deepEqual(
+    overviewSections(source)[0].items.map((i) => i.bossRush.edition),
+    ['10', '06', '02', '01', null, 'unknown'],
+  )
+  assert.deepEqual(source, before)
+})

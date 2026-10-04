@@ -8,6 +8,19 @@ export type DisplaySection = { key: string; items: DisplayItem[] }
 
 /** Join the two measures by season ID, preserving source order and partial records. */
 export function overviewSections(sections: Section[] = []): DisplaySection[] {
+  // Upstream ordering varies; compare verified editions numerically on a copy.
+  sections = sections.map((section) =>
+    section.key === 'arknightsBossRush'
+      ? {
+          ...section,
+          items: [...section.items].sort((a, b) => {
+            const edition = (value: string | null | undefined) =>
+              value && /^\d+$/.test(value) ? Number(value) : -1
+            return edition(b.bossRush?.edition) - edition(a.bossRush?.edition)
+          }),
+        }
+      : section,
+  )
   const isRogue = (key: string) => key === 'arknightsRogueRelics' || key === 'arknightsRogueBank'
   const groups = sections.filter((section) => isRogue(section.key))
   if (!groups.length) return sections
