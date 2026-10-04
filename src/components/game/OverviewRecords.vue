@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import type { GameOverview } from '@/common/api/gameOverview'
+import type { DisplaySection } from '@/common/overviewSections'
 import { facilityArt } from '@/common/overviewAssets'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import OverviewArtwork from './OverviewArtwork.vue'
-defineProps<{ section: NonNullable<GameOverview['sections']>[number] }>()
+defineProps<{ section: DisplaySection }>()
 const { t } = useI18n()
 const { number } = useOverviewFormat()
 </script>
@@ -28,7 +28,18 @@ const { number } = useOverviewFormat()
           <p v-if="item.subtitle" class="subtitle">{{ item.subtitle }}</p>
         </div>
         <div class="record-progress">
-          <template v-if="item.bossRush">
+          <template v-if="item.measures">
+            <p v-for="measure in item.measures" :key="measure.key" class="record-measure">
+              <span>{{ t(`game.overview.sectionValues.${measure.key}`) }}</span>
+              <strong
+                >{{ number(measure.current)
+                }}<template v-if="measure.total !== null">
+                  / {{ number(measure.total) }}</template
+                ></strong
+              >
+            </p>
+          </template>
+          <template v-else-if="item.bossRush">
             <p v-if="item.bossRush.played === true">
               <span>{{ t('game.overview.sectionValues.arknightsBossRush') }}</span>
               <strong
@@ -86,41 +97,75 @@ const { number } = useOverviewFormat()
   list-style: none;
 }
 .record-row {
+  position: relative;
+  isolation: isolate;
   min-width: 0;
   border: 1px solid var(--color-border);
   border-radius: 12px;
   overflow: hidden;
-  background: var(--color-background-soft);
-}
-.banner-frame {
-  position: relative;
-  aspect-ratio: 6;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   background: var(--color-background-mute);
 }
-.banner-frame :deep(.overview-artwork) {
+.banner-frame {
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.banner-frame :deep(.overview-artwork) {
+  margin-left: 18px;
+  width: 64px;
+  height: 64px;
+}
+.banner-frame :deep(.cover) {
+  margin: 0;
+  width: 100%;
   height: 100%;
   border-radius: 0;
 }
+/* Keep the official mark on the left; excess transparent pixels may extend
+   beyond the right edge. Cap scaling when unusually long text grows the row. */
+.banner-frame :deep(.cover img) {
+  object-fit: cover;
+  object-position: left center;
+  max-height: 144px;
+}
+/* A semantic scrim protects text even if a future banner is fully opaque. */
+.record-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    transparent 24%,
+    color-mix(in srgb, var(--color-background-mute) 96%, transparent) 48%,
+    var(--color-background-mute) 72%
+  );
+}
+.banner-frame {
+  z-index: -2;
+}
 .record-body {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  padding: 12px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 120px;
+  margin-left: 48%;
+  padding: 14px 16px 14px 0;
+  gap: 8px;
 }
 h4,
 p {
   margin: 0;
 }
 h4 {
+  color: var(--color-heading);
   font-size: 1rem;
+  line-height: 1.45;
   overflow-wrap: anywhere;
 }
 .subtitle,
@@ -129,16 +174,29 @@ h4 {
 }
 .subtitle,
 .record-progress p > span {
-  color: var(--color-text-secondary);
+  color: var(--muted);
+}
+.subtitle {
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+.record-progress {
+  max-width: 100%;
 }
 .record-progress p {
   display: flex;
+  align-items: baseline;
   flex-wrap: wrap;
-  gap: 4px 12px;
+  gap: 2px 10px;
+}
+.record-measure + .record-measure {
+  margin-top: 4px;
 }
 .record-progress strong {
+  color: var(--color-heading);
   font-variant-numeric: tabular-nums;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
 .complete {
   display: block;
@@ -148,5 +206,20 @@ h4 {
 .edition {
   color: var(--el-color-primary);
   white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .record-body {
+    min-height: 112px;
+    margin-left: 44%;
+    padding-right: 12px;
+  }
+  .record-row::after {
+    background: linear-gradient(
+      to right,
+      transparent 18%,
+      color-mix(in srgb, var(--color-background-mute) 96%, transparent) 44%,
+      var(--color-background-mute) 72%
+    );
+  }
 }
 </style>

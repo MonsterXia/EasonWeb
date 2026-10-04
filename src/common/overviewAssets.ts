@@ -91,6 +91,7 @@ const sections: Record<string, string> = {
   arknightsTrading: 'ak-icon-trading',
   arknightsSupport: 'ak-char',
   arknightsActivities: 'ak-logoRecord',
+  arknightsRogue: 'ak-logoExplore',
   arknightsRogueRelics: 'ak-logoExplore',
   arknightsRogueBank: 'ak-logoExplore',
   arknightsTower: 'ak-icon-towerRewardHigher',

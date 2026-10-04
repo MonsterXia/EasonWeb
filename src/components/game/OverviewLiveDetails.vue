@@ -7,6 +7,7 @@ import type { GameAccount } from '@/common/api/accounts'
 import type { GameOverview, OverviewMetric } from '@/common/api/gameOverview'
 import { metricCurrent, overviewTime } from '@/common/resourceRecovery'
 import { metricArt, sectionArt, facilityArt } from '@/common/overviewAssets'
+import { overviewSections } from '@/common/overviewSections'
 import { operatorAvatar } from '@/common/operatorAvatars'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import OperatorAvatar from './OperatorAvatar.vue'
@@ -14,6 +15,7 @@ import OverviewArtwork from './OverviewArtwork.vue'
 import OverviewRecords from './OverviewRecords.vue'
 import SandboxDetails from './SandboxDetails.vue'
 const props = defineProps<{ account: GameAccount; data: GameOverview }>()
+const sections = computed(() => overviewSections(props.data.sections))
 const { t } = useI18n()
 const { number, date } = useOverviewFormat()
 const clock = ref(Date.now())
@@ -98,7 +100,7 @@ const progress = (metric: OverviewMetric) =>
     :aria-label="t('game.overview.details')"
   >
     <details
-      v-for="section in data.sections"
+      v-for="section in sections"
       :key="section.key"
       class="facility-group"
       :open="
@@ -115,7 +117,9 @@ const progress = (metric: OverviewMetric) =>
       <OverviewRecords
         v-if="
           section.items.length &&
-          /^arknights(Activities|RogueRelics|RogueBank|Tower|Campaign|BossRush)$/.test(section.key)
+          /^arknights(Activities|Rogue|RogueRelics|RogueBank|Tower|Campaign|BossRush)$/.test(
+            section.key,
+          )
         "
         :section="section"
       />

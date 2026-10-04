@@ -47,6 +47,6 @@
 
 ## 横幅与模式标识
 
-活动、集成战略、保全、剿灭、引航者试炼的 picUrl 是横幅，在紧凑横向比例区域完整显示，文字在独立区域保证两主题可读；不能把长横幅缩在高大封面容器中。缺图/加载失败仍保留同样的横幅占位和记录文字，避免列表高低跳动。具体布局可随屏幕调整，不裁切官方标识。
+活动、集成战略、保全、剿灭、引航者试炼的 picUrl 是横幅。利用素材向右透明的特点做单层卡片：左侧保留官方画面，右侧叠放名称、进度和状态，取消上下分离的封面与信息栏。右侧增加语义主题色渐变保障不透明素材也可读；只允许右侧透明余量超出边界，保留左侧标识与原色。长标题自然换行并增高，手机同样保留左右布局；缺图/加载失败以模式图兜底并保持结构。不固定高度截断文字，也不依靠原图透明度保证文字对比。
 
 SDK 的 `So` / `xo` 分别使用 `game_mode/climb_tower/icon/{encodeURIComponent(id)}.png` 和 `game_mode/campaign/zone_icon/{encodeURIComponent(id)}.png`，前缀 `https://web.hycdn.cn/arknights/game/assets/`。这两个模式缺横幅时先尝试官方 ID 图标，再到本地通用图；引航者试炼使用 SDK `Eo` 中公开固定图 `https://bbs.hycdn.cn/public/skland-game/image/arknights/bossRush/6fb47c15e54385aee62ce4442acf90b0.png`。单色图仍使用共享主题底板。活动 picUrl 缺失时没有已验证的通用 ID 补图规则：act35side 的 game_mode/activity/thumb 路径核查为 404，不应据此新增猜测地址或硬编码个别活动映射。

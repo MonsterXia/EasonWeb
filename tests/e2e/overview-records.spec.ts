@@ -9,8 +9,9 @@ const base = {
 }
 for (const language of ['zh-CN', 'en']) {
   for (const theme of ['light', 'dark']) {
-    test(`${language} banner proportions and dedicated sandbox states in ${theme}`, async ({
+    test(`${language} banner overlays and dedicated sandbox states in ${theme}`, async ({
       page,
+      isMobile,
     }) => {
       await page.addInitScript(
         (language) => localStorage.setItem('eason-locale', language),
@@ -23,7 +24,7 @@ for (const language of ['zh-CN', 'en']) {
       await page.route(url, (route) =>
         route.fulfill({
           contentType: 'image/svg+xml',
-          body: '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="200"><rect width="1200" height="200" fill="#816453"/><text x="50" y="120" font-size="64" fill="white">Synthetic banner</text></svg>',
+          body: '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="200"><defs><linearGradient id="fade"><stop stop-color="#816453"/><stop offset=".7" stop-color="#816453" stop-opacity="0"/></linearGradient></defs><rect width="1200" height="200" fill="url(#fade)"/><text x="50" y="120" font-size="64" fill="white">Banner</text></svg>',
         }),
       )
       await page.route('**/api/game/hypergryph/account/overview?*', (route) =>
@@ -42,6 +43,16 @@ for (const language of ['zh-CN', 'en']) {
                   total: 12,
                 },
                 { ...base, id: 'missing', name: 'Missing artwork' },
+                {
+                  ...base,
+                  id: 'long',
+                  name: '超长活动名称用于验证窄屏换行与完整显示 Long activity title without truncation',
+                  subtitle: '附加说明 Subtitle',
+                  artworkUrl: url + '?broken',
+                  current: 128,
+                  total: 128,
+                  status: 'complete',
+                },
               ],
             },
             {
@@ -57,6 +68,25 @@ for (const language of ['zh-CN', 'en']) {
                   id: 'unplayed',
                   bossRush: { edition: '01', played: false, difficulty: null, stageCode: null },
                 },
+              ],
+            },
+            {
+              key: 'arknightsRogueRelics',
+              items: [
+                {
+                  ...base,
+                  id: 'season',
+                  name: 'Synthetic rogue season',
+                  artworkUrl: url,
+                  current: 0,
+                },
+              ],
+            },
+            {
+              key: 'arknightsRogueBank',
+              items: [
+                { ...base, id: 'season', name: 'Synthetic rogue season', current: 42 },
+                { ...base, id: 'bank-only', name: 'Bank-only season', current: 0 },
               ],
             },
             {
@@ -88,22 +118,55 @@ for (const language of ['zh-CN', 'en']) {
         }),
       )
       await page.goto('/game/hypergryph/skland')
-      await expect(page.locator('.facility-group')).toHaveCount(3)
+      await expect(page.locator('.facility-group')).toHaveCount(4)
       for (const summary of await page.locator('.facility-group summary').all()) {
         await summary.focus()
         await summary.press('Enter')
         await expect(summary.locator('..')).toHaveAttribute('open', '')
       }
       const banners = page.locator('.banner-frame')
-      const size = await banners.first().boundingBox()
-      expect(size!.width / size!.height).toBeCloseTo(6, 1)
-      expect((await banners.nth(1).boundingBox())!.height).toBeCloseTo(size!.height, 0)
+      // Measure together so smooth scrolling cannot shift coordinates between reads.
+      const boxes = await banners
+        .first()
+        .locator('..')
+        .evaluate((row) => {
+          const rect = (selector: string) => {
+            const r = row.querySelector(selector)!.getBoundingClientRect()
+            return { x: r.x, y: r.y, width: r.width, height: r.height }
+          }
+          return {
+            banner: rect('.banner-frame'),
+            body: rect('.record-body'),
+            height: row.getBoundingClientRect().height,
+          }
+        })
+      expect(boxes.banner.height).toBeCloseTo(boxes.height - 2, 0)
+      expect(boxes.body.x).toBeGreaterThan(boxes.banner.x + boxes.banner.width * 0.4)
+      expect(boxes.body.y).toBeGreaterThanOrEqual(boxes.banner.y)
+      expect(boxes.body.y + boxes.body.height).toBeLessThanOrEqual(
+        boxes.banner.y + boxes.banner.height + 1,
+      )
+      expect(boxes.height).toBeLessThanOrEqual(134)
+      expect((await banners.nth(1).boundingBox())!.height).toBeCloseTo(boxes.banner.height, 0)
       await expect(
         page.getByText(language === 'en' ? 'Spectacular Trial TN-2' : '恢弘试炼 TN-2'),
       ).toBeVisible()
       await expect(
         page.getByText(language === 'en' ? 'No record' : '暂无记录', { exact: true }),
       ).toBeVisible()
+      const rogue = page
+        .locator('.facility-group')
+        .filter({ has: page.getByText('Synthetic rogue season', { exact: true }) })
+      await expect(rogue.locator('.section-title')).toHaveText(
+        language === 'en' ? 'Integrated Strategies' : '集成战略',
+      )
+      await expect(rogue.locator('.record-row')).toHaveCount(2)
+      await expect(
+        rogue.locator('.record-row').first().locator('.record-measure strong'),
+      ).toHaveText(['0', '42'])
+      await expect(
+        rogue.locator('.record-row').nth(1).locator('.record-measure strong'),
+      ).toHaveText(['—', '0'])
       const sandbox = page.locator('.sandbox-details')
       await expect(sandbox).toBeVisible()
       await expect(sandbox.locator('.survival-grid dd').first()).toHaveText(
@@ -124,6 +187,30 @@ for (const language of ['zh-CN', 'en']) {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
         true,
       )
+      if (isMobile) await page.setViewportSize({ width: 320, height: 850 })
+      const long = page.locator('.record-row').filter({ hasText: 'Long activity title' })
+      await long.scrollIntoViewIfNeeded()
+      await expect(long.locator('h4')).toContainText('without truncation')
+      await expect(long.locator('.complete')).toBeVisible()
+      await expect(long.locator('img')).toHaveAttribute('src', /ak-logoRecord/)
+      expect(
+        await long.evaluate((el) => {
+          const title = el.querySelector('h4')!.getBoundingClientRect()
+          const row = el.getBoundingClientRect()
+          return (
+            title.right <= row.right &&
+            title.bottom <= row.bottom &&
+            el.scrollWidth <= el.clientWidth
+          )
+        }),
+      ).toBe(true)
+      await page
+        .locator('.record-list')
+        .first()
+        .screenshot({
+          path: test.info().outputPath(`banner-${theme}.png`),
+          style: '.site-header, .site-header * { visibility: hidden !important; }',
+        })
       await page
         .locator('.facility-section')
         .screenshot({ path: test.info().outputPath(`records-${theme}.png`) })

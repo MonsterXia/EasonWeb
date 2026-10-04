@@ -86,6 +86,7 @@ export const zhCN = {
   sections: {
     arknightsSupport: '助战干员',
     arknightsActivities: 'SideStory 与别传',
+    arknightsRogue: '集成战略',
     arknightsRogueRelics: '集成战略 · 收藏品',
     arknightsRogueBank: '集成战略 · 投资',
     arknightsTower: '保全派驻',
@@ -296,6 +297,7 @@ export const en = {
   sections: {
     arknightsSupport: 'Support operators',
     arknightsActivities: 'Side Stories & Intermezzi',
+    arknightsRogue: 'Integrated Strategies',
     arknightsRogueRelics: 'Integrated Strategies · Relics',
     arknightsRogueBank: 'Integrated Strategies · Investments',
     arknightsTower: 'Stationary Security Service',
