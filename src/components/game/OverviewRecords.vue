@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import type { DisplaySection } from '@/common/overviewSections'
-import { facilityArt } from '@/common/overviewAssets'
+import type { DisplayItem, DisplaySection } from '@/common/overviewSections'
+import { facilityArt, sectionArt } from '@/common/overviewAssets'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import OverviewArtwork from './OverviewArtwork.vue'
-defineProps<{ section: DisplaySection }>()
+const props = defineProps<{ section: DisplaySection }>()
+function backgroundArt(item: DisplayItem) {
+  const art = facilityArt(props.section.key, item)
+  // Trials have an independent foreground logo; never substitute it for the background.
+  return item.bossRush ? (art?.kind === 'cover' ? { ...art, fallback: undefined } : undefined) : art
+}
 const { t } = useI18n()
 const { number } = useOverviewFormat()
 </script>
@@ -17,8 +22,13 @@ const { number } = useOverviewFormat()
       :class="{ 'trial-record': !!item.bossRush }"
     >
       <div class="banner-frame">
-        <OverviewArtwork class="facility-art" :art="facilityArt(section.key, item)" banner />
+        <OverviewArtwork class="facility-art" :art="backgroundArt(item)" banner />
       </div>
+      <OverviewArtwork
+        v-if="item.bossRush"
+        class="record-logo"
+        :art="sectionArt('arknightsBossRush')"
+      />
       <div class="record-body">
         <div class="record-heading">
           <h4>
@@ -132,11 +142,10 @@ const { number } = useOverviewFormat()
   height: 100%;
   border-radius: 0;
 }
-/* Scale to the short row instead of magnifying the repeated mode mark. */
+/* The background covers the entire row, including rows expanded by wrapped text. */
 .banner-frame :deep(.cover img) {
   object-fit: cover;
   object-position: left center;
-  max-height: 80px;
 }
 /* Text overlaps the texture; protect its contrast without reserving half a card. */
 .record-row::after {
@@ -151,6 +160,38 @@ const { number } = useOverviewFormat()
     color-mix(in srgb, var(--color-background-mute) 92%, transparent) var(--record-inset),
     color-mix(in srgb, var(--color-background-mute) 94%, transparent) 100%
   );
+}
+/* Artwork keeps its own full-width dark backing in either page theme. The shared
+   icon fallback still uses the normal theme surface when no cover is available. */
+.record-row:has(.banner-frame .cover) {
+  --record-heading: #ffffff;
+  --record-text: #f0f0f0;
+  --record-status: #ffd2e3;
+  background: #202020;
+}
+.banner-frame :deep(.cover) {
+  background: transparent;
+}
+.record-row:has(.banner-frame .cover)::after {
+  background: linear-gradient(to right, #0002, #0009 var(--record-inset), #000a 100%);
+}
+.record-logo {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  pointer-events: none;
+}
+.record-logo :deep(img) {
+  width: 100%;
+  height: 100%;
+}
+.trial-record:has(.banner-frame .cover) .record-logo :deep(img) {
+  filter: none;
+  mix-blend-mode: normal;
 }
 .record-body {
   display: flex;
@@ -170,7 +211,7 @@ p {
   margin: 0;
 }
 h4 {
-  color: var(--color-heading);
+  color: var(--record-heading, var(--color-heading));
   font-size: 0.95rem;
   line-height: 1.4;
   overflow-wrap: anywhere;
@@ -182,7 +223,7 @@ h4 {
 }
 .subtitle,
 .record-progress p > span {
-  color: var(--color-text);
+  color: var(--record-text, var(--color-text));
 }
 .subtitle {
   margin-top: 2px;
@@ -205,14 +246,14 @@ h4 {
   margin-top: 2px;
 }
 .record-progress strong {
-  color: var(--color-heading);
+  color: var(--record-heading, var(--color-heading));
   font-variant-numeric: tabular-nums;
   font-weight: 500;
   overflow-wrap: anywhere;
 }
 .complete {
   display: block;
-  color: var(--el-color-primary);
+  color: var(--record-status, var(--el-color-primary));
   margin-top: 2px;
 }
 .record-edition {
@@ -253,6 +294,11 @@ h4 {
   justify-content: flex-start;
 }
 @media (max-width: 480px) {
+  .record-logo {
+    left: 6px;
+    width: 42px;
+    height: 42px;
+  }
   .record-row {
     --record-inset: 60px;
   }

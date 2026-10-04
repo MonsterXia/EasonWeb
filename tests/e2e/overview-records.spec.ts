@@ -48,7 +48,7 @@ for (const language of ['zh-CN', 'en']) {
                   id: 'long',
                   name: '超长活动名称用于验证窄屏换行与完整显示 Long activity title without truncation',
                   subtitle: '附加说明 Subtitle',
-                  artworkUrl: url + '?broken',
+                  artworkUrl: url,
                   current: 128,
                   total: 128,
                   status: 'complete',
@@ -61,11 +61,13 @@ for (const language of ['zh-CN', 'en']) {
                 {
                   ...base,
                   id: 'trial',
+                  artworkUrl: url,
                   bossRush: { edition: '02', played: true, difficulty: 'EX', stageCode: 'TN-2' },
                 },
                 {
                   ...base,
                   id: 'unplayed',
+                  artworkUrl: url + '?broken',
                   bossRush: { edition: '01', played: false, difficulty: null, stageCode: null },
                 },
                 {
@@ -167,6 +169,28 @@ for (const language of ['zh-CN', 'en']) {
           .first()
           .evaluate((el) => getComputedStyle(el).color),
       ).toBe(theme === 'dark' ? 'rgb(48, 21, 33)' : 'rgb(255, 255, 255)')
+      const illustratedTrial = page
+        .locator('.trial-record')
+        .filter({ has: page.getByText('#02', { exact: true }) })
+      await illustratedTrial.scrollIntoViewIfNeeded()
+      await expect(illustratedTrial.locator('.banner-frame img')).toHaveAttribute('src', url)
+      await expect(illustratedTrial.locator('.record-logo img')).toHaveAttribute(
+        'src',
+        /ak-bossRush/,
+      )
+      await expect(illustratedTrial).toHaveCSS('background-color', 'rgb(32, 32, 32)')
+      await expect(illustratedTrial.locator('.record-logo img')).toHaveCSS('filter', 'none')
+      await expect(illustratedTrial.locator('h4')).toHaveCSS('color', 'rgb(255, 255, 255)')
+      const brokenTrial = page
+        .locator('.trial-record')
+        .filter({ has: page.getByText('#01', { exact: true }) })
+      await brokenTrial.scrollIntoViewIfNeeded()
+      await expect(brokenTrial.locator('.banner-frame img')).toHaveCount(0)
+      await expect(brokenTrial.locator('.record-logo img')).toBeVisible()
+      await expect(brokenTrial.locator('.record-logo img')).toHaveCSS(
+        'filter',
+        theme === 'dark' ? 'none' : 'invert(1)',
+      )
       const trialLayout = await page
         .locator('.trial-record')
         .first()
@@ -233,7 +257,13 @@ for (const language of ['zh-CN', 'en']) {
       await long.scrollIntoViewIfNeeded()
       await expect(long.locator('h4')).toContainText('without truncation')
       await expect(long.locator('.complete')).toBeVisible()
-      await expect(long.locator('img')).toHaveAttribute('src', /ak-logoRecord/)
+      await expect(long.locator('.banner-frame img')).toHaveAttribute('src', url)
+      expect(
+        await long.evaluate((el) => {
+          const image = el.querySelector('.banner-frame img')!.getBoundingClientRect()
+          return Math.abs(image.height - (el.getBoundingClientRect().height - 2)) < 1
+        }),
+      ).toBe(true)
       expect(
         await long.evaluate((el) => {
           const title = el.querySelector('h4')!.getBoundingClientRect()
