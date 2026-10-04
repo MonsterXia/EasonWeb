@@ -107,7 +107,8 @@ const progress = (metric: OverviewMetric) =>
     >
       <summary>
         <OverviewArtwork class="section-art" :art="sectionArt(section.key)" />
-        {{ t(`game.overview.sections.${section.key}`) }}<span>{{ section.items.length }}</span>
+        <span class="section-title">{{ t(`game.overview.sections.${section.key}`) }}</span
+        ><span class="section-count">{{ section.items.length }}</span>
       </summary>
       <ul v-if="section.items.length" class="facility-grid">
         <li v-for="(item, index) in section.items" :key="item.id">
@@ -202,7 +203,16 @@ const progress = (metric: OverviewMetric) =>
   font-weight: 600;
   font-size: 15px;
 }
-.facility-group summary > span:not(.overview-artwork) {
+.facility-group summary:focus {
+  outline: none;
+}
+.facility-group summary:focus-visible .section-title {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+.facility-group summary > .section-count {
   margin-left: 12px;
   color: var(--muted);
   font-size: 12px;

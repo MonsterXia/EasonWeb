@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { Compass } from '@element-plus/icons-vue'
 import type { OverviewArt } from '@/common/overviewAssets'
 const props = defineProps<{ art?: OverviewArt }>()
 const failed = ref(false)
@@ -17,7 +18,9 @@ watch(
     :class="[art.tone, art.kind]"
     aria-hidden="true"
   >
+    <Compass v-if="art.symbol === 'compass'" class="artwork-symbol" />
     <img
+      v-else
       :src="art.src"
       alt=""
       width="64"
@@ -68,6 +71,11 @@ img {
   width: 80%;
   height: 80%;
   object-fit: contain;
+}
+.artwork-symbol {
+  width: 80%;
+  height: 80%;
+  color: var(--color-heading);
 }
 .map img {
   width: 100%;
