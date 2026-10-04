@@ -9,6 +9,8 @@ description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状�
 
 ## 开始工作
 
+文档按职责维护：本地运行文档只记录启动与后端对接；业务数据、资源、展示和调参规则归入对应业务 skill，不混入通用运行流程。
+
 先读 `package.json`、`src/router/index.ts`、相关业务文件与 `git status --short`。`README.md` 包含运行方式与后端对接信息；与源码不一致时核对实际实现。保留已有未提交工作，围绕本次请求修改。
 
 ## 代码入口
@@ -58,7 +60,7 @@ Vue 模板页、欢迎组件与未使用的 Pinia counter store 已移除。业�
 调用链为页面/组件 → `src/common/api/*` → `gatewayManager` → 共享 Axios 客户端。新增业务请求放入适当的 API 模块，使用 `buildStandardURL`，不要在页面硬编码域名或另建遗漏 Cookie 配置的客户端。
 
 - `domain.ts` 优先使用构建时的 `VITE_API_BASE_URL`；默认开发地址为 `/api`，生产地址为 `https://api.246801357.xyz`。
-- Vite 将 `/api` 代理到 `http://localhost:8787` 并移除前缀。本地使用 `http://localhost:5173`，注意后端 Origin 校验与生产 SameSite Cookie 条件。
+- 本地调试默认通过 Vite 同源 `/api` 代理线上后端，`DEV_API_BACKEND=local` 可切回本地 8787。启动预览、切换环境、登录 Cookie 与代理排障时先读 [本地运行与后端对接](references/local-debugging.md)；不要将浏览器 API 地址改为线上绝对 URL 绕过本地代理。
 - Axios 设置 `withCredentials: true`，默认超时 10 秒；`accounts.ts` 的公共 POST 封装与游戏账号查询单独使用 60 秒。调整时按接口判断，不要将默认超时误当作所有请求的实际值。
 - 网关返回 Axios 的 `response.data`，即响应体；不会自动解开业务层的 `data`。`src/common/api/client.ts` 的 `getData` / `postData` 统一解开 `ApiResponse<T> = { message, data, httpStatus }`，保留 false/null、取消信号及原始 HTTP 错误。账号长请求使用 `ACCOUNT_REQUEST_TIMEOUT`；健康检查无业务 envelope，直接使用网关。
 - 普通会话使用 HttpOnly `auth_token`，Post 管理员使用独立的 `post_auth_token`。保持 Cookie 认证，不将密码、JWT 或第三方 token 写入浏览器持久存储、URL 查询参数或日志。

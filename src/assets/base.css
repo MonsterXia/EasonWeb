@@ -1,6 +1,10 @@
 /* Light is the default; the bootstrap script resolves the saved/system preference. */
 :root {
   color-scheme: light;
+  /* Skland record banners, shared by both themes: 0 = hidden, 1 = full strength. */
+  --skland-banner-opacity: 1;
+  /* Shared theme scrim: lower values reveal more of the banner. */
+  --skland-banner-scrim-opacity: 0.75;
   --color-background: #fff7fa;
   --color-background-soft: #ffffff;
   --color-background-mute: #f9edf2;

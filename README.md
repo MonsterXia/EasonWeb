@@ -18,9 +18,13 @@ Vue 3 + TypeScript 的个人站点与游戏工具，包含用户中心、鹰角�
 建议使用 Node.js 24（`nvm use`）。`npm ci` 安装依赖，`npm test` 运行接口回归测试，
 `npm run build` 执行类型检查和生产构建。
 
-- 本地：先在 CommonServerAPI 启动开发服务（`npm run dev`，端口 8787），然后在本项目
-  执行 `npm run dev`，访问 `http://localhost:5173`。`/api` 请求经 Vite 代理到后端。
-  使用 localhost，避免 HTTP 自定义域名触发后端 Origin 校验。
+- 本地预览：`npm run dev` 默认访问 `http://127.0.0.1:5173`，浏览器请求同源 `/api`，由 Vite 代理到线上 `https://api.246801357.xyz`，不需要启动本地后端。
+  在本地页面重新登录即可读取线上账号；本地与正式站点的 Cookie 不共享，提交操作会作用于线上数据。
+- 后端切换：在不提交 Git 的 `.env.development.local` 设置 `DEV_API_BACKEND=local`，重启 `npm run dev` 后代理到 `http://localhost:8787`（需启动 CommonServerAPI）。
+  改为 `DEV_API_BACKEND=production` 恢复线上代理；默认值在 `.env.development`。两种方式都保持 `VITE_API_BASE_URL=/api`。
+  切换后端后重新登录，避免复用另一环境的本地会话。
+- 线上代理只对开发服务器生效：校验本地同源请求后改写上游 Origin/Referer，将 Cookie Domain 移除，并仅为 HTTP 本地预览去掉 Secure，保留 HttpOnly、SameSite、有效期与退出清除行为。
+  不放宽线上 CORS，不修改正式站点 Cookie 配置，生产构建与 `vite preview` 不启用这组改写。
 - 生产：默认请求 `https://api.246801357.xyz`。可通过 `.env.production.local` 的
   `VITE_API_BASE_URL` 覆盖；该值在构建时生效。生产站点须符合后端允许的 HTTPS Origin，
   并与 API 同站点，才能使用 SameSite Cookie。

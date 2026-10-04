@@ -1,3 +1,4 @@
+import { checkBannerOpacity, checkBannerScrim } from './banner-helpers'
 import { test, expect, user, role, overview, reply } from './fixtures'
 const base = {
   name: null,
@@ -21,6 +22,7 @@ for (const language of ['zh-CN', 'en']) {
       await page.route('**/api/user/current', (route) => reply(route, user))
       await page.route('**/api/game/hypergryph/account/games', (route) => reply(route, [role()]))
       const url = 'https://bbs.hycdn.cn/public/fixture-banner.png'
+      await page.route(url + '?broken', (route) => route.abort())
       await page.route(url, (route) =>
         route.fulfill({
           contentType: 'image/svg+xml',
@@ -42,7 +44,14 @@ for (const language of ['zh-CN', 'en']) {
                   current: 0,
                   total: 12,
                 },
-                { ...base, id: 'missing', name: 'Missing artwork' },
+                {
+                  ...base,
+                  id: 'missing',
+                  name: 'Missing artwork',
+                  current: 31,
+                  total: 31,
+                  status: 'complete',
+                },
                 {
                   ...base,
                   id: 'long',
@@ -51,6 +60,15 @@ for (const language of ['zh-CN', 'en']) {
                   artworkUrl: url,
                   current: 128,
                   total: 128,
+                  status: 'complete',
+                },
+                {
+                  ...base,
+                  id: 'broken',
+                  name: 'Broken artwork',
+                  artworkUrl: url + '?broken',
+                  current: 26,
+                  total: 26,
                   status: 'complete',
                 },
               ],
@@ -148,14 +166,17 @@ for (const language of ['zh-CN', 'en']) {
           }
         })
       expect(boxes.banner.height).toBeCloseTo(boxes.height - 2, 0)
-      expect(boxes.body.x - boxes.banner.x).toBeGreaterThanOrEqual(58)
-      expect(boxes.body.x - boxes.banner.x).toBeLessThanOrEqual(80)
+      expect((boxes.body.x - boxes.banner.x) / boxes.banner.width).toBeCloseTo(0.58, 2)
       expect(boxes.body.y).toBeGreaterThanOrEqual(boxes.banner.y)
       expect(boxes.body.y + boxes.body.height).toBeLessThanOrEqual(
         boxes.banner.y + boxes.banner.height + 1,
       )
       expect(boxes.height).toBeLessThanOrEqual(82)
-      expect((await banners.nth(1).boundingBox())!.height).toBeCloseTo(boxes.banner.height, 0)
+      const activity = banners.first().locator('..')
+      await expect(activity.locator('h4')).toHaveCSS(
+        'color',
+        theme === 'dark' ? 'rgb(255, 241, 246)' : 'rgb(56, 38, 50)',
+      )
       await expect(
         page.getByText(language === 'en' ? 'Spectacular Trial TN-2' : '恢弘试炼 TN-2'),
       ).toBeVisible()
@@ -180,7 +201,7 @@ for (const language of ['zh-CN', 'en']) {
       )
       await expect(illustratedTrial).toHaveCSS(
         'background-color',
-        theme === 'dark' ? 'rgb(32, 32, 32)' : 'rgb(249, 237, 242)',
+        theme === 'dark' ? 'rgb(48, 35, 46)' : 'rgb(249, 237, 242)',
       )
       await expect(illustratedTrial.locator('.record-logo img')).toHaveCSS(
         'filter',
@@ -188,7 +209,7 @@ for (const language of ['zh-CN', 'en']) {
       )
       await expect(illustratedTrial.locator('h4')).toHaveCSS(
         'color',
-        theme === 'dark' ? 'rgb(255, 255, 255)' : 'rgb(56, 38, 50)',
+        theme === 'dark' ? 'rgb(255, 241, 246)' : 'rgb(56, 38, 50)',
       )
       const cropped = await illustratedTrial.evaluate((el) => {
         const card = el.getBoundingClientRect()
@@ -275,6 +296,8 @@ for (const language of ['zh-CN', 'en']) {
         )
       }
       await checkRogueLayout()
+      await checkBannerOpacity(page)
+      await checkBannerScrim(page)
       await rogue.screenshot({
         path: test.info().outputPath(`rogue-${theme}.png`),
         style: '.site-header, .site-header * { visibility: hidden !important; }',
@@ -314,6 +337,21 @@ for (const language of ['zh-CN', 'en']) {
       await long.scrollIntoViewIfNeeded()
       await expect(long.locator('h4')).toContainText('without truncation')
       await expect(long.locator('.complete')).toBeVisible()
+      await expect(long.locator('.complete')).toHaveCSS(
+        'color',
+        theme === 'dark' ? 'rgb(243, 171, 197)' : 'rgb(173, 54, 94)',
+      )
+      expect(
+        await long.evaluate((el) => {
+          const banner = el.querySelector('.banner-frame')!.getBoundingClientRect()
+          return ['h4', '.record-progress', '.complete'].every(
+            (selector) =>
+              (el.querySelector(selector)!.getBoundingClientRect().left - banner.left) /
+                banner.width >=
+              0.58,
+          )
+        }),
+      ).toBe(true)
       await expect(long.locator('.banner-frame img')).toHaveAttribute('src', url)
       expect(
         await long.evaluate((el) => {
@@ -342,6 +380,70 @@ for (const language of ['zh-CN', 'en']) {
       await page
         .locator('.facility-section')
         .screenshot({ path: test.info().outputPath(`records-${theme}.png`) })
+      // Element height alone misses contain letterboxing. Check the painted image bounds
+      // using the decoded source ratio, including cards made taller by wrapped text.
+      const initialViewport = page.viewportSize()!
+      for (const width of isMobile ? [320, 390, 480] : [768, 1024, 1280, 1440, 1920]) {
+        await page.setViewportSize({ width, height: 900 })
+        for (const card of [rogueCard, long]) {
+          await card.scrollIntoViewIfNeeded()
+          const coverage = await card.evaluate((el) => {
+            const img = el.querySelector<HTMLImageElement>('.banner-frame .cover img')!
+            const box = img.getBoundingClientRect()
+            const frame = el.querySelector('.banner-frame')!.getBoundingClientRect()
+            const fit = getComputedStyle(img).objectFit
+            const scale = (fit === 'contain' ? Math.min : Math.max)(
+              box.width / img.naturalWidth,
+              box.height / img.naturalHeight,
+            )
+            const paintedHeight = img.naturalHeight * scale
+            // All record backgrounds are vertically centered, so any unpainted area
+            // appears equally above and below the source artwork.
+            return {
+              loaded: img.complete && img.naturalHeight > 0,
+              topGap: Math.max(0, box.top + (box.height - paintedHeight) / 2 - frame.top),
+              bottomGap: Math.max(0, frame.bottom - box.bottom + (box.height - paintedHeight) / 2),
+              boxTopGap: Math.abs(box.top - frame.top),
+              boxBottomGap: Math.abs(box.bottom - frame.bottom),
+            }
+          })
+          expect(coverage.loaded).toBe(true)
+          for (const gap of [
+            coverage.topGap,
+            coverage.bottomGap,
+            coverage.boxTopGap,
+            coverage.boxBottomGap,
+          ]) {
+            expect(gap, `banner vertical gap at viewport width ${width}`).toBeLessThan(1)
+          }
+        }
+        await checkRogueLayout()
+        // Missing URLs and failed requests must preserve the same right text column.
+        const broken = page.locator('.record-row').filter({ hasText: 'Broken artwork' })
+        await broken.scrollIntoViewIfNeeded()
+        await expect(broken.locator('.cover')).toHaveCount(0)
+        await expect(broken.locator('.banner-frame img')).toBeVisible()
+        for (const row of await page.locator('.banner-end-record').all()) {
+          const layout = await row.evaluate((el) => {
+            const banner = el.querySelector('.banner-frame')!.getBoundingClientRect()
+            const body = el.querySelector('.record-body')!.getBoundingClientRect()
+            const title = el.querySelector('h4')!.getBoundingClientRect()
+            const progress = el.querySelector('.record-progress')!.getBoundingClientRect()
+            return {
+              inset: (body.left - banner.left) / banner.width,
+              aligned: Math.abs(title.left - progress.left) < 1,
+              fits:
+                el.scrollWidth <= el.clientWidth &&
+                progress.bottom <= el.getBoundingClientRect().bottom &&
+                title.bottom <= el.getBoundingClientRect().bottom,
+            }
+          })
+          expect(layout.inset, `text column at width ${width}`).toBeCloseTo(0.58, 2)
+          expect(layout.aligned).toBe(true)
+          expect(layout.fits).toBe(true)
+        }
+      }
+      await page.setViewportSize(initialViewport)
     })
   }
 }
