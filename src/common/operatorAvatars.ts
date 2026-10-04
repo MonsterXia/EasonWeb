@@ -1,30 +1,16 @@
-import catalog from '../assets/game-avatars/catalog.json'
-// Vite fingerprints local images so Pages/CDN and browser caches can reuse them safely.
-const localImages = import.meta.glob<string>('../assets/game-avatars/endfield/*.png', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-})
+import { officialArtworkUrl } from './officialArtwork'
+
+// Official Skland SDK: CHAR/avatar; class-change Amiya uses CHAR_SKIN/avatar #2.
+// New character IDs need no catalogue update.
 export function operatorAvatar(
   appCode: string,
   id: string,
-  gender?: 'male' | 'female' | null,
+  avatarUrl?: string | null,
 ): string | undefined {
-  if (appCode === 'arknights' && Object.prototype.hasOwnProperty.call(catalog.arknights, id))
-    return (catalog.arknights as Record<string, string>)[id]
-  if (appCode === 'endfield' && Object.prototype.hasOwnProperty.call(catalog.endfield, id)) {
-    const file = (catalog.endfield as Record<string, string>)[id]
-    return localImages[`../assets/game-avatars/endfield/${file}`]
-  }
-  if (
-    appCode === 'endfield' &&
-    (gender === 'male' || gender === 'female') &&
-    Object.prototype.hasOwnProperty.call(catalog.endfieldVariants, id)
-  ) {
-    const variants = (catalog.endfieldVariants as Record<string, { male: string; female: string }>)[
-      id
-    ]
-    return localImages[`../assets/game-avatars/endfield/${variants![gender]}`]
-  }
-  return undefined
+  if (appCode === 'endfield') return officialArtworkUrl(avatarUrl)
+  if (appCode !== 'arknights' || !/^char_\d+_[a-z0-9_]+$/.test(id)) return undefined
+  const base = 'https://web.hycdn.cn/arknights/game/assets/'
+  return /^char_\d+_amiya\d$/.test(id)
+    ? `${base}char_skin/avatar/${encodeURIComponent(`${id}#2`)}.png`
+    : `${base}char/avatar/${encodeURIComponent(id)}.png`
 }

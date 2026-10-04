@@ -22,14 +22,13 @@
 
 ## 干员头像
 
-来源与固定 revision 以 `src/assets/game-avatars/sources.json` 为准；同步入口为 `npm run avatars:sync`，不会在 build/runtime 自动执行。
+2026-10-04 改为官方来源优先，已移除 catalog.json、endfieldVariants、本地头像 PNG 和 avatars:sync 脚本。
 
-- 方舟：ID 清单来自 [ArknightsGameResource](https://github.com/yuanyan3060/ArknightsGameResource)，仓库 `catalog.json` 缓存官方 CDN 默认头像链接（仍由浏览器加载官方 CDN 图片，不是所有图片字节本地化）。`#1` URL 编码为 `%231`；近卫/医疗阿米娅例外保留在 additionalCharacterIds，默认图用 defaultSkins 的 `#2`，不可按 isNotObtainable 直接过滤。
-- 终末地：[EndfieldAssets](https://github.com/555me/EndfieldAssets) 的 charicon，PNG 入库 `endfield/`。接口 ID 可能是原始 `chr_...` 的 MD5，同步脚本预生成两种键，不在运行时请求转换。源文件按 Git blob 哈希和 PNG 文件头校验。
-- 管理员共用 ID 通过 `profile.endministratorGender`（游戏内形象）和 endfieldVariants 选图，未知时不猜男/女。不得将该字段当作用户性别。
-- `operatorAvatars.ts` 按游戏+ID 查表；`OperatorAvatar.vue` 固定占位、懒加载、失败文字兜底，URL 改变后重置失败态。不按名字猜另一干员图片。
+- 方舟：官方 SDK `https://bbs.hycdn.cn/skland-fe-static/skland-game/9560.b49ee94b.js` 的资源工具以 `https://web.hycdn.cn/arknights/game/assets/` 为前缀，普通头像使用 `char/avatar/{charId}.png`；转职阿米娅匹配 `char_数字_amiya数字`，使用 `char_skin/avatar/{encodeURIComponent(charId + "#2")}.png`。只实现已核实的路径规则，不引入整份网页 bundle。
+- 终末地：官方 `dist-BZImVwlH.js` 的 GameDataInfoCodec → As.decode → Ft.decode 保留 `data.detail.chars[].charData.avatarSqUrl` / `avatarRtUrl`。CommonServerAPI 从已有响应选取合法官方 URL 输出 `operators[].avatarUrl`，不额外取图。优先方形头像，缺失/非法才用矩形头像。前端不通过 ID 或 profile.endministratorGender 再选图。
+- `OperatorAvatar.vue` 使用姓名首字兜底，固定尺寸、懒加载、no-referrer；缺失或加载失败保留文字，换 URL 重置加载/失败状态。终末地不回退本地游戏头像。
 
-详见 [头像资源说明](../../../../src/assets/game-avatars/README.md)。保留版权归属；清单中仅放公共资源，不放用户持有记录或私有头像凭证。
+详见 [头像说明](../../../../src/assets/game-avatars/README.md)。不要保存真实账号响应或凭证。
 
 ## 主题适配
 

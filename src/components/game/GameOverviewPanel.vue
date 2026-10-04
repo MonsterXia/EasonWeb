@@ -161,7 +161,7 @@ const visible = computed(() =>
           <li v-for="char in visible" :key="char.id" :data-operator-id="char.id">
             <OperatorAvatar
               :name="char.name"
-              :src="operatorAvatar(account.appCode, char.id, data.profile.endministratorGender)"
+              :src="operatorAvatar(account.appCode, char.id, char.avatarUrl)"
             />
             <div>
               <strong>{{ char.name }}</strong>

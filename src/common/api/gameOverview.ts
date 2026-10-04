@@ -47,6 +47,7 @@ export interface GameOverview {
     | {
         id: string
         name: string
+        avatarUrl?: string | null
         level: number | null
         phase: number | null
         rarity?: number | null

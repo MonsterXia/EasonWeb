@@ -120,6 +120,7 @@ const gameOverview = shape({
         name: string,
         level: nullable(number),
         phase: nullable(number),
+        avatarUrl: optional(nullable(string)),
         rarity: optional(nullable(number)),
         potential: optional(nullable(number)),
         profession: optional(nullable(string)),
