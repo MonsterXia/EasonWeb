@@ -14,7 +14,7 @@ const { t } = useI18n()
 const { number } = useOverviewFormat()
 </script>
 <template>
-  <ul class="record-list">
+  <ul class="record-list" :class="{ 'trial-list': section.key === 'arknightsBossRush' }">
     <li
       v-for="item in section.items"
       :key="item.id"
@@ -113,6 +113,12 @@ const { number } = useOverviewFormat()
   padding: 0;
   list-style: none;
 }
+.trial-list {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
+.trial-record {
+  max-width: 340px;
+}
 .record-row {
   --record-inset: 76px;
   position: relative;
@@ -161,8 +167,8 @@ const { number } = useOverviewFormat()
     color-mix(in srgb, var(--color-background-mute) 94%, transparent) 100%
   );
 }
-/* Artwork keeps its own full-width dark backing in either page theme. The shared
-   icon fallback still uses the normal theme surface when no cover is available. */
+/* Most covers keep their dark backing. Compact trial cards adapt below to the
+   page theme; missing artwork always keeps the shared theme surface. */
 .record-row:has(.banner-frame .cover) {
   --record-heading: #ffffff;
   --record-text: #f0f0f0;
@@ -189,9 +195,26 @@ const { number } = useOverviewFormat()
   width: 100%;
   height: 100%;
 }
-.trial-record:has(.banner-frame .cover) .record-logo :deep(img) {
-  filter: none;
-  mix-blend-mode: normal;
+/* Keep only the patterned left half of the trial banner, without stretching it
+   or cropping the independent foreground logo. */
+.trial-record .banner-frame :deep(.cover) {
+  width: 200%;
+}
+:root:not(.dark) .trial-record:has(.banner-frame .cover) {
+  --record-heading: var(--color-heading);
+  --record-text: var(--color-text);
+  background: var(--color-background-mute);
+}
+:root:not(.dark) .trial-record .banner-frame {
+  opacity: 0.24;
+}
+:root:not(.dark) .trial-record:has(.banner-frame .cover)::after {
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in srgb, var(--color-background-mute) 30%, transparent) var(--record-inset),
+    color-mix(in srgb, var(--color-background-mute) 45%, transparent)
+  );
 }
 .record-body {
   display: flex;
@@ -261,8 +284,8 @@ h4 {
   padding: 0 5px;
   margin-top: 3px;
   border-radius: 3px;
-  background: var(--accent);
-  color: var(--on-accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--color-background-soft));
+  color: var(--accent);
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.5;

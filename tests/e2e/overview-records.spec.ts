@@ -168,7 +168,7 @@ for (const language of ['zh-CN', 'en']) {
           .locator('.record-edition')
           .first()
           .evaluate((el) => getComputedStyle(el).color),
-      ).toBe(theme === 'dark' ? 'rgb(48, 21, 33)' : 'rgb(255, 255, 255)')
+      ).toBe(theme === 'dark' ? 'rgb(243, 171, 197)' : 'rgb(173, 54, 94)')
       const illustratedTrial = page
         .locator('.trial-record')
         .filter({ has: page.getByText('#02', { exact: true }) })
@@ -178,9 +178,32 @@ for (const language of ['zh-CN', 'en']) {
         'src',
         /ak-bossRush/,
       )
-      await expect(illustratedTrial).toHaveCSS('background-color', 'rgb(32, 32, 32)')
-      await expect(illustratedTrial.locator('.record-logo img')).toHaveCSS('filter', 'none')
-      await expect(illustratedTrial.locator('h4')).toHaveCSS('color', 'rgb(255, 255, 255)')
+      await expect(illustratedTrial).toHaveCSS(
+        'background-color',
+        theme === 'dark' ? 'rgb(32, 32, 32)' : 'rgb(249, 237, 242)',
+      )
+      await expect(illustratedTrial.locator('.record-logo img')).toHaveCSS(
+        'filter',
+        theme === 'dark' ? 'none' : 'invert(1)',
+      )
+      await expect(illustratedTrial.locator('h4')).toHaveCSS(
+        'color',
+        theme === 'dark' ? 'rgb(255, 255, 255)' : 'rgb(56, 38, 50)',
+      )
+      const cropped = await illustratedTrial.evaluate((el) => {
+        const card = el.getBoundingClientRect()
+        const cover = el.querySelector('.cover')!.getBoundingClientRect()
+        return { width: card.width, visibleFraction: (card.width - 2) / cover.width }
+      })
+      expect(cropped.width).toBeLessThanOrEqual(340)
+      expect(cropped.visibleFraction).toBeCloseTo(0.5, 2)
+      if (!isMobile) {
+        expect(
+          await page
+            .locator('.trial-list')
+            .evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').length),
+        ).toBeGreaterThanOrEqual(3)
+      }
       const brokenTrial = page
         .locator('.trial-record')
         .filter({ has: page.getByText('#01', { exact: true }) })
