@@ -1,6 +1,7 @@
 import { getData, ACCOUNT_REQUEST_TIMEOUT } from './client'
 import type { GameAccount } from './accounts'
 import { rememberOverview } from '../resourceRecovery'
+import { parseGameOverview } from './validation'
 
 export interface OverviewMetric {
   key: string
@@ -58,10 +59,13 @@ export async function gameOverviewAPI(
   account: GameAccount,
   signal?: AbortSignal,
 ): Promise<GameOverview> {
-  const data = await getData<GameOverview>(
-    'game/hypergryph/account/overview',
-    { appCode: account.appCode, uid: account.uid, gameId: account.gameId },
-    { timeout: ACCOUNT_REQUEST_TIMEOUT, signal },
+  const data = parseGameOverview(
+    await getData<unknown>(
+      'game/hypergryph/account/overview',
+      { appCode: account.appCode, uid: account.uid, gameId: account.gameId },
+      { timeout: ACCOUNT_REQUEST_TIMEOUT, signal },
+    ),
+    account,
   )
   rememberOverview(data)
   return data

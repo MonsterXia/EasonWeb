@@ -12,6 +12,11 @@
   --muted: #826575;
   --on-accent: #ffffff;
   --sakura: #f5b9ce;
+  --surface-card: linear-gradient(130deg, #ffffffed, #fff8fbed);
+  --shadow-card: 0 10px 35px #783c5708;
+  --shadow-elevated: 0 25px 90px #783c5712;
+  --surface-header: #fff9fce8;
+  --border-header: var(--color-border);
 }
 :root.dark {
   color-scheme: dark;
@@ -25,6 +30,11 @@
   --accent: #f3abc5;
   --pink: #d7b5ed;
   --muted: #ba9eae;
+  --surface-card: linear-gradient(130deg, #2b1e28ea, #211821ed);
+  --shadow-card: 0 16px 48px #0005;
+  --shadow-elevated: 0 25px 90px #0003;
+  --surface-header: #1b121adc;
+  --border-header: #ffffff0c;
 }
 *,
 *::before,

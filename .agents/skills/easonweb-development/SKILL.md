@@ -1,6 +1,6 @@
 ---
 name: easonweb-development
-description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状态、主题适配、国际化、路由与导航调整、CommonServerAPI 接口对接、用户认证和账号绑定、森空岛签到及终末地计算器维护。仅在本项目相关开发、排错和代码审查时使用。
+description: 用于 EasonWeb 仓库的 Vue 页面开发、界面设计与空状态、主题适配、国际化、路由与导航调整、CommonServerAPI 接口对接、用户认证和账号绑定、森空岛签到、终末地计算器维护及 Cloudflare Pages 部署排查。仅在本项目相关开发、排错、代码审查和发布工作中使用。
 ---
 
 # EasonWeb 项目开发
@@ -75,9 +75,11 @@ Vue 模板页、欢迎组件与未使用的 Pinia counter store 已移除。业�
 
 ## 终末地计算器
 
+涉及基质计算器数据过期、新武器、淤积点、属性或掉落池更新时，使用 [终末地基质数据维护 skill](../endfield-essence-data/SKILL.md)。
+
 计算器使用本地武器和地区常量，不依赖登录。修改数据时检查 `WeaponData`、`WeaponBaseMaterialRegion` 及计算器匹配逻辑：`attribute2` 可为 `null`，武器名称用于选择与去重。
 
-当前匹配逻辑将“源石技艺强度提升”映射为“源石技艺提升”，将“终结技充能效率提升”映射为“终结技效率提升”。调整命名时同时检查数据与匹配处，不要只修改显示文本导致匹配失效。新增或更新游戏数据应有用户提供或核实过的来源。
+武器与地区使用统一的基质词条，`weaponMatchesRegion` 直接比较规范值：攻击提升、法术伤害提升、源石技艺提升、终结技充能效率提升。调整命名时同时检查数据与匹配处，不要只修改显示文本导致匹配失效。来源提交、哈希与更新流程见 `src/constant/game/hypergryph/endfield/README.md` 和同目录 `sources.json`；数据回归见 `tests/endfield-materials.test.js`。新增或更新游戏数据应有用户提供或核实过的来源。
 
 ## 开发与验证
 
@@ -93,8 +95,9 @@ Vue 模板页、欢迎组件与未使用的 Pinia counter store 已移除。业�
 | `npm run build` | 并行执行类型检查与生产构建 |
 | `npm run build-only` | 仅 Vite 构建，不能代替类型检查 |
 | `npm run preview` | 预览构建产物 |
+| `npm run test:e2e` | Playwright 桌面与手机 Chromium 回归；首次运行前安装 Chromium 及所需系统依赖 |
 
-`npm run format` 会格式化整个 `src/`；局部编辑需要格式化时可用 `npx oxfmt <修改的文件>`。当前未配置 lint、Vitest 或 Playwright 测试脚本，不假设存在。
+`npm run format` 会格式化整个 `src/`；局部编辑需要格式化时可用 `npx oxfmt <修改的文件>`。当前未配置 lint 或 Vitest，不假设存在。Playwright 配置在 `playwright.config.ts`，测试使用合成 API 响应，构建到 `dist-e2e/` 并独占本地 4173 端口；该目录不能用于发布。
 
 按改动选择验证：
 
@@ -105,6 +108,15 @@ Vue 模板页、欢迎组件与未使用的 Pinia counter store 已移除。业�
 测试响应不证明邮件、短信或第三方游戏服务真实可用；README 中历史验证记录也不等于本次验证。交付时说明实际修改、已执行的检查及尚未验证的部分。涉及部署时再核对 README 的后端迁移要求，不在普通前端修改中自动执行数据库迁移或发布。
 
 - 组件按需引入的回归见 `tests/components.test.js`：在无全局组件注册时渲染真实页面，检查未解析组件和图标。SSR 测试提供主题桥接替身，不能替代浏览器交互、布局或真实账号联调。
+
+## Cloudflare Pages 部署
+
+- 本仓库 `MonsterXia/EasonWeb` 使用 **Cloudflare Pages Git 集成**，Pages 项目名为 `easonweb`。代码推送到符合控制台分支规则的 GitHub 分支后，由 Cloudflare 构建、部署并回传 `Cloudflare Pages` 检查；沿用这条发布链路。GitHub 出现部署检查不代表使用了 GitHub Actions，不因补充测试而默认新增 Actions 或 Wrangler 直传部署流程。
+- 已核实的历史依据：2026-10-04 查询时，GitHub Actions 工作流和运行记录均为 0；`main` 提交 `e608f1b` 的[部署检查](https://github.com/MonsterXia/EasonWeb/runs/111130466093)由 `cloudflare-workers-and-pages` 应用报告成功。后续排查读取目标提交的 `/repos/MonsterXia/EasonWeb/commits/{sha}/check-runs`，按应用、提交 SHA、结果及详情链接确认对应发布；不要仅查询 commit statuses，Pages 结果可能只在 check runs 中。
+- 2026-10-04 通过 Cloudflare 项目 API 核实：生产分支 `main`，自动生产部署开启，预览范围为全部分支；根目录为仓库根目录，构建命令 `npm run build`，输出目录 `dist`，生产与预览均无项目级环境变量。正式域名 `https://eason.246801357.xyz`，Pages 域名 `https://easonweb.pages.dev`。发布前读取项目配置确认未变；以 Cloudflare 控制台 **Workers & Pages → easonweb → 构建设置**或项目 API 的当前值为准。
+- `.nvmrc` 指定 Node.js 24，实际构建版本以 Cloudflare 日志为准。当前线上 `npm run build` 包含类型检查与打包，不自动执行测试；可建议改为 `npm test && npm run build`，但不要描述为已启用。浏览器回归按上节单独执行，不假设 Cloudflare 已安装 Chromium。`VITE_API_BASE_URL` 在构建时生效，生产和预览环境需分别核对；不要将 E2E 专用 `/api` 配置用于生产包。
+- 用户授权发布时，完成相应本地验证并核对 README 中的后端升级要求，再提交／推送目标改动到工作分支，跟踪该提交的 Cloudflare 检查与预览部署并验证；预览通过后将已验证提交合入并推送 `main`，再次核对生产部署 SHA、结果与正式域名。远端已前进时先整合和验证，不强制覆盖。推送会按分支规则触发部署；普通代码修改、文档维护不自动执行发布，也不自动执行独立 CommonServerAPI 的数据库迁移。
+- 维护流程及当前证据见仓库根目录 `README.md` 的“Cloudflare Pages 构建与部署”；平台行为参见 [Git 集成](https://developers.cloudflare.com/pages/configuration/git-integration/)与[构建配置](https://developers.cloudflare.com/pages/configuration/build-configuration/)。实际排障以最新记录和控制台配置为准。
 
 ## 部署后的页面加载
 

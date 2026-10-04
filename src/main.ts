@@ -10,7 +10,7 @@ import { i18n, startLocaleSync } from './i18n'
 const app = createApp(App)
 
 app.use(i18n)
-const stopLocaleSync = startLocaleSync()
+const stopLocaleSync = startLocaleSync(() => router.currentRoute.value.meta)
 if (import.meta.hot) import.meta.hot.dispose(stopLocaleSync)
 app.use(router)
 

@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { createI18n } from 'vue-i18n'
 import { zhCN as shellZh, en as shellEn } from './shell'
 import { zhCN as accountZh, en as accountEn } from './accounts'
@@ -50,15 +50,18 @@ export function setLocalePreference(value: unknown) {
   }
   syncLocale()
 }
-export function startLocaleSync() {
+export function startLocaleSync(
+  metadata: () => { titleKey?: string; descriptionKey?: string } = () => ({}),
+) {
   const updateMetadata = () => {
     document.documentElement.lang = i18n.global.locale.value
-    document.title = tr('shell.metaTitle')
+    const { titleKey, descriptionKey } = metadata()
+    document.title = titleKey ? `${tr(titleKey)} · Eason Space` : tr('shell.metaTitle')
     document
       .querySelector('meta[name="description"]')
-      ?.setAttribute('content', tr('shell.metaDescription'))
+      ?.setAttribute('content', tr(descriptionKey ?? 'shell.metaDescription'))
   }
-  const stop = watch(i18n.global.locale, updateMetadata, { immediate: true, flush: 'sync' })
+  const stop = watchEffect(updateMetadata, { flush: 'sync' })
   const storage = (event: StorageEvent) => {
     if (event.key !== null && event.key !== LOCALE_STORAGE_KEY) return
     localePreference.value = readPreference()

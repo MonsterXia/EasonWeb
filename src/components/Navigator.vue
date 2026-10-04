@@ -187,8 +187,8 @@ const themes = [
   position: sticky;
   top: 0;
   z-index: 30;
-  border-bottom: 1px solid #ffffff0c;
-  background: #1b121adc;
+  border-bottom: 1px solid var(--border-header);
+  background: var(--surface-header);
   backdrop-filter: blur(20px);
 }
 .nav-inner {

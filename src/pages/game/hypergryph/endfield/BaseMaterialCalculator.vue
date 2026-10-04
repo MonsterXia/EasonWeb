@@ -14,6 +14,7 @@ import {
 import {
   endfieldWeaponBaseMaterialRegion,
   endfieldWeapons,
+  weaponMatchesRegion,
   type WeaponBaseMaterialRegion,
   type WeaponData,
 } from '@/constant/game/hypergryph/endfield/weapons'
@@ -79,21 +80,6 @@ const currentMapContainsWeaponsNames = (weapon: WeaponData): TagProps['type'] =>
   return 'info'
 }
 
-const skill2TypeMatch = (weapon: WeaponData, region: WeaponBaseMaterialRegion): boolean => {
-  let skill2Name = weapon.attribute2
-  if (!skill2Name) {
-    return true
-  }
-
-  if (skill2Name === '源石技艺强度提升') {
-    skill2Name = '源石技艺提升'
-  } else if (skill2Name === '终结技充能效率提升') {
-    skill2Name = '终结技效率提升'
-  }
-
-  return region.attribute2Array.includes(skill2Name)
-}
-
 watch(
   selectedWeapons,
   (newVal) => {
@@ -122,11 +108,7 @@ watch(
     endfieldWeaponBaseMaterialRegion.forEach((region) => {
       let weaponList: WeaponData[] = []
       newVal.forEach((weapon) => {
-        if (
-          region.attribute1Array.includes(weapon.attribute1) &&
-          skill2TypeMatch(weapon, region) &&
-          region.skillTypeArray.includes(weapon.skill.type)
-        ) {
+        if (weaponMatchesRegion(weapon, region)) {
           weaponList.push(weapon)
         }
       })

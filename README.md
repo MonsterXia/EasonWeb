@@ -41,6 +41,9 @@ Vue 3 + TypeScript 的个人站点与游戏工具，包含用户中心、鹰角�
 客户端只接收公开资料。Post 操作先验证管理员账号，再使用两种 Cookie 执行绑定或解绑。
 终末地本地计算器保持独立，无需用户登录。
 
+基质计算器的武器、淤积点快照及官方／开源数据来源见[数据维护说明](src/constant/game/hypergryph/endfield/README.md)。
+后续更新可使用项目 skill [`endfield-essence-data`](.agents/skills/endfield-essence-data/SKILL.md)。
+
 ### 后端升级要求
 
 部署本版本前，CommonServerAPI 必须先执行 `migrations/0006_password_reset.sql`，
@@ -66,3 +69,25 @@ Vue 3 + TypeScript 的个人站点与游戏工具，包含用户中心、鹰角�
 路由动态资源加载失败时，针对目标页面最多自动恢复一次（60 秒内）；其他错误显示重试提示。
 `public/_headers` 禁止 HTML 无校验复用，避免部署后旧入口持续引用被替换的资源。
 依据 [Vite 动态导入错误说明](https://vite.dev/guide/build.html#load-error-handling)。
+
+## 自动回归与导航
+
+- 使用 `.nvmrc` 指定的 Node.js 24。`npm test` 执行接口、缓存、数据和组件回归；`npm run build` 同时检查应用与浏览器测试的 TypeScript 类型。
+- 首次运行浏览器测试先执行 `npx playwright install chromium`，然后运行 `npm run test:e2e`。测试独占 `http://localhost:4173`，自动将测试版本构建到 `dist-e2e/` 并启动、关闭 Vite Preview；桌面和手机项目使用 Chromium。测试构建将 API 地址设为 `/api` 供拦截，不改变正常生产构建的 API 配置。
+- 浏览器测试覆盖认证请求期间离开页面、验证码迟到响应、登录后返回工具、404、语言与主题、角色切换、异常响应和 HTTP 207 部分签到失败。所有 API 使用合成响应，外部请求被拦截，不会发送真实验证码、绑定账号或签到。
+- 失败时截图与 trace 保存在忽略提交的 `test-results/`；通过 `npx playwright show-trace <trace.zip>` 查看交互记录。
+- 这些测试命令可在本地执行；仓库没有配置 GitHub Actions 自动检查。Cloudflare 是否执行测试取决于项目控制台中的构建命令，不能仅凭部署成功认定回归测试已通过。
+
+认证页在路由切换或卸载后取消等待并忽略旧结果；取消浏览器请求不代表服务端已经执行的登录、注册或邮件发送会回滚。返回地址仅允许已知站内工具与用户页，认证模式切换保留返回入口。未知地址展示 404，游戏父路径跳转到终末地工具；页面标题与描述随当前路由和语言同步。
+
+API 边界校验用户资料、角色列表、角色概览和签到结果的必要字段，保留有效的零值和 null。概览区分本站登录失效、账号权限、上游不可用、网络故障、限流和异常响应；页面提供对应的登录、账号管理或刷新入口。HTTP 状态仍由后端决定，前端不把第三方故障解释成未登录。
+
+## Cloudflare Pages 构建与部署
+
+现有发布流程由 Cloudflare Pages 的 Git 集成承接：GitHub 保存代码，推送触发 Cloudflare 构建与部署，结果通过 GitHub 的 `Cloudflare Pages` 检查回传。生产和预览分支的触发范围由 Cloudflare 控制台设置决定，参见[官方 Git 集成说明](https://developers.cloudflare.com/pages/configuration/git-integration/)。
+
+2026-10-04 核对远端仓库时，GitHub Actions 工作流与运行记录均为 0；`main` 提交 `e608f1b` 的 [Cloudflare Pages 检查](https://github.com/MonsterXia/EasonWeb/runs/111130466093)由 `cloudflare-workers-and-pages` 应用回报部署成功，对应 Pages 项目 `easonweb`。这是该提交的部署记录，不代表本地未提交改动已发布。
+
+2026-10-04 进一步通过 Cloudflare API 核实：生产分支为 `main`，已启用自动生产部署；预览分支规则为全部分支。构建根目录为仓库根目录，实际构建命令为 `npm run build`，输出目录为 `dist`；生产与预览均未配置项目级环境变量。正式域名为 `https://eason.246801357.xyz`，Pages 域名为 `https://easonweb.pages.dev`。发布时先运行本地验证，再推送到目标分支，核对该提交 SHA 对应的 Cloudflare 检查和部署日志，最后验证部署地址；预览通过后再将已验证提交合入并推送 `main`。
+
+Node.js 版本由仓库 `.nvmrc` 指定为 24，实际构建所用版本以 Cloudflare 日志为准。当前线上构建命令执行类型检查与打包，没有自动运行单元测试或浏览器回归。可将构建命令改为 `npm test && npm run build`，让单元测试失败也阻止发布；这仍是建议，本次未修改平台配置。浏览器回归另行运行 `npm run test:e2e`，需要预先安装 Chromium 及其系统依赖；`dist-e2e/` 只用于测试，不是发布目录。具体配置方式见[Cloudflare 构建配置](https://developers.cloudflare.com/pages/configuration/build-configuration/)。

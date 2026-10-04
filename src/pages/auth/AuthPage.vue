@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElCard, ElAlert, ElForm, ElFormItem, ElInput, ElButton } from 'element-plus'
-import { computed, reactive, ref, shallowRef, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed, onBeforeUnmount, reactive, ref, shallowRef, watch } from 'vue'
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import {
   loginAPI,
@@ -13,6 +13,7 @@ import {
   passwordErrorKey,
   apiError,
 } from '@/common/api/accounts'
+import { authLocation, safeReturnPath } from '@/router/returnPath'
 import OrbitScene from '@/components/OrbitScene.vue'
 import { useCooldown } from '@/composables/useCooldown'
 const { t } = useI18n()
@@ -21,6 +22,7 @@ const route = useRoute(),
 const mode = computed(() =>
   route.path === '/register' ? 'register' : route.path === '/reset-password' ? 'reset' : 'login',
 )
+const destination = computed(() => safeReturnPath(route.query.redirect))
 const title = computed(() => t(`account.${mode.value}`))
 const form = reactive({ username: '', email: '', password: '', confirm: '', code: '' })
 const busy = ref(false),
@@ -30,14 +32,42 @@ const busy = ref(false),
 const errorMessage = computed(() => error.value?.() ?? '')
 const noticeMessage = computed(() => notice.value?.() ?? '')
 const { remaining, start } = useCooldown()
-watch(mode, () => {
-  form.password = ''
-  form.confirm = ''
-  form.code = ''
-  error.value = null
-  notice.value = null
+let operation: AbortController | undefined
+let disposed = false
+function invalidateOperation() {
+  operation?.abort()
+  operation = undefined
+  busy.value = false
+  sending.value = false
   start(0)
+}
+function beginOperation() {
+  operation?.abort()
+  const request = new AbortController()
+  operation = request
+  return {
+    signal: request.signal,
+    current: () => !disposed && operation === request && !request.signal.aborted,
+  }
+}
+onBeforeUnmount(() => {
+  disposed = true
+  invalidateOperation()
 })
+// A lazy destination may not commit immediately. Cancel when leaving starts, before its chunk loads.
+onBeforeRouteLeave(invalidateOperation)
+watch(
+  () => route.path,
+  () => {
+    invalidateOperation()
+    form.password = ''
+    form.confirm = ''
+    form.code = ''
+    error.value = null
+    notice.value = null
+  },
+  { flush: 'sync' },
+)
 async function sendCode() {
   if (sending.value || remaining.value || busy.value) return
   error.value = null
@@ -49,16 +79,19 @@ async function sendCode() {
     error.value = () => t('account.auth.codeFieldsRequired')
     return
   }
+  const snapshot = { mode: mode.value, username: form.username.trim(), email: form.email.trim() }
+  const request = beginOperation()
   sending.value = true
   try {
-    if (mode.value === 'register') await registrationCodeAPI(form.email.trim())
-    else await resetCodeAPI(form.username.trim(), form.email.trim())
+    if (snapshot.mode === 'register') await registrationCodeAPI(snapshot.email, request.signal)
+    else await resetCodeAPI(snapshot.username, snapshot.email, request.signal)
+    if (!request.current()) return
     notice.value = () => t('account.auth.codeSent')
     start(300)
   } catch (e) {
-    error.value = () => apiError(e)
+    if (request.current()) error.value = () => apiError(e)
   } finally {
-    sending.value = false
+    if (request.current()) sending.value = false
   }
 }
 async function submit() {
@@ -90,28 +123,60 @@ async function submit() {
       return
     }
   }
+  const snapshot = {
+    username,
+    email,
+    password: form.password,
+    code: form.code,
+    mode: mode.value,
+    destination: destination.value,
+  }
+  const request = beginOperation()
   busy.value = true
   try {
-    if (mode.value === 'login') await loginAPI(username, form.password)
-    else if (mode.value === 'register') {
-      if (await usernameExistsAPI(username)) {
+    if (snapshot.mode === 'login')
+      await loginAPI(snapshot.username, snapshot.password, request.signal)
+    else if (snapshot.mode === 'register') {
+      const exists = await usernameExistsAPI(snapshot.username, request.signal)
+      if (!request.current()) return
+      if (exists) {
         error.value = () => t('account.auth.usernameExists')
         return
       }
-      await registerAPI({ username, email, password: form.password, registrationCode: form.code })
+      await registerAPI(
+        {
+          username: snapshot.username,
+          email: snapshot.email,
+          password: snapshot.password,
+          registrationCode: snapshot.code,
+        },
+        request.signal,
+      )
     } else {
-      await resetPasswordAPI({ username, email, password: form.password, code: form.code })
-      await router.push('/login')
-      notice.value = () => t('account.auth.passwordReset')
+      await resetPasswordAPI(
+        {
+          username: snapshot.username,
+          email: snapshot.email,
+          password: snapshot.password,
+          code: snapshot.code,
+        },
+        request.signal,
+      )
+      if (!request.current()) return
+      const failure = await router.push(authLocation('/login', snapshot.destination))
+      if (!failure && !disposed && route.path === '/login')
+        notice.value = () => t('account.auth.passwordReset')
       return
     }
-    await router.push('/user')
+    if (request.current()) await router.push(snapshot.destination)
   } catch (e) {
-    error.value = () => apiError(e)
+    if (request.current()) error.value = () => apiError(e)
   } finally {
-    busy.value = false
-    form.password = ''
-    form.confirm = ''
+    if (request.current()) {
+      busy.value = false
+      form.password = ''
+      form.confirm = ''
+    }
   }
 }
 </script>
@@ -214,13 +279,13 @@ async function submit() {
         <el-button type="primary" native-type="submit" :loading="busy">{{ title }}</el-button>
       </el-form>
       <div v-if="!busy && !sending" class="auth-links">
-        <router-link v-if="mode !== 'login'" to="/login">{{
+        <router-link v-if="mode !== 'login'" :to="authLocation('/login', destination)">{{
           t('account.backToLogin')
         }}</router-link>
-        <router-link v-if="mode !== 'register'" to="/register">{{
+        <router-link v-if="mode !== 'register'" :to="authLocation('/register', destination)">{{
           t('account.register')
         }}</router-link>
-        <router-link v-if="mode !== 'reset'" to="/reset-password">{{
+        <router-link v-if="mode !== 'reset'" :to="authLocation('/reset-password', destination)">{{
           t('account.forgotPassword')
         }}</router-link>
       </div>
@@ -260,7 +325,7 @@ async function submit() {
 }
 .auth-card {
   width: 100%;
-  box-shadow: 0 25px 90px #0003;
+  box-shadow: var(--shadow-elevated);
   position: relative;
 }
 .auth-card::before {

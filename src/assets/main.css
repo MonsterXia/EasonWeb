@@ -39,7 +39,8 @@
 .el-card {
   --el-card-border-color: var(--color-border);
   --el-card-border-radius: 20px;
-  background: linear-gradient(130deg, #2b1e28ea, #211821ed);
+  background: var(--surface-card);
+  box-shadow: var(--shadow-card);
 }
 .el-card__body,
 .el-card__header {

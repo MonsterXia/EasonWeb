@@ -30,15 +30,6 @@
   --el-border-radius-base: 10px;
   --el-box-shadow-light: 0 16px 48px #783c5712;
 }
-:root:not(.dark) .el-card {
-  --el-card-border-color: var(--color-border);
-  background: linear-gradient(130deg, #ffffffed, #fff8fbed);
-  box-shadow: 0 10px 35px #783c5708;
-}
-:root:not(.dark) .site-header {
-  background: #fff9fce8;
-  border-color: var(--color-border);
-}
 :root:not(.dark) .brand,
 :root:not(.dark) .footer-brand,
 :root:not(.dark) .secondary-link,
@@ -160,9 +151,6 @@
 :root:not(.dark) .health-panel {
   background: #ffffffb0;
   border-color: var(--color-border);
-}
-:root:not(.dark) .auth-card {
-  box-shadow: 0 25px 90px #783c5712;
 }
 :root:not(.dark) .binding-card {
   background: #fff8fb;

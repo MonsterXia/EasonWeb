@@ -1,5 +1,6 @@
 import type { AxiosRequestConfig } from 'axios'
 import gatewayManager from '../gatewayManager/gatewayManager'
+import { responseData } from './validation'
 
 export interface ApiResponse<T> {
   message: string
@@ -16,7 +17,7 @@ export async function getData<T>(
   params?: Record<string, unknown> | URLSearchParams,
   config?: AxiosRequestConfig,
 ): Promise<T> {
-  return (await gateway.get<ApiResponse<T>>(gateway.buildStandardURL(path), params, config)).data
+  return responseData<T>(await gateway.get<unknown>(gateway.buildStandardURL(path), params, config))
 }
 
 export async function postData<T = null>(
@@ -24,5 +25,5 @@ export async function postData<T = null>(
   body?: unknown,
   config?: AxiosRequestConfig,
 ): Promise<T> {
-  return (await gateway.post<ApiResponse<T>>(gateway.buildStandardURL(path), body, config)).data
+  return responseData<T>(await gateway.post<unknown>(gateway.buildStandardURL(path), body, config))
 }

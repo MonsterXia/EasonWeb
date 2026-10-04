@@ -1,4 +1,15 @@
 export const zhCN = {
+  signInAgain: '重新登录',
+  manageAccount: '管理关联账号',
+  errors: {
+    session: '本站登录已失效，请重新登录后读取角色资料。',
+    authorization: '当前账号无权读取此角色，请检查关联账号。',
+    upstream: '鹰角或森空岛暂时无法提供资料，请重试；若持续失败，可更新关联账号登录。',
+    network: '连接超时或网络不可用，请检查网络后重试。',
+    rateLimit: '请求过于频繁，请稍后再刷新角色资料。',
+    invalidResponse: '服务返回的资料格式异常，请稍后重试。',
+    unavailable: '资料服务暂时不可用，请稍后重试。',
+  },
   title: '角色概览',
   select: '选择游戏角色',
   refresh: '刷新角色资料',
@@ -163,6 +174,18 @@ export const zhCN = {
   },
 }
 export const en = {
+  signInAgain: 'Sign in again',
+  manageAccount: 'Manage connected account',
+  errors: {
+    session: 'Your site session has expired. Sign in again to load character data.',
+    authorization: 'This account cannot access the character. Check your connected account.',
+    upstream:
+      'Hypergryph or Skland could not provide data. Retry, or refresh your connected account session if this continues.',
+    network: 'The connection timed out or is unavailable. Check your network and retry.',
+    rateLimit: 'Too many requests. Wait before refreshing character data again.',
+    invalidResponse: 'The service returned unexpected character data. Please try again later.',
+    unavailable: 'The character service is temporarily unavailable. Please try again later.',
+  },
   title: 'Character overview',
   select: 'Select a game character',
   refresh: 'Refresh character data',

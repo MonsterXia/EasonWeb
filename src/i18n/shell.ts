@@ -1,4 +1,9 @@
 export const zhCN = {
+  notFoundTitle: '页面不存在',
+  notFoundDescription: '这个地址可能有误，或页面已被移动。',
+  notFoundHint: '换个入口继续探索',
+  notFoundAction: '返回首页，或直接打开终末地工具。',
+  backHome: '返回首页',
   home: '首页',
   endfield: '终末地',
   skland: '森空岛',
@@ -23,6 +28,11 @@ export const zhCN = {
   metaDescription: 'Eason 的个人游戏工具空间：终末地基质计算、森空岛小工具与账号管理。',
 }
 export const en: Record<keyof typeof zhCN, string> = {
+  notFoundTitle: 'Page not found',
+  notFoundDescription: 'The address may be incorrect, or the page may have moved.',
+  notFoundHint: 'Keep exploring',
+  notFoundAction: 'Return home or open the Endfield tools directly.',
+  backHome: 'Back to home',
   home: 'Home',
   endfield: 'Endfield',
   skland: 'Skland',

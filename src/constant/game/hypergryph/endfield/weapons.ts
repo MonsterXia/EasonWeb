@@ -1,3 +1,4 @@
+// 核对日期：2026-10-04；雪凇幽梦版本。固定来源与维护说明见同目录 README.md。
 interface WeaponSkill {
     type: string;
     name: string;
@@ -76,7 +77,7 @@ const endfieldWeaponsSword: WeaponData[] = [
         attribute2: '寒冷伤害提升',
         skill: {
             type: '压制',
-            name: '逐鱼意'
+            name: '逐鳞意'
         }
     },
     {
@@ -84,7 +85,7 @@ const endfieldWeaponsSword: WeaponData[] = [
         type: '单手剑',
         rarity: 5,
         attribute1: '敏捷提升',
-        attribute2: '攻击力提升',
+        attribute2: '攻击提升',
         skill: {
             type: '附术',
             name: '竭心诘问'
@@ -95,7 +96,7 @@ const endfieldWeaponsSword: WeaponData[] = [
         type: '单手剑',
         rarity: 5,
         attribute1: '敏捷提升',
-        attribute2: '攻击力提升',
+        attribute2: '攻击提升',
         skill: {
             type: '流转',
             name: '不羁锋芒'
@@ -124,7 +125,7 @@ const endfieldWeaponsSword: WeaponData[] = [
         }
     },
     {
-        name: '不知规',
+        name: '不知归',
         type: '单手剑',
         rarity: 6,
         attribute1: '意志提升',
@@ -172,7 +173,7 @@ const endfieldWeaponsSword: WeaponData[] = [
         type: '单手剑',
         rarity: 6,
         attribute1: '意志提升',
-        attribute2: '攻击力提升',
+        attribute2: '攻击提升',
         skill: {
             type: '流转',
             name: '高热解放'
@@ -186,7 +187,7 @@ const endfieldWeaponsSword: WeaponData[] = [
         attribute2: '物理伤害提升',
         skill: {
             type: '残暴',
-            name: '规行钜止'
+            name: '规行矩止'
         }
     },
     {
@@ -194,7 +195,7 @@ const endfieldWeaponsSword: WeaponData[] = [
         type: '单手剑',
         rarity: 6,
         attribute1: '主能力提升',
-        attribute2: '原始技艺强度提升',
+        attribute2: '源石技艺提升',
         skill: {
             type: '附术',
             name: '白夜新星'
@@ -208,7 +209,40 @@ const endfieldWeaponsSword: WeaponData[] = [
         attribute2: '暴击率提升',
         skill: {
             type: '夜幕',
-            name: '余晖未消'
+            name: '余辉未消'
+        }
+    },
+    {
+        name: '点心时刻',
+        type: '单手剑',
+        rarity: 5,
+        attribute1: '力量提升',
+        attribute2: '治疗效率提升',
+        skill: {
+            type: '医疗',
+            name: '甜与梦'
+        }
+    },
+    {
+        name: '狼之绯',
+        type: '单手剑',
+        rarity: 6,
+        attribute1: '敏捷提升',
+        attribute2: '暴击率提升',
+        skill: {
+            type: '切骨',
+            name: '群狼啃噬'
+        }
+    },
+    {
+        name: '遥望',
+        type: '单手剑',
+        rarity: 6,
+        attribute1: '主能力提升',
+        attribute2: '源石技艺提升',
+        skill: {
+            type: '强攻',
+            name: '明日之愿'
         }
     },
 ]
@@ -263,7 +297,7 @@ const endfieldWeaponsGreatSword: WeaponData[] = [
         type: '双手剑',
         rarity: 5,
         attribute1: '力量提升',
-        attribute2: '源石技艺强度提升',
+        attribute2: '源石技艺提升',
         skill: {
             type: '残暴',
             name: '千秋旧土'
@@ -345,7 +379,29 @@ const endfieldWeaponsGreatSword: WeaponData[] = [
             type: '粉碎',
             name: '君王威慑'
         }
-    }
+    },
+    {
+        name: '幻想苦痛',
+        type: '双手剑',
+        rarity: 6,
+        attribute1: '力量提升',
+        attribute2: '源石技艺提升',
+        skill: {
+            type: '压制',
+            name: '苦痛重叠'
+        }
+    },
+    {
+        name: '赤缨',
+        type: '双手剑',
+        rarity: 6,
+        attribute1: '力量提升',
+        attribute2: '攻击提升',
+        skill: {
+            type: '巧技',
+            name: '赤断'
+        }
+    },
 ]
 
 const endfieldWeaponsPolearm: WeaponData[] = [
@@ -365,7 +421,7 @@ const endfieldWeaponsPolearm: WeaponData[] = [
         type: '长柄武器',
         rarity: 4,
         attribute1: '敏捷提升',
-        attribute2: '攻击力提升',
+        attribute2: '攻击提升',
         skill: {
             type: '昂扬',
             name: '远途起始'
@@ -376,7 +432,7 @@ const endfieldWeaponsPolearm: WeaponData[] = [
         type: '长柄武器',
         rarity: 4,
         attribute1: '意志提升',
-        attribute2: '法术提升',
+        attribute2: '法术伤害提升',
         skill: {
             type: '压制',
             name: '应急强化'
@@ -447,12 +503,56 @@ const endfieldWeaponsPolearm: WeaponData[] = [
             type: '压制',
             name: '太空物理学'
         }
-    }
+    },
+    {
+        name: '灯火使命',
+        type: '长柄武器',
+        rarity: 6,
+        attribute1: '敏捷提升',
+        attribute2: '终结技充能效率提升',
+        skill: {
+            type: '效益',
+            name: '灯火灼身'
+        }
+    },
+    {
+        name: '曜夜的首演',
+        type: '长柄武器',
+        rarity: 6,
+        attribute1: '意志提升',
+        attribute2: '治疗效率提升',
+        skill: {
+            type: '医疗',
+            name: '闪耀帷幕'
+        }
+    },
+    {
+        name: '镀红祝福',
+        type: '长柄武器',
+        rarity: 6,
+        attribute1: '敏捷提升',
+        attribute2: '灼热伤害提升',
+        skill: {
+            type: '流转',
+            name: '汲罪'
+        }
+    },
+    {
+        name: '黄金时代',
+        type: '长柄武器',
+        rarity: 6,
+        attribute1: '意志提升',
+        attribute2: '治疗效率提升',
+        skill: {
+            type: '追袭',
+            name: '大英雄'
+        }
+    },
 ]
 
 const endfieldWeaponsHandCannon: WeaponData[] = [
     {
-        name: '配科5',
+        name: '佩科5',
         type: '手铳',
         rarity: 3,
         attribute1: '主能力提升',
@@ -478,32 +578,32 @@ const endfieldWeaponsHandCannon: WeaponData[] = [
         type: '手铳',
         rarity: 4,
         attribute1: '力量提升',
-        attribute2: '法术提升',
+        attribute2: '法术伤害提升',
         skill: {
             type: '追袭',
             name: '生生不息'
         }
     },
     {
-        name: '作品:众生',
+        name: '作品：众生',
         type: '手铳',
         rarity: 5,
         attribute1: '敏捷提升',
-        attribute2: '法术提升',
+        attribute2: '法术伤害提升',
         skill: {
             type: '附术',
             name: '众生的归途'
         }
     },
     {
-        name: 'O.B.J.讯极',
+        name: 'O.B.J.迅极',
         type: '手铳',
         rarity: 5,
         attribute1: '敏捷提升',
         attribute2: '终结技充能效率提升',
         skill: {
             type: '迸发',
-            name: '讯击'
+            name: '迅击'
         }
     },
     {
@@ -555,7 +655,7 @@ const endfieldWeaponsHandCannon: WeaponData[] = [
         type: '手铳',
         rarity: 6,
         attribute1: '主能力提升',
-        attribute2: '法术提升',
+        attribute2: '法术伤害提升',
         skill: {
             type: '附术',
             name: '残酷清洗'
@@ -602,7 +702,7 @@ const endfieldWeaponsCastingUnit: WeaponData[] = [
         type: '施术单元',
         rarity: 4,
         attribute1: '智识提升',
-        attribute2: '法术提升',
+        attribute2: '法术伤害提升',
         skill: {
             type: '昂扬',
             name: '远途起始'
@@ -668,7 +768,7 @@ const endfieldWeaponsCastingUnit: WeaponData[] = [
         type: '施术单元',
         rarity: 5,
         attribute1: '智识提升',
-        attribute2: '源石技艺强度提升',
+        attribute2: '源石技艺提升',
         skill: {
             type: '追袭',
             name: '术法升华'
@@ -697,7 +797,7 @@ const endfieldWeaponsCastingUnit: WeaponData[] = [
         }
     },
     {
-        name: '作品:蚀迹',
+        name: '作品：蚀迹',
         type: '施术单元',
         rarity: 6,
         attribute1: '意志提升',
@@ -712,7 +812,7 @@ const endfieldWeaponsCastingUnit: WeaponData[] = [
         type: '施术单元',
         rarity: 6,
         attribute1: '主能力提升',
-        attribute2: '源石技艺强度提升',
+        attribute2: '源石技艺提升',
         skill: {
             type: '迸发',
             name: '冠军威赫'
@@ -723,7 +823,7 @@ const endfieldWeaponsCastingUnit: WeaponData[] = [
         type: '施术单元',
         rarity: 6,
         attribute1: '智识提升',
-        attribute2: '法术提升',
+        attribute2: '法术伤害提升',
         skill: {
             type: '夜幕',
             name: '耻辱'
@@ -738,6 +838,72 @@ const endfieldWeaponsCastingUnit: WeaponData[] = [
         skill: {
             type: '医疗',
             name: '侵蚀性狂热'
+        }
+    },
+    {
+        name: '孤舟',
+        type: '施术单元',
+        rarity: 6,
+        attribute1: '意志提升',
+        attribute2: '攻击提升',
+        skill: {
+            type: '压制',
+            name: '流霆'
+        }
+    },
+    {
+        name: '四二式·肃阵',
+        type: '施术单元',
+        rarity: 6,
+        attribute1: '智识提升',
+        attribute2: '终结技充能效率提升',
+        skill: {
+            type: '迸发',
+            name: '陷坚挫锐'
+        }
+    },
+    {
+        name: '雾中微光',
+        type: '施术单元',
+        rarity: 6,
+        attribute1: '意志提升',
+        attribute2: '电磁伤害提升',
+        skill: {
+            type: '效益',
+            name: '微光层叠'
+        }
+    },
+    {
+        name: '联结点',
+        type: '施术单元',
+        rarity: 6,
+        attribute1: '智识提升',
+        attribute2: '终结技充能效率提升',
+        skill: {
+            type: '效益',
+            name: '回环'
+        }
+    },
+    {
+        name: '寒夜幽影',
+        type: '施术单元',
+        rarity: 6,
+        attribute1: '敏捷提升',
+        attribute2: '攻击提升',
+        skill: {
+            type: '迸发',
+            name: '猎人本能'
+        }
+    },
+    {
+        name: '苦难的尽头',
+        type: '施术单元',
+        rarity: 6,
+        attribute1: '敏捷提升',
+        attribute2: '自然伤害提升',
+        skill: {
+            type: '迸发',
+            name: '长夜拂晓'
         }
     },
 ]
@@ -767,7 +933,7 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
         attribute2Array: [
             '攻击提升', '灼热伤害提升', '电磁伤害提升',
             '寒冷伤害提升', '自然伤害提升', '源石技艺提升',
-            '终结技效率提升', '法术提升'
+            '终结技充能效率提升', '法术伤害提升'
         ],
         skillTypeArray: [
             '强攻', '压制', '追袭',
@@ -784,24 +950,7 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
         attribute2Array: [
             '攻击提升', '物理伤害提升', '电磁伤害提升',
             '寒冷伤害提升', '自然伤害提升', '暴击率提升',
-            '终结技效率提升', '法术提升'
-        ],
-        skillTypeArray: [
-            '压制', '追袭', '昂扬',
-            '巧技', '附术', '医疗',
-            '切骨', '效益'
-        ]
-    },
-    {
-        region: '源石研究园',
-        attribute1Array: [
-            '敏捷提升', '力量提升', '意志提升',
-            '智识提升', '主能力提升'
-        ],
-        attribute2Array: [
-            '攻击提升', '物理伤害提升', '电磁伤害提升',
-            '寒冷伤害提升', '自然伤害提升', '暴击率提升',
-            '终结技效率提升', '法术提升'
+            '终结技充能效率提升', '法术伤害提升'
         ],
         skillTypeArray: [
             '压制', '追袭', '昂扬',
@@ -851,11 +1000,11 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
         ],
         attribute2Array: [
             '攻击提升', '生命提升', '电磁伤害提升',
-            '寒冷伤害提升', '暴击率提升', '终结技效率提升',
+            '寒冷伤害提升', '暴击率提升', '终结技充能效率提升',
             '法术伤害提升', '治疗效率提升'
         ],
         skillTypeArray: [
-            '压制', '粉碎', '昂扬',
+            '强攻', '粉碎', '残暴',
             '医疗', '切骨', '迸发',
             '夜幕', '流转'
         ]
@@ -868,13 +1017,124 @@ export const endfieldWeaponBaseMaterialRegion: WeaponBaseMaterialRegion[] = [
         ],
         attribute2Array: [
             '生命提升', '物理伤害提升', '电磁伤害提升',
-            '寒冷伤害提升', '源石技艺提升', '终结技效率提升',
+            '寒冷伤害提升', '源石技艺提升', '终结技充能效率提升',
             '法术伤害提升', '治疗效率提升'
         ],
         skillTypeArray: [
-            '强攻', '粉碎', '残暴',
+            '压制', '粉碎', '昂扬',
             '巧技', '医疗', '切骨',
             '迸发', '夜幕'
         ]
     },
+    {
+        region: '首墩',
+        attribute1Array: [
+            '敏捷提升', '力量提升', '意志提升',
+            '智识提升', '主能力提升'
+        ],
+        attribute2Array: [
+            '攻击提升', '物理伤害提升', '灼热伤害提升',
+            '电磁伤害提升', '自然伤害提升', '暴击率提升',
+            '终结技充能效率提升', '法术伤害提升'
+        ],
+        skillTypeArray: [
+            '强攻', '追袭', '昂扬',
+            '残暴', '附术', '夜幕',
+            '流转', '效益'
+        ]
+    },
+    {
+        region: '试验园区',
+        attribute1Array: [
+            '敏捷提升', '力量提升', '意志提升',
+            '智识提升', '主能力提升'
+        ],
+        attribute2Array: [
+            '生命提升', '灼热伤害提升', '电磁伤害提升',
+            '寒冷伤害提升', '自然伤害提升', '源石技艺提升',
+            '终结技充能效率提升', '治疗效率提升'
+        ],
+        skillTypeArray: [
+            '压制', '粉碎', '巧技',
+            '残暴', '附术', '切骨',
+            '夜幕', '流转'
+        ]
+    },
+    {
+        region: '藏剑谷',
+        attribute1Array: [
+            '敏捷提升', '力量提升', '意志提升',
+            '智识提升', '主能力提升'
+        ],
+        attribute2Array: [
+            '攻击提升', '生命提升', '物理伤害提升',
+            '灼热伤害提升', '寒冷伤害提升', '自然伤害提升',
+            '源石技艺提升', '治疗效率提升'
+        ],
+        skillTypeArray: [
+            '强攻', '追袭', '昂扬',
+            '巧技', '医疗', '切骨',
+            '迸发', '效益'
+        ]
+    },
+    {
+        region: '应龙关',
+        attribute1Array: [
+            '敏捷提升', '力量提升', '意志提升',
+            '智识提升', '主能力提升'
+        ],
+        attribute2Array: [
+            '攻击提升', '物理伤害提升', '电磁伤害提升',
+            '寒冷伤害提升', '自然伤害提升', '暴击率提升',
+            '源石技艺提升', '法术伤害提升'
+        ],
+        skillTypeArray: [
+            '压制', '追袭', '巧技',
+            '残暴', '附术', '迸发',
+            '流转', '效益'
+        ]
+    },
+    {
+        region: '北部禁区',
+        attribute1Array: [
+            '敏捷提升', '力量提升', '意志提升',
+            '智识提升', '主能力提升'
+        ],
+        attribute2Array: [
+            '生命提升', '物理伤害提升', '灼热伤害提升',
+            '自然伤害提升', '暴击率提升', '源石技艺提升',
+            '法术伤害提升', '治疗效率提升'
+        ],
+        skillTypeArray: [
+            '强攻', '压制', '追袭',
+            '粉碎', '昂扬', '附术',
+            '医疗', '效益'
+        ]
+    },
+    {
+        region: '雪松林',
+        attribute1Array: [
+            '敏捷提升', '力量提升', '意志提升',
+            '智识提升', '主能力提升'
+        ],
+        attribute2Array: [
+            '攻击提升', '生命提升', '灼热伤害提升',
+            '电磁伤害提升', '暴击率提升', '终结技充能效率提升',
+            '法术伤害提升', '治疗效率提升'
+        ],
+        skillTypeArray: [
+            '强攻', '粉碎', '昂扬',
+            '残暴', '医疗', '迸发',
+            '夜幕', '流转'
+        ]
+    },
 ]
+
+// 武器与淤积点使用同一套基质词条；三星武器没有附加属性限制。
+export const weaponMatchesRegion = (
+    weapon: WeaponData,
+    region: WeaponBaseMaterialRegion,
+): boolean =>
+    region.attribute1Array.includes(weapon.attribute1) &&
+    (weapon.attribute2 === null || region.attribute2Array.includes(weapon.attribute2)) &&
+    region.skillTypeArray.includes(weapon.skill.type)

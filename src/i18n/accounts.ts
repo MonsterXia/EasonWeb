@@ -93,6 +93,7 @@ export const zhCN = {
     credentialsRequired: '请填写正确的手机号及验证码或密码。',
   },
   error: {
+    invalidResponse: '服务返回的数据格式异常，请稍后重试。',
     failed: '操作失败，请重试。',
     expired: '登录状态已失效，请重新登录对应账号。',
     unauthorized: '账号或密码错误，或当前操作未获授权。',
@@ -205,6 +206,7 @@ export const en = {
     credentialsRequired: 'Enter a valid phone number and verification code or password.',
   },
   error: {
+    invalidResponse: 'The service returned unexpected data. Please try again later.',
     failed: 'The operation failed. Please try again.',
     expired: 'Your session has expired. Sign in to the relevant account again.',
     unauthorized: 'The account or password is incorrect, or this action is not authorized.',

@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-10-04",
+  "gameVersion": "雪凇幽梦",
+  "weaponCount": 80,
+  "regionCount": 12,
+  "officialReleaseNotes": "https://endfield.hypergryph.com/news/2653",
+  "sources": [
+    {
+      "repository": "Arknights-yituliu/ef-frontend-v1",
+      "revision": "f4fff8e4cf3c00733942cacd5fbb12a07b514e68",
+      "committedAt": "2026-09-30T09:44:31Z",
+      "files": [
+        {
+          "path": "custom/core/weapons.json",
+          "sha256": "6ad26412b1fb63e5b42896189d7172e9bf314ab341e412045c9b2a9c0dcaa7c5"
+        },
+        {
+          "path": "custom/core/energyAlluviums.json",
+          "sha256": "b07ee71f75d88bfb3b0963c77be2534742a3dce1a103712aa00114987d93ebd5"
+        },
+        {
+          "path": "custom/core/items.json",
+          "sha256": "20599489e8cc0ae8a70721ea6e26b88daa30998c11aae31d81d8371a77c8f465"
+        },
+        {
+          "path": "i18n/locales/zh-CN-weapons.json",
+          "sha256": "a15c89292cc9faa911622acecc905062eaf319c64eac162dbb8581455205ddf3"
+        }
+      ]
+    },
+    {
+      "repository": "cmyyx/cep",
+      "revision": "286962b95408078ca91c99dece748d74166e74b1",
+      "committedAt": "2026-09-29T10:32:37Z",
+      "files": [
+        {
+          "path": "src/data/weapons.ts",
+          "sha256": "5e03f1c87ad2b56fc3741ef7d6ac8313187c81a3cf281fc3925b628c4f65a299"
+        },
+        {
+          "path": "src/data/dungeons.ts",
+          "sha256": "6767a5c2d2ac7a5f9fdd69f4916499626ca59a4f11797be4b86fb4c5d199ee69"
+        },
+        {
+          "path": "src/generated/i18n/wikiData/zh-CN.json",
+          "sha256": "6d4b3244d4b874ad594d993b7f8a2645bfdaab5991b936ca018ef7f21f063195"
+        }
+      ]
+    }
+  ]
+}

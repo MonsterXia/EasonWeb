@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ElCard, ElButton, ElSkeleton, ElAlert } from 'element-plus'
 import { computed, onMounted, onBeforeUnmount, ref, shallowRef } from 'vue'
+import { authLocation } from '@/router/returnPath'
+import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { sklandCache, roleKey } from '@/common/sklandCache'
 import GameOverviewPanel from '@/components/game/GameOverviewPanel.vue'
@@ -10,6 +12,7 @@ import { ArrowRight } from '@element-plus/icons-vue'
 import PageHeading from '@/components/PageHeading.vue'
 import { gameServerName } from '@/common/gameServers'
 import { sortGameAccounts } from '@/common/gameAccountOrder'
+import { apiFailureKind, type ApiFailureKind } from '@/common/api/errors'
 import { getCurrentUserAPI, type CurrentUser } from '@/common/api/user'
 import {
   apiError,
@@ -19,6 +22,7 @@ import {
   type CheckInResults,
 } from '@/common/api/accounts'
 const { t } = useI18n()
+const route = useRoute()
 const caughtError = shallowRef<unknown>(null)
 const error = computed(() => (caughtError.value === null ? '' : apiError(caughtError.value)))
 const user = ref<CurrentUser | null>(null),
@@ -30,6 +34,7 @@ const selected = ref<GameAccount | null>(null)
 const overview = shallowRef<GameOverview | null>(null)
 const detailLoading = ref(false),
   detailFailed = ref(false)
+const detailErrorKind = ref<ApiFailureKind | undefined>()
 const checkInError = shallowRef<unknown>(null)
 const checkInMessage = computed(() =>
   checkInError.value === null ? '' : apiError(checkInError.value),
@@ -41,6 +46,7 @@ function cancelDetail() {
   detailVersion++
   detailLoading.value = false
   detailFailed.value = false
+  detailErrorKind.value = undefined
   overview.value = null
 }
 function selectRole(game: GameAccount) {
@@ -65,8 +71,11 @@ async function loadOverview(game = selected.value, force = false) {
       force,
     )
     if (version === detailVersion && alive) overview.value = data
-  } catch {
-    if (version === detailVersion && alive) detailFailed.value = true
+  } catch (error) {
+    if (version === detailVersion && alive) {
+      detailFailed.value = true
+      detailErrorKind.value = apiFailureKind(error)
+    }
   } finally {
     if (version === detailVersion && alive) detailLoading.value = false
   }
@@ -171,7 +180,8 @@ onMounted(() => load())
           :description="t('game.skland.loginDescription')"
         >
           <template #actions
-            ><router-link to="/login">{{ t('game.skland.login') }} <ArrowRight /></router-link
+            ><router-link :to="authLocation('/login', route.fullPath)"
+              >{{ t('game.skland.login') }} <ArrowRight /></router-link
           ></template>
         </EmptyState>
         <EmptyState
@@ -247,6 +257,7 @@ onMounted(() => load())
             :data="overview"
             :loading="detailLoading"
             :failed="detailFailed"
+            :error-kind="detailErrorKind"
             @refresh="loadOverview(selected, true)"
           />
         </template>

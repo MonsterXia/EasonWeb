@@ -1,6 +1,7 @@
 import { isAxiosError } from 'axios'
 import { sklandCache } from '../sklandCache'
 import { getData, postData } from './client'
+import { parseCurrentUser } from './validation'
 export type { ApiResponse } from './client'
 
 export interface CurrentUser {
@@ -25,11 +26,7 @@ export interface CurrentUser {
 
 export async function getCurrentUserAPI(signal?: AbortSignal): Promise<CurrentUser | null> {
   try {
-    const user = await getData<CurrentUser>('user/current', undefined, { signal })
-    if (!user || typeof user.id !== 'number' || typeof user.username !== 'string') {
-      throw new Error('Invalid current user response')
-    }
-    return user
+    return parseCurrentUser(await getData<unknown>('user/current', undefined, { signal }))
   } catch (error) {
     if (isAxiosError(error) && [401, 404].includes(error.response?.status ?? 0)) {
       sklandCache.clear()
