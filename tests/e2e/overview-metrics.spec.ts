@@ -117,7 +117,7 @@ for (const theme of ['light', 'dark']) {
       const base = page.locator('.metric-grid.base')
       for (const grid of [daily, base]) {
         const toggle = grid
-          .locator('xpath=ancestor::section[1]')
+          .locator('xpath=ancestor::*[contains(@class,"metric-section")][1]')
           .getByRole('button', { name: language === 'en' ? 'Expand' : '展开', exact: true })
         if (await toggle.isVisible()) await toggle.click()
       }
@@ -215,10 +215,19 @@ for (const theme of ['light', 'dark']) {
           }),
         ).toBe(true)
         for (const grid of [daily, base]) {
-          const toggle = grid
-            .locator('xpath=ancestor::section[1]')
-            .getByRole('button', { name: language === 'en' ? 'Expand' : '展开', exact: true })
-          if (await toggle.isVisible()) await toggle.click()
+          const section = grid.locator('xpath=ancestor::*[contains(@class,"metric-section")][1]')
+          const toggle = section.locator('.metrics-toggle')
+          // ResizeObserver may remove the toggle after the new CSS columns take effect.
+          await expect.poll(async () => {
+            const needed = await grid.evaluate((el) =>
+              el.classList.contains('daily') &&
+              el.children.length > getComputedStyle(el).gridTemplateColumns.split(' ').length * 2,
+            )
+            return (await toggle.count()) === Number(needed)
+          }).toBe(true)
+          if (await toggle.count() && await toggle.getAttribute('aria-expanded') === 'false') {
+            await toggle.click()
+          }
           const geometry = await grid.evaluate((el) => {
             const cards = [...el.querySelectorAll('.metric')]
             return {
@@ -325,7 +334,7 @@ for (const theme of ['light', 'dark']) {
           expect(Math.max(...noteOffsets) - Math.min(...noteOffsets)).toBeLessThan(1)
         }
         await expect(base.locator('.metric:visible')).toHaveCount(6)
-        await expect(base.locator('xpath=ancestor::section[1]').getByRole('button')).toHaveCount(0)
+        await expect(base.locator('xpath=ancestor::*[contains(@class,"metric-section")][1]').getByRole('button')).toHaveCount(0)
         await expect(base.locator('[data-metric="drones"] .metric-note')).toBeVisible()
       }
       for (const [name, grid] of [
@@ -426,14 +435,14 @@ test('daily cards collapse to two rows while base stays visible, and role switch
   await page.goto('/game/hypergryph/skland')
   const daily = page.locator('.metric-grid.daily')
   const base = page.locator('.metric-grid.base')
-  const section = daily.locator('xpath=ancestor::section[1]')
+  const section = daily.locator('xpath=ancestor::*[contains(@class,"metric-section")][1]')
   await expect(daily.locator('.metric:visible')).toHaveCount(4)
   await expect(section.getByRole('button', { name: '展开', exact: true })).toHaveAttribute(
     'aria-expanded',
     'false',
   )
   await expect(base.locator('.metric:visible')).toHaveCount(6)
-  await expect(base.locator('xpath=ancestor::section[1]').getByRole('button')).toHaveCount(0)
+  await expect(base.locator('xpath=ancestor::*[contains(@class,"metric-section")][1]').getByRole('button')).toHaveCount(0)
   const expandButton = section.getByRole('button', { name: '展开', exact: true })
   await expect(expandButton).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
   await expandButton.hover()

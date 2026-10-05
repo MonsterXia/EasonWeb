@@ -45,10 +45,7 @@ for (const theme of ['light', 'dark']) {
         }),
       )
       await page.goto('/game/hypergryph/skland')
-      const section = page
-        .locator('details')
-        .filter({ has: page.locator('.section-title') })
-        .first()
+      const section = page.locator(`details[data-section="${key}"]`)
       await section.locator('summary').click()
       const card = (name: string) =>
         section.locator('li').filter({ has: page.getByText(name, { exact: true }) })
@@ -75,8 +72,8 @@ for (const theme of ['light', 'dark']) {
       refreshed = true
       await page.getByRole('button', { name: '刷新角色资料' }).click()
       const recovered = card('broken').locator('.facility-art img')
-      await recovered.scrollIntoViewIfNeeded()
       await expect(recovered).toHaveAttribute('src', url)
+      await recovered.scrollIntoViewIfNeeded()
       await expect
         .poll(() => recovered.evaluate((el) => (el as HTMLImageElement).naturalWidth))
         .toBeGreaterThan(0)

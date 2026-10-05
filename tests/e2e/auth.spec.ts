@@ -116,6 +116,7 @@ test('leaving registration during username check prevents a stale registration P
   })
   await page.goto('/login')
   await page.getByRole('link', { name: '注册账号', exact: true }).click()
+  await expect(page).toHaveURL(/\/register(?:\?|$)/)
   await fillLogin(page)
   await page.getByRole('textbox', { name: '邮箱', exact: true }).fill('test@example.invalid')
   await page.getByRole('textbox', { name: '确认密码', exact: true }).fill('Synthetic1!')

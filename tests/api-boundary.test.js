@@ -59,6 +59,24 @@ test('malformed successful envelopes are rejected, without exposing payload cont
   }
 })
 
+test('Glory Road validates display slots, nullable acquisition facts and legacy compatibility', async () => {
+  const { gloryFixture } = await import('./fixtures/glory-road.js')
+  const gloryRoad = gloryFixture()
+  respond({ ...overview, gloryRoad })
+  assert.deepEqual((await gameOverviewAPI(role)).gloryRoad, gloryRoad)
+  for (const patch of [
+    { count: '106' },
+    { display: [{ slot: 0, medalId: 'invalid' }] },
+    { medals: [{ ...gloryRoad.medals[0], plated: 'true' }] },
+    { medals: [{ ...gloryRoad.medals[0], acquiredAt: 1e30 }] },
+  ]) {
+    respond({ ...overview, gloryRoad: { ...gloryRoad, ...patch } })
+    await assert.rejects(gameOverviewAPI(role), invalid)
+  }
+  respond(overview)
+  assert.equal((await gameOverviewAPI(role)).gloryRoad, undefined)
+})
+
 test('current user rejects malformed rendered fields and binding identity', async () => {
   respond(profile)
   assert.deepEqual(await getCurrentUserAPI(), profile)
@@ -103,6 +121,51 @@ test('overview accepts zero/null/empty story, rejects invalid nested fields and 
   }
 })
 
+test('Endfield room contracts retain assignments and accept older responses without staff', async () => {
+  const account = { ...role, appCode: 'endfield' }
+  const room = {
+    id: 'control',
+    name: null,
+    nameKey: 'endfieldControl',
+    level: 0,
+    current: 1,
+    total: 3,
+    status: 'unknown',
+    completeAt: null,
+  }
+  const data = (patch) => ({
+    ...overview,
+    account,
+    sections: [{ key: 'endfieldSpaceship', items: [{ ...room, ...patch }] }],
+  })
+  for (const patch of [
+    {},
+    { staff: null },
+    { staff: [] },
+    {
+      maxLevel: 5,
+      staff: [
+        { id: 'a', name: 'Alpha', avatarUrl: 'https://bbs.hycdn.cn/fixture.png' },
+        { id: 'unknown', name: null },
+      ],
+    },
+  ]) {
+    const payload = data(patch)
+    respond(payload)
+    assert.deepEqual(await gameOverviewAPI(account), payload)
+  }
+  for (const patch of [
+    { staff: {} },
+    { staff: [null] },
+    { staff: [{ id: 'a', name: 1 }] },
+    { staff: [{ id: 'a', name: null, avatarUrl: {} }] },
+    { maxLevel: '5' },
+  ]) {
+    respond(data(patch))
+    await assert.rejects(gameOverviewAPI(account), invalid)
+  }
+})
+
 test('check-in retains HTTP 207 partial success and rejects malformed result arrays', async () => {
   const partial = {
     checkInResults: ['Synthetic success'],
@@ -133,4 +196,40 @@ test('failure categories distinguish auth, upstream, network and invalid data', 
   }
   assert.equal(apiFailureKind({ isAxiosError: true, code: 'ECONNABORTED' }), 'network')
   assert.equal(apiFailureKind(new ApiResponseError()), 'invalidResponse')
+})
+
+test('War Echoes accepts complete nested records and rejects malformed teams', async () => {
+  const { warEchoesFixture } = await import('./fixtures/war-echoes.js')
+  const warEchoes = warEchoesFixture()
+  respond({ ...overview, warEchoes })
+  assert.equal(
+    (await gameOverviewAPI(role)).warEchoes.seasons[0].weeks[0].stages[0].difficulties[0].record
+      .durationSeconds,
+    125,
+  )
+  warEchoes.seasons[0].weeks[0].stages[0].difficulties[0].record.team[0].level = 'bad'
+  respond({ ...overview, warEchoes })
+  await assert.rejects(gameOverviewAPI(role), invalid)
+})
+
+test('regional development and monolith validate nested records without losing zero or unknown', async () => {
+  const { developmentFixture, monolithFixture } = await import('./fixtures/endfield-development.js')
+  const data = {
+    ...overview,
+    regionalDevelopment: developmentFixture(),
+    monolith: monolithFixture(),
+  }
+  respond(data)
+  assert.deepEqual(await gameOverviewAPI(role), data)
+  for (const mutate of [
+    (x) => (x.regionalDevelopment.regions[0].settlements[0].unlocked = 'true'),
+    (x) => (x.regionalDevelopment.regions[0].settlements[0].experience = {}),
+    (x) => (x.monolith.themes[0].medal.plated = 1),
+    (x) => (x.monolith.themes[1].stages[0].hard.record.team[0].level = '90'),
+  ]) {
+    const invalidData = structuredClone(data)
+    mutate(invalidData)
+    respond(invalidData)
+    await assert.rejects(gameOverviewAPI(role), invalid)
+  }
 })

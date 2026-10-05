@@ -1,6 +1,6 @@
 # 森空岛图片来源与维护
 
-核对于 2026-10-04。公共目录与通用图由 EasonWeb 发布；随官方概览返回的条目封面由 CommonServerAPI 保留为可选 `artworkUrl`，浏览器直连官方 CDN。不新增每角色/每干员取图接口、后端图片代理或额外上游取图请求。
+初始来源核对于 2026-10-04，2026-10-05 按工作区清单补齐模块路由；本次未重新联网验证。公共目录与通用图由 EasonWeb 发布；随官方概览返回的条目封面由 CommonServerAPI 保留为可选 `artworkUrl`，浏览器直连官方 CDN。不新增每角色/每干员取图接口、后端图片代理或额外上游取图请求。
 
 ## 官方概览图
 
@@ -20,6 +20,24 @@
 
 方舟水印资源只按清单中的 `palette-alpha-230` 规范化透明度，保持 RGB、轮廓和抗锯齿，不重画官方图标。详见 [已提交资源说明](../../../../src/assets/skland/README.md)。
 
+## 标题与终末地专用素材
+
+新增素材仍走既有 `sources.json`、`sync-overview-assets.mjs` 和 `overviewAssets.ts`，不要另建同步入口。具体模块 URL、变量选择器、变换及 SHA-256 以当前清单为准。
+
+| 素材 | 实现与语义 |
+| --- | --- |
+| 方舟标题 | `ak-title-daily`／`ak-title-base` 保留完整官方标题条，由组件 CSS 裁显图标；`ArknightsOperatorsIcon.vue` 保存 CharSkinList 的 Pn 原始 SVG 路径 |
+| 终末地标题 | `EndfieldTitleIcon.vue` 保存 GameData 的 bn／yn SVG 路径；currentColor 适配主题，不借用方舟图标 |
+| 地区探索／建设 | `ef-regionExplore`、`ef-regionalDevelopment`；调度券与发展值按 domain_1／domain_2 映射 bill/build，未知地区不猜货币图 |
+| 编队与档案 | `ef-char-element-*`、`ef-char-potential-0` 至 `5`；`endfieldRarityColor` 保留 6 星橙、5 星黄、4 星紫；空槽用 `ef-record-empty` 圆圈斜杠 |
+| 影拓丰碑 | `ef-monolith-*` 的苦难图案、进度段、未获得蚀刻章；主题封面仍来自接口，不固定存私有图集 |
+| 战争回响 | `ef-war-*` 评级、星数、荣勋、未获得六边形、普通底纹及残酷叠层；`ef-record-left-bg` 共用记录颗粒底纹 |
+| 光荣之路 | `ef-glory-empty`／`certify`／`summary-bg`；具体已获得奖章图片来自接口 |
+
+方舟两张标题条原图尺寸为 264×60；`OverviewArtwork.vue` 的 `presentation: official-title-icon` 根据图标区域 x=30、y=6、48×48，用缩放与偏移隐藏蓝点及内嵌中文。不要将 CSS 裁显误写成同步脚本裁出新 PNG。
+
+SVG 标题图标目前直接保存在组件中，不是 PNG 同步输出；变更时保留组件内来源说明并核对对应官方路径。灰阶记录底纹与彩色残酷叠层分别适配主题，不能整卡统一反色。素材名称只用于定位，实际来源与哈希需读取清单；细部布局按游戏参考执行。
+
 ## 干员头像
 
 2026-10-04 改为官方来源优先，已移除 catalog.json、endfieldVariants、本地头像 PNG 和 avatars:sync 脚本。
@@ -32,7 +50,7 @@
 
 ## 主题适配
 
-森空岛通用布局原则见 [主 skill 的通用 UI 设计](../SKILL.md#森空岛通用-ui-设计)，方舟已核对的卡片、横幅和专属布局见 [明日方舟 UI 风格](arknights-ui.md)。本文件维护资源处理与调参，不作为终末地 UI 已核对的依据。
+森空岛通用布局原则见 [主 skill 的通用 UI 设计](../SKILL.md#森空岛通用-ui-设计)，方舟已核对的卡片、横幅和专属布局见 [明日方舟 UI 风格](arknights-ui.md)。终末地专属记录卡、海报溢出、角标与荣勋布局见 [终末地参考](endfield-ui.md)；本文件维护资源处理与调参。
 
 `OverviewArtwork.vue` 根据元数据 `tone: light-ink | dark-ink | color` 处理：已核实单色图浅色 multiply、深色 screen，必要时反色；彩色设施、勋章、地图保持原色，不批量反色。分组标题图标、头像和卡片水印保持透明底；需要底板的图片容器才用主题语义色，地区背景深色用 soft-light。指标卡片统一背景、边框与数字色，不单独高亮理智卡片。
 
@@ -44,7 +62,7 @@
 
 终末地 `https://assets.skland.com/_static_assets/game-tools/dist-BZImVwlH.js` 的 codec 定义赛季 `kvImage` / `headerImage`、当前 indieHardGroup 的 `pic`。赛季用 kvImage，周记录用所属赛季 headerImage，秘境记录使用所属当前模式 pic；独立关卡缺少已核实封面时继续兜底，不把敌人图猜作关卡图。
 
-`artworkUrl` 可缺省，兼容旧后端。前后端仅接受 HTTPS 的 bbs.hycdn.cn、web.hycdn.cn、assets.skland.com，不允许 URL 用户密码或非默认端口。前端图片使用 no-referrer，保持原色和完整比例，不应用地图背景的混合滤镜。图片加载失败依次切换回退资源，地址变化重置失败状态。动态条目封面不入公共静态目录、不保存账号响应、不在构建中联网同步。静态资源清单仍由既有脚本维护。
+`artworkUrl` 可缺省，兼容旧后端。前后端仅接受 HTTPS 的 bbs.hycdn.cn、web.hycdn.cn、assets.skland.com，不允许 URL 用户密码或非默认端口。前端图片使用 no-referrer，保持原色和完整比例，不应用地图背景的混合滤镜。图片加载失败依次切换回退资源，`OverviewArtwork` 记录失败 src 并沿 fallback 链尝试，检测循环防止死循环；首选 src 变化才重置失败链。所有回退均失败时组件不再渲染图片，因此需要固定媒体位置的父容器应自行保留布局。动态条目封面不入公共静态目录、不保存账号响应、不在构建中联网同步。静态资源清单仍由既有脚本维护。
 
 
 ## 横幅与模式标识

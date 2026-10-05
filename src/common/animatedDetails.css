@@ -1,0 +1,19 @@
+[data-details-expanded] > summary { list-style: none; }
+[data-details-expanded] > summary::-webkit-details-marker { display: none; }
+[data-details-expanded] > summary::before {
+  content: '';
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 0;
+  height: 0;
+  margin-right: 8px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid currentColor;
+  transform-origin: 40% 50%;
+  transition: transform 260ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+[data-details-expanded='true'] > summary::before { transform: rotate(90deg); }
+@media (prefers-reduced-motion: reduce) {
+  [data-details-expanded] > summary::before { transition: none; }
+}

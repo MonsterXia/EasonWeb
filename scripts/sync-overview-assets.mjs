@@ -68,7 +68,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         if (!/^[\w$]+$/.test(token)) throw new Error(`Invalid selector: ${key}`)
         const pattern = new RegExp(
           '(?<![\\w$])' +
-            token +
+            token.replace(/\$/g, '\\$') +
             (source.variable ? '=' : ':') +
             '`(data:image/png;base64,[A-Za-z0-9+/=]+)`',
         )

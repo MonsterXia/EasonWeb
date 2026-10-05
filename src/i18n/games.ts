@@ -1,3 +1,4 @@
+import { zhCN as checkInZh, en as checkInEn } from './checkIn'
 import { zhCN as overviewZh, en as overviewEn } from './overview'
 
 export const zhCN = {
@@ -23,6 +24,8 @@ export const zhCN = {
     link: '绑定鹰角账号',
     refresh: '刷新游戏账号',
     checkInAll: '全部签到',
+    checkInSelected: '签到当前角色',
+    attendance: checkInZh,
     emptyTitle: '角色还没有到站',
     emptyDescription: '当前账号下暂无可签到角色。确认已创建游戏角色后，刷新游戏账号再试试。',
     accountDetails: 'UID：{uid} · 区服：{server}',
@@ -131,6 +134,8 @@ export const en = {
     link: 'Link Hypergryph account',
     refresh: 'Refresh game accounts',
     checkInAll: 'Check in all',
+    checkInSelected: 'Check in selected character',
+    attendance: checkInEn,
     emptyTitle: 'No characters here yet',
     emptyDescription:
       'This account has no characters available for check-in. Make sure you have created a game character, then refresh your game accounts.',

@@ -468,5 +468,330 @@
     "file": "ak-day-challenge.png",
     "sha256": "2b2f351d9b2cae660c02af47e8b16ce3a5884018e96fcf438999905cf6e423e6",
     "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/day-challenge.b2209b.png"
+  },
+  "ef-regionExplore": {
+    "file": "ef-regionExplore.png",
+    "sha256": "067b1c896f63dca4d3e4658b9d9128c61ede4cb47afcc97d1aa217bd4f715791",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "wn"
+  },
+  "ef-war-star-0": {
+    "file": "ef-war-star-0.png",
+    "sha256": "67fab19c2007edf61f08aa8007ca92cd68fc407153a3bc1e7bfe0f56fde98d60",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Mu"
+  },
+  "ef-war-star-1": {
+    "file": "ef-war-star-1.png",
+    "sha256": "273505af08f512c199d140bbb82e6a6a0b87f6a317ccf673633d92ddc07e053d",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Ou"
+  },
+  "ef-war-star-2": {
+    "file": "ef-war-star-2.png",
+    "sha256": "de500a74b3409ed4333bfcba1622069924a92ee0c1e0bf6fd75097f7030d60d8",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "ku"
+  },
+  "ef-war-star-3": {
+    "file": "ef-war-star-3.png",
+    "sha256": "39446064611bf476441ac1ce6a6d7c83767a4b043eae01e4d7789a8d33a21c79",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Au"
+  },
+  "ef-war-star-plus": {
+    "file": "ef-war-star-plus.png",
+    "sha256": "15dba963f9dd4d39f23644f24bdfc0969030f5eadfdcb817a26f1cfc0bf8c640",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "ju"
+  },
+  "ef-war-rating-empty": {
+    "file": "ef-war-rating-empty.png",
+    "sha256": "8193fbab525ac5dbe5903a744b0a8a504fd1511738bcb126e5c99223574104e0",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Lu"
+  },
+  "ef-war-rating-D": {
+    "file": "ef-war-rating-D.png",
+    "sha256": "e61e560398cedfdd1963c1545110b676a25bc2135513e395886a081eba6e7222",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Iu"
+  },
+  "ef-war-rating-C": {
+    "file": "ef-war-rating-C.png",
+    "sha256": "16f18d4efe4b58ccd35f0e47323f18bf844aaaee88a67ba3b4c83bfe08385493",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Fu"
+  },
+  "ef-war-rating-B": {
+    "file": "ef-war-rating-B.png",
+    "sha256": "aa9edc5baa3cc5882a5fb8122bb6b259b14447445bc8568b4978e3bfab1f4167",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Pu"
+  },
+  "ef-war-rating-A": {
+    "file": "ef-war-rating-A.png",
+    "sha256": "023e00240584f49971c563cbd42d4137b7f3971f5e7ee27c796db1e29fee6cd6",
+    "url": "https://assets.skland.com/_static_assets/game-tools/a-level-CAMdUKO4.png"
+  },
+  "ef-war-rating-S": {
+    "file": "ef-war-rating-S.png",
+    "sha256": "6b5d18b1b603157f575f2fbb65d94d54fa8c91f28e49c1435749ad3d2d1f227a",
+    "url": "https://assets.skland.com/_static_assets/game-tools/s-level-DoMBHpQG.png"
+  },
+  "ef-war-rating-S-plus": {
+    "file": "ef-war-rating-S-plus.png",
+    "sha256": "67e49da54837097be16097a1b32bafd56cb4c3b938b736e88fc6f17a08ba2b21",
+    "url": "https://assets.skland.com/_static_assets/game-tools/s-plus-level-QwvF8LnK.png"
+  },
+  "ef-war-gold": {
+    "file": "ef-war-gold.png",
+    "sha256": "77806c45bdd9252ec49d9376a52954dfdc793815a270b8c3164f7c0ba10f552e",
+    "module": "https://assets.skland.com/_static_assets/game-tools/silver-CMo64lkE.js",
+    "moduleSha256": "0ec6f8cc5bcc640817f39f4b7f17ccac0c4dc0b2074832c67078e6a0451afc81",
+    "variable": "o"
+  },
+  "ef-war-silver": {
+    "file": "ef-war-silver.png",
+    "sha256": "e55262816617b9d55479a5f4488afae11fe123e7687e74d951f44126e28c0bf8",
+    "module": "https://assets.skland.com/_static_assets/game-tools/silver-CMo64lkE.js",
+    "moduleSha256": "0ec6f8cc5bcc640817f39f4b7f17ccac0c4dc0b2074832c67078e6a0451afc81",
+    "variable": "s"
+  },
+  "ef-war-bronze": {
+    "file": "ef-war-bronze.png",
+    "sha256": "a86d090bfb20e405bc8ba10c496776293145821c986b49337fb6b6873abba881",
+    "module": "https://assets.skland.com/_static_assets/game-tools/silver-CMo64lkE.js",
+    "moduleSha256": "0ec6f8cc5bcc640817f39f4b7f17ccac0c4dc0b2074832c67078e6a0451afc81",
+    "variable": "a"
+  },
+  "ef-build-domain_1": {
+    "file": "ef-build-domain_1.png",
+    "sha256": "ebdd51a2b720a48a8903fa51c39f14a6dbfc7b6c69b22b2d8f5fb0f018186977",
+    "module": "https://assets.skland.com/_static_assets/game-tools/region-dev-detail-Cq-A_xh2.js",
+    "moduleSha256": "add007bb650d6a0eb3070b40510f1e21bf4df2c575bca17cb5cbfcfe79edbe03",
+    "variable": "w"
+  },
+  "ef-build-domain_2": {
+    "file": "ef-build-domain_2.png",
+    "sha256": "91aa7e3f36904c7532d3b4ea90c261a629d960216ee46cec6ce5fd75e0533ead",
+    "module": "https://assets.skland.com/_static_assets/game-tools/region-dev-detail-Cq-A_xh2.js",
+    "moduleSha256": "add007bb650d6a0eb3070b40510f1e21bf4df2c575bca17cb5cbfcfe79edbe03",
+    "variable": "T"
+  },
+  "ef-bill-domain_1": {
+    "file": "ef-bill-domain_1.png",
+    "sha256": "f40b8df5bb25b3c014ee4769bbdcfc0569d85fb70f2fd1e4eda3392ebdd7139f",
+    "module": "https://assets.skland.com/_static_assets/game-tools/region-dev-detail-Cq-A_xh2.js",
+    "moduleSha256": "add007bb650d6a0eb3070b40510f1e21bf4df2c575bca17cb5cbfcfe79edbe03",
+    "variable": "E"
+  },
+  "ef-bill-domain_2": {
+    "file": "ef-bill-domain_2.png",
+    "sha256": "be470dfd971c51e6968b98d5b060d4cc086029d2851637ae9ba765261c2cf423",
+    "module": "https://assets.skland.com/_static_assets/game-tools/region-dev-detail-Cq-A_xh2.js",
+    "moduleSha256": "add007bb650d6a0eb3070b40510f1e21bf4df2c575bca17cb5cbfcfe79edbe03",
+    "variable": "D"
+  },
+  "ef-stock-empty": {
+    "file": "ef-stock-empty.png",
+    "sha256": "66eb96d543698583e1c0c43e48b9377c1d82281649d73ae9c1d5dcdc9ab5152c",
+    "module": "https://assets.skland.com/_static_assets/game-tools/region-dev-detail-Cq-A_xh2.js",
+    "moduleSha256": "add007bb650d6a0eb3070b40510f1e21bf4df2c575bca17cb5cbfcfe79edbe03",
+    "variable": "N"
+  },
+  "ef-stock-full": {
+    "file": "ef-stock-full.png",
+    "sha256": "1eb8b861c66b22803c2d74da66fbf6c533d2521720c57b949f37343609f9d5e6",
+    "module": "https://assets.skland.com/_static_assets/game-tools/region-dev-detail-Cq-A_xh2.js",
+    "moduleSha256": "add007bb650d6a0eb3070b40510f1e21bf4df2c575bca17cb5cbfcfe79edbe03",
+    "variable": "P"
+  },
+  "ef-regionalDevelopment": {
+    "file": "ef-regionalDevelopment.png",
+    "sha256": "f7435699cc86ad2f8f0a169f91fc8e2492ef2b8ee9a12d82906130b20c9ab762",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "mn"
+  },
+  "ef-monolith-unearned": {
+    "file": "ef-monolith-unearned.png",
+    "sha256": "30da29a548d1e259db1113d1ccd283f74cdfda0ca595122f5aee47405ca80b7c",
+    "module": "https://assets.skland.com/_static_assets/game-tools/umbral-monument-jhlt_L1E.js",
+    "moduleSha256": "bf9ac78ada5099fe9fc4f7719a015438f45429dc47685d6e866394534b7a78aa",
+    "variable": "Xn"
+  },
+  "ef-char-element-physical": {
+    "file": "ef-char-element-physical.png",
+    "url": "https://assets.skland.com/ui-component/endfield/assets/elements/physical-active.png",
+    "sha256": "784fc09a8541c21674ab789aff1f8202fdf8dc5c8e4a1a1d3a721686e256fd56"
+  },
+  "ef-char-element-fire": {
+    "file": "ef-char-element-fire.png",
+    "url": "https://assets.skland.com/ui-component/endfield/assets/elements/fire-active.png",
+    "sha256": "a6302a8a887641e1be0bbd18638a6498802d341ccf4af90304ab3fb77902757a"
+  },
+  "ef-char-element-electric": {
+    "file": "ef-char-element-electric.png",
+    "url": "https://assets.skland.com/ui-component/endfield/assets/elements/electric-active.png",
+    "sha256": "40e0133443603828d7ecb3e10aff31dcb55bc581d7f85e0b8cc7479399967e95"
+  },
+  "ef-char-element-ice": {
+    "file": "ef-char-element-ice.png",
+    "url": "https://assets.skland.com/ui-component/endfield/assets/elements/ice-active.png",
+    "sha256": "3f30e142aab0280ff8e1fab1dc41b49a7652d976591feae53c69d2b157b84b44"
+  },
+  "ef-char-element-nature": {
+    "file": "ef-char-element-nature.png",
+    "url": "https://assets.skland.com/ui-component/endfield/assets/elements/nature-active.png",
+    "sha256": "15c42c5b768e77d8735130b1b9f5169efe9f605fdb309045718324b7db3ee8b4"
+  },
+  "ef-char-potential-0": {
+    "file": "ef-char-potential-0.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "qr",
+    "sha256": "8247ba70bd647a56f38fb41870b7c7948be923af6ea9c0e6756f0e155aa26bb5"
+  },
+  "ef-char-potential-1": {
+    "file": "ef-char-potential-1.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Jr",
+    "sha256": "7a0f56d87f64037d672dfd8ce503965a3b6cf54dac07c6579c93ec8c510057df"
+  },
+  "ef-char-potential-2": {
+    "file": "ef-char-potential-2.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Yr",
+    "sha256": "7dae62904cceadce8882e24ea75e13e67e2755f50603449a05129efa6695aaba"
+  },
+  "ef-char-potential-3": {
+    "file": "ef-char-potential-3.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Xr",
+    "sha256": "e09f3e0594078a1829fbf0b5f91e9414b72663761bde668234db191cbb561a0e"
+  },
+  "ef-char-potential-4": {
+    "file": "ef-char-potential-4.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Zr",
+    "sha256": "c88d310201bb179cb76e358c4ef7bf6fb722d3d0ab0efdc65b5d8ebf8cb944c2"
+  },
+  "ef-char-potential-5": {
+    "file": "ef-char-potential-5.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Qr",
+    "sha256": "c5025ad273101cce09963924533e311e9225243523aa60d9f774d380fccc6ca9"
+  },
+  "ef-monolith-hard": {
+    "file": "ef-monolith-hard.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/umbral-monument-jhlt_L1E.js",
+    "moduleSha256": "bf9ac78ada5099fe9fc4f7719a015438f45429dc47685d6e866394534b7a78aa",
+    "variable": "Dr",
+    "sha256": "9bb779c7dfca794564a4131431ff7eb8ac34ef5f18a6247a6d01e7b3e1a29a7a"
+  },
+  "ef-monolith-hard-glow": {
+    "file": "ef-monolith-hard-glow.png",
+    "url": "https://assets.skland.com/_static_assets/game-tools/bg-right-C2XtR6xt.png",
+    "sha256": "3f7779bcb10eabed3fbb31a7522e87ff5801c8032a882c41bf2ea68cbf4cf8e9"
+  },
+  "ef-record-empty": {
+    "file": "ef-record-empty.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/DungeonRecordCard-u3WKcZOq.js",
+    "moduleSha256": "7ffe8b923ad33fa430758b20e9f77be40302cc1ea3cc5850562d58fb5f18f853",
+    "variable": "w",
+    "sha256": "f943f743154eb9e8a88fe33612b860ef49ee6d6a8bbc8e80eeaca845170ae8a3"
+  },
+  "ef-monolith-progress-icon": {
+    "file": "ef-monolith-progress-icon.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/umbral-monument-jhlt_L1E.js",
+    "moduleSha256": "bf9ac78ada5099fe9fc4f7719a015438f45429dc47685d6e866394534b7a78aa",
+    "variable": "Yn",
+    "sha256": "ff13e8145ff7cb43197deccf0fb4f6fdf82c52d24b48ce7c769395b3c780612c"
+  },
+  "ef-monolith-progress-hard": {
+    "file": "ef-monolith-progress-hard.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/umbral-monument-jhlt_L1E.js",
+    "moduleSha256": "bf9ac78ada5099fe9fc4f7719a015438f45429dc47685d6e866394534b7a78aa",
+    "variable": "$n",
+    "sha256": "1cf0cd12d22e18f682059a961ff6cc6dd8600d856fe2b13e547975ff28c5a758"
+  },
+  "ef-monolith-progress-normal": {
+    "file": "ef-monolith-progress-normal.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/umbral-monument-jhlt_L1E.js",
+    "moduleSha256": "bf9ac78ada5099fe9fc4f7719a015438f45429dc47685d6e866394534b7a78aa",
+    "variable": "er",
+    "sha256": "fe2909321df49907726063da681148d0b89ceb8201e76e03e2bf5df69dcad7df"
+  },
+  "ef-monolith-progress-locked": {
+    "file": "ef-monolith-progress-locked.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/umbral-monument-jhlt_L1E.js",
+    "moduleSha256": "bf9ac78ada5099fe9fc4f7719a015438f45429dc47685d6e866394534b7a78aa",
+    "variable": "tr",
+    "sha256": "b78ac6051ee87f74237589f743f6748735f1d11aeb25a7733aeb38f447a74fd4"
+  },
+  "ef-war-record-bg": {
+    "file": "ef-war-record-bg.png",
+    "sha256": "999a60970d4fa0ea37294c2710d0aa8d65d52edc79249056d299e150b8860ff1",
+    "url": "https://assets.skland.com/_static_assets/game-tools/war-echo-level-detail-card-bg-tpOcJ3Oe.png"
+  },
+  "ef-war-cruel-bg": {
+    "file": "ef-war-cruel-bg.png",
+    "sha256": "1070642c6bf3c2cb6ece5671f96f90c79d367fb62e10656e4e634fffa79d717d",
+    "url": "https://assets.skland.com/_static_assets/game-tools/cruel_mode_bg-Dcu9f__0.png"
+  },
+  "ef-record-left-bg": {
+    "file": "ef-record-left-bg.png",
+    "sha256": "211289f76be5fcd692e2596a273564980ab2f736c570a0c9beca2b612b217cef",
+    "url": "https://assets.skland.com/_static_assets/game-tools/bg-left-KX4hJsGd.png"
+  },
+  "ef-war-unearned": {
+    "file": "ef-war-unearned.png",
+    "sha256": "b8e6b24fd6ff56694dc46fbdb2bbbdc9e1cb2b438733f4d966b314c8119e4fc8",
+    "module": "https://assets.skland.com/_static_assets/game-tools/honor-detail-DyHS7yPO.js",
+    "moduleSha256": "fded19f771761ed6170bb36ff4c75fb1ed67965ea713ad9e7b57746af2bb4641",
+    "variable": "j"
+  },
+  "ef-glory-empty": {
+    "file": "ef-glory-empty.png",
+    "sha256": "a1c4b10643b1468b828f5aa13e6ff1eea193da98463a6b0353136ef86349ffa3",
+    "module": "https://assets.skland.com/_static_assets/game-tools/GameData-CKtD4-ed.js",
+    "moduleSha256": "cb36ceb2a3756fa5b12cc6df5f6da88e4a7847da2d0252ab129b01e3ac1cbf32",
+    "variable": "Fa"
+  },
+  "ef-glory-certify": {
+    "file": "ef-glory-certify.png",
+    "sha256": "406be8687716c7e3bb26e9edb89c9f55a45bd26f3508de637eb1ce604efb4e42",
+    "url": "https://assets.skland.com/_static_assets/game-tools/certifyBg--9TZ5ld1.png"
+  },
+  "ak-title-daily": {
+    "file": "ak-title-daily.png",
+    "sha256": "ba8968a8e3a40b718200a22a9db0951c3176e36c3a3b420a91a6f72f679c1ba8",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/title.f05a97.png"
+  },
+  "ak-title-base": {
+    "file": "ak-title-base.png",
+    "sha256": "bc6079cfa614da3283a272327e600b204a7bdcceb42a7876095d522888685e3b",
+    "url": "https://bbs.hycdn.cn/skland-fe-static/skland-game/assets/img/title.479ff6.png"
+  },
+  "ef-glory-summary-bg": {
+    "file": "ef-glory-summary-bg.png",
+    "sha256": "a7d17e47128da04cd88c6a254ca360484ce5fc0fcd06ddb138063414bdbe92de",
+    "url": "https://assets.skland.com/_static_assets/game-tools/medalCardBg-BkS_UR-_.png"
   }
 }

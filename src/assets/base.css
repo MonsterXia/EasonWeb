@@ -84,7 +84,15 @@ input {
   background: color-mix(in srgb, var(--accent) 25%, transparent);
   color: var(--color-heading);
 }
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 5px;
+/* Keep focus inside the control; override library and browser outer rings. */
+:focus {
+  outline: none !important;
+}
+:is(a, button, summary):focus-visible {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
+:is(input, textarea, select):focus-visible {
+  border-color: var(--accent);
 }

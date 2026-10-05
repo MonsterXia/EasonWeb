@@ -1,4 +1,4 @@
 interface:
   display_name: "EasonWeb 项目开发"
-  short_description: "EasonWeb 项目的页面与空状态设计、主题适配与国际化、接口及账号游戏功能维护指南"
-  default_prompt: "请使用 $easonweb-development，依据项目现有结构、界面设计、国际化规范和接口约定完成本次开发并执行相关验证。"
+  short_description: "EasonWeb 页面、路由认证、API 边界、主题国际化与测试发布维护指南"
+  default_prompt: "请使用 $easonweb-development，依据当前代码和对应参考完成本次开发，保留已有改动并执行相关验证。"

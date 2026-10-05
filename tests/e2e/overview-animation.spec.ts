@@ -76,7 +76,7 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
       // No card may remain visible in the group's bottom padding or reappear.
       const visibleHeight = await details.evaluate((element) => {
         element.querySelector('summary')!.click()
-        const animation = element.getAnimations({ subtree: true })[0]!
+        const animation = element.querySelector('.facility-content')!.getAnimations()[0]!
         animation.pause()
         animation.currentTime = Number(animation.effect!.getTiming().duration)
         const card = element.querySelector('li')!
@@ -97,6 +97,11 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
       await details.locator('summary').click()
       await expect.poll(() => details.evaluate((el) => el.getAnimations({ subtree: true }).length)).toBe(0)
     }
+    await expect(details).toHaveAttribute('data-details-expanded', 'true')
+    const indicatorTransition = await details.locator('summary').evaluate((el) =>
+      getComputedStyle(el, '::before').transitionDuration,
+    )
+    expect(indicatorTransition).toBe(reducedMotion === 'reduce' ? '0s' : '0.26s')
     const animateDetails = () =>
       details.locator('summary').evaluate(async (summary) => {
         ;(summary as HTMLElement).click()
@@ -118,6 +123,7 @@ for (const reducedMotion of ['no-preference', 'reduce'] as const) {
       }
     })
     await expect(details).not.toHaveAttribute('open')
+    await expect(details).toHaveAttribute('data-details-expanded', 'false')
 
     await expect(page.locator('.operator-grid li')).toHaveCount(8)
     expect((await animateGrid('.operator-toggle')).running).toBe(reducedMotion === 'no-preference')

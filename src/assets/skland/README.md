@@ -31,3 +31,30 @@ npm run overview-assets:sync  # 显式重新下载固定版本并核验，再恢
 生存日数字背景使用官方 `day-common.cde950.png` 与 `day-challenge.b2209b.png`（完整原图和 SHA 见清单），仅通过 CSS 裁剪中央徽记，不显示原图内置中文；保留常规黄绿徽记与险途红色光晕，禁止用章节完成勾号替代。
 
 光晕修正：显示时复用 day-common 的官方同形徽记，险途仅对徽记转红，光晕用独立的柔和径向渐变。day-challenge 原图保留用于来源核对，不再放大其自带光晕；避免透明度叠加和硬圆形裁剪制造色斑。
+
+2026-10-04：`ef-regionExplore.png` 使用官方 `GameData-CKtD4-ed.js` 中的 `wn` 原始 PNG；地区探索标题组件 `Oa` 的背景图直接引用此变量。来源与哈希见 sources.json。
+
+2026-10-05：战争回响评级、0–3 星及额外挑战星标使用官方 GameData-CKtD4-ed.js 的原图；金银铜荣勋来自 silver-CMo64lkE.js。保留图片原色、透明度和比例，变量、URL 与校验值均在 sources.json。
+
+2026-10-05 地区建设新增官方地区标识（w/T）、地区调度券（E/D）、据点储量标识（N/P），来源 region-dev-detail-Cq-A_xh2.js；分组标题为 GameData-CKtD4-ed.js 的 mn（官方白色选中标识，按 light-ink 适配主题）；未获得蚀刻章为 umbral-monument-jhlt_L1E.js 的 Xn。均由既有 sources.json / sync-overview-assets.mjs 同步，保留模块和 PNG SHA-256。丰碑主题封面及已获得章图仍使用接口提供的官方 URL，不保存账号图像目录。
+
+2026-10-05：编队头像属性／潜能图标核对官方 dist-B--VuxvI.js 的 bn、ri 组件。属性使用 elements/*-active.png 及官方语义底色，潜能 0–5 使用模块内 qr/Jr/Yr/Xr/Zr/Qr 原始 PNG。清单记录来源与哈希，头像覆盖层保持原色；全部取对应历史记录值。DungeonRecordCard-u3WKcZOq.js 的 V 色条传入 rarity，引用 dist-B--VuxvI.js 的 pn 映射与 vendor_sk_pandora-4j21Uk6y.js 的 dark_rank_* 色值；不是突破阶段。记录头像不显示右上突破图标，突破保留文字详情。
+
+苦难纹理使用官方 DungeonRecordCard-u3WKcZOq.js 引用的 bg-right-C2XtR6xt.png；模式图标使用 umbral-monument-jhlt_L1E.js 的 Dr。保留原始 PNG，以降低透明度的方式融入浅色／深色卡片，不自行重画苦难图标。
+
+空编队槽位使用官方 DungeonRecordCard-u3WKcZOq.js 的 w（ef-record-empty.png），保留圆圈斜杠原始轮廓，以 CSS mask 适配主题文字色。
+
+主题卡进度使用 umbral-monument-jhlt_L1E.js 的 Yn 标识、$n 苦难段、er 普通段、tr 未通关段原始图片，按官方 wr/hr 的逐关状态排列。Yn 原图轮廓用主题色遮罩，其余段保留原色。未知状态额外显示问号。
+
+2026-10-05 战争回响难度记录背景：stage-detail-DGptjXe5.js 为所有难度传入 war-echo-level-detail-card-bg-tpOcJ3Oe.png（ef-war-record-bg），共用 DungeonRecordCard 的 bg-left-KX4hJsGd.png（ef-record-left-bg）；仅 cruel 通过 rightBackgroundFullSize 叠加 cruel_mode_bg-Dcu9f__0.png（ef-war-cruel-bg）。背景均为官方原始 PNG，来源及 SHA-256 见清单；普通／困难共用底纹，残酷为整卡居中 cover，不能复用丰碑右下 bg-right 或 CSS 径向渐变。浅色模式只对灰阶基础纹理反色融合，彩色红纹保留原色。
+
+荣勋未获得徽章使用 honor-detail-DyHS7yPO.js 的 j 原始 PNG（ef-war-unearned），按官方规则在名称右侧显示；不能用铜级徽章替代。已获得条目保留对应等级徽章及日期。
+2026-10-05：明日方舟日常／基建标题改用官方 `8624.b27ec983.js` 中 `vn`／`mi` 引用的 `title.f05a97.png`／`title.479ff6.png`。原始透明标题条以 `ak-title-daily`／`ak-title-base` 保存；`OverviewArtwork` 的 `official-title-icon` 仅显示原图 264×60 中 `(30, 6, 48, 48)` 的图标区域，保留独立国际化文字，并沿用 `light-ink` 主题适配。
+
+“我的干员”标题使用同一官方模块的 `Pn` SVG（`CharSkinList__TitleLogo` 引用）。原始三条 path 保存在 `ArknightsOperatorsIcon.vue`，仅将固定填色换成 `currentColor` 适配主题；组件注释记录来源模块及 SHA-256，不用收藏统计的 `ak-char` 代替。方舟标题固定为官方“实时数据”“基建数据”“我的干员”；英文前两项采用官方模块的 TIMING DATA / BASE DATA，干员标题译为 My Operators。
+
+2026-10-05 光荣之路：标题复用 GameData-CKtD4-ed.js 的 Sn（ef-achievements），三档统计复用 ef-medalLevel1–3。展示墙空六边形使用同模块 Fa（ef-glory-empty），认证标识为 certifyBg--9TZ5ld1.png（ef-glory-certify），来源和哈希见 sources.json。账号奖章图仍由接口返回已校验的官方 CDN URL，不写入公共素材清单。
+
+光荣之路概览底纹使用官方 GameData-CKtD4-ed.js 的 Ia：medalCardBg-BkS_UR-_.png（ef-glory-summary-bg），等高线和颗粒均来自原图。以独立背景层等比 cover 居中，浅色 multiply 0.85、深色 invert + screen 0.65，保留主题底色，不影响奖章／文字，也不拦截交互。
+
+2026-10-05 终末地标题对齐：官方 `GameData-CKtD4-ed.js` 的实时数据标题 `ks` 包装 `bn` 上升柱状 SVG，干员标题 `ao` 包装 `yn` 菱形人物 SVG。原始 path、viewBox 与模块 SHA-256 记录于 `EndfieldTitleIcon.vue`，只将固定深色填充替换为 `currentColor`；两个图标均使用官方 20px 容器，不复用方舟图标。中文按官方标题使用“实时数据”“干员”，英文译为 Real-time Data / Operators。

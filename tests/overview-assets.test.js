@@ -12,7 +12,7 @@ const vite = await createServer({
   optimizeDeps: { noDiscovery: true, include: [] },
 })
 after(() => vite.close())
-const { metricArt, facilityArt, sectionArt } = await vite.ssrLoadModule(
+const { metricArt, facilityArt, sectionArt, endfieldRarityColor } = await vite.ssrLoadModule(
   '/src/common/overviewAssets.ts',
 )
 
@@ -128,4 +128,12 @@ test('official item artwork takes priority, with local and generic fallback chai
       sectionArt('arknightsActivities').src,
     )
   }
+})
+
+test('Endfield portrait strips use official rarity colors and preserve missing rarity', () => {
+  assert.equal(endfieldRarityColor('6'), '#ff7100')
+  assert.equal(endfieldRarityColor('rarity_5'), '#ffcc00')
+  assert.equal(endfieldRarityColor('4'), '#b380ff')
+  assert.equal(endfieldRarityColor(null), undefined)
+  assert.equal(endfieldRarityColor('unknown'), undefined)
 })

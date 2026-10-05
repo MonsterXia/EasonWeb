@@ -9,7 +9,7 @@ const files = import.meta.glob<string>('../assets/skland/*.png', {
 })
 export type OverviewArt = {
   src: string
-  presentation?: 'official-logo'
+  presentation?: 'official-logo' | 'official-title-icon'
   tone: 'light-ink' | 'dark-ink' | 'color'
   kind: 'icon' | 'map' | 'landscape' | 'cover'
   fallback?: OverviewArt
@@ -23,6 +23,14 @@ const colorIcons = new Set([
   'ak-day-common',
   'ak-day-challenge',
   'ef-control',
+  'ef-glory-certify',
+  'ef-build-domain_1',
+  'ef-build-domain_2',
+  'ef-bill-domain_1',
+  'ef-bill-domain_2',
+  'ef-stock-empty',
+  'ef-stock-full',
+  'ef-monolith-unearned',
   'ef-manufacture',
   'ef-plant',
   'ef-reception',
@@ -36,11 +44,15 @@ const art = (key: string, kind: OverviewArt['kind'] = 'icon'): OverviewArt | und
     ? {
         src,
         kind,
-        presentation: key === 'ak-logoBase' ? 'official-logo' : undefined,
+        presentation: key.startsWith('ak-title-')
+          ? 'official-title-icon'
+          : key === 'ak-logoBase'
+            ? 'official-logo'
+            : undefined,
         tone:
-          kind !== 'icon' || colorIcons.has(key)
+          kind !== 'icon' || colorIcons.has(key) || key.startsWith('ef-war-')
             ? 'color'
-            : key.startsWith('ak-')
+            : key.startsWith('ak-') || key === 'ef-regionalDevelopment'
               ? 'light-ink'
               : 'dark-ink',
       }
@@ -88,6 +100,8 @@ export function metricArt(game: string, key: string) {
   return id ? art(`${game === 'arknights' ? 'ak' : 'ef'}-${id}`) : undefined
 }
 const sections: Record<string, string> = {
+  arknightsDaily: 'ak-title-daily',
+  arknightsBase: 'ak-title-base',
   arknightsRecruitment: 'ak-icon-recruit',
   arknightsOffice: 'ak-icon-hire',
   arknightsTraining: 'ak-icon-training',
@@ -105,6 +119,7 @@ const sections: Record<string, string> = {
   arknightsSandbox: 'ak-logoBase',
   arknightsBossRush: 'ak-bossRush',
   endfieldSpaceship: 'ef-spaceship',
+  endfieldExploration: 'ef-regionExplore',
   endfieldExplorationPuzzles: 'ef-ether',
   endfieldExplorationChests: 'ef-chests',
   endfieldExplorationPieces: 'ef-pieces',
@@ -115,6 +130,7 @@ const sections: Record<string, string> = {
   endfieldWarEchoesWeeks: 'ef-warEchoes',
   endfieldWarEchoesStages: 'ef-warEchoes',
   endfieldMonolith: 'ef-monolith',
+  endfieldDomains: 'ef-regionalDevelopment',
 }
 export const sectionArt = (key: string) => (sections[key] ? art(sections[key]!) : undefined)
 const sandboxMilestones = {
@@ -183,3 +199,48 @@ export function facilityArt(
   const src = officialArtworkUrl(item.artworkUrl)
   return src ? { src, kind: 'cover', tone: 'color', fallback } : fallback
 }
+
+export const warEchoesArt = (key: string) => {
+  const image = art(`ef-war-${key}`)
+  return image && /^star-[0-3]$/.test(key) ? { ...image, tone: 'light-ink' as const } : image
+}
+
+export const developmentArt = (key: string) => art(`ef-${key}`)
+
+// Official Endfield CharElementIcon / CharPotentialIcon artwork.
+const endfieldElements: Record<string, [string, string]> = {
+  物理: ['physical', '#888'],
+  Physical: ['physical', '#888'],
+  灼热: ['fire', '#ff623d'],
+  Heat: ['fire', '#ff623d'],
+  电磁: ['electric', '#ffc000'],
+  Electric: ['electric', '#ffc000'],
+  寒冷: ['ice', '#21c6d0'],
+  Cryo: ['ice', '#21c6d0'],
+  自然: ['nature', '#9eda23'],
+  Nature: ['nature', '#9eda23'],
+}
+export function endfieldPortraitBadge(
+  kind: 'element' | 'potential',
+  value: string | number | null,
+) {
+  if (value == null) return undefined
+  const element = kind === 'element' ? endfieldElements[String(value)] : undefined
+  if (kind === 'element' && !element) return undefined
+  const image = art(`ef-char-${kind}-${element?.[0] ?? value}`)
+  return image ? { ...image, tone: 'color' as const, background: element?.[1] } : undefined
+}
+
+// DungeonRecordCard uses rarity, not evolvePhase, for its bottom color strip.
+const endfieldRarityColors: Record<string, string> = {
+  '1': '#b2b2b2',
+  '2': '#b4d945',
+  '3': '#33c2ff',
+  '4': '#b380ff',
+  '5': '#ffcc00',
+  '6': '#ff7100',
+}
+export const endfieldRarityColor = (rarity: string | number | null | undefined) =>
+  rarity == null ? undefined : endfieldRarityColors[String(rarity).replace(/^rarity_/, '')]
+
+export const gloryArt = (kind: 'empty' | 'certify') => art(`ef-glory-${kind}`)

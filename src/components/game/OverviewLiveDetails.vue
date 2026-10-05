@@ -7,20 +7,44 @@ import type { GameAccount } from '@/common/api/accounts'
 import type { GameOverview } from '@/common/api/gameOverview'
 import { metricCurrent, overviewTime } from '@/common/resourceRecovery'
 import { metricArt, sectionArt, facilityArt } from '@/common/overviewAssets'
-import { overviewSections } from '@/common/overviewSections'
+import { overviewSections, endfieldSections } from '@/common/overviewSections'
 import { overviewMetrics } from '@/common/overviewMetrics'
 import { dailyStatus, durationParts, type DailyMetric } from '@/common/dailyStatus'
 import { operatorAvatar } from '@/common/operatorAvatars'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import OperatorAvatar from './OperatorAvatar.vue'
 import OverviewArtwork from './OverviewArtwork.vue'
+import EndfieldTitleIcon from './EndfieldTitleIcon.vue'
 import OverviewRecords from './OverviewRecords.vue'
 import SandboxDetails from './SandboxDetails.vue'
 import OverviewReveal from './OverviewReveal.vue'
 import ReceptionDetails from './ReceptionDetails.vue'
+import RegionalDevelopment from './RegionalDevelopment.vue'
+import MonolithDetails from './MonolithDetails.vue'
+import EndfieldDetails from './EndfieldDetails.vue'
+import WarEchoesDetails from './WarEchoesDetails.vue'
+import GloryRoad from './GloryRoad.vue'
+import EndfieldExploration from './EndfieldExploration.vue'
 import { vAnimatedDetails } from '@/common/animatedDetails'
 const props = defineProps<{ account: GameAccount; data: GameOverview }>()
-const sections = computed(() => overviewSections(props.data.sections))
+const hasCollapsibleTitles = computed(() =>
+  ['arknights', 'endfield'].includes(props.account.appCode),
+)
+const gloryRoad = computed(() => props.account.appCode !== 'endfield' ? null : props.data.gloryRoad ?? {
+  count: props.data.metrics.find(m => m.key === 'achievements')?.current ?? null,
+  tiers: [1,2,3].map(level => ({level, count: props.data.metrics.find(m => m.key === `medalLevel${level}`)?.current ?? null})),
+  display: null,
+  medals: null,
+})
+const sections = computed(() =>
+  overviewSections(
+    props.account.appCode === 'endfield' ? endfieldSections(props.data) : props.data.sections,
+  ).filter(
+    (section) =>
+      !props.data.warEchoes ||
+      !['endfieldWarEchoesWeeks', 'endfieldWarEchoesStages'].includes(section.key),
+  ),
+)
 const { t } = useI18n()
 const { number, date } = useOverviewFormat()
 const clock = ref(Date.now())
@@ -53,7 +77,19 @@ const liveMetrics = computed(() =>
       metrics: overviewMetrics(props.account.appCode, props.data),
     },
     resourceTime.value,
-  ).map((metric) => ({ ...metric, current: metricCurrent(metric, resourceTime.value) })),
+  )
+    .filter(
+      (metric) =>
+        !(
+          props.account.appCode === 'endfield' &&
+          metric.group === 'base' &&
+          metric.key === 'cnsLevel'
+        ),
+    )
+    .map((metric) => ({
+      ...metric,
+      current: metricCurrent(metric, resourceTime.value),
+    })),
 )
 const duration = (seconds: number) => {
   const parts = durationParts(seconds)
@@ -72,12 +108,15 @@ const metricNote = (metric: DailyMetric) => {
 }
 
 const groups = [
-  { key: 'daily', icon: Sunny },
-  { key: 'base', icon: OfficeBuilding },
+  { key: 'daily', icon: Sunny, artwork: 'arknightsDaily' },
+  { key: 'base', icon: OfficeBuilding, artwork: 'arknightsBase' },
 ] as const
 type MetricGroup = (typeof groups)[number]['key']
 const gridId = useId()
-const expandedGroups = ref<Record<MetricGroup, boolean>>({ daily: false, base: false })
+const expandedGroups = ref<Record<MetricGroup, boolean>>({
+  daily: false,
+  base: false,
+})
 const gridColumns = ref<Record<MetricGroup, number>>({ daily: 2, base: 2 })
 const gridElements: Partial<Record<MetricGroup, HTMLElement>> = {}
 let gridObserver: ResizeObserver | undefined
@@ -114,13 +153,38 @@ watch(
 </script>
 <template>
   <template v-for="group in groups" :key="group.key">
-    <section
+    <component
+      :is="hasCollapsibleTitles ? 'details' : 'section'"
+      :key="`${account.appCode}:${account.gameId}:${account.uid}:${group.key}`"
+      v-animated-details
       v-if="liveMetrics.some((metric) => metric.group === group.key)"
       class="metric-section compact-metrics"
+      :open="hasCollapsibleTitles ? true : undefined"
     >
+      <component :is="hasCollapsibleTitles ? 'summary' : 'div'" class="metric-summary">
       <h3>
-        <el-icon><component :is="group.icon" /></el-icon>{{ t(`game.overview.${group.key}`) }}
+        <OverviewArtwork
+          v-if="account.appCode === 'arknights'"
+          class="metric-title-art"
+          :art="sectionArt(group.artwork)"
+        />
+        <span
+          v-else-if="account.appCode === 'endfield' && group.key === 'daily'"
+          class="endfield-title-art"
+        ><EndfieldTitleIcon kind="daily" /></span>
+        <el-icon v-else><component :is="group.icon" /></el-icon>
+        {{
+          t(
+            account.appCode === 'arknights'
+              ? `game.overview.arknightsTitles.${group.key}`
+              : account.appCode === 'endfield' && group.key === 'daily'
+                ? 'game.overview.endfieldTitles.daily'
+                : `game.overview.${group.key}`,
+          )
+        }}
       </h3>
+      </component>
+      <div class="facility-content">
       <OverviewReveal
         :expanded="group.key === 'base' || expandedGroups[group.key]"
         :visible-count="gridColumns[group.key] * 2"
@@ -168,7 +232,9 @@ watch(
                 / {{ number(metric.total, false) }}</span
               >
             </p>
-            <p v-if="metric.note" class="metric-note">{{ metricNote(metric) }}</p>
+            <p v-if="metric.note" class="metric-note">
+              {{ metricNote(metric) }}
+            </p>
             <p v-else-if="metric.current === null" class="metric-note">
               {{ t('game.overview.missing') }}
             </p>
@@ -199,179 +265,225 @@ watch(
           ><ArrowDown
         /></el-icon>
       </button>
-    </section>
-  </template>
-  <section
-    v-if="data.sections?.length"
-    class="facility-section"
-    :aria-label="t('game.overview.details')"
-  >
-    <details
-      v-for="section in sections"
-      v-animated-details
-      :key="section.key"
-      class="facility-group"
-      :class="{ 'paired-facility': section.key === 'arknightsOfficeTraining' }"
-      :data-section="section.key"
-      :open="
-        !/(Activities|Rogue|Tower|Campaign|BossRush|Sandbox|Exploration|WarEchoes|Monolith)/.test(
-          section.key,
-        )
-      "
-    >
-      <summary>
-        <span
-          v-if="section.key === 'arknightsOfficeTraining'"
-          class="section-title paired-section-title"
-        >
-          <span class="paired-facility-label">
-            <OverviewArtwork class="section-art" :art="sectionArt('arknightsOffice')" />
-            <span>{{ t('game.overview.sections.arknightsOffice') }}</span>
-          </span>
-          <span>{{ t('game.overview.facilityAnd') }}</span>
-          <span class="paired-facility-label">
-            <OverviewArtwork class="section-art" :art="sectionArt('arknightsTraining')" />
-            <span>{{ t('game.overview.sections.arknightsTraining') }}</span>
-          </span>
-        </span>
-        <template v-else>
-          <OverviewArtwork class="section-art" :art="sectionArt(section.key)" />
-          <span class="section-title">{{ t(`game.overview.sections.${section.key}`) }}</span>
-        </template>
-        <span v-if="section.key !== 'arknightsClues'" class="section-count">{{
-          section.items.length
-        }}</span>
-      </summary>
-      <div class="facility-content">
-        <ReceptionDetails
-          v-if="section.key === 'arknightsClues' && section.items.length"
-          :items="section.items"
-          :resource-time="resourceTime"
-        />
-        <OverviewRecords
-          v-else-if="
-            section.items.length &&
-            /^arknights(Activities|Rogue|RogueRelics|RogueBank|Tower|Campaign|BossRush)$/.test(
-              section.key,
-            )
-          "
-          :section="section"
-        />
-        <ul
-          v-else-if="section.items.length"
-          class="facility-grid"
-          :class="{
-            'recruitment-grid': section.key === 'arknightsRecruitment',
-            'support-grid': section.key === 'arknightsSupport',
-            'base-facility-grid': [
-              'arknightsTrading',
-              'arknightsDormitories',
-              'arknightsManufacturing',
-            ].includes(section.key),
-            'compact-facility-grid': [
-              'arknightsRecruitment',
-              'arknightsOfficeTraining',
-              'arknightsTrading',
-              'arknightsDormitories',
-              'arknightsManufacturing',
-            ].includes(section.key),
-          }"
-        >
-          <li
-            v-for="(item, index) in section.items"
-            :key="`${item.sourceSection ?? section.key}:${item.id}`"
-            :class="{ 'sandbox-card': section.key === 'arknightsSandbox' }"
-          >
-            <OverviewArtwork
-              class="facility-art"
-              :art="facilityArt(item.sourceSection ?? section.key, item)"
-            />
-            <header>
-              <OperatorAvatar
-                v-if="item.operatorId"
-                :name="item.name || item.operatorId"
-                :src="operatorAvatar(account.appCode, item.operatorId, undefined, item.skinId)"
-                :fallback-src="operatorAvatar(account.appCode, item.operatorId)"
-              />
-              <strong>{{
-                item.nameKey
-                  ? t(`game.overview.facilityNames.${item.nameKey}`)
-                  : item.name || t('game.overview.slot', { index: index + 1 })
-              }}</strong>
-              <span v-if="item.level !== null">{{
-                t('game.overview.facilityLevel', { level: number(item.level) })
-              }}</span>
-            </header>
-            <SandboxDetails v-if="item.sandbox" :record="item.sandbox" />
-            <p v-if="item.subtitle" class="facility-subtitle">{{ item.subtitle }}</p>
-            <p v-if="item.rating" class="facility-status">
-              {{ t('game.overview.rating', { rating: item.rating }) }}
-            </p>
-            <p v-if="item.status !== 'unknown'" class="facility-status" :data-status="item.status">
-              {{
-                (item.sourceSection ?? section.key) === 'arknightsOffice' &&
-                (item.status === 'complete' || (item.completeAt && item.completeAt <= resourceTime))
-                  ? t('game.overview.officeReady')
-                  : t(
-                      `game.overview.statuses.${item.status === 'working' && ['arknightsRecruitment', 'arknightsTraining', 'arknightsOffice', 'arknightsClues'].includes(item.sourceSection ?? section.key) && item.completeAt && item.completeAt <= resourceTime ? 'complete' : item.status}`,
-                    )
-              }}
-            </p>
-            <p
-              v-if="
-                (item.current !== null || item.total !== null) &&
-                !(
-                  (item.sourceSection ?? section.key) === 'arknightsOffice' &&
-                  item.current === 0 &&
-                  item.completeAt &&
-                  item.completeAt <= resourceTime
-                )
-              "
-              class="facility-value"
-            >
-              <span>{{
-                t(`game.overview.sectionValues.${item.sourceSection ?? section.key}`)
-              }}</span>
-              <strong
-                v-if="
-                  (item.sourceSection ?? section.key).startsWith('endfieldExploration') &&
-                  item.total === 0
-                "
-                >—</strong
-              ><strong v-else
-                >{{ number(item.current)
-                }}<template v-if="item.total !== null">
-                  / {{ number(item.total) }}</template
-                ></strong
-              >
-            </p>
-            <p v-if="item.completeAt && item.completeAt > resourceTime" class="metric-note">
-              {{
-                t(
-                  (item.sourceSection ?? section.key) === 'arknightsTrading'
-                    ? 'game.overview.nextOrder'
-                    : 'game.overview.completes',
-                  { time: date(item.completeAt) },
-                )
-              }}
-            </p>
-            <p
-              v-if="
-                !item.sandbox &&
-                item.status === 'unknown' &&
-                item.current === null &&
-                item.level === null &&
-                !item.subtitle
-              "
-              class="metric-note"
-            >
-              {{ t('game.overview.missing') }}
-            </p>
-          </li>
-        </ul>
-        <p v-else class="metric-note">{{ t('game.overview.noDetails') }}</p>
       </div>
+    </component>
+  </template>
+  <section v-if="sections.length || gloryRoad" class="facility-section" :aria-label="t('game.overview.details')">
+    <details v-if="gloryRoad" :key="`${account.appCode}:${account.gameId}:${account.uid}:glory`" v-animated-details class="facility-group" data-section="endfieldGloryRoad" open>
+      <summary>
+        <OverviewArtwork class="section-art" :art="metricArt('endfield', 'achievements')" />
+        <span class="section-title">{{ t('game.overview.glory.title') }}</span>
+      </summary>
+      <div class="facility-content"><GloryRoad :data="gloryRoad" /></div>
     </details>
+    <template v-for="section in sections" :key="`${account.appCode}:${account.gameId}:${account.uid}:${section.key}`">
+      <details
+        v-animated-details
+        class="facility-group"
+        :class="{
+          'paired-facility': section.key === 'arknightsOfficeTraining',
+        }"
+        :data-section="section.key"
+        :open="
+          !['endfieldSpaceship', 'endfieldDomains'].includes(section.key) &&
+          !/(Activities|Rogue|Tower|Campaign|BossRush|Sandbox|Exploration|WarEchoes|Monolith)/.test(
+            section.key,
+          )
+        "
+      >
+        <summary>
+          <span
+            v-if="section.key === 'arknightsOfficeTraining'"
+            class="section-title paired-section-title"
+          >
+            <span class="paired-facility-label">
+              <OverviewArtwork class="section-art" :art="sectionArt('arknightsOffice')" />
+              <span>{{ t('game.overview.sections.arknightsOffice') }}</span>
+            </span>
+            <span>{{ t('game.overview.facilityAnd') }}</span>
+            <span class="paired-facility-label">
+              <OverviewArtwork class="section-art" :art="sectionArt('arknightsTraining')" />
+              <span>{{ t('game.overview.sections.arknightsTraining') }}</span>
+            </span>
+          </span>
+          <template v-else>
+            <OverviewArtwork class="section-art" :art="sectionArt(section.key)" />
+            <span class="section-title">{{ t(`game.overview.sections.${section.key}`) }}</span>
+          </template>
+          <span v-if="section.key !== 'arknightsClues'" class="section-count">{{
+            section.items.length
+          }}</span>
+        </summary>
+        <div class="facility-content">
+          <EndfieldExploration
+            v-if="section.key === 'endfieldExploration'"
+            :key="`${account.appCode}:${account.gameId}:${account.uid}:exploration`"
+            :section="section"
+          />
+          <ReceptionDetails
+            v-else-if="section.key === 'arknightsClues' && section.items.length"
+            :items="section.items"
+            :resource-time="resourceTime"
+          />
+          <OverviewRecords
+            v-else-if="
+              section.items.length &&
+              /^arknights(Activities|Rogue|RogueRelics|RogueBank|Tower|Campaign|BossRush)$/.test(
+                section.key,
+              )
+            "
+            :section="section"
+          />
+          <WarEchoesDetails
+            v-else-if="section.key === 'endfieldWarEchoes' && data.warEchoes"
+            :key="`${account.appCode}:${account.gameId}:${account.uid}:war`"
+            :data="data.warEchoes"
+            :resource-time="resourceTime"
+          />
+          <RegionalDevelopment
+            v-else-if="section.key === 'endfieldDomains' && data.regionalDevelopment"
+            :key="`${account.appCode}:${account.gameId}:${account.uid}:development`"
+            :data="data.regionalDevelopment"
+          />
+          <MonolithDetails
+            v-else-if="section.key === 'endfieldMonolith' && data.monolith"
+            :key="`${account.appCode}:${account.gameId}:${account.uid}:monolith`"
+            :data="data.monolith"
+          />
+          <EndfieldDetails
+            v-else-if="
+              account.appCode === 'endfield' &&
+              section.key.startsWith('endfield') &&
+              section.items.length
+            "
+            :section="section"
+            :resource-time="resourceTime"
+          />
+          <ul
+            v-else-if="section.items.length"
+            class="facility-grid"
+            :class="{
+              'recruitment-grid': section.key === 'arknightsRecruitment',
+              'support-grid': section.key === 'arknightsSupport',
+              'base-facility-grid': [
+                'arknightsTrading',
+                'arknightsDormitories',
+                'arknightsManufacturing',
+              ].includes(section.key),
+              'compact-facility-grid': [
+                'arknightsRecruitment',
+                'arknightsOfficeTraining',
+                'arknightsTrading',
+                'arknightsDormitories',
+                'arknightsManufacturing',
+              ].includes(section.key),
+            }"
+          >
+            <li
+              v-for="(item, index) in section.items"
+              :key="`${item.sourceSection ?? section.key}:${item.id}`"
+              :class="{ 'sandbox-card': section.key === 'arknightsSandbox' }"
+            >
+              <OverviewArtwork
+                class="facility-art"
+                :art="facilityArt(item.sourceSection ?? section.key, item)"
+              />
+              <header>
+                <OperatorAvatar
+                  v-if="item.operatorId"
+                  :name="item.name || item.operatorId"
+                  :src="operatorAvatar(account.appCode, item.operatorId, undefined, item.skinId)"
+                  :fallback-src="operatorAvatar(account.appCode, item.operatorId)"
+                />
+                <strong>{{
+                  item.nameKey
+                    ? t(`game.overview.facilityNames.${item.nameKey}`)
+                    : item.name || t('game.overview.slot', { index: index + 1 })
+                }}</strong>
+                <span v-if="item.level !== null">{{
+                  t('game.overview.facilityLevel', {
+                    level: number(item.level),
+                  })
+                }}</span>
+              </header>
+              <SandboxDetails v-if="item.sandbox" :record="item.sandbox" />
+              <p v-if="item.subtitle" class="facility-subtitle">
+                {{ item.subtitle }}
+              </p>
+              <p v-if="item.rating" class="facility-status">
+                {{ t('game.overview.rating', { rating: item.rating }) }}
+              </p>
+              <p
+                v-if="item.status !== 'unknown'"
+                class="facility-status"
+                :data-status="item.status"
+              >
+                {{
+                  (item.sourceSection ?? section.key) === 'arknightsOffice' &&
+                  (item.status === 'complete' ||
+                    (item.completeAt && item.completeAt <= resourceTime))
+                    ? t('game.overview.officeReady')
+                    : t(
+                        `game.overview.statuses.${item.status === 'working' && ['arknightsRecruitment', 'arknightsTraining', 'arknightsOffice', 'arknightsClues'].includes(item.sourceSection ?? section.key) && item.completeAt && item.completeAt <= resourceTime ? 'complete' : item.status}`,
+                      )
+                }}
+              </p>
+              <p
+                v-if="
+                  (item.current !== null || item.total !== null) &&
+                  !(
+                    (item.sourceSection ?? section.key) === 'arknightsOffice' &&
+                    item.current === 0 &&
+                    item.completeAt &&
+                    item.completeAt <= resourceTime
+                  )
+                "
+                class="facility-value"
+              >
+                <span>{{
+                  t(`game.overview.sectionValues.${item.sourceSection ?? section.key}`)
+                }}</span>
+                <strong
+                  v-if="
+                    (item.sourceSection ?? section.key).startsWith('endfieldExploration') &&
+                    item.total === 0
+                  "
+                  >—</strong
+                ><strong v-else
+                  >{{ number(item.current)
+                  }}<template v-if="item.total !== null">
+                    / {{ number(item.total) }}</template
+                  ></strong
+                >
+              </p>
+              <p v-if="item.completeAt && item.completeAt > resourceTime" class="metric-note">
+                {{
+                  t(
+                    (item.sourceSection ?? section.key) === 'arknightsTrading'
+                      ? 'game.overview.nextOrder'
+                      : 'game.overview.completes',
+                    { time: date(item.completeAt) },
+                  )
+                }}
+              </p>
+              <p
+                v-if="
+                  !item.sandbox &&
+                  item.status === 'unknown' &&
+                  item.current === null &&
+                  item.level === null &&
+                  !item.subtitle
+                "
+                class="metric-note"
+              >
+                {{ t('game.overview.missing') }}
+              </p>
+            </li>
+          </ul>
+          <p v-else class="metric-note">{{ t('game.overview.noDetails') }}</p>
+        </div>
+      </details>
+    </template>
   </section>
 </template>
 <style scoped>
@@ -437,6 +549,7 @@ watch(
   margin-top: 10px;
 }
 .facility-group summary {
+  list-style: none;
   cursor: pointer;
   color: var(--color-heading);
   font-weight: 600;
@@ -569,6 +682,21 @@ h3 {
 h3 .el-icon {
   color: var(--muted);
 }
+.metric-title-art {
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+  transform: scale(0.6);
+  background: transparent;
+  border-radius: 0;
+}
+.endfield-title-art {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -659,6 +787,40 @@ h4 {
 }
 .compact-metrics h3 {
   margin: 0 0 8px;
+}
+details.compact-metrics {
+  min-width: 0;
+  margin-top: 0;
+  border-top: 1px solid var(--color-border);
+  padding: 18px 0;
+}
+details.compact-metrics + .facility-section {
+  margin-top: 0;
+}
+.compact-metrics > summary {
+  cursor: pointer;
+  color: var(--color-heading);
+  font-size: 15px;
+  font-weight: 600;
+}
+.compact-metrics > summary h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  vertical-align: middle;
+  margin: 0;
+}
+.compact-metrics > summary:focus {
+  outline: none;
+}
+.compact-metrics > summary:focus-visible h3 {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+.compact-metrics > summary + .facility-content > .overview-reveal {
+  margin-top: 8px;
 }
 .compact-metrics .metric-grid {
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));

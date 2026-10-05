@@ -115,6 +115,18 @@ const sectionItem = shape({
     }),
   ),
   level: nullable(number),
+  maxLevel: optional(number),
+  staff: optional(
+    nullable(
+      array(
+        shape({
+          id: string,
+          name: nullable(string),
+          avatarUrl: optional(nullable(string)),
+        }),
+      ),
+    ),
+  ),
   status: oneOf('idle', 'working', 'complete', 'locked', 'unknown'),
   current: nullable(number),
   total: nullable(number),
@@ -122,7 +134,169 @@ const sectionItem = shape({
   subtitle: optional(nullable(string)),
   rating: optional(nullable(string)),
 })
+const warMember = shape({
+  id: string,
+  name: nullable(string),
+  avatarUrl: nullable(string),
+  level: nullable(number),
+  potential: nullable(number),
+  phase: nullable(number),
+  rarity: nullable(string),
+  element: nullable(string),
+})
+
+const warEnemy = shape({
+  id: string,
+  name: nullable(string),
+  level: nullable(number),
+  description: nullable(string),
+  ability: nullable(string),
+  artworkUrl: nullable(string),
+})
+
+const warRecord = shape({
+  recordedAt: nullable(number),
+  durationSeconds: nullable(number),
+  team: nullable(array(warMember)),
+})
+
+const warDifficulty = shape({
+  id: string,
+  difficulty: oneOf('normal', 'hard', 'cruel'),
+  name: nullable(string),
+  isPassed: nullable(boolean),
+  firstPassAt: nullable(number),
+  plusTask: nullable(boolean),
+  description: nullable(string),
+  feature: nullable(string),
+  target: nullable(string),
+  recommendLevel: nullable(number),
+  enemies: nullable(array(warEnemy)),
+  record: nullable(warRecord),
+})
+
+const warStage = shape({
+  id: string,
+  name: nullable(string),
+  stars: nullable(number),
+  plusTask: nullable(boolean),
+  difficulties: nullable(array(warDifficulty)),
+})
+
+const warWeek = shape({
+  id: string,
+  name: nullable(string),
+  startAt: nullable(number),
+  endAt: nullable(number),
+  stars: nullable(number),
+  rating: nullable(string),
+  stages: nullable(array(warStage)),
+})
+
+const warSeason = shape({
+  id: string,
+  name: nullable(string),
+  artworkUrl: nullable(string),
+  startAt: nullable(number),
+  endAt: nullable(number),
+  stars: nullable(number),
+  rating: nullable(string),
+  weeks: nullable(array(warWeek)),
+})
+
+const warHonor = shape({
+  acquired: nullable(boolean),
+  name: nullable(string),
+  stars: nullable(number),
+  acquiredAt: nullable(number),
+})
+
+const warEchoes = shape({
+  detailAvailable: boolean,
+  seasons: array(warSeason),
+  honors: nullable(array(warHonor)),
+})
+
+const developmentOfficer = shape({
+  id: nullable(string),
+  name: nullable(string),
+  avatarUrl: nullable(string),
+})
+const settlement = shape({
+  id: string,
+  name: nullable(string),
+  level: nullable(number),
+  unlocked: nullable(boolean),
+  experience: nullable(number),
+  experienceMax: nullable(number),
+  isMaxLevel: nullable(boolean),
+  money: nullable(number),
+  moneyMax: nullable(number),
+  officer: nullable(developmentOfficer),
+})
+const developmentRegion = shape({
+  id: string,
+  name: nullable(string),
+  level: nullable(number),
+  money: nullable(number),
+  moneyMax: nullable(number),
+  settlements: nullable(array(settlement)),
+})
+const regionalDevelopment = shape({ regions: array(developmentRegion) })
+const monolithMedal = shape({
+  name: nullable(string),
+  acquired: nullable(boolean),
+  plated: nullable(boolean),
+  level: nullable(number),
+  artworkUrl: nullable(string),
+  acquiredAt: nullable(number),
+})
+const monolithStage = shape({
+  id: string,
+  name: nullable(string),
+  normal: nullable(warDifficulty),
+  hard: nullable(warDifficulty),
+})
+const monolithTheme = shape({
+  id: string,
+  name: nullable(string),
+  artworkUrl: nullable(string),
+  activityName: nullable(string),
+  isInActivity: nullable(boolean),
+  startAt: nullable(number),
+  endAt: nullable(number),
+  medal: nullable(monolithMedal),
+  stages: nullable(array(monolithStage)),
+})
+const gloryMedal = shape({
+  id: string,
+  name: nullable(string),
+  category: nullable(string),
+  level: nullable(number),
+  plated: nullable(boolean),
+  canCertify: nullable(boolean),
+  acquiredAt: nullable(timestamp),
+  artworkUrl: nullable(string),
+})
+const gloryRoad = shape({
+  count: nullable(number),
+  tiers: array(shape({ level: number, count: nullable(number) })),
+  display: nullable(
+    array(shape({ slot: oneOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), medalId: nullable(string) })),
+  ),
+  medals: nullable(array(gloryMedal)),
+})
+const monolith = shape({
+  detailAvailable: boolean,
+  currentThemeId: nullable(string),
+  themes: array(monolithTheme),
+})
+
 const gameOverview = shape({
+  gloryRoad: optional(gloryRoad),
+  regionalDevelopment: optional(regionalDevelopment),
+  monolith: optional(monolith),
+  warEchoes: optional(warEchoes),
   account: gameAccount,
   fetchedAt: timestamp,
   calculatedAt: optional(timestamp),
@@ -164,6 +338,19 @@ export const parseCheckIn = (value: unknown) =>
     shape({
       checkInResults: array(string),
       errorResults: array((item) => gameAccount(item) && record(item) && string(item.error)),
+      requestId: optional(string),
+      completedAt: optional(timestamp),
+      durationMs: optional(number),
+      summary: optional(shape({total: number, success: number, alreadyCheckedIn: number, failed: number})),
+      results: optional(array(shape({
+        account: gameAccount,
+        status: oneOf('success', 'already_checked_in', 'failed'),
+        rewards: array(shape({id: nullable(string), name: nullable(string), count: nullable((v) => number(v) && (v as number) >= 0), type: nullable(string)})),
+        rewardsComplete: boolean,
+        errorCode: nullable(oneOf('clock_skew', 'timeout', 'network_error', 'auth_expired', 'rate_limited', 'upstream_error', 'invalid_response', 'unsupported_game')),
+        retryable: boolean,
+        upstreamCode: nullable(number),
+      }))),
     }),
   )
 export function parseGameOverview(value: unknown, account: GameAccount): GameOverview {

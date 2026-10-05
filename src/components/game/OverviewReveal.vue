@@ -14,10 +14,15 @@ function measure() {
   const grid = viewport.value?.firstElementChild as HTMLElement | null
   if (!grid) return
   const box = grid.getBoundingClientRect()
-  const last = grid.children[Math.min(grid.children.length, props.visibleCount) - 1]
+  // A visible card may expand taller than the last card in its row.
+  const visible = Array.from(grid.children).slice(0, props.visibleCount)
+  const visibleBottom = Math.max(
+    box.top,
+    ...visible.map((item) => item.getBoundingClientRect().bottom),
+  )
   heights.value = {
     full: box.height,
-    collapsed: last ? Math.min(box.height, last.getBoundingClientRect().bottom - box.top) : 0,
+    collapsed: Math.min(box.height, visibleBottom - box.top),
   }
 }
 onMounted(() => {

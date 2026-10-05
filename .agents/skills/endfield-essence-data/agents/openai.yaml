@@ -1,4 +1,4 @@
 interface:
   display_name: "终末地基质数据维护"
-  short_description: "依据官方公告与开源数据更新 EasonWeb 基质计算器的武器、淤积点及匹配规则"
-  default_prompt: "请使用 $endfield-essence-data，核对官方与开源资料，更新项目的基质计算器数据、来源记录并完成验证。"
+  short_description: "维护 EasonWeb 基质计算器武器、淤积点、规范词条与推荐匹配"
+  default_prompt: "请使用 $endfield-essence-data，根据当前代码核对基质计算器的数据、匹配与来源记录，并完成本次改动需要的验证。"

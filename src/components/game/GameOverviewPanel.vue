@@ -7,10 +7,15 @@ import type { GameAccount } from '@/common/api/accounts'
 import type { GameOverview } from '@/common/api/gameOverview'
 import { gameServerName } from '@/common/gameServers'
 import OperatorAvatar from './OperatorAvatar.vue'
+import EndfieldPortraitBadges from './EndfieldPortraitBadges.vue'
+import EndfieldOperatorFacts from './EndfieldOperatorFacts.vue'
+import { vAnimatedDetails } from '@/common/animatedDetails'
 import OverviewLiveDetails from './OverviewLiveDetails.vue'
 import OverviewReveal from './OverviewReveal.vue'
 import OverviewArtwork from './OverviewArtwork.vue'
-import { metricArt } from '@/common/overviewAssets'
+import ArknightsOperatorsIcon from './ArknightsOperatorsIcon.vue'
+import EndfieldTitleIcon from './EndfieldTitleIcon.vue'
+import { metricArt, endfieldRarityColor } from '@/common/overviewAssets'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import { operatorAvatar } from '@/common/operatorAvatars'
 import EmptyState from '@/components/EmptyState.vue'
@@ -24,9 +29,12 @@ const props = defineProps<{
   errorKind?: ApiFailureKind
 }>()
 defineEmits<{ refresh: [] }>()
+const hasCollapsibleTitles = computed(() =>
+  ['arknights', 'endfield'].includes(props.account.appCode),
+)
 const { t, locale } = useI18n()
 const collectionMetrics = computed(() =>
-  (props.data?.metrics ?? []).filter((metric) => metric.group === 'collection'),
+  (props.data?.metrics ?? []).filter((metric) => metric.group === 'collection' && !(props.account.appCode === 'endfield' && ['achievements', 'medalLevel1', 'medalLevel2', 'medalLevel3'].includes(metric.key))),
 )
 const mainProgress = computed(() => {
   const value = props.data?.profile.mainProgress
@@ -112,7 +120,7 @@ const visible = computed(() =>
         >
       </template>
     </EmptyState>
-    <template v-else-if="data">
+    <div v-if="data" v-show="!loading && !failed" class="overview-data">
       <dl class="profile-facts">
         <div>
           <dt>
@@ -167,10 +175,25 @@ const visible = computed(() =>
         </div>
       </dl>
       <OverviewLiveDetails :account="account" :data="data" />
-      <section class="operator-section">
+      <component
+        :is="hasCollapsibleTitles ? 'details' : 'section'"
+        :key="`${account.appCode}:${account.gameId}:${account.uid}:operators`"
+        v-animated-details
+        :open="hasCollapsibleTitles ? true : undefined"
+        class="operator-section"
+        :class="{ 'endfield-archive': account.appCode === 'endfield' }"
+      >
+        <summary v-if="hasCollapsibleTitles" class="operator-summary">
+          <h3>
+            <ArknightsOperatorsIcon v-if="account.appCode === 'arknights'" class="operator-title-icon" />
+            <span v-else class="endfield-title-art"><EndfieldTitleIcon kind="operators" /></span>
+            {{ t(account.appCode === 'arknights' ? 'game.overview.arknightsTitles.operators' : 'game.overview.endfieldTitles.operators') }}
+          </h3>
+        </summary>
+        <div class="facility-content">
         <div class="operator-heading">
           <div>
-            <h3>{{ t('game.overview.operators') }}</h3>
+            <h3 v-if="!hasCollapsibleTitles">{{ t('game.overview.operators') }}</h3>
             <p>
               {{
                 data.operators === null
@@ -208,31 +231,72 @@ const visible = computed(() =>
               :aria-hidden="!expanded && !search && index >= 8"
               :inert="!expanded && !search && index >= 8"
             >
-              <OperatorAvatar
-                :name="char.name"
-                :src="operatorAvatar(account.appCode, char.id, char.avatarUrl, char.skinId)"
-                :fallback-src="operatorAvatar(account.appCode, char.id, char.avatarUrl)"
-              />
-              <div>
-                <strong>{{ char.name }}</strong>
-                <p v-if="char.rarity != null || char.potential != null">
-                  <span v-if="char.rarity != null">{{
-                    t('game.overview.rarity', { count: char.rarity })
-                  }}</span>
-                  <span v-if="char.potential != null">
-                    · {{ t('game.overview.potential', { value: char.potential }) }}</span
+              <details
+                v-if="account.appCode === 'endfield'"
+                v-animated-details
+                class="operator-archive"
+              >
+                <summary>
+                  <span
+                    class="archive-portrait"
+                    :style="{ borderBottomColor: endfieldRarityColor(char.rarity) }"
+                    :title="
+                      char.rarity == null
+                        ? undefined
+                        : t('game.overview.rarity', { count: char.rarity })
+                    "
                   >
-                </p>
-                <p v-if="char.profession || char.element">
-                  {{ [char.profession, char.element].filter(Boolean).join(' · ') }}
-                </p>
-                <p>
-                  {{ t('game.overview.operatorLevel', { level: number(char.level) })
-                  }}<span v-if="char.phase !== null">
-                    · {{ t('game.overview.phase', { phase: char.phase }) }}</span
-                  >
-                </p>
-              </div>
+                    <OperatorAvatar
+                      :name="char.name"
+                      :src="operatorAvatar(account.appCode, char.id, char.avatarUrl)"
+                    />
+                    <EndfieldPortraitBadges
+                      :level="char.level"
+                      :element="char.element"
+                      :potential="char.potential"
+                    />
+                  </span>
+                  <strong>{{ char.name }}</strong>
+                </summary>
+                <div class="facility-content">
+                  <EndfieldOperatorFacts
+                    class="archive-facts"
+                    :level="char.level"
+                    :phase="char.phase"
+                    :rarity="char.rarity"
+                    :potential="char.potential"
+                    :profession="char.profession"
+                    :element="char.element"
+                  />
+                </div>
+              </details>
+              <template v-else>
+                <OperatorAvatar
+                  :name="char.name"
+                  :src="operatorAvatar(account.appCode, char.id, char.avatarUrl, char.skinId)"
+                  :fallback-src="operatorAvatar(account.appCode, char.id, char.avatarUrl)"
+                />
+                <div>
+                  <strong>{{ char.name }}</strong>
+                  <p v-if="char.rarity != null || char.potential != null">
+                    <span v-if="char.rarity != null">{{
+                      t('game.overview.rarity', { count: char.rarity })
+                    }}</span>
+                    <span v-if="char.potential != null">
+                      · {{ t('game.overview.potential', { value: char.potential }) }}</span
+                    >
+                  </p>
+                  <p v-if="char.profession || char.element">
+                    {{ [char.profession, char.element].filter(Boolean).join(' · ') }}
+                  </p>
+                  <p>
+                    {{ t('game.overview.operatorLevel', { level: number(char.level) })
+                    }}<span v-if="char.phase !== null">
+                      · {{ t('game.overview.phase', { phase: char.phase }) }}</span
+                    >
+                  </p>
+                </div>
+              </template>
             </li>
           </ul>
         </OverviewReveal>
@@ -247,7 +311,8 @@ const visible = computed(() =>
           >{{ t(expanded ? 'game.overview.showLess' : 'game.overview.showAll') }}</el-button
         >
         <p v-if="locale === 'en'" class="source-note">{{ t('game.overview.namesNote') }}</p>
-      </section>
+        </div>
+      </component>
       <footer class="snapshot-note">
         <p>
           {{
@@ -266,7 +331,7 @@ const visible = computed(() =>
           }}<span>{{ t('game.overview.fetched', { time: date(data.fetchedAt) }) }}</span>
         </p>
       </footer>
-    </template>
+    </div>
   </section>
 </template>
 <style scoped>
@@ -409,6 +474,53 @@ h3 .el-icon {
 .operator-heading h3 {
   margin-bottom: 4px;
 }
+.operator-title-icon {
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+  transform: scale(0.6);
+}
+.endfield-title-art {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+details.operator-section {
+  min-width: 0;
+  margin-top: 0;
+  border-top: 1px solid var(--color-border);
+  padding: 18px 0;
+}
+.operator-summary {
+  cursor: pointer;
+  color: var(--color-heading);
+  font-size: 15px;
+  font-weight: 600;
+}
+.operator-summary h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  vertical-align: middle;
+  margin: 0;
+}
+.operator-summary:focus {
+  outline: none;
+}
+.operator-summary:focus-visible h3 {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+.operator-section > .facility-content {
+  display: flow-root;
+}
+.operator-summary + .facility-content > .operator-heading {
+  margin-top: 8px;
+}
 .operator-heading .el-input {
   max-width: 260px;
 }
@@ -428,6 +540,80 @@ h3 .el-icon {
   padding: 12px 0;
   border-bottom: 1px solid var(--color-border);
 }
+
+.endfield-archive {
+  container: operator-archive / inline-size;
+}
+.endfield-archive .operator-heading {
+  margin-bottom: 10px;
+}
+.operator-grid[data-game='endfield'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 12px;
+  align-items: start;
+}
+.operator-grid[data-game='endfield'] > li {
+  padding: 4px 0;
+}
+.operator-archive {
+  width: 100%;
+  min-width: 0;
+}
+.operator-archive > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.operator-archive[data-details-expanded] > summary::before {
+  display: none;
+}
+.operator-archive > summary:hover strong,
+.operator-archive > summary:focus-visible strong,
+.operator-archive[open] > summary strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.archive-portrait {
+  position: relative;
+  display: block;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+}
+.archive-portrait .operator-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+.archive-facts {
+  padding-top: 8px;
+}
+@container operator-archive (max-width: 260px) {
+  .operator-grid[data-game='endfield'] {
+    grid-template-columns: 1fr;
+  }
+}
+@container operator-archive (min-width: 560px) {
+  .operator-grid[data-game='endfield'] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@container operator-archive (min-width: 840px) {
+  .operator-grid[data-game='endfield'] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+@container operator-archive (min-width: 1080px) {
+  .operator-grid[data-game='endfield'] {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
 .operator-grid strong {
   font-size: 13px;
   color: var(--color-heading);
@@ -453,6 +639,9 @@ h3 .el-icon {
 .snapshot-note span {
   display: inline-block;
   margin-left: 20px;
+}
+details.operator-section + .snapshot-note {
+  margin-top: 0;
 }
 .overview-loading {
   padding: 32px 0;

@@ -1,0 +1,4 @@
+interface:
+  display_name: "森空岛前端维护"
+  short_description: "EasonWeb 森空岛角色概览、缓存状态、签到反馈、官方图片与两游戏 UI 维护"
+  default_prompt: "请使用 $skland-frontend，按当前代码与对应游戏参考维护本次森空岛功能，保留未知值和旧响应兼容并执行相关验证。"

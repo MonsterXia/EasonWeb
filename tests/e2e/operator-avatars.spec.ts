@@ -44,8 +44,8 @@ for (const theme of ['light', 'dark']) {
     await page.getByRole('button', { name: '刷新角色资料', exact: true }).click()
     for (const id of ['chr_9000_endmin', 'failed']) {
       const img = card(id).locator('img')
-      await img.scrollIntoViewIfNeeded()
       await expect(img).toHaveAttribute('src', changed)
+      await img.scrollIntoViewIfNeeded()
       await expect(img).toHaveClass('loaded')
       await expect(card(id).locator('.operator-initial')).toHaveCount(0)
     }
@@ -168,7 +168,11 @@ test('equipped skins refresh in roster and support, falling back to default then
     page.locator('.support-grid .operator-avatar'),
   ]
   for (stage = 0; stage < skins.length; stage++) {
-    if (stage) await page.getByRole('button', { name: '刷新角色资料', exact: true }).click()
+    if (stage) {
+      const refresh = page.getByRole('button', { name: '刷新角色资料', exact: true })
+      await refresh.click()
+      await expect(refresh).toBeEnabled()
+    }
     for (const avatar of avatars) {
       await avatar.scrollIntoViewIfNeeded()
       if (stage === 2) {

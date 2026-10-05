@@ -10,7 +10,7 @@
 npm run dev -- --strictPort
 ```
 
-默认打开 `http://127.0.0.1:5173`。浏览器请求同源 `/api`，由本地 Vite 转发，默认不需要启动 CommonServerAPI。
+默认访问 `http://127.0.0.1:5173`（命令本身不自动打开浏览器）。浏览器请求同源 `/api`，由本地 Vite 转发，默认不需要启动 CommonServerAPI。
 
 | `DEV_API_BACKEND` | 代理目标 | 使用场景 |
 | --- | --- | --- |
@@ -51,4 +51,4 @@ npm run build
 
 代理测试使用合成上游验证环境切换、来源保护、Cookie 转换及退出清除，不代表真实账号登录已验证。仅修改 skill 时检查结构、相对链接与配置一致性，无需重跑应用测试。
 
-本地调试不自动触发提交、推送或部署；发布沿用主 skill 中的 Cloudflare Pages 流程及当前用户授权。
+本地调试不自动触发提交、推送或部署；发布沿用 [Cloudflare Pages 流程](deployment.md) 及当前用户授权。测试 preview 与生产产物的区别见 [验证入口](testing.md)。

@@ -5,6 +5,7 @@ import { authLocation } from '@/router/returnPath'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { sklandCache, roleKey } from '@/common/sklandCache'
+import CheckInResultsPanel from '@/components/game/CheckInResultsPanel.vue'
 import GameOverviewPanel from '@/components/game/GameOverviewPanel.vue'
 import { gameOverviewAPI, type GameOverview } from '@/common/api/gameOverview'
 import EmptyState from '@/components/EmptyState.vue'
@@ -42,12 +43,12 @@ const checkInMessage = computed(() =>
 let detailVersion = 0
 let accountRequest: AbortController | null = null
 let alive = true
-function cancelDetail() {
+function cancelDetail(preserveData = false) {
   detailVersion++
   detailLoading.value = false
   detailFailed.value = false
   detailErrorKind.value = undefined
-  overview.value = null
+  if (!preserveData) overview.value = null
 }
 function selectRole(game: GameAccount) {
   if (selected.value && roleKey(selected.value) === roleKey(game)) return
@@ -55,7 +56,7 @@ function selectRole(game: GameAccount) {
 }
 async function loadOverview(game = selected.value, force = false) {
   if (!game) return
-  cancelDetail()
+  cancelDetail(selected.value !== null && roleKey(selected.value) === roleKey(game))
   selected.value = game
   const version = detailVersion
   const cached = force ? undefined : sklandCache.peekOverview(game)
@@ -114,14 +115,19 @@ async function load(force = false) {
     if (!request.signal.aborted) loading.value = false
   }
 }
-async function checkIn() {
+async function checkIn(roles?: GameAccount[]) {
   if (busy.value || loading.value || !games.value.length || error.value) return
   busy.value = true
   checkInError.value = null
-  results.value = null
   try {
-    const data = await checkInAPI()
-    if (alive) results.value = data
+    const data = await checkInAPI(roles)
+    if (alive) {
+      if (roles && results.value?.results && data.results) {
+        const next = new Map(results.value.results.map(item => [roleKey(item.account), item]))
+        data.results.forEach(item => next.set(roleKey(item.account), item))
+        results.value = { ...data, results: [...next.values()] }
+      } else results.value = data
+    }
   } catch (e) {
     if (alive) checkInError.value = e
   } finally {
@@ -157,9 +163,11 @@ onMounted(() => load())
           type="primary"
           :loading="busy"
           :disabled="loading || busy || !games.length || !!error"
-          @click="checkIn"
+          @click="checkIn()"
           >{{ t('game.skland.checkInAll') }}</el-button
-        ><router-link to="/user">{{ t('game.skland.updateLogin') }}</router-link>
+        >
+        <el-button v-if="selected" :disabled="busy || loading" @click="checkIn([selected])">{{ t('game.skland.checkInSelected') }}</el-button>
+        <router-link to="/user">{{ t('game.skland.updateLogin') }}</router-link>
       </div>
       <el-skeleton v-if="loading" :rows="4" animated />
       <template v-else>
@@ -229,28 +237,7 @@ onMounted(() => load())
             :closable="false"
             role="alert"
           />
-          <section v-if="results" :aria-label="t('game.skland.results')">
-            <h2>{{ t('game.skland.results') }}</h2>
-            <el-alert
-              :type="results.errorResults.length ? 'warning' : 'success'"
-              :title="
-                results.errorResults.length
-                  ? t('game.skland.partialFailure')
-                  : results.checkInResults.length
-                    ? t('game.skland.completed')
-                    : t('game.skland.noCharacters')
-              "
-              :closable="false"
-            />
-            <p v-for="(item, index) in results.checkInResults" :key="index">{{ item }}</p>
-            <p
-              v-for="item in results.errorResults"
-              :key="`${item.appCode}:${item.uid}`"
-              class="failure"
-            >
-              {{ t('game.skland.characterError', { name: item.nickName, error: item.error }) }}
-            </p>
-          </section>
+          <CheckInResultsPanel v-if="results" :report="results" :busy="busy" @retry="checkIn" />
           <GameOverviewPanel
             v-if="selected"
             :account="selected"
@@ -322,21 +309,6 @@ onMounted(() => load())
 }
 .role-option:hover {
   border-color: var(--accent);
-}
-section[aria-label] {
-  margin-top: 28px;
-}
-section[aria-label] h2 {
-  font-size: 18px;
-  margin-bottom: 16px;
-}
-section[aria-label] p {
-  padding: 12px;
-  border-bottom: 1px solid var(--color-border);
-  overflow-wrap: anywhere;
-}
-.failure {
-  color: var(--el-color-danger);
 }
 @media (max-width: 650px) {
   .role-selector {

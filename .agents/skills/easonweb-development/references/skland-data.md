@@ -1,6 +1,8 @@
 # 森空岛显示规则
 
-核对于 2026-10-03。API 是上游当前实现，非稳定协议承诺。原始凭证、用户录屏及真实响应不得存入仓库；回归使用合成数据。
+最初上游核对于 2026-10-03，后续核对日期见各条；2026-10-05 按当前工作区契约整理。历史来源保留，不代表本次重新联网验证。下列上游字段和公式属于历史来源说明，前端实际消费 CommonServerAPI 的规范化契约，不直接读取官方接口。API 是上游实现，非稳定协议承诺。原始凭证、用户录屏及真实响应不得存入仓库；回归使用合成数据。
+
+前端定位：类型和校验为 `src/common/api/gameOverview.ts` / `validation.ts`；缓存与接收时钟为 `src/common/sklandCache.ts` / `resourceRecovery.ts`；日常、摘要和详情分组为 `dailyStatus.ts` / `overviewMetrics.ts` / `overviewSections.ts`。页面与组件见 [森空岛架构](../../skland-frontend/references/architecture.md)。下文“非法值归 null”描述后端规范化约定；前端 parser 拒绝非法响应并抛 `ApiResponseError`，不做隐式转换。
 
 ## 来源与读取流程
 
@@ -32,7 +34,7 @@
 - 训练室：targetSkill=-1空闲；remainSecs相对于currentTs，不能再从lastUpdateTime扣除。
 - 会客室：board数组数量/7；自有、收到、待领取线索分别显示。基建概况的“线索收集”复用规范化 `arknightsClues` 分组中 `id=board` 的 current/total，不能使用 own 库存数替代。官方基建六项按无人机、休息进度、订单进度、制造进度、干员疲劳、线索收集排序；页面文案见上述官方账号页面模块。dailyReward布尔含义未核实，不展示。
 - 收藏总数扣除额外阿米娅形态，只保留char_002_amiya；档案列表仍可展示全部形态。稀有度及潜能rank均+1；medal.total为蚀刻章数量。
-- 活动按SIDESTORY/BRANCHLINE且非复刻筛选，汇总zones的通关/总数；集成战略收藏品与投资分开；剿灭maxKills、保全best保留来源数值，不臆造上限。生息演算与引航者试炼按文末已核实的专属规则显示，不透传未知嵌套对象。缺失主线进度不推断“全部完成”。
+- 活动按SIDESTORY/BRANCHLINE且非复刻筛选，汇总zones的通关/总数；集成战略收藏品与投资数值独立保留，前端按主题 ID 合并同一卡片；剿灭maxKills、保全best保留来源数值，不臆造上限。生息演算与引航者试炼按文末已核实的专属规则显示，不透传未知嵌套对象。缺失主线进度不推断“全部完成”。
 - 主线进度：官方 [账号组件](https://bbs.hycdn.cn/skland-fe-static/skland-game/8624.b27ec983.js) 将 `status.mainStageProgress === ""` 精确映射为“全部完成”。后端保留这个空字符串哨兵，前端仅对方舟本地化为“全部完成 / All completed”；null、缺失、空白或非法值仍表示未提供。非空值按 stageInfoMap 的 code/name/原 ID 显示；不得通过等级推断通关，也不得将此规则套用终末地任务。OpenAPI 与两端类型须保留此语义。
 
 ## 终末地
@@ -40,14 +42,27 @@
 - level=权限等阶，worldLevel=探索等级，createTime=苏醒日；收藏总数来自base，不能用展示干员列表长度替代。
 - 干员ID优先char.id，rarity_6直接显示6，potentialLevel保持原值（0有效）；职业/属性保留上游名称。详细技能/装备不在brief返回中，不进行N+1请求补全。
 - 帝江号房间type：0总控、1制造、2培养、5会客，按此顺序；驻员容量3。地区moneyMgr=调度券，据点remainMoney/moneyMax=储存量。
+- 2026-10-04 再核对[官方 codec](https://assets.skland.com/_static_assets/game-tools/dist-BZImVwlH.js)：总控 maxLevel=5、其他支持房间=3。`spaceShip.rooms[].chars` 的 charId/avatarUrl 是实际驻员关系；规范化为条目 `staff`，按 charId 优先匹配 detail.chars 的 charData.id，再匹配外层 id 取得姓名；两个 ID 必须分别建索引，不能用 `id ?? charData.id` 丢弃其中一个。实际账号验证发现房间 charId 与两种档案 ID 仍可不对应；此时仅按官方完整头像 URL 在 charData.avatarSqUrl/avatarRtUrl 中唯一匹配姓名，同记录的两种头像相同应去重，不同记录共用 URL 不推断；禁止按文件名、路径片段、头像外观或列表顺序猜测，头像优先房间 avatarUrl，再回退该干员 charData.avatarSqUrl/avatarRtUrl，复用 artworkUrl 官方 CDN 校验。staff 的 null/缺字段为详情未知、[] 为无人；不根据持有列表猜测驻员，不额外发请求。前端将重复 cnsLevel 合入帝江号，不丢弃旧接口单独返回的等级。
 - 探索分子/分母来自domain.levels，不能用只有分子的collections臆造上限；total=0显示横线。保留六类计数；未核实的新增图标名称采用保守分类文案，不猜玩法奖励。piece对应维修灵感点。
 - 光荣之路等级为level+achievementData.initLevel-1，分别统计1/2/3级。
 - 战争回响赛季/周期星数最多9，挑战最多3；9星且allPlusTasks为S+，9为S、7为A、5为B、3为C、1为D；赛季结束不代表挑战完成。
-- 影拓丰碑显示当前第一组，普通/困难isPass计算已通过数量/2；活动显示activityName。缺少布尔值不视为未通过。
+- 影拓丰碑通过可选 `monolith` 展示全部返回主题，`currentThemeId` 来自概览 `indieHardGroups[0].id`，仅用于默认选择；前端找不到该 ID 时回退首主题。普通／苦难逐关保留 true/false/null，主题卡展示分段状态，不再把旧摘要“通过数量/2”当成完整详情。活动保留 activityName，独立详情失败保留已知概览。
+
+## 终末地嵌套详情契约
+
+前端完整类型见 `src/common/api/gameOverview.ts`，运行时验证见 `src/common/api/validation.ts`。`regionalDevelopment`、`monolith`、`warEchoes`、`gloryRoad` 均为可省略而非顶层可空对象，兼容旧接口；嵌套 null／空数组按各字段定义区分未知与已知无记录。
+
+- `regionalDevelopment.regions` 保留地区余额与下属据点储量、发展值、实际派驻；上游 expToLevelUp、officerCharIds 与 codec 的 expMax、officerCharId 不同名，不能误读。MAX 仅按 isFinalMaxLevel，地区余额不能和据点储量相加。
+- `warEchoes` 和 `monolith` 含 detailAvailable；独立详情失败不抹掉已知赛季／主题，不造成整个角色概览失败。前端消费规范化对象，官方独立接口由后端在归属校验后调用。
+- 通关耗时 `passTs → durationSeconds` 与记录日期 `ts → recordedAt`、首次通关时间分别保留；记录仅在明确通关且耗时为正时有效。编队养成来自历史 bestRecord.chars，不能用当前持有干员覆盖。
+- `gloryRoad` 保留 count、tiers、display、medals；10 个展示槽位来自账号设置，不按近期获得奖章自动补满。旧接口数量通过 metrics 兜底。认证资格是 level=3 且 canCertify=true，null 不当作 false。
+- 新对象存在时由 `overviewSections.ts`／`OverviewLiveDetails.vue` 隐藏对应旧摘要与重复统计；不要删除旧契约而破坏兼容。
+
+模块字段来源、三态显示、选择与主题规则集中在 [终末地概览与 UI](../../skland-frontend/references/endfield-ui.md)，不在此重复维护全部细节。签到为独立契约，见 [签到反馈](../../skland-frontend/references/check-in.md)，不能拿签到响应推导角色资源。
 
 ## 验证
 
-后端 normalizer 测试覆盖时间边界、负哨兵、超上限、缺失值、计数、公式和 OpenAPI parse；前端测试覆盖缓存时钟、中英文、过期状态及零上限。生产验证使用已有登录页面的只读角色查询，不触发短信、签到或账号变更。官方前端 hash 更新时重新核对规则，不盲目替换下载文件。
+涉及上游归一化的修改需在独立后端验证时间边界、负哨兵、超上限、缺失值、公式与 OpenAPI；本前端仓库的测试不能证明后端 normalizer 已通过。前端测试入口见 `tests/api-boundary.test.js`、`resource-recovery.test.js`、`daily-status.test.js`、`overview-metrics.test.js`、`overview-sections.test.js`，分别核对契约、时钟、三态及显示分组。生产验证使用已有登录页面的只读角色查询，不触发短信、签到或账号变更。官方前端 hash 更新时重新核对规则，不盲目替换下载文件。
 
 
 ## 生息演算与引航者试炼（2026-10-04）

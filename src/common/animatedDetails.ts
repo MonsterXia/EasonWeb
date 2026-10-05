@@ -1,6 +1,12 @@
+import './animatedDetails.css'
 import type { ObjectDirective } from 'vue'
 
-type State = { expanded: boolean; animation?: Animation; click: (event: MouseEvent) => void }
+type State = {
+  expanded: boolean
+  animation?: Animation
+  click: (event: MouseEvent) => void
+  toggle: () => void
+}
 const states = new WeakMap<HTMLDetailsElement, State>()
 
 /** Retain native summary keyboard behavior and keep closing content painted until completion. */
@@ -9,12 +15,20 @@ export const vAnimatedDetails: ObjectDirective<HTMLDetailsElement> = {
     const summary = element.querySelector(':scope > summary') as HTMLElement | null
     const content = element.querySelector(':scope > .facility-content') as HTMLElement | null
     if (!summary || !content) return
+    const syncIndicator = (expanded: boolean) => {
+      element.dataset.detailsExpanded = String(expanded)
+    }
+    syncIndicator(element.open)
     const state: State = {
       expanded: element.open,
+      toggle() {
+        if (!state.animation) syncIndicator(element.open)
+      },
       click(event) {
         event.preventDefault()
         const start = element.open ? content.getBoundingClientRect().height : 0
         state.expanded = !(state.animation ? state.expanded : element.open)
+        syncIndicator(state.expanded)
         state.animation?.cancel()
         state.animation = undefined
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -47,10 +61,13 @@ export const vAnimatedDetails: ObjectDirective<HTMLDetailsElement> = {
     }
     states.set(element, state)
     summary.addEventListener('click', state.click)
+    element.addEventListener('toggle', state.toggle)
   },
   beforeUnmount(element) {
     const state = states.get(element)
     state?.animation?.cancel()
+    if (state) element.removeEventListener('toggle', state.toggle)
+    delete element.dataset.detailsExpanded
     if (state)
       element
         .querySelector(':scope > summary')

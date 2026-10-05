@@ -59,7 +59,30 @@ export interface GameAccount {
   gameId: string
   serverName?: string
 }
+export interface CheckInRoleResult {
+  account: GameAccount
+  status: 'success' | 'already_checked_in' | 'failed'
+  rewards: { id: string | null; name: string | null; count: number | null; type: string | null }[]
+  rewardsComplete: boolean
+  errorCode:
+    | 'clock_skew'
+    | 'timeout'
+    | 'network_error'
+    | 'auth_expired'
+    | 'rate_limited'
+    | 'upstream_error'
+    | 'invalid_response'
+    | 'unsupported_game'
+    | null
+  retryable: boolean
+  upstreamCode: number | null
+}
 export interface CheckInResults {
+  results?: CheckInRoleResult[]
+  requestId?: string
+  completedAt?: number
+  durationMs?: number
+  summary?: { total: number; success: number; alreadyCheckedIn: number; failed: number }
   checkInResults: string[]
   errorResults: (GameAccount & { error: string })[]
 }
@@ -68,7 +91,14 @@ export const gameAccountsAPI = (signal?: AbortSignal) =>
     signal,
     timeout: ACCOUNT_REQUEST_TIMEOUT,
   }).then(parseGameAccounts)
-export const checkInAPI = () => post<unknown>('game/hypergryph/account/check-in').then(parseCheckIn)
+export const checkInAPI = (roles?: GameAccount[]) =>
+  postData<unknown>(
+    'game/hypergryph/account/check-in',
+    roles
+      ? { roles: roles.map(({ appCode, uid, gameId }) => ({ appCode, uid, gameId })) }
+      : undefined,
+    { timeout: 120000 },
+  ).then(parseCheckIn)
 
 // Server messages are external text; show a localized fallback when Chinese has no English equivalent.
 function canDisplayMessage(message: string): boolean {

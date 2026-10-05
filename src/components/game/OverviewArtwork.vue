@@ -110,6 +110,19 @@ img {
   height: 100%;
   transform: scale(1.5);
 }
+/* Official 264×60 title strips: the symbol occupies x=30, y=6, 48×48.
+   Keep the source intact and hide its blue bullet and baked-in Chinese text. */
+.official-title-icon {
+  position: relative;
+}
+.official-title-icon img {
+  position: absolute;
+  width: 550%;
+  height: 125%;
+  max-width: none;
+  left: -62.5%;
+  top: -12.5%;
+}
 .landscape {
   width: 100%;
   height: 88px;
