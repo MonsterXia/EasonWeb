@@ -55,7 +55,7 @@ const completedAt = computed(() =>
     <div class="result-heading">
       <h2>{{ t('game.skland.results') }}</h2>
       <el-button
-        v-if="retryRoles.length"
+        v-if="retryRoles.length > 1"
         :disabled="busy"
         size="small"
         @click="emit('retry', retryRoles)"

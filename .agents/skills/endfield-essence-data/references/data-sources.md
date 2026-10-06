@@ -30,9 +30,9 @@
 
 ## 落地与来源清单
 
-- 本地 `WeaponData` 没有上游 ID 字段。对账时保留临时的上游稳定 ID → 正式中文名映射，核实名称后写入常量；不要把旧拼写作为连接键。
-- 维持五种武器类型分组，更新 `src/constant/game/hypergryph/endfield/weapons.ts` 的实际记录。新增地区核对主属性、附加属性、技能类型三个池；旧地区也需比较差异。
-- 同步 `sources.json` 的 `checkedAt`、`gameVersion`、`weaponCount`、`regionCount`、`officialReleaseNotes`；各来源记录 `repository`、`revision`、`committedAt` 和 `files[].path/sha256`。SHA-256 来自下载文件原始字节，不是 JSON 重新序列化结果。
+- 本地 `WeaponData.id` 来自统一 `catalog.json` 的武器稳定 ID。基质与养成共用同条武器记录，不再用中文名连接；不要把旧拼写作为连接键。
+- 维持五种武器类型分组，更新 `src/constant/game/hypergryph/endfield/catalog.json` 中的武器 `essence` 与 `essenceOrder`；名称、类型和稀有度取同条实体记录，`weapons.ts` 不再保存事实数据。新增地区核对主属性、附加属性、技能类型三个池；旧地区也需比较差异。
+- 同步 `sources.json` 的 `checkedAt`、`gameVersion`、`weaponCount`、`regionCount`、`officialReleaseNotes`；统一文件变更后更新 `catalog.sha256`，养成与折算来源分别记录于 `growth`、`experience`；各基质来源记录 `repository`、`revision`、`committedAt` 和 `files[].path/sha256`。SHA-256 来自下载文件原始字节，不是 JSON 重新序列化结果。
 - 同步数据 `README.md` 的范围、修正说明与证据。区分核对日期、来源提交日期和游戏实装日期，不能把取数时间当作游戏更新时间。
 - 仅采集游戏事实数据；若任务需要复用上游算法或组件，先查对应仓库许可，不能把数据核对的授权扩展成程序代码复用。
 - 按新快照调整数量断言并补新增／修正武器的正反地区例；验证方法见 [calculator.md](calculator.md)。不在页面或构建流程加入上游自动取数，也不因数据更新自动发布网站。

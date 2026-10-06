@@ -11,8 +11,18 @@ const download = (url) => {
   const parsed = new URL(url)
   if (
     parsed.protocol !== 'https:' ||
-    !['bbs.hycdn.cn', 'web.hycdn.cn', 'assets.skland.com', 'media.prts.wiki'].includes(
-      parsed.hostname,
+    !(
+      ['bbs.hycdn.cn', 'web.hycdn.cn', 'assets.skland.com', 'media.prts.wiki'].includes(
+        parsed.hostname,
+      ) ||
+      (parsed.hostname === 'raw.githubusercontent.com' &&
+        /^\/cmyyx\/cep\/286962b95408078ca91c99dece748d74166e74b1\/public\/images\/(items|weapon|wiki\/skills|wiki\/logistics|panel-preview)\/[\w-]+\.avif$/.test(
+          parsed.pathname,
+        )) ||
+      (parsed.hostname === 'data.akedata.wiki' &&
+        /^\/public\/images\/assets\/beyond\/dynamicassets\/gameplay\/ui\/sprites\/itemiconbig\/item_expcard_(2_[12]|stage2_low)\.png$/.test(
+          parsed.pathname,
+        ))
     )
   )
     throw new Error('Unexpected asset host')
@@ -55,7 +65,7 @@ export function normalizeAlpha(input) {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const sync = process.argv.includes('--sync')
   for (const [key, source] of Object.entries(sources)) {
-    if (!/^[\w-]+\.png$/.test(source.file)) throw new Error(`Invalid filename: ${key}`)
+    if (!/^[\w-]+\.(png|avif)$/.test(source.file)) throw new Error(`Invalid filename: ${key}`)
     const path = new URL(source.file, root)
     let data
     if (sync) {
@@ -81,8 +91,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       if (source.transform === 'palette-alpha-230') data = normalizeAlpha(data)
     } else data = await readFile(path)
     if (hash(data) !== source.sha256) throw new Error(`Checksum mismatch: ${key}`)
-    if (!data.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])))
-      throw new Error(`Invalid PNG: ${key}`)
+    const validImage = source.file.endsWith('.png')
+      ? data.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
+      : data.toString('ascii', 4, 8) === 'ftyp' &&
+        data.subarray(8, 32).includes(Buffer.from('avif'))
+    if (!validImage) throw new Error(`Invalid image: ${key}`)
     if (sync) await writeFile(path, data)
   }
   console.log(

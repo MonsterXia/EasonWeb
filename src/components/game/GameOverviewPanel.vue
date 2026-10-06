@@ -7,7 +7,7 @@ import type { GameAccount } from '@/common/api/accounts'
 import type { GameOverview } from '@/common/api/gameOverview'
 import { gameServerName } from '@/common/gameServers'
 import OperatorAvatar from './OperatorAvatar.vue'
-import EndfieldPortraitBadges from './EndfieldPortraitBadges.vue'
+import EndfieldOperatorPortrait from './EndfieldOperatorPortrait.vue'
 import EndfieldOperatorFacts from './EndfieldOperatorFacts.vue'
 import { vAnimatedDetails } from '@/common/animatedDetails'
 import OverviewLiveDetails from './OverviewLiveDetails.vue'
@@ -15,7 +15,7 @@ import OverviewReveal from './OverviewReveal.vue'
 import OverviewArtwork from './OverviewArtwork.vue'
 import ArknightsOperatorsIcon from './ArknightsOperatorsIcon.vue'
 import EndfieldTitleIcon from './EndfieldTitleIcon.vue'
-import { metricArt, endfieldRarityColor } from '@/common/overviewAssets'
+import { metricArt } from '@/common/overviewAssets'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import { operatorAvatar } from '@/common/operatorAvatars'
 import EmptyState from '@/components/EmptyState.vue'
@@ -237,25 +237,15 @@ const visible = computed(() =>
                 class="operator-archive"
               >
                 <summary>
-                  <span
+                  <EndfieldOperatorPortrait
                     class="archive-portrait"
-                    :style="{ borderBottomColor: endfieldRarityColor(char.rarity) }"
-                    :title="
-                      char.rarity == null
-                        ? undefined
-                        : t('game.overview.rarity', { count: char.rarity })
-                    "
-                  >
-                    <OperatorAvatar
-                      :name="char.name"
-                      :src="operatorAvatar(account.appCode, char.id, char.avatarUrl)"
-                    />
-                    <EndfieldPortraitBadges
-                      :level="char.level"
-                      :element="char.element"
-                      :potential="char.potential"
-                    />
-                  </span>
+                    :name="char.name"
+                    :src="operatorAvatar(account.appCode, char.id, char.avatarUrl)"
+                    :rarity="char.rarity"
+                    :level="char.level"
+                    :element="char.element"
+                    :potential="char.potential"
+                  />
                   <strong>{{ char.name }}</strong>
                 </summary>
                 <div class="facility-content">
@@ -573,22 +563,6 @@ details.operator-section {
 .operator-archive[open] > summary strong {
   text-decoration: underline;
   text-underline-offset: 3px;
-}
-.archive-portrait {
-  position: relative;
-  display: block;
-  flex: 0 0 48px;
-  width: 48px;
-  height: 48px;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-bottom-width: 2px;
-  border-radius: 5px;
-}
-.archive-portrait .operator-avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
 }
 .archive-facts {
   padding-top: 8px;

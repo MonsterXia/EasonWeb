@@ -47,5 +47,49 @@
         }
       ]
     }
-  ]
+  ],
+  "growth": {
+    "gameVersion": "1.5",
+    "checkedAt": "2026-10-05",
+    "source": "https://github.com/cmyyx/cep/tree/286962b95408078ca91c99dece748d74166e74b1/src/generated",
+    "upstreamCommit": "286962b95408078ca91c99dece748d74166e74b1",
+    "officialReference": "https://game.skland.com/tools/endfield/cost-calculator",
+    "officialRules": "https://assets.skland.com/_static_assets/game-tools/locales/zh_Hans.json",
+    "notes": "Factual game costs and names only. No CEP UI or calculation code. Character promotion boundaries follow level-table breakthrough rows (20/40/60/80); include equipment adaptation. Exp materials use 10000 EXP each, split at level 60. No authenticated official cost comparison.",
+    "visualMetadata": {
+      "url": "https://data.akedata.wiki/public/1.5.3/10506507-7/TableCfg/CharGrowthTable.json",
+      "sha256": "8a6bad97c01bf74243f64e5acd4412fdf03946aa0309fdf5f1ffdbf749a81202",
+      "checkedAt": "2026-10-06"
+    },
+    "originalDataSha256": "d924c3afad4cdbaefcf92acdd1cf2e3e6334c9767173086c008eeda58b852ba7",
+    "originalExperienceDataSha256": "77baa5c3142920e1bf44aebef6496a3d04d8962578cdfa551fda5d80c43f36e0"
+  },
+  "experience": {
+    "version": "1.5.3@10506507-7",
+    "sources": [
+      {
+        "url": "https://data.akedata.wiki/public/1.5.3/10506507-7/TableCfg/ExpItemDataMap.json",
+        "sha256": "5abb092a156a31ae2afaf613dc0a8b5a8b28368e77f0aa56d726c307aee99549"
+      },
+      {
+        "url": "https://data.akedata.wiki/public/1.5.3/10506507-7/TableCfg/WeaponExpItemTable.json",
+        "sha256": "85edfec3b9f754889bd88b7939ccfc10c2790e59860c1a1457036c047085a979"
+      },
+      {
+        "url": "https://data.akedata.wiki/public/1.5.3/10506507-7/TableCfg/ItemTable.json",
+        "sha256": "e9294e8a1f281694dbc268d7318b04164f8fd3543ee8643684247e51366f8409"
+      }
+    ],
+    "officialBehavior": "https://assets.skland.com/_static_assets/game-tools/dist-BZImVwlH.js"
+  },
+  "catalog": {
+    "file": "catalog.json",
+    "sha256": "dc4d5a800d36fe2edd3da966c91e7bafd56ad6d8a492e3791b6ef1c71456fecb",
+    "consolidatedAt": "2026-10-07",
+    "characters": 32,
+    "weapons": 80,
+    "regions": 12,
+    "materials": 39,
+    "artworkManifest": "src/assets/skland/sources.json"
+  }
 }

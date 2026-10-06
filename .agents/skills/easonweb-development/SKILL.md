@@ -1,6 +1,6 @@
 ---
 name: easonweb-development
-description: 用于 EasonWeb 的 Vue 页面、导航与认证、CommonServerAPI 接口、主题和国际化开发，以及本地调试、回归测试和 Cloudflare Pages 发布排查。森空岛业务展示与基质数据更新另有专用 skill。
+description: 用于 EasonWeb 的 Vue 页面、导航与认证、CommonServerAPI 接口、主题和国际化开发，以及本地调试、回归测试和 Cloudflare Pages 发布排查。森空岛业务展示与终末地双计算器版本同步另有专用 skill。
 ---
 
 # EasonWeb 项目开发
@@ -20,7 +20,7 @@ description: 用于 EasonWeb 的 Vue 页面、导航与认证、CommonServerAPI 
 | 布局、主题、空状态、响应式 | `src/App.vue`、`src/assets/`、`public/theme.js`、`src/composables/useTheme.ts`；[界面规范](references/ui-design.md) |
 | 文案、语言偏好、日期与数字 | `src/i18n/`；[国际化](references/i18n.md) |
 | 森空岛数据、概览组件、图片、签到 | [skland-frontend](../skland-frontend/SKILL.md)；[显示规则与历史来源](references/skland-data.md) |
-| 终末地本地基质计算器、武器与淤积点 | [endfield-essence-data](../endfield-essence-data/SKILL.md)；`src/pages/game/hypergryph/endfield/` |
+| 终末地基质／养成计算器版本、数据与素材同步 | [endfield-essence-data](../endfield-essence-data/SKILL.md)；`src/pages/game/hypergryph/endfield/` |
 | 选择回归命令、构造合成资料 | [验证入口](references/testing.md) |
 | Cloudflare 构建、部署与旧资源恢复 | [发布与排查](references/deployment.md) |
 
@@ -32,7 +32,7 @@ description: 用于 EasonWeb 的 Vue 页面、导航与认证、CommonServerAPI 
 - 认证请求参考 `AuthPage.vue` 的参数快照、AbortController 与过期结果判定；不要把取消浏览器等待描述为回滚服务端操作。倒计时复用 `useCooldown`。
 - API 调用经业务模块、共享 client、gateway 和 Axios。保持 Cookie 认证、运行时字段校验和原始错误语义；密码、第三方 token 与会话不写入浏览器持久存储、URL 或日志。
 - 用户中心只展示鹰角账号管理。Post 管理员 API / 响应类型仍保留，但 UI 当前隐藏；后端有字段不代表应恢复入口。
-- 森空岛按角色内存缓存、资源时钟、未知值和旧响应兼容由专用 skill 维护。基质计算器离线使用本地常量，无需登录；显示翻译不改变匹配用的中文规范值。
+- 森空岛按角色内存缓存、资源时钟、未知值和旧响应兼容由专用 skill 维护。基质与养成计算器共用离线目录和素材，无需登录；版本同步由 `endfield-essence-data` 统一处理，显示翻译不改变匹配用的中文规范值。
 - `.oxfmtrc.json` 使用单引号、无分号；历史格式并不完全统一。局部任务不要运行全目录格式化制造无关差异。
 
 ## 运行与交付

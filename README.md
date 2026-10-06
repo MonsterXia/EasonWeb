@@ -1,111 +1,173 @@
 # EasonWeb
 
-Vue 3 + TypeScript 的个人站点与游戏工具，包含用户中心、鹰角账号管理、森空岛角色资料与签到、终末地基质计算器，支持中英文与明暗主题。
+基于 Vue 3 + TypeScript 的个人站点与游戏工具，支持中英文、浅色／深色及跟随系统主题。包含用户中心、鹰角账号管理、森空岛角色概览与签到，以及终末地基质和养成计算器。
 
-## 开发与验证
+技术栈：Vite、Vue Router、Vue I18n、Element Plus、Axios。账号和森空岛业务由独立的 CommonServerAPI 后端提供。
 
-使用 Node.js 24，执行 `npm ci` 安装锁定依赖。
+## 功能与入口
 
-- `npm run dev`：本地开发。
-- `npm test`：接口契约、国际化、主题、头像资源及组件渲染回归。
-- `npm run build`：类型检查与生产构建。
-- `npm run preview`：预览构建产物。
+| 功能 | 路径 | 说明 |
+| --- | --- | --- |
+| 首页 | `/` | 站点介绍与工具导航 |
+| 基质计算器 | `/game/hypergryph/endfield` | 选择武器，按主属性、副属性和技能掉落池推荐地图与定向组合 |
+| 养成计算器 | `/game/hypergryph/endfield?tool=growth` | 规划干员及武器培养，汇总材料、扣除手动库存和折算低阶经验材料 |
+| 森空岛 | `/game/hypergryph/skland` | 查看明日方舟／终末地角色资料与签到结果，需要登录并绑定鹰角账号 |
+| 用户中心 | `/user` | 个人资料、鹰角账号绑定、更新登录与解绑 |
+| 账号入口 | `/login`、`/register`、`/reset-password` | 登录、注册、密码重置及登录后返回原工具 |
 
-页面在 `src/pages/`，共享组件在 `src/components/`；Element Plus 组件及图标局部具名导入，公共样式仍由入口加载。业务 API 用 `src/common/api/client.ts` 解开响应，传递取消信号和请求选项。项目约定见 [.agents/skills/easonweb-development/SKILL.md](.agents/skills/easonweb-development/SKILL.md)。
+两个计算器无需登录，共用本地数据与素材入口。基质覆盖数与武器高亮来自同一份实际可行的定向方案；养成支持等级、突破、装备适配、技能专精、天赋前置联动及配套武器。养成计划可恢复本浏览器最近 90 天内的 5 次计算，库存需手动填写，尚未接入游戏练度和仓库同步。干员头像仍使用官方 CDN，加载失败时保留文字。
 
-## CommonServerAPI 对接
+森空岛签到支持全部角色、当前角色和失败重试，按角色展示状态与奖励。只有一个角色或一项失败时合并重复操作；超时显示结果待确认。签到结果仅保存在页面内存中，不是持久签到历史。
 
-建议使用 Node.js 24（`nvm use`）。`npm ci` 安装依赖，`npm test` 运行接口回归测试，
-`npm run build` 执行类型检查和生产构建。
+## 快速开始
 
-- 本地预览：`npm run dev` 默认访问 `http://127.0.0.1:5173`，浏览器请求同源 `/api`，由 Vite 代理到线上 `https://api.246801357.xyz`，不需要启动本地后端。
-  在本地页面重新登录即可读取线上账号；本地与正式站点的 Cookie 不共享，提交操作会作用于线上数据。
-- 后端切换：在不提交 Git 的 `.env.development.local` 设置 `DEV_API_BACKEND=local`，重启 `npm run dev` 后代理到 `http://localhost:8787`（需启动 CommonServerAPI）。
-  改为 `DEV_API_BACKEND=production` 恢复线上代理；默认值在 `.env.development`。两种方式都保持 `VITE_API_BASE_URL=/api`。
-  切换后端后重新登录，避免复用另一环境的本地会话。
-- 线上代理只对开发服务器生效：校验本地同源请求后改写上游 Origin/Referer，将 Cookie Domain 移除，并仅为 HTTP 本地预览去掉 Secure，保留 HttpOnly、SameSite、有效期与退出清除行为。
-  不放宽线上 CORS，不修改正式站点 Cookie 配置，生产构建与 `vite preview` 不启用这组改写。
-- 生产：默认请求 `https://api.246801357.xyz`。可通过 `.env.production.local` 的
-  `VITE_API_BASE_URL` 覆盖；该值在构建时生效。生产站点须符合后端允许的 HTTPS Origin，
-  并与 API 同站点，才能使用 SameSite Cookie。
-- 所有请求携带 Cookie，默认超时 10 秒，账号提交、角色列表和角色资料查询为 60 秒。普通用户会话为 HttpOnly `auth_token`，与 Post
-  管理员的 `post_auth_token` 独立；不从 localStorage 读取 JWT。
-- 根路径健康检查直接返回 `{ message }`；业务接口返回 `{ message, data, httpStatus }`。
-  用户页读取 `GET /user/current` 的 `data`，401/404 显示未登录，其他失败允许重试。
-  退出调用 `POST /user/logout`，成功后清除页面资料；失败保留当前状态。
+使用 [.nvmrc](.nvmrc) 指定的 **Node.js 24** 和 npm。在仓库根目录执行：
 
-账号流程已补齐：
-- `/login`：用户名、密码登录，成功后进入用户中心。
-- `/register`：用户名占用检查、邮件验证码、密码校验；注册成功恢复 Cookie 会话。
-- `/reset-password`：用户名与邮箱匹配、验证码验证、新密码设置，成功后重新登录。
-- `/user`：个人资料与鹰角账号状态，通过管理弹窗进行绑定、更新登录与解绑。Post 管理员功能暂不在客户端展示。
-- `/game/hypergryph/skland`：森空岛小工具，查看角色日常、基建与养成资料，也可手动签到并查看结果。
+```sh
+# 使用 nvm 时先运行 nvm use
+npm ci
+npm run dev -- --strictPort
+```
 
-密码及第三方 token 不写入浏览器持久存储。鹰角 token 保存在 CommonServerAPI 中；
-客户端只接收公开资料。Post 操作先验证管理员账号，再使用两种 Cookie 执行绑定或解绑。
-终末地本地计算器保持独立，无需用户登录。
+默认访问 `http://127.0.0.1:5173`，以 Vite 输出地址为准。`--strictPort` 在端口被占用时直接报错，避免自动换端口后仍查看旧页面。
 
-基质计算器的武器、淤积点快照及官方／开源数据来源见[数据维护说明](src/constant/game/hypergryph/endfield/README.md)。
-后续更新可使用项目 skill [`endfield-essence-data`](.agents/skills/endfield-essence-data/SKILL.md)。
+开发模式默认通过 Vite 代理连接线上 CommonServerAPI，无需另外启动后端。本地页面需要重新登录；本地与正式站点的 Cookie 不共享，`localhost` 与 `127.0.0.1` 也使用不同 Cookie。通过此代理提交短信、绑定、解绑或签到会作用于线上账号。
 
-### 后端升级要求
+### 后端与环境变量
 
-部署本版本前，CommonServerAPI 必须先执行 `migrations/0006_password_reset.sql`，
-再部署对应后端和前端。该迁移新增用户会话版本及密码重置挑战表。
-本地后端运行 `npx wrangler d1 migrations apply common-server-db --local`；
-生产迁移在发布时使用 `--remote`，本次开发未执行生产迁移或部署。
+| 配置 | 默认值／用途 |
+| --- | --- |
+| `DEV_API_BACKEND=production` | 开发服务器将同源 `/api` 代理到 `https://api.246801357.xyz` |
+| `DEV_API_BACKEND=local` | 开发服务器将 `/api` 代理到 `http://localhost:8787`，需启动独立 CommonServerAPI |
+| `VITE_API_BASE_URL` | 浏览器 API 地址；开发配置为 `/api`，生产默认 `https://api.246801357.xyz`，构建时生效 |
 
-密码重置验证码有效期 5 分钟，每个挑战最多 5 次错误尝试；未过期时重复请求不会重复发信。
-重置成功后旧会话失效。邮件依赖后端 Resend 配置，鹰角短信和森空岛操作依赖对应上游服务。
+同时开发后端时，在被 Git 忽略的 `.env.development.local` 中设置：
 
-验证：`npm test` 覆盖接口契约；`npm run build` 包含 Vue/TypeScript 检查。
-浏览器测试已覆盖登录注册、密码重置、绑定/解绑、签到 207 部分失败及手机布局。
-外部邮件、短信与游戏平台使用测试响应；真实账号上的投递和签到需在发布验证时确认。
+```dotenv
+DEV_API_BACKEND=local
+```
 
-## 页面缓存与路由恢复
+保留 `VITE_API_BASE_URL=/api`，重启 Vite 并重新登录；设置为 `production` 即切回线上。不要覆盖本机文件中的其他配置。生产 API 地址可通过 `.env.production.local` 或构建环境设置。
 
-森空岛角色列表与游戏概览在当前标签页内存中缓存 5 分钟，按登录用户与鹰角绑定隔离。
-切换角色复用已有结果和正在进行的请求；离开页面后保留已完成缓存，重新进入仍会校验登录身份。
-“刷新游戏账号”重新获取列表和资料，“刷新角色资料”只更新当前角色。
-退出、登录或绑定关系变更成功时清除缓存；刷新浏览器后缓存也会消失，不写入浏览器持久存储。
-首次读取每个角色仍需等待森空岛上游响应。
+线上代理仅在 Vite 开发服务器生效：校验本地同源请求，改写上游 Origin／Referer 与本地 Cookie 属性。生产构建和 `npm run preview` 不启用这组代理改写。配置和排查顺序见 [本地运行说明](.agents/skills/easonweb-development/references/local-debugging.md)。
 
-路由动态资源加载失败时，针对目标页面最多自动恢复一次（60 秒内）；其他错误显示重试提示。
-`public/_headers` 禁止 HTML 无校验复用，避免部署后旧入口持续引用被替换的资源。
-依据 [Vite 动态导入错误说明](https://vite.dev/guide/build.html#load-error-handling)。
+## 常用命令与验证
 
-## 自动回归与导航
+| 命令 | 用途 |
+| --- | --- |
+| `npm run dev -- --strictPort` | 启动本地开发服务器 |
+| `npm test` | 执行 `tests/*.test.js`：接口、缓存、主题、国际化、计算与资源回归 |
+| `npm run type-check` | Vue／TypeScript 检查，包含浏览器测试代码 |
+| `npm run build` | 并行类型检查与生产构建，输出 `dist/` |
+| `npm run build-only` | 仅构建，不做类型检查 |
+| `npm run preview` | 预览已有构建产物 |
+| `npm run test:e2e` | Playwright 桌面与手机回归 |
+| `npm run overview-assets:check` | 离线校验本地游戏图片、来源清单与哈希 |
+| `npm run overview-assets:sync` | 按已有固定来源清单重取图片；不自动发现新版本素材 |
+| `npx oxfmt <文件路径>` | 定向格式化；`npm run format` 会格式化整个 `src/` |
 
-- 使用 `.nvmrc` 指定的 Node.js 24。`npm test` 执行接口、缓存、数据和组件回归；`npm run build` 同时检查应用与浏览器测试的 TypeScript 类型。
-- 首次运行浏览器测试先执行 `npx playwright install chromium`，然后运行 `npm run test:e2e`。测试独占 `http://localhost:4173`，自动将测试版本构建到 `dist-e2e/` 并启动、关闭 Vite Preview；桌面和手机项目使用 Chromium。测试构建将 API 地址设为 `/api` 供拦截，不改变正常生产构建的 API 配置。
-- 浏览器测试覆盖认证请求期间离开页面、验证码迟到响应、登录后返回工具、404、语言与主题、角色切换、异常响应和 HTTP 207 部分签到失败。所有 API 使用合成响应，外部请求被拦截，不会发送真实验证码、绑定账号或签到。
-- 失败时截图与 trace 保存在忽略提交的 `test-results/`；通过 `npx playwright show-trace <trace.zip>` 查看交互记录。
-- 这些测试命令可在本地执行；仓库没有配置 GitHub Actions 自动检查。Cloudflare 是否执行测试取决于项目控制台中的构建命令，不能仅凭部署成功认定回归测试已通过。
+首次运行浏览器测试需要安装 Chromium：
 
-认证页在路由切换或卸载后取消等待并忽略旧结果；取消浏览器请求不代表服务端已经执行的登录、注册或邮件发送会回滚。返回地址仅允许已知站内工具与用户页，认证模式切换保留返回入口。未知地址展示 404，游戏父路径跳转到终末地工具；页面标题与描述随当前路由和语言同步。
+```sh
+npx playwright install chromium
+npm run test:e2e
+```
 
-API 边界校验用户资料、角色列表、角色概览和签到结果的必要字段，保留有效的零值和 null。概览区分本站登录失效、账号权限、上游不可用、网络故障、限流和异常响应；页面提供对应的登录、账号管理或刷新入口。HTTP 状态仍由后端决定，前端不把第三方故障解释成未登录。
+只检查终末地两个计算器：
+
+```sh
+npm run test:e2e -- tests/e2e/endfield-growth.spec.ts tests/e2e/endfield-essence-selection.spec.ts --workers=4
+```
+
+Playwright 独占 `http://localhost:4173`，自动构建到 `dist-e2e/` 并启动 preview；请勿占用该端口。桌面与 Pixel 7 项目均使用 Chromium。测试使用合成 API 响应并拦截外部网络，不发送真实验证码、不操作真实绑定或签到；头像回退通过不代表官方图片网络已验证。
+
+失败截图和 trace 保存在被忽略的 `test-results/`，可用 `npx playwright show-trace <trace.zip>` 查看。`dist-e2e/` 仅用于回归，不能作为生产发布产物。构建成功、合成回归通过和真实上游联调是不同验证结果。
+
+按改动选择测试及环境说明见 [验证入口](.agents/skills/easonweb-development/references/testing.md)。纯文档或 skill 修改只需核对内容、路径、命令和差异，无需重跑应用测试。
+
+## 项目结构
+
+```text
+src/
+  pages/                         页面与游戏工具
+  components/                    共享 UI、账号及游戏组件
+  router/                        路由、返回地址与动态资源恢复
+  i18n/                          中英文文案
+  common/
+    api/                         API 契约、响应校验与错误分类
+    gatewayManager/              共享 Axios 请求层
+    endfieldResources.ts         双计算器数据与素材入口
+    endfieldEssence.ts            基质匹配与推荐
+    endfieldGrowth.ts             养成消耗与经验折算
+    endfieldGrowthHistory.ts      本地计划恢复
+  constant/game/hypergryph/endfield/
+    catalog.json                 统一游戏事实数据
+    index.ts                     类型、ID 索引与数据投影
+    sources.json                 版本、来源、数量与哈希
+  assets/skland/                 本地游戏素材及来源清单
+public/                         主题启动脚本、静态资源与缓存配置
+scripts/                        数据导入和素材维护脚本
+tests/                          Node 回归、合成数据与 E2E
+.agents/skills/                 项目维护流程
+```
+
+## 双计算器数据与版本同步
+
+两个计算器只维护一份 [catalog.json](src/constant/game/hypergryph/endfield/catalog.json)。武器以稳定 ID 关联，名称、稀有度和类型共用；同条记录保存基质词条及养成消耗。地区池、材料、筛选枚举、经验折算也在统一目录中。页面通过 [endfieldResources.ts](src/common/endfieldResources.ts) 获取数据和图片，素材不重复复制。
+
+数据快照的实装范围、固定来源和版本以 [sources.json](src/constant/game/hypergryph/endfield/sources.json) 为准，不能将仓库快照直接视为当前游戏最新数据。各领域可能使用不同来源版本，核对记录分别保存。
+
+在支持项目 skill 的代理中，可用一次请求同步两个计算器：
+
+> 请使用 $endfield-essence-data，将基质计算器和养成计算器的全部数据及素材同步到最新已实装版本，并完成验证。
+
+也可以指定版本号。该流程包含来源核对、目录与图片更新、导入适配、中英文显示、哈希记录和两个工具的回归；上游缺失项会单独列出。
+
+- [共享数据与来源说明](src/constant/game/hypergryph/endfield/README.md)
+- [养成规则、素材来源与导入方式](src/constant/game/hypergryph/endfield/GROWTH.md)
+- [完整版本同步流程](.agents/skills/endfield-essence-data/references/version-sync.md)
+- [游戏素材清单](src/assets/skland/sources.json)与[资源说明](src/assets/skland/README.md)
+
+`scripts/import-endfield-growth.py` 是固定版本的养成导入器，`overview-assets:sync` 按固定清单重取图片；直接运行旧脚本不会自动完成新版本的全量同步。
+
+## 账号、缓存与请求边界
+
+CommonServerAPI 在独立仓库运行，前端通过 `src/common/api/` 和共享请求层访问。会话使用 Cookie，密码和第三方 token 不写入浏览器持久存储；用户中心目前只展示鹰角账号管理，Post 管理员接口封装仍保留但无 UI 入口。
+
+森空岛角色列表与概览按用户和绑定身份隔离，在标签页内存中缓存 5 分钟，并复用进行中的请求。退出、登录或绑定变化成功后清理缓存；刷新浏览器会清空缓存。页面切换或取消等待会忽略过期响应，但不代表已到达后端的操作回滚。
+
+接口边界保留有效的零值与 null，并区分未登录、账号权限、上游故障、限流、网络失败与异常响应。具体契约见 [API 说明](.agents/skills/easonweb-development/references/api-contracts.md)，签到语义见 [签到反馈](.agents/skills/skland-frontend/references/check-in.md)。
 
 ## Cloudflare Pages 构建与部署
 
-现有发布流程由 Cloudflare Pages 的 Git 集成承接：GitHub 保存代码，推送触发 Cloudflare 构建与部署，结果通过 GitHub 的 `Cloudflare Pages` 检查回传。生产和预览分支的触发范围由 Cloudflare 控制台设置决定，参见[官方 Git 集成说明](https://developers.cloudflare.com/pages/configuration/git-integration/)。
+项目已有 Cloudflare Pages Git 集成发布流程。代码推送可能触发预览或生产部署，具体分支规则和环境变量需在发布时核对。仓库不附带 GitHub Actions 工作流；不能根据 Cloudflare 部署成功推断单元测试或 E2E 已执行。
 
-2026-10-04 核对远端仓库时，GitHub Actions 工作流与运行记录均为 0；`main` 提交 `e608f1b` 的 [Cloudflare Pages 检查](https://github.com/MonsterXia/EasonWeb/runs/111130466093)由 `cloudflare-workers-and-pages` 应用回报部署成功，对应 Pages 项目 `easonweb`。这是该提交的部署记录，不代表本地未提交改动已发布。
+构建使用 Node.js 24、`npm run build`，产物目录为 `dist/`；这个命令包含类型检查与打包，不包含 `npm test` 或浏览器回归。生产 API 地址在构建时决定，不能将 E2E 的 `/api` 构建配置用于生产包。
 
-2026-10-04 进一步通过 Cloudflare API 核实：生产分支为 `main`，已启用自动生产部署；预览分支规则为全部分支。构建根目录为仓库根目录，实际构建命令为 `npm run build`，输出目录为 `dist`；生产与预览均未配置项目级环境变量。正式域名为 `https://eason.246801357.xyz`，Pages 域名为 `https://easonweb.pages.dev`。发布时先运行本地验证，再推送到目标分支，核对该提交 SHA 对应的 Cloudflare 检查和部署日志，最后验证部署地址；预览通过后再将已验证提交合入并推送 `main`。
+已有部署资料记录 Pages 项目为 `easonweb`，正式域名为 `https://eason.246801357.xyz`、Pages 域名为 `https://easonweb.pages.dev`。这些是历史配置；当前平台设置、目标提交和部署结果应重新核对。历史联调中 Pages 域名没有生产 API 的 CORS 权限，静态预览可用不代表账号接口可用。
 
-Node.js 版本由仓库 `.nvmrc` 指定为 24，实际构建所用版本以 Cloudflare 日志为准。当前线上构建命令执行类型检查与打包，没有自动运行单元测试或浏览器回归。可将构建命令改为 `npm test && npm run build`，让单元测试失败也阻止发布；这仍是建议，本次未修改平台配置。浏览器回归另行运行 `npm run test:e2e`，需要预先安装 Chromium 及其系统依赖；`dist-e2e/` 只用于测试，不是发布目录。具体配置方式见[Cloudflare 构建配置](https://developers.cloudflare.com/pages/configuration/build-configuration/)。
+发布前完成相关本地验证，核对后端兼容性，发布后检查对应提交 SHA 的 Cloudflare 检查、日志和实际页面。操作步骤与历史证据见 [发布与排查](.agents/skills/easonweb-development/references/deployment.md)。普通开发和文档维护不自动发布。
 
-生产 API 的 Origin 规则允许 HTTPS `*.246801357.xyz`，不包含 `*.pages.dev`。因此 Pages 预览可用于静态页面、导航与本地计算器检查，直接调用生产账号 API 会被 CORS 拦截；账号接口的真实联调需使用正式域名或已配置的允许域名。浏览器测试中的合成响应不能证明预览域名已获得生产 API 访问权限。
+### 后端升级要求
 
-### 森空岛签到
+密码重置功能依赖 CommonServerAPI 中的 `migrations/0006_password_reset.sql` 和对应后端实现。若部署环境尚未包含该升级，需在后端仓库确认并完成迁移及部署，再发布依赖它的前端；已升级环境无需因前端更新重复执行迁移。邮件、鹰角短信和森空岛接口还依赖各自上游配置与服务。
 
-签到结果按角色显示游戏、区服、UID、奖励和成功／今日已签到／失败状态，兼容旧后端的字符串结果。
-支持全部签到、签到当前角色，以及仅重试可重试的失败角色；重试保留其他角色的结果。
-网络超时显示“结果暂未确认”，凭证失效引导更新账号登录，全部失败显示错误而非成功。
-奖励缺失以未知呈现，数量 0 保留；不在前端解析后端自然语言来判断新接口状态。
+### 页面缓存
 
-“诊断信息”展示最近请求编号、时间和耗时，可与后端 `skland.check_in` 日志对应。
-结果只保存在当前页面内存中，不代表持久签到历史。桌面、手机、320px 窄屏、英文长名称、
-失败重试及旧响应兼容的合成回归在 `tests/e2e/check-in.spec.ts` 和 `tests/e2e/skland.spec.ts`。
-真实官方签到未通过测试替身验证。
+`public/_headers` 对已知 HTML 入口及主题启动脚本配置 `Cache-Control: no-cache`；Vite 构建为 `theme.js` 添加内容哈希参数。遇到动态模块／CSS 加载错误时，在线且存储可用的标签页在 60 秒内最多自动恢复一次，限额由该标签页所有路由共用；其他错误显示重试提示。
+
+## 协作与维护
+
+代理协作总入口为 [AGENTS.md](AGENTS.md)。项目 skill 按职责划分：
+
+| Skill | 范围 |
+| --- | --- |
+| [easonweb-development](.agents/skills/easonweb-development/SKILL.md) | 页面、路由、认证、API、主题、国际化、本地运行及发布 |
+| [endfield-essence-data](.agents/skills/endfield-essence-data/SKILL.md) | 基质与养成计算器的数据、素材和统一版本同步 |
+| [skland-frontend](.agents/skills/skland-frontend/SKILL.md) | 森空岛账号概览、角色资料、缓存、签到和业务展示 |
+
+Vue 使用 Composition API，Element Plus 组件及图标局部具名导入。格式遵循 `.oxfmtrc.json` 的单引号和无分号；页面改动兼顾中英文、明暗主题与窄屏。详细规范由 AGENTS 和相关 skill 维护，避免在多个文档重复保存同一套细则。
+
+## 许可与素材
+
+项目代码采用 [MIT License](LICENSE)。游戏名称、数据、角色与武器图片等内容的权利归鹰角网络及相关权利人；项目代码许可不改变这些内容的权属。数据与图片的具体来源分别记录在目录说明和素材清单中。

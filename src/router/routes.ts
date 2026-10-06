@@ -23,7 +23,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/game/hypergryph/endfield',
     name: 'endfield',
     component: () => import('@/pages/game/hypergryph/endfield/EndfieldPage.vue'),
-    meta: { titleKey: 'game.calculator.title' },
+    meta: { titleKey: 'game.growth.toolkitTitle' },
   },
   {
     path: '/game/hypergryph/skland',

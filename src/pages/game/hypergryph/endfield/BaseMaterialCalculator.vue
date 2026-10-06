@@ -1,41 +1,30 @@
 <script lang="ts" setup>
-import { Plus, Aim, Location, InfoFilled } from '@element-plus/icons-vue'
+import { Plus, Aim, Location, InfoFilled, Close } from '@element-plus/icons-vue'
+import { ElCard, ElForm, ElFormItem, ElSelect, ElOption, ElButton, ElIcon } from 'element-plus'
 import {
-  ElCard,
-  ElForm,
-  ElFormItem,
-  ElSelect,
-  ElOption,
-  ElButton,
-  ElIcon,
-  ElTag,
-  type TagProps,
-} from 'element-plus'
-import {
-  endfieldWeaponBaseMaterialRegion,
+  endfieldData,
   endfieldWeapons,
-  weaponMatchesRegion,
-  type WeaponBaseMaterialRegion,
+  weaponById,
+  endfieldRarityColor,
   type WeaponData,
-} from '@/constant/game/hypergryph/endfield/weapons'
-import { computed, ref, watch } from 'vue'
+} from '@/common/endfieldResources'
+import { computed, ref } from 'vue'
+import { recommendEssencePlan } from '@/common/endfieldEssence'
+import GrowthEntityAvatar from './GrowthEntityAvatar.vue'
+import GrowthFilterIcon from './GrowthFilterIcon.vue'
 import { useI18n } from 'vue-i18n'
 const { t, locale, te } = useI18n()
 // Translate display values only: matching and selections retain canonical data identifiers.
 const displayAttribute = (value: string): string =>
   te(`game.attributes.${value}`) ? t(`game.attributes.${value}`) : value
-const recommendedAttributeLabels = computed(() =>
-  mainSelectedAttribute1.value
-    .flatMap((item) => (item ? [displayAttribute(item[0])] : []))
-    .join(t('game.calculator.attributeSeparator')),
-)
+const weaponTypeName = (type: string) =>
+  endfieldData.filters.weaponTypes[type]?.[locale.value === 'en' ? 'en' : 'zh-CN'] ?? type
 const currentSelectWeapon = ref<string>('')
-const options = endfieldWeapons.map((item) => ({
-  label: item.name,
-  value: item,
-}))
-
 const selectedWeapons = ref<WeaponData[]>([])
+const availableWeapons = computed(() => {
+  const selectedNames = new Set(selectedWeapons.value.map((weapon) => weapon.name))
+  return endfieldWeapons.filter((weapon) => !selectedNames.has(weapon.name))
+})
 
 const addWeapon = (): void => {
   if (!currentSelectWeapon.value) {
@@ -44,6 +33,7 @@ const addWeapon = (): void => {
   const weapon = endfieldWeapons.find((w) => w.name === currentSelectWeapon.value)
   if (weapon && !selectedWeapons.value.find((w) => w.name === weapon.name)) {
     selectedWeapons.value.push(weapon)
+    currentSelectWeapon.value = ''
   }
 }
 
@@ -51,113 +41,30 @@ const deleteWeapon = (weapon: WeaponData): void => {
   selectedWeapons.value = selectedWeapons.value.filter((w) => w.name !== weapon.name)
 }
 
-const attributeOptions = ref<any>({
-  attribute1Array: new Map<string, number>(),
-  attribute2Array: new Map<string, number>(),
-  skillTypeArray: new Map<string, number>(),
-})
-
-const mainSelectedAttribute1 = ref<([string, number] | null)[]>([])
-const mainSelectedSkillType = ref<[string, number] | null>(null)
-const selectedMap = ref<WeaponBaseMaterialRegion | null>(null)
-const currentMapContainsWeapons = ref<WeaponData[]>([])
-
-const mainAttributesRecommands = computed((): string => {
-  return mainSelectedAttribute1.value.map((item) => (item ? item[0] : '')).join(' ')
-})
-
-const currentMapContainsWeaponsNames = (weapon: WeaponData): TagProps['type'] => {
-  if (currentMapContainsWeapons.value.find((w) => w.name === weapon.name)) {
-    const currentSelectAttribute1 = mainAttributesRecommands.value.split(' ')
-    const currentSelectSkill = mainSelectedSkillType.value?.[0]
-    if (
-      weapon.skill.type === currentSelectSkill &&
-      currentSelectAttribute1.includes(weapon.attribute1)
-    ) {
-      return 'primary'
-    }
-  }
-  return 'info'
-}
-
-watch(
-  selectedWeapons,
-  (newVal) => {
-    let attribute1HashMap = new Map<string, number>()
-    let attribute2HashMap = new Map<string, number>()
-    let skillTypeHashMap = new Map<string, number>()
-
-    newVal.forEach((weapon) => {
-      attribute1HashMap.set(weapon.attribute1, (attribute1HashMap.get(weapon.attribute1) || 0) + 1)
-      if (weapon.attribute2) {
-        attribute2HashMap.set(
-          weapon.attribute2,
-          (attribute2HashMap.get(weapon.attribute2) || 0) + 1,
-        )
-      }
-      skillTypeHashMap.set(weapon.skill.type, (skillTypeHashMap.get(weapon.skill.type) || 0) + 1)
-    })
-
-    attributeOptions.value = {
-      attribute1Array: attribute1HashMap,
-      attribute2Array: attribute2HashMap,
-      skillTypeArray: skillTypeHashMap,
-    }
-
-    const regionMap = new Map<WeaponBaseMaterialRegion, WeaponData[]>()
-    endfieldWeaponBaseMaterialRegion.forEach((region) => {
-      let weaponList: WeaponData[] = []
-      newVal.forEach((weapon) => {
-        if (weaponMatchesRegion(weapon, region)) {
-          weaponList.push(weapon)
-        }
-      })
-      regionMap.set(region, weaponList)
-    })
-
-    const sortedRegionArray = new Map(
-      [...regionMap.entries()].sort((a, b) => b[1].length - a[1].length),
-    )
-    selectedMap.value = Array.from(sortedRegionArray.entries())[0]![0] || null
-    currentMapContainsWeapons.value = Array.from(sortedRegionArray.entries())[0]![1] || []
-    if (selectedMap.value) {
-      const activatedAttribute1HashMap = new Map<string, number>()
-      const activatedAttribute2HashMap = new Map<string, number>()
-      const activatedSkillTypeHashMap = new Map<string, number>()
-      currentMapContainsWeapons.value.forEach((weapon) => {
-        activatedAttribute1HashMap.set(
-          weapon.attribute1,
-          (activatedAttribute1HashMap.get(weapon.attribute1) || 0) + 1,
-        )
-        if (weapon.attribute2) {
-          activatedAttribute2HashMap.set(
-            weapon.attribute2,
-            (activatedAttribute2HashMap.get(weapon.attribute2) || 0) + 1,
-          )
-        }
-        activatedSkillTypeHashMap.set(
-          weapon.skill.type,
-          (activatedSkillTypeHashMap.get(weapon.skill.type) || 0) + 1,
-        )
-      })
-
-      const sortedAttribute1Array = new Map(
-        [...activatedAttribute1HashMap.entries()].sort((a, b) => b[1] - a[1]),
-      )
-      const sortedAttribute2Array = new Map(
-        [...activatedAttribute2HashMap.entries()].sort((a, b) => b[1] - a[1]),
-      )
-      const sortedSkillTypeArray = new Map(
-        [...activatedSkillTypeHashMap.entries()].sort((a, b) => b[1] - a[1]),
-      )
-
-      mainSelectedAttribute1.value =
-        Array.from(sortedAttribute1Array.entries()).filter((_, index) => index < 3) || []
-      mainSelectedSkillType.value = Array.from(sortedSkillTypeArray)[0] || null
-    }
-  },
-  { deep: true },
+const recommendation = computed(() => recommendEssencePlan(selectedWeapons.value))
+const coveredWeapons = computed(() => recommendation.value?.coveredWeapons ?? [])
+const coveredNames = computed(() => new Set(coveredWeapons.value.map((weapon) => weapon.name)))
+const isRecommendedWeapon = (weapon: WeaponData) => coveredNames.value.has(weapon.name)
+const selectedMap = computed(() => recommendation.value?.region)
+const mainSelectedSkillType = computed(() => recommendation.value?.skillType)
+const recommendedAttributeLabels = computed(() =>
+  (recommendation.value?.primaryAttributes ?? [])
+    .map(displayAttribute)
+    .join(t('game.calculator.attributeSeparator')),
 )
+const attributeOptions = computed(() => {
+  const attribute1Array = new Map<string, number>()
+  const attribute2Array = new Map<string, number>()
+  const skillTypeArray = new Map<string, number>()
+  for (const weapon of selectedWeapons.value) {
+    attribute1Array.set(weapon.attribute1, (attribute1Array.get(weapon.attribute1) ?? 0) + 1)
+    if (weapon.attribute2) {
+      attribute2Array.set(weapon.attribute2, (attribute2Array.get(weapon.attribute2) ?? 0) + 1)
+    }
+    skillTypeArray.set(weapon.skill.type, (skillTypeArray.get(weapon.skill.type) ?? 0) + 1)
+  }
+  return { attribute1Array, attribute2Array, skillTypeArray }
+})
 </script>
 
 <template>
@@ -176,13 +83,29 @@ watch(
                 filterable
                 :placeholder="t('game.calculator.searchPlaceholder')"
                 :aria-label="t('game.calculator.selectWeapon')"
+                :no-data-text="t('game.calculator.allWeaponsSelected')"
+                :no-match-text="t('game.calculator.noAvailableWeaponMatch')"
               >
                 <el-option
-                  v-for="item in options"
-                  :key="item.label"
-                  :label="item.label"
-                  :value="item.label"
-                />
+                  v-for="weapon in availableWeapons"
+                  :key="weapon.name"
+                  :label="weapon.name"
+                  :value="weapon.name"
+                >
+                  <span class="weapon-option">
+                    <GrowthFilterIcon
+                      v-if="weaponById.get(weapon.id)"
+                      class="weapon-option-icon"
+                      :kind="weaponById.get(weapon.id)!.weaponType"
+                    />
+                    <span
+                      class="weapon-option-name"
+                      :class="`rarity-${weapon.rarity}`"
+                      :style="{ '--weapon-rarity-color': endfieldRarityColor(weapon.rarity) }"
+                      >{{ weapon.name }}</span
+                    >
+                  </span>
+                </el-option>
               </el-select>
               <el-button
                 type="primary"
@@ -205,17 +128,54 @@ watch(
             })
           }}</span>
         </div>
-        <div v-if="selectedWeapons.length" class="selected-weapons-tags-div">
-          <el-tag
+        <ul
+          v-if="selectedWeapons.length"
+          class="selected-weapons"
+          :aria-label="t('game.calculator.selectedWeapons')"
+        >
+          <li
             v-for="weapon in selectedWeapons"
             :key="weapon.name"
-            closable
-            :type="currentMapContainsWeaponsNames(weapon)"
-            round
-            @close="deleteWeapon(weapon)"
-            ><span :class="[`rarity-${weapon.rarity}`]">{{ weapon.name }}</span></el-tag
+            class="selected-weapon"
+            :class="{ 'is-recommended': isRecommendedWeapon(weapon) }"
           >
-        </div>
+            <div v-if="weaponById.get(weapon.id)" class="weapon-artwork">
+              <GrowthEntityAvatar :entity="weaponById.get(weapon.id)!" kind="weapons" />
+              <span
+                class="weapon-type"
+                :title="weaponTypeName(weaponById.get(weapon.id)!.weaponType)"
+                :aria-label="weaponTypeName(weaponById.get(weapon.id)!.weaponType)"
+              >
+                <GrowthFilterIcon :kind="weaponById.get(weapon.id)!.weaponType" />
+              </span>
+            </div>
+            <div class="weapon-copy">
+              <strong
+                class="weapon-name"
+                :class="`rarity-${weapon.rarity}`"
+                :style="{ '--weapon-rarity-color': endfieldRarityColor(weapon.rarity) }"
+                >{{ weapon.name }}</strong
+              >
+              <p class="weapon-attributes">
+                {{
+                  [weapon.attribute1, weapon.attribute2, weapon.skill.type]
+                    .filter((value): value is string => !!value)
+                    .map(displayAttribute)
+                    .join(' · ')
+                }}
+              </p>
+            </div>
+            <button
+              type="button"
+              class="remove-weapon"
+              :aria-label="t('game.calculator.removeWeapon', { name: weapon.name })"
+              :title="t('game.calculator.removeWeapon', { name: weapon.name })"
+              @click="deleteWeapon(weapon)"
+            >
+              <ElIcon><Close /></ElIcon>
+            </button>
+          </li>
+        </ul>
         <div v-else class="selection-empty">
           <el-icon><Aim /></el-icon>
           <h3>{{ t('game.calculator.emptyTitle') }}</h3>
@@ -269,13 +229,13 @@ watch(
       <div class="map-visual" aria-hidden="true">
         <i /><i /><i /><el-icon><Location /></el-icon>
       </div>
-      <template v-if="selectedWeapons.length && currentMapContainsWeapons.length">
+      <template v-if="selectedWeapons.length && coveredWeapons.length">
         <span class="section-label">{{ t('game.calculator.recommendedRegion') }}</span>
         <h3 class="map-name">{{ selectedMap?.region }}</h3>
         <p class="coverage">
           {{
             t('game.calculator.coverage', {
-              matched: currentMapContainsWeapons.length,
+              matched: coveredWeapons.length,
               total: selectedWeapons.length,
             })
           }}
@@ -288,7 +248,7 @@ watch(
           <p class="section-label">{{ t('game.calculator.skillTicket') }}</p>
           <strong>{{
             mainSelectedSkillType
-              ? displayAttribute(mainSelectedSkillType[0])
+              ? displayAttribute(mainSelectedSkillType)
               : t('game.calculator.noRecommendation')
           }}</strong>
         </div>
@@ -314,6 +274,23 @@ watch(
   </div>
 </template>
 <style scoped>
+.weapon-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.weapon-option-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  color: var(--muted);
+}
+.weapon-option-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--weapon-rarity-color, var(--color-heading));
+}
 .calculator-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 330px;
@@ -375,12 +352,94 @@ watch(
     10px ui-monospace,
     monospace;
 }
-.selected-weapons-tags-div {
-  display: flex;
+.selected-weapons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 10px;
-  flex-wrap: wrap;
-  min-height: 70px;
-  align-content: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.selected-weapon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px 32px 12px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-background-soft);
+}
+.selected-weapon.is-recommended {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--color-border));
+  background: color-mix(in srgb, var(--accent) 8%, var(--color-background-soft));
+}
+.weapon-artwork {
+  position: relative;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+}
+.weapon-artwork :deep(.growth-weapon-portrait) {
+  width: 100%;
+  height: 100%;
+  border-bottom-width: 3px;
+}
+.weapon-type {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--color-background-soft) 92%, transparent);
+  color: var(--color-heading);
+  border-radius: 3px;
+}
+.weapon-type {
+  top: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+}
+.weapon-type svg {
+  width: 16px;
+  height: 16px;
+}
+.weapon-copy {
+  min-width: 0;
+}
+.weapon-name {
+  display: block;
+  color: var(--weapon-rarity-color, var(--color-heading));
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.weapon-attributes {
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.remove-weapon {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 16px;
+}
+.remove-weapon:hover,
+.remove-weapon:focus-visible {
+  color: var(--accent);
+  background: var(--color-background-mute);
 }
 .selection-empty {
   border: 1px dashed var(--color-border);
@@ -555,18 +614,6 @@ watch(
 .recommendation-footnote .el-icon {
   flex-shrink: 0;
   margin-top: 3px;
-}
-.rarity-3 {
-  color: #6acdfb;
-}
-.rarity-4 {
-  color: #b795ff;
-}
-.rarity-5 {
-  color: #ffcb7b;
-}
-.rarity-6 {
-  color: #ffad72;
 }
 @media (max-width: 1050px) {
   .calculator-layout {

@@ -1,4 +1,4 @@
 interface:
-  display_name: "终末地基质数据维护"
-  short_description: "维护 EasonWeb 基质计算器武器、淤积点、规范词条与推荐匹配"
-  default_prompt: "请使用 $endfield-essence-data，根据当前代码核对基质计算器的数据、匹配与来源记录，并完成本次改动需要的验证。"
+  display_name: "终末地双计算器同步"
+  short_description: "一次同步基质与养成计算器的干员、武器、消耗、掉落池和素材，并核对来源与回归"
+  default_prompt: "请使用 $endfield-essence-data，将基质计算器和养成计算器的全部数据及素材同步到最新已实装版本，更新统一目录与来源记录并完成验证。"

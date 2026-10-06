@@ -27,9 +27,9 @@ export const zhCN = {
   endfield: {
     badge: '无需登录',
     label: '01 / 明日方舟：终末地',
-    title: '终末地 · 基质计算器',
+    title: '终末地 · 计算工具',
     descriptionFirst: '选好武器，找到合适的刷取地图。',
-    descriptionSecond: '让每一次探索，都更有方向。',
+    descriptionSecond: '规划干员与武器养成，汇总所需材料。',
     cta: '开始计算',
   },
   skland: {
@@ -99,9 +99,9 @@ export const en = {
   endfield: {
     badge: 'No login needed',
     label: '01 / ARKNIGHTS: ENDFIELD',
-    title: 'Endfield · Essence Calculator',
+    title: 'Endfield · Calculators',
     descriptionFirst: 'Pick your weapons and find the right stages to farm.',
-    descriptionSecond: 'Give every expedition a clear direction.',
+    descriptionSecond: 'Plan operator and weapon growth with material totals.',
     cta: 'Start calculating',
   },
   skland: {

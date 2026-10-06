@@ -1,0 +1,25 @@
+<script setup lang="ts">
+// Official weapon silhouettes: assets.skland.com/_static_assets/game-tools/wand_dark-Cy_a0woc.js.
+// Module SHA-256: 169a383f6893d2b18c42c9c7d0f0d9c87893788ece790e9b26e82900eee65f0a
+// The three-part rarity mark follows the supplied official filter reference.
+defineProps<{ kind: string }>()
+const weaponPaths: Record<string, string> = {
+  '1': 'M3.559 17.9146L2.08471 16.4403L4.85306 13.6719L6.32735 15.1462L3.559 17.9146ZM8.64893 16.9954L3.0045 11.351L4.30685 10.0487L9.95128 15.6931L8.64893 16.9954ZM16.5928 5.67345L8.58195 13.6843L6.31631 11.4187L16.5921 1.14286L16.5928 5.67345Z',
+  '3': 'M11.5724 16.7676L3.65752 8.85266L4.49376 8.01642L12.4087 15.9313L11.5724 16.7676ZM12.8181 15.5218L4.49376 7.19745L3.76248 7.92872L3.75143 7.91767V1.83545L15.128 13.212L12.8181 15.5218ZM16.9993 17.8054L14.0846 14.8907L15.4456 13.5296L18.3604 16.4444L16.9993 17.8054Z',
+  '5': 'M2.67668 18.5718L1.42868 17.3245L11.1333 7.61946L12.3804 8.86763L2.67668 18.5718ZM12.1998 7.8V4.0621L18.5723 1.42822L15.9386 7.8H12.1998Z',
+  '6': 'M10.9311 18.7103L8.19248 15.9717L10.2813 11.5985L13.02 14.3372L10.9311 18.7103ZM8.82087 13.0576L7.60898 11.8457L8.60335 9.76447L9.81524 10.9764L8.82087 13.0576ZM14.2802 14.9248L4.60032 5.24493L6.48962 1.28955L16.1695 10.9695L14.2802 14.9248Z',
+  '2': 'M9.42383 8.37988L7.52832 10.2754L9.42383 12.1709V17.4893L2.20996 10.2754L9.42383 3.06152V8.37988ZM17.4209 10.2754L10.207 17.4893V12.1709L12.1025 10.2754L10.207 8.37988V3.06152L17.4209 10.2754Z',
+}
+</script>
+
+<template>
+  <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false">
+    <template v-if="kind === 'rarity'">
+      <g v-for="angle in [0, 120, 240]" :key="angle" :transform="`rotate(${angle} 10 10)`">
+        <path d="M10.5 1L14 3V8.5L10.5 10.5Z" />
+        <path d="M9.4 3.5L6 5.5V10L9.4 8Z" opacity=".6" />
+      </g>
+    </template>
+    <path v-else :d="weaponPaths[kind]" fill-rule="evenodd" clip-rule="evenodd" />
+  </svg>
+</template>

@@ -58,3 +58,16 @@ npm run overview-assets:sync  # 显式重新下载固定版本并核验，再恢
 光荣之路概览底纹使用官方 GameData-CKtD4-ed.js 的 Ia：medalCardBg-BkS_UR-_.png（ef-glory-summary-bg），等高线和颗粒均来自原图。以独立背景层等比 cover 居中，浅色 multiply 0.85、深色 invert + screen 0.65，保留主题底色，不影响奖章／文字，也不拦截交互。
 
 2026-10-05 终末地标题对齐：官方 `GameData-CKtD4-ed.js` 的实时数据标题 `ks` 包装 `bn` 上升柱状 SVG，干员标题 `ao` 包装 `yn` 菱形人物 SVG。原始 path、viewBox 与模块 SHA-256 记录于 `EndfieldTitleIcon.vue`，只将固定深色填充替换为 `currentColor`；两个图标均使用官方 20px 容器，不复用方舟图标。中文按官方标题使用“实时数据”“干员”，英文译为 Real-time Data / Operators。
+
+
+2026-10-05 养成工具：增加 80 武器＋34 材料游戏原图，以 `ef-growth-<itemId>.avif` 保存。来源为 CEP 固定提交 `286962b95408078ca91c99dece748d74166e74b1` 的 `public/images/{weapon,items}`，通过游戏 ItemTable.iconId 对应。上游说明来自 AKEData 提取的游戏素材镜像，并非本次从森空岛 CDN 下载；未复用 CEP 程序代码。每项固定 URL、SHA-256 与 iconId 见 sources.json。仍由既有同步脚本校验，额外支持固定提交路径的 AVIF；growthArt 标记为 color，保持原色，不应用反色或混合。另外 3 张低阶作战记录／认知载体 PNG 来自 data.akedata.wiki 原始游戏素材，固定路径和 SHA-256 同样记录在清单中。武器检查单元／装置暂未取得可用图标，名称与数量照常显示。
+
+2026-10-06 养成职业角标：`ef-char-profession-{guard,defender,supporter,caster,striker,vanguard}` 来自官方 `https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js` 的 CharProfessionIcon。按其 `un` 枚举映射提取 `Nt/Ft/Lt/zt/Vt/Ut` 原始 PNG，保留白色图形与官方 `#444` 底板。模块及图片 SHA-256、变量名登记于 sources.json，由既有同步脚本校验与复取。养成头像左侧自上而下排列属性与职业、底部稀有度色条；属性和职业标签随语言切换。
+
+2026-10-06 武器筛选：`GrowthFilterIcon.vue` 的五类武器 path 来自官方 `wand_dark-Cy_a0woc.js`（s/c/l/u/d 分别为单手剑／双手剑／长柄武器／手铳／施术单元），保留 viewBox 与 currentColor，模块哈希写在组件注释中。星级三向标识按用户提供的官方筛选截图绘制。`CommonTitle-DloTheAQ.js` 核对星级多选、武器类型单选且重复点击取消的交互；条目顺序与 6/5/4/3 四档按截图展示，配色采用本站语义变量。
+
+2026-10-06 养成编辑：增加 179 张技能／战斗天赋／后勤技能／属性原图 AVIF，来源仍为上述固定 CEP 提交的 `public/images/wiki/{skills,logistics}` 与 `public/images/panel-preview`，清单逐项记录 URL、iconId 和 SHA-256。`CharGrowthTable` 固定表用于核对天赋及属性的图标映射，详见 `src/constant/game/hypergryph/endfield/GROWTH.md`。技能图为原始白色透明图形，按干员属性配置圆形底板；后勤图保留原色，仅未解锁状态使用灰度。黎智彦双属性自定义图标暂缺时保留名称首字回退。未从用户截图裁取图片，也未复用上游页面代码。
+
+天赋阵列左侧分类标识使用官方 `controller-D45F8z-s.js` 的 `qe.ability`／`combat`／`cultivation` 原始 PNG，分别对应能力提升、战斗天赋、后勤技能。以 `ef-growth-group-{attribute,talent,logistics}` 登记固定模块、属性选择器和图片哈希；白色原图置于深灰底板，与分支名称并排，不以具体天赋图标代替分类标识。
+
+2026-10-06 养成等级确认按钮：等高线纹理使用官方 `dist-B--VuxvI.js` 通用圆形按钮引用的 `at` 原始 PNG，保存为 `ef-growth-confirm-texture.png`；清单记录模块、变量和 SHA-256。通过 alpha 遮罩适配本站主题色，保持原纹理，胶囊、内描边及圆形勾号由本站组件绘制。

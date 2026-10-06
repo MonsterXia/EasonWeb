@@ -15,6 +15,18 @@
   --pink: #96517f;
   --muted: #826575;
   --on-accent: #ffffff;
+  --button-primary-bg: #edb5c9;
+  --button-primary-text: #4d2639;
+  --button-primary-hover: color-mix(
+    in srgb,
+    var(--button-primary-bg) 88%,
+    var(--button-primary-text)
+  );
+  --button-primary-active: color-mix(
+    in srgb,
+    var(--button-primary-bg) 80%,
+    var(--button-primary-text)
+  );
   --sakura: #f5b9ce;
   --surface-card: linear-gradient(130deg, #ffffffed, #fff8fbed);
   --shadow-card: 0 10px 35px #783c5708;
@@ -25,6 +37,8 @@
 :root.dark {
   color-scheme: dark;
   --on-accent: #301521;
+  --button-primary-bg: #f3abc5;
+  --button-primary-text: #301521;
   --color-background: #160f16;
   --color-background-soft: #211821;
   --color-background-mute: #30232e;

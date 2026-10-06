@@ -1,29 +1,37 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends string | number">
 import { ElSelect, ElOption, ElIcon } from 'element-plus'
 import { Check } from '@element-plus/icons-vue'
 
 defineProps<{
-  modelValue: string | null
+  modelValue: T | null
   label: string
-  options: { value: string; label: string }[]
-  appearance?: 'field' | 'heading'
+  options: { value: T; label: string; disabled?: boolean }[]
+  appearance?: 'field' | 'heading' | 'control'
+  disabled?: boolean
   selectedLabel?: string
 }>()
-defineEmits<{ 'update:modelValue': [value: string] }>()
+defineEmits<{ 'update:modelValue': [value: T] }>()
 </script>
 
 <template>
-  <div class="overview-select" :class="{ 'is-heading': appearance === 'heading' }">
-    <span v-if="appearance !== 'heading'">{{ label }}</span>
+  <div
+    class="overview-select"
+    :class="{ 'is-heading': appearance === 'heading', 'is-control': appearance === 'control' }"
+  >
+    <span v-if="!appearance || appearance === 'field'">{{ label }}</span>
     <ElSelect
       :model-value="modelValue ?? undefined"
       :aria-label="label"
-      :show-arrow="false"
+      :show-arrow="appearance === 'control'"
+      :disabled="disabled"
+      :empty-values="[null, undefined]"
       :offset="6"
       :popper-class="
         appearance === 'heading'
           ? 'overview-select-menu overview-select-heading-menu'
-          : 'overview-select-menu'
+          : appearance === 'control'
+            ? 'overview-select-menu overview-select-control-menu'
+            : 'overview-select-menu'
       "
       @update:model-value="$emit('update:modelValue', $event)"
     >
@@ -33,6 +41,7 @@ defineEmits<{ 'update:modelValue': [value: string] }>()
         :key="option.value"
         :value="option.value"
         :label="option.label"
+        :disabled="option.disabled"
       >
         <span class="overview-select-option-label">{{ option.label }}</span>
         <ElIcon v-if="option.value === modelValue"><Check /></ElIcon>
@@ -62,6 +71,36 @@ defineEmits<{ 'update:modelValue': [value: string] }>()
 }
 .el-select :deep(.el-select__wrapper.is-focused) {
   box-shadow: 0 0 0 1px var(--accent) inset;
+}
+.is-control {
+  display: block;
+  margin: 0;
+  width: 100%;
+}
+.is-control .el-select {
+  width: 100%;
+}
+.is-control .el-select :deep(.el-select__wrapper) {
+  min-height: var(--select-height, 36px);
+  padding: 7px var(--select-inline-padding, 10px);
+  gap: var(--select-gap, 6px);
+  font-size: inherit;
+  box-shadow: 0 0 0 1px var(--color-border) inset;
+}
+.is-control .el-select :deep(.el-select__placeholder) {
+  color: var(--color-heading);
+}
+.is-control .el-select :deep(.el-select__caret) {
+  color: var(--muted);
+}
+.is-control .el-select :deep(.el-select__wrapper:hover),
+.is-control .el-select :deep(.el-select__wrapper.is-focused) {
+  box-shadow: 0 0 0 1px var(--accent) inset;
+}
+.is-control .el-select :deep(.el-select__wrapper.is-disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: 0 0 0 1px var(--color-border) inset;
 }
 .is-heading {
   display: inline-flex;
@@ -110,8 +149,14 @@ defineEmits<{ 'update:modelValue': [value: string] }>()
   box-shadow: 0 8px 28px color-mix(in srgb, var(--color-heading) 12%, transparent);
   overflow: hidden;
 }
+.overview-select-control-menu.el-popper {
+  min-width: min(120px, calc(100vw - 24px));
+}
 .overview-select-heading-menu .el-select-dropdown {
   min-width: min(240px, calc(100vw - 24px));
+}
+.overview-select-menu .el-select-dropdown__wrap {
+  max-height: min(274px, calc(100dvh - 100px));
 }
 .overview-select-menu .el-select-dropdown__list {
   padding: 5px;
@@ -136,13 +181,18 @@ defineEmits<{ 'update:modelValue': [value: string] }>()
   white-space: normal;
   overflow-wrap: anywhere;
 }
-.overview-select-menu .el-select-dropdown__item.is-hovering {
+.overview-select-menu .el-select-dropdown__item.is-hovering:not(.is-disabled) {
   background: color-mix(in srgb, var(--accent) 9%, transparent);
 }
-.overview-select-menu .el-select-dropdown__item.is-selected {
+.overview-select-menu .el-select-dropdown__item.is-selected:not(.is-disabled) {
   background: color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--accent);
   font-weight: 600;
+}
+.overview-select-menu .el-select-dropdown__item.is-disabled {
+  color: var(--muted);
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .overview-select-menu .el-icon {
   flex-shrink: 0;

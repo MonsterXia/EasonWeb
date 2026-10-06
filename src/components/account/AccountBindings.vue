@@ -12,7 +12,8 @@ import {
   ElPopconfirm,
 } from 'element-plus'
 import { computed, reactive, ref, shallowRef } from 'vue'
-import { ArrowRight } from '@element-plus/icons-vue'
+import { ArrowRight, CloseBold } from '@element-plus/icons-vue'
+import DialogConfirmButton from '@/components/DialogConfirmButton.vue'
 import hypergryphIcon from '@/assets/brands/hypergryph.png'
 import { useI18n } from 'vue-i18n'
 import type { CurrentUser } from '@/common/api/user'
@@ -137,7 +138,8 @@ function bindHg() {
       v-model="managing"
       :title="t('account.binding.manageTitle')"
       width="min(520px, calc(100vw - 32px))"
-      top="8vh"
+      align-center
+      :close-icon="CloseBold"
       append-to-body
       destroy-on-close
       :before-close="closeManager"
@@ -208,9 +210,9 @@ function bindHg() {
             show-password
             autocomplete="current-password"
         /></el-form-item>
-        <el-button type="primary" native-type="submit" :loading="busy">{{
+        <DialogConfirmButton native-type="submit" :loading="busy">{{
           user.hypergryphAccount ? t('account.binding.update') : t('account.binding.bind')
-        }}</el-button>
+        }}</DialogConfirmButton>
         <div v-if="user.hypergryphAccount" class="disconnect-section">
           <p>{{ t('account.binding.disconnectHint') }}</p>
           <el-popconfirm
@@ -228,11 +230,6 @@ function bindHg() {
           </el-popconfirm>
         </div>
       </el-form>
-      <template #footer
-        ><el-button :disabled="busy" @click="closeManager()">{{
-          t('account.binding.done')
-        }}</el-button></template
-      >
     </el-dialog>
   </section>
 </template>

@@ -58,19 +58,65 @@
     box-shadow 0.2s,
     background 0.2s;
 }
-.el-button--primary:not(.is-plain) {
-  --el-button-text-color: var(--on-accent);
-  --el-button-hover-text-color: var(--on-accent);
-  --el-button-active-text-color: var(--on-accent);
+.el-button--primary:not(.is-plain):not(.is-text):not(.is-link) {
+  --el-button-bg-color: var(--button-primary-bg);
+  --el-button-border-color: var(--button-primary-bg);
+  --el-button-text-color: var(--button-primary-text);
+  --el-button-hover-bg-color: var(--button-primary-hover);
+  --el-button-hover-border-color: var(--button-primary-hover);
+  --el-button-hover-text-color: var(--button-primary-text);
+  --el-button-active-bg-color: var(--button-primary-active);
+  --el-button-active-border-color: var(--button-primary-active);
+  --el-button-active-text-color: var(--button-primary-text);
+  --el-button-disabled-bg-color: color-mix(
+    in srgb,
+    var(--button-primary-bg) 45%,
+    var(--color-background-soft)
+  );
+  --el-button-disabled-border-color: var(--el-button-disabled-bg-color);
+  --el-button-disabled-text-color: var(--muted);
 }
 .el-radio-button {
-  --el-radio-button-checked-text-color: var(--on-accent);
+  --el-radio-button-checked-bg-color: var(--button-primary-bg);
+  --el-radio-button-checked-border-color: var(--button-primary-bg);
+  --el-radio-button-checked-text-color: var(--button-primary-text);
 }
 .el-button:not(.is-disabled):hover {
   transform: translateY(-2px);
 }
 .el-button--primary:not(.is-disabled):hover {
   box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.el-dialog {
+  --el-message-close-size: 24px;
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 24px);
+}
+.el-dialog > .el-dialog__header,
+.el-dialog > .el-dialog__footer {
+  flex: 0 0 auto;
+}
+.el-dialog > .el-dialog__body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--muted) 38%, transparent) transparent;
+}
+.el-dialog > .el-dialog__header.show-close {
+  padding-right: 40px;
+}
+.el-dialog > .el-dialog__header .el-dialog__headerbtn {
+  top: 6px;
+  right: 6px;
+  width: 44px;
+  height: 44px;
+}
+.el-dialog__headerbtn:focus-visible {
+  border-radius: 50%;
+  background: var(--color-background-mute);
 }
 .el-input__wrapper,
 .el-select__wrapper {

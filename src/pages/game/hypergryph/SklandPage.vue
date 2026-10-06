@@ -166,7 +166,7 @@ onMounted(() => load())
           @click="checkIn()"
           >{{ t('game.skland.checkInAll') }}</el-button
         >
-        <el-button v-if="selected" :disabled="busy || loading" @click="checkIn([selected])">{{ t('game.skland.checkInSelected') }}</el-button>
+        <el-button v-if="selected && games.length > 1" :disabled="busy || loading" @click="checkIn([selected])">{{ t('game.skland.checkInSelected') }}</el-button>
         <router-link to="/user">{{ t('game.skland.updateLogin') }}</router-link>
       </div>
       <el-skeleton v-if="loading" :rows="4" animated />

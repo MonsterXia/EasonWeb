@@ -1,8 +1,10 @@
+import { zhCN as growthZh, en as growthEn } from './growth'
 import { zhCN as checkInZh, en as checkInEn } from './checkIn'
 import { zhCN as overviewZh, en as overviewEn } from './overview'
 
 export const zhCN = {
   overview: overviewZh,
+  growth: growthZh,
   servers: { official: '官服', bilibili: 'B服', unknown: '未知区服（{id}）' },
   endfieldName: '终末地',
   arknightsName: '明日方舟',
@@ -44,11 +46,14 @@ export const zhCN = {
     searchPlaceholder: '输入武器名称，或展开选择',
     selectWeapon: '选择武器',
     addWeapon: '添加武器',
+    allWeaponsSelected: '全部武器均已加入清单',
+    noAvailableWeaponMatch: '没有匹配的未选武器',
     selectedWeapons: '已选择的武器',
+    removeWeapon: '移除 {name}',
     selectedCount: '已选择 {count} 把',
     emptyTitle: '你的下一把毕业武器是？',
     emptyDescription: '添加需要刷取基质的武器，开始规划。',
-    highlightNote: '高亮标签表示同时匹配推荐地图、主属性和技能的武器。',
+    highlightNote: '高亮图卡表示主属性、副属性和技能均可在推荐地图掉落，且符合定向条件的武器。',
     statsTitle: '武器属性统计',
     primaryAttribute: '主属性',
     secondaryAttribute: '副属性',
@@ -64,7 +69,7 @@ export const zhCN = {
     waitingList: '等待你的武器清单',
     adjustSelection: '试试调整选择的武器组合。',
     recommendationDescription: '添加武器后，这里会显示推荐地图与定向券属性。',
-    footnote: '根据已选武器属性匹配，推荐仅供刷取规划参考。',
+    footnote: '覆盖数同时校验地图的主属性、副属性、技能掉落池及定向条件，不代表掉落概率。',
     namesNote: '武器与地区名称沿用国服；属性与技能类型使用描述性翻译。',
     attributeSeparator: '、',
   },
@@ -110,6 +115,7 @@ export const zhCN = {
 
 export const en = {
   overview: overviewEn,
+  growth: growthEn,
   servers: { official: 'Official', bilibili: 'Bilibili', unknown: 'Unknown server ({id})' },
   endfieldName: 'Endfield',
   arknightsName: 'Arknights',
@@ -156,12 +162,15 @@ export const en = {
     searchPlaceholder: 'Search by Chinese name or browse',
     selectWeapon: 'Select a weapon',
     addWeapon: 'Add weapon',
+    allWeaponsSelected: 'All weapons are already in your list',
+    noAvailableWeaponMatch: 'No matching unselected weapons',
     selectedWeapons: 'Selected weapons',
+    removeWeapon: 'Remove {name}',
     selectedCount: '{count} selected',
     emptyTitle: 'Which weapon are you building next?',
     emptyDescription: 'Add weapons that need essences to start planning.',
     highlightNote:
-      'Highlighted weapons match the recommended region, primary attributes, and skill type.',
+      'Highlighted weapons have all required primary, secondary, and skill attributes available in the recommended region and match the targeting settings.',
     statsTitle: 'Weapon attributes',
     primaryAttribute: 'Primary attribute',
     secondaryAttribute: 'Secondary attribute',
@@ -179,7 +188,7 @@ export const en = {
     recommendationDescription:
       'Add weapons to see a recommended region and targeting ticket attributes.',
     footnote:
-      'Matches are based on selected weapon attributes. Use these suggestions to plan your farming.',
+      'Coverage checks the region’s primary, secondary, and skill drop pools together with targeting settings. It does not indicate drop probability.',
     namesNote:
       'Weapon and region names follow the Chinese server. Attribute and skill labels are descriptive translations.',
     attributeSeparator: ', ',

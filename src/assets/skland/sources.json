@@ -793,5 +793,2564 @@
     "file": "ef-glory-summary-bg.png",
     "sha256": "a7d17e47128da04cd88c6a254ca360484ce5fc0fcd06ddb138063414bdbe92de",
     "url": "https://assets.skland.com/_static_assets/game-tools/medalCardBg-BkS_UR-_.png"
+  },
+  "ef-growth-wpn_claym_0003": {
+    "file": "ef-growth-wpn_claym_0003.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0003.avif",
+    "sha256": "488ca48bd9276bd38c4fe6164f5a08dfcb2d1a766a9e39f72bf12c14eb08fa33",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0003",
+    "iconId": "wpn_claym_0003",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0004": {
+    "file": "ef-growth-wpn_pistol_0004.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0004.avif",
+    "sha256": "e07754c32ab4c32a9ced54e54ac896ac401da10fd9831438fb34c1f07f7965a9",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0004",
+    "iconId": "wpn_pistol_0004",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0004": {
+    "file": "ef-growth-wpn_claym_0004.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0004.avif",
+    "sha256": "c186c33a705923c6304ef4e1b79c6050139c2fcbdd42f65fd7121f5e84b4b7e5",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0004",
+    "iconId": "wpn_claym_0004",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0008": {
+    "file": "ef-growth-wpn_funnel_0008.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0010.avif",
+    "sha256": "d8e80615fd5d1836cfaa699326822cd91f97c752b64bea587a885fe45819f3d6",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0008",
+    "iconId": "wpn_funnel_0010",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0014": {
+    "file": "ef-growth-wpn_sword_0014.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0014.avif",
+    "sha256": "7fcb66dc88bc78166e08ecb5fc2314285fbc0dcc4577be49106a1a0e890804af",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0014",
+    "iconId": "wpn_sword_0014",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0006": {
+    "file": "ef-growth-wpn_claym_0006.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0006.avif",
+    "sha256": "6b10cca6e8ff8c9c0aa3c7938e778e9c967746cda3f84369342f48e54563a867",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0006",
+    "iconId": "wpn_claym_0006",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0007": {
+    "file": "ef-growth-wpn_claym_0007.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0007.avif",
+    "sha256": "683cc8dbe9b3656466513ec438abf447ce2fcb5b05e5c0afa5355813d27f7e9d",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0007",
+    "iconId": "wpn_claym_0007",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0011": {
+    "file": "ef-growth-wpn_sword_0011.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0011.avif",
+    "sha256": "0b3f7fd088893f8767cd7ec9db84fd99194a4842808342d07c95e1390a7eecef",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0011",
+    "iconId": "wpn_sword_0011",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0008": {
+    "file": "ef-growth-wpn_claym_0008.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0008.avif",
+    "sha256": "0b73054e4308fa4dfc2ac6e72019c545aacfb50adaff5dd146f1f23f1bbc16db",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0008",
+    "iconId": "wpn_claym_0008",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0010": {
+    "file": "ef-growth-wpn_sword_0010.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0010.avif",
+    "sha256": "f179582b6b045507502b36b3983961676304afdda0e08a1f52b8dc1623b4abe2",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0010",
+    "iconId": "wpn_sword_0010",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0009": {
+    "file": "ef-growth-wpn_claym_0009.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0009.avif",
+    "sha256": "33d7ff3453564f329816d84b37f7cf06935e3468a89c852e2919ff4f66dd75f6",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0009",
+    "iconId": "wpn_claym_0009",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0010": {
+    "file": "ef-growth-wpn_claym_0010.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0010.avif",
+    "sha256": "fa232798c4b15fc210959d9568b1006ba27c5337f1deaa461250578aee24621e",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0010",
+    "iconId": "wpn_claym_0010",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0011": {
+    "file": "ef-growth-wpn_claym_0011.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0011.avif",
+    "sha256": "65b440f4eba2b2a17b4c311861e9ec3d77995ce8eb9ac5680a910e7c03082d1b",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0011",
+    "iconId": "wpn_claym_0011",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0012": {
+    "file": "ef-growth-wpn_claym_0012.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0012.avif",
+    "sha256": "65ae36b69dc473c21d2b1b0428248553592dfc584e346452f59319543e30076b",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0012",
+    "iconId": "wpn_claym_0012",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0013": {
+    "file": "ef-growth-wpn_claym_0013.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0013.avif",
+    "sha256": "d9c92954c4331466528f987c13644c092289f5a578d5b0e0f31ca34b8e1367db",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0013",
+    "iconId": "wpn_claym_0013",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0005": {
+    "file": "ef-growth-wpn_pistol_0005.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0005.avif",
+    "sha256": "f41294a1439a68447dcc3b8e2d2a26dc079ecb5e0c3cc34164764602aba50d35",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0005",
+    "iconId": "wpn_pistol_0005",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0014": {
+    "file": "ef-growth-wpn_claym_0014.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0014.avif",
+    "sha256": "fc5428d535a1ca167845fa96c98fe45de4edd61752dc64096d0ea5921d496fc0",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0014",
+    "iconId": "wpn_claym_0014",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0020": {
+    "file": "ef-growth-wpn_sword_0020.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0020.avif",
+    "sha256": "eea77d600df5ccad4eb8aaffab87dcd51a7020eee876b2ae507e826d211d36c3",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0020",
+    "iconId": "wpn_sword_0020",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0015": {
+    "file": "ef-growth-wpn_claym_0015.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0015.avif",
+    "sha256": "730e332847cb878ea25f0687e19d8587640371590651d67503ce05692531332d",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0015",
+    "iconId": "wpn_claym_0015",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0016": {
+    "file": "ef-growth-wpn_claym_0016.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0016.avif",
+    "sha256": "cf5716a7034a66ddff54ebb53305cf4795646c92696a70f6bc4d74943c3cc4c2",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0016",
+    "iconId": "wpn_claym_0016",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0022": {
+    "file": "ef-growth-wpn_sword_0022.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0022.avif",
+    "sha256": "e395f19bb642ee6f993c8860c16bff1ea097f9b9f8cc89bb690392cda2f2bc6a",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0022",
+    "iconId": "wpn_sword_0022",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_claym_0017": {
+    "file": "ef-growth-wpn_claym_0017.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_claym_0017.avif",
+    "sha256": "a159f34434e4cba311175fdb4edb9c1dced7090715d64bfb30afbb131d27a6fe",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_claym_0017",
+    "iconId": "wpn_claym_0017",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0021": {
+    "file": "ef-growth-wpn_sword_0021.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0021.avif",
+    "sha256": "d317b99f4abbd280727cc60c9e97d450068f69902f52ba46acb627814257d218",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0021",
+    "iconId": "wpn_sword_0021",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0023": {
+    "file": "ef-growth-wpn_sword_0023.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0023.avif",
+    "sha256": "68754f39b5bdcb42f0d4974adbfc3fd35034ba4c368d3b363d5764f521a8e17c",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0023",
+    "iconId": "wpn_sword_0023",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0001": {
+    "file": "ef-growth-wpn_funnel_0001.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0001.avif",
+    "sha256": "28efe1ae3d2155475c4289755f08bc27bd15f78f6b42dfd742a0c22730697794",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0001",
+    "iconId": "wpn_funnel_0001",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0011": {
+    "file": "ef-growth-wpn_pistol_0011.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0011.avif",
+    "sha256": "285e12e3daadcec1418bc232e74afbe643d508ebf421d9b74dfd111ff1fa02b6",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0011",
+    "iconId": "wpn_pistol_0011",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0002": {
+    "file": "ef-growth-wpn_funnel_0002.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0002.avif",
+    "sha256": "9c46c22692e9ef8bcb0109d85b1d5225a7552b8417d01ff3d6ac113fe201c677",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0002",
+    "iconId": "wpn_funnel_0002",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0003": {
+    "file": "ef-growth-wpn_funnel_0003.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0003.avif",
+    "sha256": "0fa6a8691e11726586eb56c873ef2e04543a7dc5bfd95014deca92a2bdb9712e",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0003",
+    "iconId": "wpn_funnel_0003",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0004": {
+    "file": "ef-growth-wpn_funnel_0004.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0004.avif",
+    "sha256": "0517af8e66dfa84a6db675fb43ed920d3b7d21966ede5904353331685d81d3af",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0004",
+    "iconId": "wpn_funnel_0004",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0007": {
+    "file": "ef-growth-wpn_lance_0007.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0007.avif",
+    "sha256": "781042ad9a550ea972e99983dc907498f69b206676ad95bc566fc3d5a03f02d2",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0007",
+    "iconId": "wpn_lance_0007",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0005": {
+    "file": "ef-growth-wpn_funnel_0005.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0005.avif",
+    "sha256": "034bc438b5204fcef20443b157913aa709a975e09bc43454fe09a3320a6897b3",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0005",
+    "iconId": "wpn_funnel_0005",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0006": {
+    "file": "ef-growth-wpn_funnel_0006.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0006.avif",
+    "sha256": "28e1d301cd1d17f79f6646a920da796335a0d0366d984772afa78e49e2580d19",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0006",
+    "iconId": "wpn_funnel_0006",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0007": {
+    "file": "ef-growth-wpn_funnel_0007.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0007.avif",
+    "sha256": "feee0cbccea506e84c3dc56b5ccef41c2571d27a67edb339242733abe18ef43a",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0007",
+    "iconId": "wpn_funnel_0007",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0009": {
+    "file": "ef-growth-wpn_funnel_0009.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0009.avif",
+    "sha256": "a8ba9a6ef96b7a92ccd3c7401d6aee1c6000a9e9cbb4ff3d67c20e4bd8f0b26b",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0009",
+    "iconId": "wpn_funnel_0009",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0010": {
+    "file": "ef-growth-wpn_funnel_0010.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0008.avif",
+    "sha256": "5cc6423af8bd78d27b274dbe7aa625e723586c12387f7a617d8c78718bec3f5a",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0010",
+    "iconId": "wpn_funnel_0008",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0008": {
+    "file": "ef-growth-wpn_lance_0008.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0008.avif",
+    "sha256": "2d2c9707ed89318769f63ab24765874f013d0597cbbbdf693118031699283c13",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0008",
+    "iconId": "wpn_lance_0008",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0011": {
+    "file": "ef-growth-wpn_funnel_0011.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0011.avif",
+    "sha256": "cb83fb3ddb672e77088063a5bf3fe898b2be6ec69b23083844fe7e14e2961dcf",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0011",
+    "iconId": "wpn_funnel_0011",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0001": {
+    "file": "ef-growth-wpn_pistol_0001.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0001.avif",
+    "sha256": "5c2b0e7e71ff715353cd3b6595a17e686b4cc7d652602554f86565c969c80d6c",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0001",
+    "iconId": "wpn_pistol_0001",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0012": {
+    "file": "ef-growth-wpn_funnel_0012.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0012.avif",
+    "sha256": "aae7deae82f1e64cca60370fc03838328bdff1b66d0c48f867fd50688f8d6642",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0012",
+    "iconId": "wpn_funnel_0012",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0013": {
+    "file": "ef-growth-wpn_funnel_0013.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0013.avif",
+    "sha256": "8b5af1bb45a738bdda98fc4870af5de4356b2651d39e286e32694a22a7391986",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0013",
+    "iconId": "wpn_funnel_0013",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0014": {
+    "file": "ef-growth-wpn_funnel_0014.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0014.avif",
+    "sha256": "e07f3e665f40b17e43c1332af8d68982b9dbb4aac6b0a09a04316382d644bab5",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0014",
+    "iconId": "wpn_funnel_0014",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0015": {
+    "file": "ef-growth-wpn_funnel_0015.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0015.avif",
+    "sha256": "b22d24a4ad4d2fbd400233cdd895275e4553c925c7b99e3bb22df0bfefc77120",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0015",
+    "iconId": "wpn_funnel_0015",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0016": {
+    "file": "ef-growth-wpn_funnel_0016.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0016.avif",
+    "sha256": "a0a95ea7c0819b0ec7e9a1e0d5fc5236e885b14a62f68fb7ad206087031dca20",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0016",
+    "iconId": "wpn_funnel_0016",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0017": {
+    "file": "ef-growth-wpn_funnel_0017.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0017.avif",
+    "sha256": "31d4b09b767acd481df00b484debcd39fb2933cfb2a0c5eb852b19a5096be8a7",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0017",
+    "iconId": "wpn_funnel_0017",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0018": {
+    "file": "ef-growth-wpn_funnel_0018.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0018.avif",
+    "sha256": "14f9d0dce16630e59c8ec569cd47fb7daa9a42bd90b377cabe904a546098c87a",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0018",
+    "iconId": "wpn_funnel_0018",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0015": {
+    "file": "ef-growth-wpn_sword_0015.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0015.avif",
+    "sha256": "20389715a1292366fc921da01b1058adac213db2ba507b22e1ab8f0a82a366db",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0015",
+    "iconId": "wpn_sword_0015",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0019": {
+    "file": "ef-growth-wpn_sword_0019.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0019.avif",
+    "sha256": "bd05d6e380a9f0b2dced2d8f5d6b8469b0ca1e1eb85308a1e10c8638b792ac01",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0019",
+    "iconId": "wpn_sword_0019",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0019": {
+    "file": "ef-growth-wpn_funnel_0019.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0019.avif",
+    "sha256": "f36e98982dc70e75acaddd5b1638f84c9824aed156ff5f855397d4428d3bc2ab",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0019",
+    "iconId": "wpn_funnel_0019",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0005": {
+    "file": "ef-growth-wpn_sword_0005.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0005.avif",
+    "sha256": "b6e49dfa3cd671f49186287a15c888a2db4d5475faf3badd7ba7744cf18d0002",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0005",
+    "iconId": "wpn_sword_0005",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_funnel_0020": {
+    "file": "ef-growth-wpn_funnel_0020.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_funnel_0020.avif",
+    "sha256": "34271b3a6583110550fbd3df55f1aa36fd3b2618f8436ada73b3be1615aa1e83",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_funnel_0020",
+    "iconId": "wpn_funnel_0020",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0007": {
+    "file": "ef-growth-wpn_sword_0007.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0007.avif",
+    "sha256": "f8db47eab6d0f8fdd30de9d3e3d5d51ee92312b2712002c43285667b5aca4ed6",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0007",
+    "iconId": "wpn_sword_0007",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0003": {
+    "file": "ef-growth-wpn_lance_0003.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0003.avif",
+    "sha256": "16457a8a7d08765dad07b2df6df290e1f79a4cdb8c8bb6c06fe0fd965e77f444",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0003",
+    "iconId": "wpn_lance_0003",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0007": {
+    "file": "ef-growth-wpn_pistol_0007.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0007.avif",
+    "sha256": "6a9d9b39b9fa4c638918f4cce4d8c05d8450b9682298d4fb7559ae41d7419b9d",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0007",
+    "iconId": "wpn_pistol_0007",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0004": {
+    "file": "ef-growth-wpn_lance_0004.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0004.avif",
+    "sha256": "fc2858441c9cb6b27789e978d2f7bbf5bc1a400a4f1197bb1e77291c2ded218b",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0004",
+    "iconId": "wpn_lance_0004",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0006": {
+    "file": "ef-growth-wpn_lance_0006.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0006.avif",
+    "sha256": "703fa39bf4f16ca95d7ac8c5a362e0e66cff0eb6756b3e4f176578c845e79727",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0006",
+    "iconId": "wpn_lance_0006",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0009": {
+    "file": "ef-growth-wpn_lance_0009.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0009.avif",
+    "sha256": "0b007a5a99fe14badc3e363d48b362abcafe8473ad70769a3bbf595da8914330",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0009",
+    "iconId": "wpn_lance_0009",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0009": {
+    "file": "ef-growth-wpn_sword_0009.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0009.avif",
+    "sha256": "7287269fa9749ba0d8f3d0c6b2ce356e5e0d55b3e568a4db8d00dea48c9274b7",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0009",
+    "iconId": "wpn_sword_0009",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0010": {
+    "file": "ef-growth-wpn_lance_0010.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0010.avif",
+    "sha256": "04ed7fbb933b9977e2cf9b6bb32214c052f88bf618240d0df7a07ea76afd6c93",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0010",
+    "iconId": "wpn_lance_0010",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0011": {
+    "file": "ef-growth-wpn_lance_0011.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0011.avif",
+    "sha256": "014a40b27ab25cde1dab4b46c171fda530524ec219d086f40807b7f85a4b7d65",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0011",
+    "iconId": "wpn_lance_0011",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0012": {
+    "file": "ef-growth-wpn_lance_0012.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0012.avif",
+    "sha256": "71b114459b7d76c9a4af8b45b70a7d3cf0fb11af360090bc6c21ec0613cc7806",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0012",
+    "iconId": "wpn_lance_0012",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0009": {
+    "file": "ef-growth-wpn_pistol_0009.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0009.avif",
+    "sha256": "1dc7322b29e7f7f76a3b56ae765bf98f83423ca6fb767cf870c96df9228a916b",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0009",
+    "iconId": "wpn_pistol_0009",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0013": {
+    "file": "ef-growth-wpn_lance_0013.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0013.avif",
+    "sha256": "6240fa5af5dd2028f140199942d81576fbf041860275bcba83cccf14093746e6",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0013",
+    "iconId": "wpn_lance_0013",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0008": {
+    "file": "ef-growth-wpn_pistol_0008.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0008.avif",
+    "sha256": "d1fa1d814f4d06af0e91ea9622d92337d5008628cfa0885a9286affc5c33f7cf",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0008",
+    "iconId": "wpn_pistol_0008",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0014": {
+    "file": "ef-growth-wpn_lance_0014.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0014.avif",
+    "sha256": "04b68d50f1e8c5b42f84d57fc21e2abd26f427c4ea881e89a76fd58dd253b32f",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0014",
+    "iconId": "wpn_lance_0014",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0015": {
+    "file": "ef-growth-wpn_lance_0015.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0015.avif",
+    "sha256": "72f82b7f2be8e50a173d64a819ff641ec616ebcc38083ebbd65db8361a43f971",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0015",
+    "iconId": "wpn_lance_0015",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_lance_0016": {
+    "file": "ef-growth-wpn_lance_0016.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_lance_0016.avif",
+    "sha256": "d1952cb0056da3f8b0b4af7fc52261c66cc706bf7ccd90597720bcffc1a701b7",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_lance_0016",
+    "iconId": "wpn_lance_0016",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0002": {
+    "file": "ef-growth-wpn_pistol_0002.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0002.avif",
+    "sha256": "beaceab16407e20bfb0994b9213dd546feb6926a61e48c31092d0fe002a894b4",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0002",
+    "iconId": "wpn_pistol_0002",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0003": {
+    "file": "ef-growth-wpn_pistol_0003.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0003.avif",
+    "sha256": "269f1d3baedf22ba4c1308c870410b90b51fb01fabbfcc705801a8c0c7d196c3",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0003",
+    "iconId": "wpn_pistol_0003",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0006": {
+    "file": "ef-growth-wpn_pistol_0006.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0006.avif",
+    "sha256": "14c50161f71482fdce87df3f9b670775d87e9b826d1f112cb37739b0278372e5",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0006",
+    "iconId": "wpn_pistol_0006",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0010": {
+    "file": "ef-growth-wpn_pistol_0010.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0010.avif",
+    "sha256": "02a8a89e14207699ab7e2a943a2b3f15b8b9487749c00a4e8e42f79d77c5ee9a",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0010",
+    "iconId": "wpn_pistol_0010",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_pistol_0012": {
+    "file": "ef-growth-wpn_pistol_0012.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_pistol_0012.avif",
+    "sha256": "926c7692cc5e39697e123803e84d439fdc03b6646c59373d8a2eb8582cccd145",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_pistol_0012",
+    "iconId": "wpn_pistol_0012",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0003": {
+    "file": "ef-growth-wpn_sword_0003.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0003.avif",
+    "sha256": "11d02268890f2414787ec0d87cbb286320f84909c439c3bfdb47f13ce66e6dad",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0003",
+    "iconId": "wpn_sword_0003",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0006": {
+    "file": "ef-growth-wpn_sword_0006.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0006.avif",
+    "sha256": "6ed51967fbe8df2d133f35c5c2595a8cd30d98a868958aceab8c3f4bf67e4d02",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0006",
+    "iconId": "wpn_sword_0006",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0008": {
+    "file": "ef-growth-wpn_sword_0008.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0008.avif",
+    "sha256": "7bdb2fa9bd9c6ce9947a95d3f942d2412d651ee0f285a277a3e876a4aacfc5ec",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0008",
+    "iconId": "wpn_sword_0008",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0012": {
+    "file": "ef-growth-wpn_sword_0012.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0012.avif",
+    "sha256": "69805bbc9e11e43d9121cb1bbf7225db37a079393d3d21f7e148748360f806b0",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0012",
+    "iconId": "wpn_sword_0012",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0013": {
+    "file": "ef-growth-wpn_sword_0013.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0013.avif",
+    "sha256": "1a05af0706e02e3a8e536138a0960114677e0410ebacd56f69792654feef4090",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0013",
+    "iconId": "wpn_sword_0013",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0016": {
+    "file": "ef-growth-wpn_sword_0016.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0016.avif",
+    "sha256": "b20666ad38016a1b1e0fd9f7dd81ec5d4896c0d4f265291ad080682d5a0ac29d",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0016",
+    "iconId": "wpn_sword_0016",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0017": {
+    "file": "ef-growth-wpn_sword_0017.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0017.avif",
+    "sha256": "826495ae59677d847ff61849a80d1a411704b2618e4394cd21dfa8ddb60c8b28",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0017",
+    "iconId": "wpn_sword_0017",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0018": {
+    "file": "ef-growth-wpn_sword_0018.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0018.avif",
+    "sha256": "f2c5e61800727e15ef47ab422e70ea675f95d72b2e030520f374f3982e839143",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0018",
+    "iconId": "wpn_sword_0018",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-wpn_sword_0026": {
+    "file": "ef-growth-wpn_sword_0026.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/weapon/wpn_sword_0026.avif",
+    "sha256": "b1908b0927e9083c40b3c90c4407901ca6d5aca84cd65c9ef18922e697d55f45",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "wpn_sword_0026",
+    "iconId": "wpn_sword_0026",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_break_stage_1_2": {
+    "file": "ef-growth-item_char_break_stage_1_2.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_break_stage_1_2.avif",
+    "sha256": "96a312802a28f27739273cd7ecb64b14ef3be3a6803617a2c72f954a740a365e",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_break_stage_1_2",
+    "iconId": "item_char_break_stage_1_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_break_stage_3_4": {
+    "file": "ef-growth-item_char_break_stage_3_4.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_break_stage_3_4.avif",
+    "sha256": "8c926d89ee71c12e796e5544e03e40dc9c09b5187f50466535cbf28773ae06a1",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_break_stage_3_4",
+    "iconId": "item_char_break_stage_3_4",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_skill_crown": {
+    "file": "ef-growth-item_char_skill_crown.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_skill_crown.avif",
+    "sha256": "bf59c5a7b6e07f3258e2c04f27fcdaad13bf04ee8863a801d0792f6424f9a2cc",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_skill_crown",
+    "iconId": "item_char_skill_crown",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_skill_level_1_6": {
+    "file": "ef-growth-item_char_skill_level_1_6.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_skill_level_1_6.avif",
+    "sha256": "8c2809ae59726df32f0e44c0d411b5b72eb59edac753a5fe7e69991a53fd06de",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_skill_level_1_6",
+    "iconId": "item_char_skill_level_1_6",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_skill_level_7_12": {
+    "file": "ef-growth-item_char_skill_level_7_12.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_skill_level_7_12.avif",
+    "sha256": "30cfd91b3bca6f3a7156be800ab363131785cc3d4ce7457f152ab35a755ade44",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_skill_level_7_12",
+    "iconId": "item_char_skill_level_7_12",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_skill_specialize_1": {
+    "file": "ef-growth-item_char_skill_specialize_1.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_skill_specialize_1.avif",
+    "sha256": "ceafed68cfa7e62ebcfdfbb38b6e9d53903d6e56b3eb4fee2f9a11fb289fe7be",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_skill_specialize_1",
+    "iconId": "item_char_skill_specialize_1",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_skill_specialize_2": {
+    "file": "ef-growth-item_char_skill_specialize_2.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_skill_specialize_2.avif",
+    "sha256": "6ecd4bc063f7c27044ecd1171446415e2a28b98d4fe366c73cad87a6fb893f1d",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_skill_specialize_2",
+    "iconId": "item_char_skill_specialize_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_skill_specialize_3": {
+    "file": "ef-growth-item_char_skill_specialize_3.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_skill_specialize_3.avif",
+    "sha256": "a554a4ec0982037ed0729baf0fa78a7b2205f40177a88a313c866d68a113b89b",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_skill_specialize_3",
+    "iconId": "item_char_skill_specialize_3",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_skill_specialize_4": {
+    "file": "ef-growth-item_char_skill_specialize_4.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_skill_specialize_4.avif",
+    "sha256": "97f41d79f3b46ff691e55844513fc1c23cf400270842744b5ebafe8421caa805",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_skill_specialize_4",
+    "iconId": "item_char_skill_specialize_4",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_char_skill_specialize_5": {
+    "file": "ef-growth-item_char_skill_specialize_5.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_char_skill_specialize_5.avif",
+    "sha256": "2efc003891d991f861c3bdf93afde55f68aff1675b0e071599febd65b250c904",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_char_skill_specialize_5",
+    "iconId": "item_char_skill_specialize_5",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_expcard_stage1_high": {
+    "file": "ef-growth-item_expcard_stage1_high.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_expcard_2_3.avif",
+    "sha256": "9aa699315f9e3ef5bfd4774b609ed658d2f900640c5218d9a7a8607e1c41cdb1",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_expcard_stage1_high",
+    "iconId": "item_expcard_2_3",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_expcard_stage2_high": {
+    "file": "ef-growth-item_expcard_stage2_high.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_expcard_stage2_high.avif",
+    "sha256": "0768ffa5b2b3e7ea66a637eaf195a9389937576e6f24b107cb89f71c337b2db8",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_expcard_stage2_high",
+    "iconId": "item_expcard_stage2_high",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_gold": {
+    "file": "ef-growth-item_gold.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_gold.avif",
+    "sha256": "43cbd7433c40f696c436016ce93c609d09dd5bc3998b22bf61a0f1c40aa12fa3",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_gold",
+    "iconId": "item_gold",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_crylplant_1_1": {
+    "file": "ef-growth-item_plant_crylplant_1_1.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_crylplant_1_1.avif",
+    "sha256": "352f203bb02c6656552c79d25056cc0f3742fa098fe4373ee1b8e771797e749a",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_crylplant_1_1",
+    "iconId": "item_plant_crylplant_1_1",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_crylplant_1_2": {
+    "file": "ef-growth-item_plant_crylplant_1_2.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_crylplant_1_2.avif",
+    "sha256": "294725b8fdf37d5ddc4d7512f15194942da752cb86be9d5d54a51323a0310943",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_crylplant_1_2",
+    "iconId": "item_plant_crylplant_1_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_crylplant_1_3": {
+    "file": "ef-growth-item_plant_crylplant_1_3.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_crylplant_1_3.avif",
+    "sha256": "58b6772bc1763836910352bf87399dfdeaab196c744d4f7f847a20f1135e1bc1",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_crylplant_1_3",
+    "iconId": "item_plant_crylplant_1_3",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_crylplant_2_1": {
+    "file": "ef-growth-item_plant_crylplant_2_1.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_crylplant_2_1.avif",
+    "sha256": "9d2796eddf79e7f80d39ccc41f4053c473b44862efea9ee2916d16855082fa10",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_crylplant_2_1",
+    "iconId": "item_plant_crylplant_2_1",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_crylplant_2_2": {
+    "file": "ef-growth-item_plant_crylplant_2_2.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_crylplant_2_2.avif",
+    "sha256": "0548bb1ef8e04efdaa6ab31c69c112d4e4f184a6583b5177b37287dd3d86a554",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_crylplant_2_2",
+    "iconId": "item_plant_crylplant_2_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_crylplant_2_3": {
+    "file": "ef-growth-item_plant_crylplant_2_3.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_crylplant_2_3.avif",
+    "sha256": "b76ac9ff36671baa617cc4c302b91a87e2c315319c531f448b7ce97a4fc004ef",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_crylplant_2_3",
+    "iconId": "item_plant_crylplant_2_3",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_mushroom_1_1": {
+    "file": "ef-growth-item_plant_mushroom_1_1.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_mushroom_1_1.avif",
+    "sha256": "4f4081507ef2c262d4a7d233e1907c0820469bcdb2754d192b8bd116efb45839",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_mushroom_1_1",
+    "iconId": "item_plant_mushroom_1_1",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_mushroom_1_2": {
+    "file": "ef-growth-item_plant_mushroom_1_2.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_mushroom_1_2.avif",
+    "sha256": "b95b77ba175dd8124f978e8240ff5026b334db9f8f1fae54915fa3c11aeb1daf",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_mushroom_1_2",
+    "iconId": "item_plant_mushroom_1_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_mushroom_1_3": {
+    "file": "ef-growth-item_plant_mushroom_1_3.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_mushroom_1_3.avif",
+    "sha256": "9748d161239f772404717d71ad91688af814767d0a052934e93c763cf20bcc50",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_mushroom_1_3",
+    "iconId": "item_plant_mushroom_1_3",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_mushroom_2_1": {
+    "file": "ef-growth-item_plant_mushroom_2_1.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_mushroom_2_1.avif",
+    "sha256": "36a14cc7329ba51392d29d324c8699301e0e4ae35f0e8d2acc3be4fe0ae0c85a",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_mushroom_2_1",
+    "iconId": "item_plant_mushroom_2_1",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_mushroom_2_2": {
+    "file": "ef-growth-item_plant_mushroom_2_2.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_mushroom_2_2.avif",
+    "sha256": "56e3a40b8efdbc2db7faae1dde82b59b5964d9e70cf27376a7146235c3408061",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_mushroom_2_2",
+    "iconId": "item_plant_mushroom_2_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_mushroom_2_3": {
+    "file": "ef-growth-item_plant_mushroom_2_3.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_mushroom_2_3.avif",
+    "sha256": "7c0af412fc95d2726b869dd25c8697147c351ca53ff71684c4a2100146f079e8",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_mushroom_2_3",
+    "iconId": "item_plant_mushroom_2_3",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_spcstone_1_1": {
+    "file": "ef-growth-item_plant_spcstone_1_1.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_spcstone_1_1.avif",
+    "sha256": "fed6398db460f4898f1068128ab78cce217ef1d3743a4c7d1eac828db3b60619",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_spcstone_1_1",
+    "iconId": "item_plant_spcstone_1_1",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_spcstone_1_2": {
+    "file": "ef-growth-item_plant_spcstone_1_2.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_spcstone_1_2.avif",
+    "sha256": "5954ae52e617a5247b665cb867e54ee79949eff54bda659e81c34611684d4496",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_spcstone_1_2",
+    "iconId": "item_plant_spcstone_1_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_spcstone_1_3": {
+    "file": "ef-growth-item_plant_spcstone_1_3.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_spcstone_1_3.avif",
+    "sha256": "bc3ae0ffd0e25a3c5f1c33136e5004275e6b01d427493a6b13e04ff72a06fd85",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_spcstone_1_3",
+    "iconId": "item_plant_spcstone_1_3",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_spcstone_2_1": {
+    "file": "ef-growth-item_plant_spcstone_2_1.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_spcstone_2_1.avif",
+    "sha256": "a9696847b732efdacd7f2a6e38fbd022aab9638ddc91278b5200e32b4e5e3d29",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_spcstone_2_1",
+    "iconId": "item_plant_spcstone_2_1",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_spcstone_2_2": {
+    "file": "ef-growth-item_plant_spcstone_2_2.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_spcstone_2_2.avif",
+    "sha256": "6052b0429549f3c57b896b0be8d69d74cb37631ba87c3a56cb54998917674595",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_spcstone_2_2",
+    "iconId": "item_plant_spcstone_2_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_plant_spcstone_2_3": {
+    "file": "ef-growth-item_plant_spcstone_2_3.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_plant_spcstone_2_3.avif",
+    "sha256": "907b80f142027ca4117412e9bd0db0b770abf74d4ac282a2c2c11fbaa2a49b0e",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_plant_spcstone_2_3",
+    "iconId": "item_plant_spcstone_2_3",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_weapon_break_high": {
+    "file": "ef-growth-item_weapon_break_high.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_weapon_break_high.avif",
+    "sha256": "5e19f22721915ecf707fd88ae9ebd8c828768834d2b63aca0052af1682264456",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_weapon_break_high",
+    "iconId": "item_weapon_break_high",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_weapon_break_low": {
+    "file": "ef-growth-item_weapon_break_low.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_weapon_break_low.avif",
+    "sha256": "91903e0665587f12bf51d1b5dcec67c2618d443cfabbf164bfdf22f1108a4a56",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_weapon_break_low",
+    "iconId": "item_weapon_break_low",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_weapon_expcard_high": {
+    "file": "ef-growth-item_weapon_expcard_high.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/items/item_weapon_expcard_high.avif",
+    "sha256": "44fc2974a479e26ec69b81bf2cefc6d930b929185cedc8f5fd758567116ebb97",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_weapon_expcard_high",
+    "iconId": "item_weapon_expcard_high",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_expcard_stage1_low": {
+    "file": "ef-growth-item_expcard_stage1_low.png",
+    "url": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/itemiconbig/item_expcard_2_1.png",
+    "sha256": "9426c26b6543f9956fd661fff18d8b05766e8bc14e5ada9be3eccfd88dcca767",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_expcard_stage1_low",
+    "iconId": "item_expcard_2_1",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_expcard_stage1_mid": {
+    "file": "ef-growth-item_expcard_stage1_mid.png",
+    "url": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/itemiconbig/item_expcard_2_2.png",
+    "sha256": "9e0a610869ae256d7910487a7ff04adb098374a4210dd55066dc0cfbb097e2f4",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_expcard_stage1_mid",
+    "iconId": "item_expcard_2_2",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-growth-item_expcard_stage2_low": {
+    "file": "ef-growth-item_expcard_stage2_low.png",
+    "url": "https://data.akedata.wiki/public/images/assets/beyond/dynamicassets/gameplay/ui/sprites/itemiconbig/item_expcard_stage2_low.png",
+    "sha256": "4f123455d5f4472a91d4c5103d0528f11a9062cdd15d3d97bdc2c772f58658c9",
+    "sourceKind": "game-asset-mirror",
+    "gameItemId": "item_expcard_stage2_low",
+    "iconId": "item_expcard_stage2_low",
+    "checkedAt": "2026-10-05"
+  },
+  "ef-char-profession-guard": {
+    "file": "ef-char-profession-guard.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Nt",
+    "sha256": "8f70e62af9daafe399cfd90f116c3e5b3d4480a81ecb306ded8f7ec516dc5535"
+  },
+  "ef-char-profession-defender": {
+    "file": "ef-char-profession-defender.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Ft",
+    "sha256": "d08d99382509125363be9c8e96fb23602804d81d7a7b7bdded3faccc67a96626"
+  },
+  "ef-char-profession-supporter": {
+    "file": "ef-char-profession-supporter.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Lt",
+    "sha256": "3b3cd57f6a28376d98389164157237ef2de72e3668bb8451b6cc39ae88934796"
+  },
+  "ef-char-profession-caster": {
+    "file": "ef-char-profession-caster.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "zt",
+    "sha256": "545047f4dac28347b8cf9abfd4c8e5fdcffbed29d6b3991dfac3c4f2dc7a5353"
+  },
+  "ef-char-profession-striker": {
+    "file": "ef-char-profession-striker.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Vt",
+    "sha256": "5a318dc039ce8ba3f30be2d2cabf38c18ba6105a58c63e123dd26dcde4e0fd35"
+  },
+  "ef-char-profession-vanguard": {
+    "file": "ef-char-profession-vanguard.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "Ut",
+    "sha256": "fcb9fc3a8643d601f1a0b558b1cfd31250b88215438e1421b0aebb659862fde6"
+  },
+  "ef-growth-attribute-agi": {
+    "file": "ef-growth-attribute-agi.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/panel-preview/attribute-agi.avif",
+    "sha256": "dba90c8cb064981451b31df4fa3f8d3ec15beeb8f6d1ef95a14ea34a67b7564d",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "agi",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-attribute-str": {
+    "file": "ef-growth-attribute-str.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/panel-preview/attribute-str.avif",
+    "sha256": "ca4bf7b11c6f088bee4cf2559be8543043c9f1cb0ed3856302418af965b5d23f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "str",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-attribute-will": {
+    "file": "ef-growth-attribute-will.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/panel-preview/attribute-will.avif",
+    "sha256": "79aac25f8558ace97eb8550e6459f7c6922aebee06ac11404e8677e5c90be9e2",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "will",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-attribute-wisd": {
+    "file": "ef-growth-attribute-wisd.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/panel-preview/attribute-wisd.avif",
+    "sha256": "b6539a37b54d735fb1aaf34baa410909417d65366478b7bd43458d83af62bcb8",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "wisd",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_guestroom_clue": {
+    "file": "ef-growth-logistics-facskill_spaceship_guestroom_clue.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_guestroom_clue.avif",
+    "sha256": "9632193a680277989aab678338bf8156eaf5db969136c0000b2b3e7859160272",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_guestroom_clue",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_guestroom_efficiency": {
+    "file": "ef-growth-logistics-facskill_spaceship_guestroom_efficiency.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_guestroom_efficiency.avif",
+    "sha256": "034aa6c957710988a46fe769b8cb073b1c410d8109bb69ec99b523140cdfc943",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_guestroom_efficiency",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_guestroom_power_consume": {
+    "file": "ef-growth-logistics-facskill_spaceship_guestroom_power_consume.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_guestroom_power_consume.avif",
+    "sha256": "2f3580eb29d4de8a10ec750b70fb0c50bf3c48f10346069e2f8f38450036f7fd",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_guestroom_power_consume",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_manufacture_efficiency": {
+    "file": "ef-growth-logistics-facskill_spaceship_manufacture_efficiency.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_manufacture_efficiency.avif",
+    "sha256": "54895b58b8e479ec51f9a741dd1df961a87b6466402e9924cf5e6ca21e2d2062",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_manufacture_efficiency",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_manufacture_power_consume": {
+    "file": "ef-growth-logistics-facskill_spaceship_manufacture_power_consume.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_manufacture_power_consume.avif",
+    "sha256": "714b6bdf82dc13022f1b8665e26a89530b1b0d3e9ffc7f4bcfa7a8cc8bcdf7ed",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_manufacture_power_consume",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_physical_power": {
+    "file": "ef-growth-logistics-facskill_spaceship_physical_power.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_physical_power.avif",
+    "sha256": "94a4e88024bea28c11abd5d43a73d7b8686d428764969593c952544262e6c376",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_physical_power",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_plant_flower": {
+    "file": "ef-growth-logistics-facskill_spaceship_plant_flower.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_plant_flower.avif",
+    "sha256": "cde5fed9a75f43eacc29370c560b3dff2f7d643c5b15afbf59609542dfc1ecea",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_plant_flower",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_plant_fungus": {
+    "file": "ef-growth-logistics-facskill_spaceship_plant_fungus.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_plant_fungus.avif",
+    "sha256": "f6a39391c7ae387da9c8e9f5cc312ead9e8769089b738a0a1129a2db7aee81da",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_plant_fungus",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_plant_mineral": {
+    "file": "ef-growth-logistics-facskill_spaceship_plant_mineral.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_plant_mineral.avif",
+    "sha256": "388a4f0c4f5706e94f77b95f0c8690422ca973dd96fb06cfa4b15f7e9c61c60a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_plant_mineral",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-logistics-facskill_spaceship_plant_power_consume": {
+    "file": "ef-growth-logistics-facskill_spaceship_plant_power_consume.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/logistics/facskill_spaceship_plant_power_consume.avif",
+    "sha256": "feab97e1954c80c11438fa8feb1b7e0a78dc67cb09f430d40f70961c23870003",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "facskill_spaceship_plant_power_consume",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_attack_claym": {
+    "file": "ef-growth-skill-icon_attack_claym.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_attack_claym.avif",
+    "sha256": "f5799a9d266c372fdbfbe4153bd609a9f1ffcfcdb39c54604266ed4b3f5d4e4c",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_attack_claym",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_attack_funnel": {
+    "file": "ef-growth-skill-icon_attack_funnel.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_attack_funnel.avif",
+    "sha256": "d142508c243541284138fef8879b0173fe3759d1b8711581c846c3df546cd1e3",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_attack_funnel",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_attack_lance": {
+    "file": "ef-growth-skill-icon_attack_lance.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_attack_lance.avif",
+    "sha256": "957a35bd88bf48279f226df643cb3651808fcf39d685f8a08ae9bd1b9328b479",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_attack_lance",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_attack_pistol": {
+    "file": "ef-growth-skill-icon_attack_pistol.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_attack_pistol.avif",
+    "sha256": "24f349a7795bdc14fab0e8adb0331af5c0a8298991e061aabaabe31dac7f4817",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_attack_pistol",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_attack_sword": {
+    "file": "ef-growth-skill-icon_attack_sword.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_attack_sword.avif",
+    "sha256": "7f6f6959900ba6630c3a9690b54a8e7bbf5f61472f679d58da5e009d58761833",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_attack_sword",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_aglina_01": {
+    "file": "ef-growth-skill-icon_combo_skill_aglina_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_aglina_01.avif",
+    "sha256": "549b858407076e0d5b9e1a01f8a72827e3d8143af66daf20be698af2cd9fd65c",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_aglina_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_antal_01": {
+    "file": "ef-growth-skill-icon_combo_skill_antal_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_antal_01.avif",
+    "sha256": "399191eeef7d39f759a58f4d517742014decc6fb278e4f2aa025de39cc7b7eab",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_antal_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_ardelia_01": {
+    "file": "ef-growth-skill-icon_combo_skill_ardelia_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_ardelia_01.avif",
+    "sha256": "81c3073ae06439a9501eaaf1827409f626ef277c5c392bdf68da327576172a8d",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_ardelia_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_aurora_01": {
+    "file": "ef-growth-skill-icon_combo_skill_aurora_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_aurora_01.avif",
+    "sha256": "b8b5b2befa832c462c0c31d849be1825b03e4f07dab2acbf26fbc12754eae148",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_aurora_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_avywen_01": {
+    "file": "ef-growth-skill-icon_combo_skill_avywen_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_avywen_01.avif",
+    "sha256": "ba092184e3c56920d99bd313f014bb773a790d3849d361945d71403b16d577f2",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_avywen_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_azrila_01": {
+    "file": "ef-growth-skill-icon_combo_skill_azrila_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_azrila_01.avif",
+    "sha256": "3689edbf1acb073bd924ed12f29ae6945d45ec3665685bfe2bb5bc25b84e8bab",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_azrila_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_bounda_01": {
+    "file": "ef-growth-skill-icon_combo_skill_bounda_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_bounda_01.avif",
+    "sha256": "5847b5208df7f945eae7db1cbc912ed690407235b7995f902770bcd0e7b728c0",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_bounda_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_camille_01": {
+    "file": "ef-growth-skill-icon_combo_skill_camille_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_camille_01.avif",
+    "sha256": "c4e548e06841d164d6a04190c7170a8f3582982e65e51a937b8ced12efc288a1",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_camille_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_chen_01": {
+    "file": "ef-growth-skill-icon_combo_skill_chen_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_chen_01.avif",
+    "sha256": "c8821ff0ac33ce8fc6a14660ff7fd6b17d3ce4b7bd12209fac317ed1a554633b",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_chen_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_dapan_01": {
+    "file": "ef-growth-skill-icon_combo_skill_dapan_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_dapan_01.avif",
+    "sha256": "a028cee63e313ab4446fcd0acfc683d0f8abd2aa93a3303eeab8d4f821483019",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_dapan_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_deepfin_01": {
+    "file": "ef-growth-skill-icon_combo_skill_deepfin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_deepfin_01.avif",
+    "sha256": "420ac032ea53c0eec8ea38c73649f155815bc555a2b8a4cfb9e0875a7519a9f5",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_deepfin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_endmin_01": {
+    "file": "ef-growth-skill-icon_combo_skill_endmin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_endmin_01.avif",
+    "sha256": "051eeb140562066840fa896aca88442e1f7b9e88439d8a540858f28e8836bc3a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_endmin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_ikut_01": {
+    "file": "ef-growth-skill-icon_combo_skill_ikut_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_ikut_01.avif",
+    "sha256": "bd04abc9911f4a00c5b13ede30e6a69814fc724ac6a889f97965f674d98f8b6a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_ikut_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_karin_01": {
+    "file": "ef-growth-skill-icon_combo_skill_karin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_karin_01.avif",
+    "sha256": "c63526eb746364e1ec7d5ea57369569e96a84ce2d18baa464b2b9a1f3b5ca197",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_karin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_laevat_01": {
+    "file": "ef-growth-skill-icon_combo_skill_laevat_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_laevat_01.avif",
+    "sha256": "2a6438c412bdef8b0910a3dcbc882b6c0d5bacd89ed64ad364548074bf9be5d7",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_laevat_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_lastrite_01": {
+    "file": "ef-growth-skill-icon_combo_skill_lastrite_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_lastrite_01.avif",
+    "sha256": "f95ba42f660d2563253548cf0dfdebb90a4cd6beec7bf8a104e66dd9343cd95e",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_lastrite_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_lifeng_01": {
+    "file": "ef-growth-skill-icon_combo_skill_lifeng_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_lifeng_01.avif",
+    "sha256": "4dd567b265bf0f2621a0c131a1b9d6ded6a80fe7a94647040dbe35f8350e9680",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_lifeng_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_liino_01": {
+    "file": "ef-growth-skill-icon_combo_skill_liino_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_liino_01.avif",
+    "sha256": "1549ee1d64437ffd6d5e0dbde9085af2d9feadeca548f0d58dfd9ad4c26453a1",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_liino_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_lizhiyan_01": {
+    "file": "ef-growth-skill-icon_combo_skill_lizhiyan_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_lizhiyan_01.avif",
+    "sha256": "16777c1e9016be1b32e54d416b8807c3f98c7c6e0274c7bdf12c79884d109e21",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_lizhiyan_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_meurs_01": {
+    "file": "ef-growth-skill-icon_combo_skill_meurs_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_meurs_01.avif",
+    "sha256": "2b2e86b98947bac651f1833984855582c0d6c5ce14b068c4520cdf171c43cc89",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_meurs_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_mifu_01": {
+    "file": "ef-growth-skill-icon_combo_skill_mifu_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_mifu_01.avif",
+    "sha256": "9489b954989eb682aafd830c39941e7a6a3d7f0cb4cbe35f3cfd3aad1a395b97",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_mifu_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_pelica_01": {
+    "file": "ef-growth-skill-icon_combo_skill_pelica_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_pelica_01.avif",
+    "sha256": "142d7ba64003a5e8a6205c892f6e388c53a3c87c626cab4f1b0c45715208541b",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_pelica_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_pograni_01": {
+    "file": "ef-growth-skill-icon_combo_skill_pograni_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_pograni_01.avif",
+    "sha256": "6562f919762b0bbfa90b8e430305a08471360ee39c1056fa32136138dc50a05a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_pograni_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_purrche_01": {
+    "file": "ef-growth-skill-icon_combo_skill_purrche_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_purrche_01.avif",
+    "sha256": "4049a2ee60193bf8e52cf131d1ae10b6d7a0d43941540c19d7ebc8534ee9f2bd",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_purrche_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_seraph_01": {
+    "file": "ef-growth-skill-icon_combo_skill_seraph_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_seraph_01.avif",
+    "sha256": "57e2a2d55f2b21f2a6675be48fc56be874075d29a6a3d57a0a5ebb0146dfaad2",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_seraph_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_tangtang_01": {
+    "file": "ef-growth-skill-icon_combo_skill_tangtang_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_tangtang_01.avif",
+    "sha256": "0286f513bb8b8c1c08cbad12b69e689d617c03b6c1539c8ef610b85f5b20d3ec",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_tangtang_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_typhoea_01": {
+    "file": "ef-growth-skill-icon_combo_skill_typhoea_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_typhoea_01.avif",
+    "sha256": "cf3ba98500520ef0cf8f5f196609eae108103832ca3c7892604b49237cc76a2f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_typhoea_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_whiten_01": {
+    "file": "ef-growth-skill-icon_combo_skill_whiten_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_whiten_01.avif",
+    "sha256": "421df37e4a235b014dbf4a636fc30c205979f250537833a1ce6134f227d78eb9",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_whiten_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_wolfgd_01": {
+    "file": "ef-growth-skill-icon_combo_skill_wolfgd_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_wolfgd_01.avif",
+    "sha256": "cad8f217443c034a5be20b38c228b8dbfd822fc800fea183b102df36aa063431",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_wolfgd_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_wulfa_01": {
+    "file": "ef-growth-skill-icon_combo_skill_wulfa_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_wulfa_01.avif",
+    "sha256": "19f06b624aceb95549c49b2cf63c6a32962045f85672967d80c0c5a456bfc159",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_wulfa_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_yvonne_01": {
+    "file": "ef-growth-skill-icon_combo_skill_yvonne_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_yvonne_01.avif",
+    "sha256": "b2e59e6cbd16fb805e1089771075d1bd7e394b3f71860522554857f37bcd5bbb",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_yvonne_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_combo_skill_zhuangfy_01": {
+    "file": "ef-growth-skill-icon_combo_skill_zhuangfy_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_combo_skill_zhuangfy_01.avif",
+    "sha256": "eacb544eacb3069cc0a4fc8a6077b71814b766ce1208ff216dd7d859ba8c34e0",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_combo_skill_zhuangfy_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_aglina_01": {
+    "file": "ef-growth-skill-icon_skill_aglina_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_aglina_01.avif",
+    "sha256": "897d11a47570110a0076ca0573967204ac086c39be911fd40beb596214210570",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_aglina_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_antal_01": {
+    "file": "ef-growth-skill-icon_skill_antal_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_antal_01.avif",
+    "sha256": "06d43d2802304b2ed814812f7e9e6a4f15c965fb7d80afef68a75aa635fe3433",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_antal_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_ardelia_01": {
+    "file": "ef-growth-skill-icon_skill_ardelia_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_ardelia_01.avif",
+    "sha256": "aba8b66bf4fe675a142da62da50e802b402ad567c06a515a7eba69fb906e2302",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_ardelia_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_aurora_01": {
+    "file": "ef-growth-skill-icon_skill_aurora_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_aurora_01.avif",
+    "sha256": "ef2f0b0e46a29d2ebfd7c5cb49ac2a7dc2cf2ee8da13cf725fe2ee8f5453afc6",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_aurora_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_avywen_01": {
+    "file": "ef-growth-skill-icon_skill_avywen_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_avywen_01.avif",
+    "sha256": "d7b8de1e72ac66272b941fdac1481942206ebb0f0947fd2f23edff56c5d8d123",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_avywen_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_azrila_01": {
+    "file": "ef-growth-skill-icon_skill_azrila_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_azrila_01.avif",
+    "sha256": "89cbac6ebe3976aecf2783dddb35bfdf335a433ebc0d26ba18d76bf6d53411ff",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_azrila_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_bounda_01": {
+    "file": "ef-growth-skill-icon_skill_bounda_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_bounda_01.avif",
+    "sha256": "1ca8cc8e5af83f29f8194d5aa544d95a1ed9049a31362e10de32c2c9496dcb19",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_bounda_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_camille_01": {
+    "file": "ef-growth-skill-icon_skill_camille_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_camille_01.avif",
+    "sha256": "b37a8d11d34fdb139f4ff21c2c800c99758a0ee813129b16d243dfb0a73ad998",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_camille_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_chen_01": {
+    "file": "ef-growth-skill-icon_skill_chen_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_chen_01.avif",
+    "sha256": "4c247c76d499ad42a7caa9d73f7a0262ead65cab3710e8f236e6d870d594c69f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_chen_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_dapan_01": {
+    "file": "ef-growth-skill-icon_skill_dapan_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_dapan_01.avif",
+    "sha256": "da07812d9e8237de7f56e48331fefaff857aa3a3df6dab2a900b4bc6db11c3db",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_dapan_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_deepfin_01": {
+    "file": "ef-growth-skill-icon_skill_deepfin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_deepfin_01.avif",
+    "sha256": "149c4f9bf8d2500b9370c53fa94e7d3ecb3da3868e110cbaaaa3958602f61e11",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_deepfin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_endmin_01": {
+    "file": "ef-growth-skill-icon_skill_endmin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_endmin_01.avif",
+    "sha256": "d564a8d141e895bdbbc452c38e9e81a255a036213fab6a28a3bb066ccd077579",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_endmin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_ikut_01": {
+    "file": "ef-growth-skill-icon_skill_ikut_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_ikut_01.avif",
+    "sha256": "713ad500c4f9eb9595b64df93ca38e5333a8c659dfd3fe8b5d479576dd3988c4",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_ikut_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_karin_01": {
+    "file": "ef-growth-skill-icon_skill_karin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_karin_01.avif",
+    "sha256": "df7a00d23db791b53099d5fdd7c63ebd3447c7191041d7a2830d3a770ae4b7dd",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_karin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_laevat_01": {
+    "file": "ef-growth-skill-icon_skill_laevat_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_laevat_01.avif",
+    "sha256": "8628bd0cd2519e153067a48e2abe2430c4e0f29b5c17b17df372e37efbc7a281",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_laevat_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_lastrite_01": {
+    "file": "ef-growth-skill-icon_skill_lastrite_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_lastrite_01.avif",
+    "sha256": "62d3acc11fc38dfb5af4eccb113a79d3e683904e5d799d70c0b9e902da34f005",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_lastrite_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_lifeng_01": {
+    "file": "ef-growth-skill-icon_skill_lifeng_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_lifeng_01.avif",
+    "sha256": "acca87fba52a7b2e9c4edb98e551410c2267152e4090b09cea8e3f2f809bb3b3",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_lifeng_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_liino_01": {
+    "file": "ef-growth-skill-icon_skill_liino_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_liino_01.avif",
+    "sha256": "56e52c6dd1738d19b0c321b3610549cff3f8e0e21bc2cbfc66c8cf1dba5b9dfb",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_liino_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_lizhiyan_01": {
+    "file": "ef-growth-skill-icon_skill_lizhiyan_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_lizhiyan_01.avif",
+    "sha256": "b8ac5e260046baa606822d009c693b0de6a4fa7db78d616ea59abb12343a8c18",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_lizhiyan_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_meurs_01": {
+    "file": "ef-growth-skill-icon_skill_meurs_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_meurs_01.avif",
+    "sha256": "401b7b92a680190d7da4968f0188804ca40bc09f1564c68215a43d3712c3ee69",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_meurs_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_mifu_01": {
+    "file": "ef-growth-skill-icon_skill_mifu_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_mifu_01.avif",
+    "sha256": "45d766604d3f0466e3a731bbb0eefba707a69a75a2a0f5d4382792cbdb35f42a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_mifu_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_pelica_01": {
+    "file": "ef-growth-skill-icon_skill_pelica_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_pelica_01.avif",
+    "sha256": "cb7f238e20ecaa7adf9d44f4271c04ac48e484a7bb4476ecb3577b449c84f056",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_pelica_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_pograni_01": {
+    "file": "ef-growth-skill-icon_skill_pograni_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_pograni_01.avif",
+    "sha256": "e0b588ca165dbf45123ffda3ddcc793947cae27ec2c36123b2e9abf91482af4f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_pograni_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_purrche_01": {
+    "file": "ef-growth-skill-icon_skill_purrche_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_purrche_01.avif",
+    "sha256": "392229662777dd649eb07aa15570c6ec076711b21d4488a70ad05437d81c9739",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_purrche_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_seraph_01": {
+    "file": "ef-growth-skill-icon_skill_seraph_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_seraph_01.avif",
+    "sha256": "4cf5d1ad1ae4e58ce4d449154b0a1174115d4a9b9080b03eb5f124162c9b55c3",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_seraph_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_tangtang_01": {
+    "file": "ef-growth-skill-icon_skill_tangtang_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_tangtang_01.avif",
+    "sha256": "4f2e7fab2db7288daf07296943c512beed9e4b08f60ba17019aa65e828b8d466",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_tangtang_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_typhoea_01": {
+    "file": "ef-growth-skill-icon_skill_typhoea_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_typhoea_01.avif",
+    "sha256": "5827caead899e8c0964a01473631e672e04f859558d08f11289910d7427440aa",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_typhoea_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_whiten_01": {
+    "file": "ef-growth-skill-icon_skill_whiten_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_whiten_01.avif",
+    "sha256": "e9c63f2010d5a868de81f3ce9657987d825349ff8577df5afdf35819b2ad4534",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_whiten_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_wolfgd_01": {
+    "file": "ef-growth-skill-icon_skill_wolfgd_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_wolfgd_01.avif",
+    "sha256": "376e36d7713989bc340a553a1a8e0aa1b949418306c9f49cad5a003b8a5a9046",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_wolfgd_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_wulfa_01": {
+    "file": "ef-growth-skill-icon_skill_wulfa_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_wulfa_01.avif",
+    "sha256": "fb63889b72d6d9d434446a5f913bf4992acd3e6d18df9375c8ba3edf0dbc2c8f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_wulfa_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_yvonne_01": {
+    "file": "ef-growth-skill-icon_skill_yvonne_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_yvonne_01.avif",
+    "sha256": "7aa3364c7c34d12c371df36328b88f7650d061444bad75b9b54afb8b3739efdd",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_yvonne_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_skill_zhuangfy_01": {
+    "file": "ef-growth-skill-icon_skill_zhuangfy_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_skill_zhuangfy_01.avif",
+    "sha256": "2ee40aca25930f49cacabcb575be5af466c94d969b214b81648a03878f60bcd1",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_skill_zhuangfy_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_aglina_01": {
+    "file": "ef-growth-skill-icon_talent_aglina_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_aglina_01.avif",
+    "sha256": "9ca1eb8dc7d1480435b7aea6ca7fb792e18c392b78363dcef7e7deb430ef1ead",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_aglina_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_aglina_02": {
+    "file": "ef-growth-skill-icon_talent_aglina_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_aglina_02.avif",
+    "sha256": "08e73ef3bb3665d182b43741b3d629fdd235577084c8c876a33127db2ec81b0a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_aglina_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_antal_01": {
+    "file": "ef-growth-skill-icon_talent_antal_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_antal_01.avif",
+    "sha256": "6c08fbb99784f684c7f799aabfc011f3474de92f8b8c580d0222d285248b279a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_antal_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_antal_02": {
+    "file": "ef-growth-skill-icon_talent_antal_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_antal_02.avif",
+    "sha256": "b4657226a852bd0133bfbc2896eb7002a447a4e13b812262fb4e83186c3d1ce2",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_antal_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_ardelia_01": {
+    "file": "ef-growth-skill-icon_talent_ardelia_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_ardelia_01.avif",
+    "sha256": "7906e9f8f061a828ba3ec4f3f2891910b6f72cc1797a6b4a1d5234842186f68e",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_ardelia_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_ardelia_02": {
+    "file": "ef-growth-skill-icon_talent_ardelia_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_ardelia_02.avif",
+    "sha256": "872b7d914c3eb7d02c3f4194905da2a70cdf5763e6a731a4126c44db3944083e",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_ardelia_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_aurora_01": {
+    "file": "ef-growth-skill-icon_talent_aurora_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_aurora_01.avif",
+    "sha256": "b2839b031724d5047349a412665e3639f672ba7e87cb2b14357770717e4fbbd3",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_aurora_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_aurora_02": {
+    "file": "ef-growth-skill-icon_talent_aurora_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_aurora_02.avif",
+    "sha256": "f9cc1a828428b4512a616f21763fea292fb6a298fa672ff45260d0ea900dec02",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_aurora_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_avywen_01": {
+    "file": "ef-growth-skill-icon_talent_avywen_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_avywen_01.avif",
+    "sha256": "c772f6ddafe9da76c569d19928be30c39042bf20932e793914ce46ef8684dc55",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_avywen_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_avywen_02": {
+    "file": "ef-growth-skill-icon_talent_avywen_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_avywen_02.avif",
+    "sha256": "25279c1d26426487df60bfb20168cf13c88ddba46c7e3a5ce1eb1caa05aee750",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_avywen_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_azrila_01": {
+    "file": "ef-growth-skill-icon_talent_azrila_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_azrila_01.avif",
+    "sha256": "084057e85bfc3724b347b2ee97106692d044acd5526229813e84feb6e330afe0",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_azrila_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_azrila_02": {
+    "file": "ef-growth-skill-icon_talent_azrila_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_azrila_02.avif",
+    "sha256": "ddb8b51c4c4f358edb0e1e0ce94ce9d5510628d3f786bb692fddb81f56a49bad",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_azrila_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_bounda_01": {
+    "file": "ef-growth-skill-icon_talent_bounda_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_bounda_01.avif",
+    "sha256": "6379cbfe604b2b61e7fbb8a61d9499893d96933403970844b06d6688bb10f78c",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_bounda_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_bounda_02": {
+    "file": "ef-growth-skill-icon_talent_bounda_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_bounda_02.avif",
+    "sha256": "619b84b5217187ff9a20b1b4d0c80ff14647ef435d5ad8b615b9cc446b622c1a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_bounda_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_camille_01": {
+    "file": "ef-growth-skill-icon_talent_camille_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_camille_01.avif",
+    "sha256": "d8de858a0fe99f8f4383a00a53626cd23b243d8716d1a6d1a94b958cb87fc351",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_camille_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_camille_02": {
+    "file": "ef-growth-skill-icon_talent_camille_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_camille_02.avif",
+    "sha256": "50f081d1227816084cc9133cf22ef9031f0e7c1c60912d370dcf421374f44d11",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_camille_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_chen_01": {
+    "file": "ef-growth-skill-icon_talent_chen_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_chen_01.avif",
+    "sha256": "cc771a972fac504f733a9ed497220287e87c2bb6a1ed9ff4558538c4b5deaae8",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_chen_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_chen_02": {
+    "file": "ef-growth-skill-icon_talent_chen_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_chen_02.avif",
+    "sha256": "5b6fa8a730bfa8d55188ca7e5703ba4115daa14ab498421b5818d23d41528bb9",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_chen_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_dapan_01": {
+    "file": "ef-growth-skill-icon_talent_dapan_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_dapan_01.avif",
+    "sha256": "d33a2435288a2e11c2449aa0668b47f84a277c069eaf59d054fc6272e26469c4",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_dapan_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_dapan_02": {
+    "file": "ef-growth-skill-icon_talent_dapan_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_dapan_02.avif",
+    "sha256": "ccc1d9c9a0406093524bb75e61845a27b79ca9b96a3e5e411d09217d6ab8933f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_dapan_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_deepfin_01": {
+    "file": "ef-growth-skill-icon_talent_deepfin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_deepfin_01.avif",
+    "sha256": "6bd8f48025faca865b2abdb0b39bbadc5b1e34a20e7cc53be915f61f55e0ad15",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_deepfin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_deepfin_02": {
+    "file": "ef-growth-skill-icon_talent_deepfin_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_deepfin_02.avif",
+    "sha256": "fe53cabb3a22f5da4626afa34d99c88c505258971efc0a2710cebf2a38f9a4c6",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_deepfin_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_endminm_01": {
+    "file": "ef-growth-skill-icon_talent_endminm_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_endminm_01.avif",
+    "sha256": "802651e5f290fbead417873399390d1fb19f0a5ffd92037901529fe802e75f23",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_endminm_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_endminm_02": {
+    "file": "ef-growth-skill-icon_talent_endminm_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_endminm_02.avif",
+    "sha256": "42bc2a707234252cf36e80e6acdf580c20e0cb052f81b8d8b8dbd304b9e903d1",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_endminm_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_ikut_01": {
+    "file": "ef-growth-skill-icon_talent_ikut_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_ikut_01.avif",
+    "sha256": "34187c13751fd7c0050c52faa1e0120cd1a0d8b32c40eb075c70044a9caa579f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_ikut_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_ikut_02": {
+    "file": "ef-growth-skill-icon_talent_ikut_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_ikut_02.avif",
+    "sha256": "6894c9cc76c989c95b62fcb5ddc9f3e14f20b88de8f74d6363a4ccbbe6d19bb3",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_ikut_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_karin_01": {
+    "file": "ef-growth-skill-icon_talent_karin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_karin_01.avif",
+    "sha256": "d3bf57a70db40d5819615a20bd1c3bd9f4c6307ebb2c24eb614bd2e3065c33fc",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_karin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_karin_02": {
+    "file": "ef-growth-skill-icon_talent_karin_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_karin_02.avif",
+    "sha256": "f2cea469e389361942266a31ac5397f0e8f9448b3a03501d76714abcaa1958a7",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_karin_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_laevat_01": {
+    "file": "ef-growth-skill-icon_talent_laevat_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_laevat_01.avif",
+    "sha256": "4590c96c5cf0f3d033e7635a58acaf810de8dfa8a4673e71a136378a822556d9",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_laevat_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_laevat_02": {
+    "file": "ef-growth-skill-icon_talent_laevat_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_laevat_02.avif",
+    "sha256": "e9abffbe4077b039aaf6b3a945b91fedb5aa7145441d7ac02b10ede4ae7e8e9c",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_laevat_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_lastrite_01": {
+    "file": "ef-growth-skill-icon_talent_lastrite_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_lastrite_01.avif",
+    "sha256": "372d39e6e5e7510f77da07621926fe8062fcc2328992fc6fea61ae601668ec34",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_lastrite_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_lastrite_02": {
+    "file": "ef-growth-skill-icon_talent_lastrite_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_lastrite_02.avif",
+    "sha256": "c0a50f7bb53762931e278386b2baf87444400ff532efbbd571beab029521ddc7",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_lastrite_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_lifeng_01": {
+    "file": "ef-growth-skill-icon_talent_lifeng_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_lifeng_01.avif",
+    "sha256": "b54de269bac2f00472d52ca34b9804087e251167dcc30598334c60e9a51f1e49",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_lifeng_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_lifeng_02": {
+    "file": "ef-growth-skill-icon_talent_lifeng_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_lifeng_02.avif",
+    "sha256": "bba859421c6b6a51ce6427fbf9963a8aeb624a203cd9140497f316d4dbe689d5",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_lifeng_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_liino_01": {
+    "file": "ef-growth-skill-icon_talent_liino_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_liino_01.avif",
+    "sha256": "f789bdc1a3058c80f31beb3c250e738211d2974375b531d0e818fd8977b7f69b",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_liino_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_liino_02": {
+    "file": "ef-growth-skill-icon_talent_liino_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_liino_02.avif",
+    "sha256": "5e7a7560e2447368b4582c49746535410137ec2e4fd652b9334e9e29bc8196db",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_liino_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_lizhiyan_01": {
+    "file": "ef-growth-skill-icon_talent_lizhiyan_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_lizhiyan_01.avif",
+    "sha256": "10d9acf1a2674de01350aff3bdcc9238c2b5e419a57e41b29975b8526ff5ad5e",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_lizhiyan_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_lizhiyan_02": {
+    "file": "ef-growth-skill-icon_talent_lizhiyan_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_lizhiyan_02.avif",
+    "sha256": "baaeea0a4872d88a965b5ff101773d1e540cb6a6277db5e7988d5799bafbb277",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_lizhiyan_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_meurs_01": {
+    "file": "ef-growth-skill-icon_talent_meurs_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_meurs_01.avif",
+    "sha256": "941c932706e0c45fba1009b6cc5b8e293e9929601e50bedbdb4a24985c06f3fd",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_meurs_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_meurs_02": {
+    "file": "ef-growth-skill-icon_talent_meurs_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_meurs_02.avif",
+    "sha256": "b36e505afbd6a793436004ebede551a49d2982af0ede073ae8f4cebbf6e455dc",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_meurs_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_mifu_01": {
+    "file": "ef-growth-skill-icon_talent_mifu_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_mifu_01.avif",
+    "sha256": "38e65145fba51a19e79c870516d2059fc66c9dedf3d2e0e7712457713214acb6",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_mifu_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_mifu_02": {
+    "file": "ef-growth-skill-icon_talent_mifu_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_mifu_02.avif",
+    "sha256": "ccf0804db9f01408dfe08762f1c444837566258828796f687a9aee1b7b5c5816",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_mifu_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_pelica_01": {
+    "file": "ef-growth-skill-icon_talent_pelica_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_pelica_01.avif",
+    "sha256": "fc9d17b9ed3aab70e0831d76ac916d899f7fc9e6411796b40577a01f1c7c2e7a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_pelica_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_pelica_02": {
+    "file": "ef-growth-skill-icon_talent_pelica_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_pelica_02.avif",
+    "sha256": "80ff4d2b2ac0b33c40c3039390f1ff162e408db8e1979012627119321e3a1735",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_pelica_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_pograni_01": {
+    "file": "ef-growth-skill-icon_talent_pograni_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_pograni_01.avif",
+    "sha256": "e39c491da9a579e0ad8856c02cb5a0a85c84db7960c3ae31ea2b3514bbbb2979",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_pograni_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_pograni_02": {
+    "file": "ef-growth-skill-icon_talent_pograni_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_pograni_02.avif",
+    "sha256": "e282d0174df77039383351cc14d77fe40a4ea15a49c8a0ece97018f0e0a1edf5",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_pograni_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_purrche_01": {
+    "file": "ef-growth-skill-icon_talent_purrche_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_purrche_01.avif",
+    "sha256": "eb30d6432bb716aa3bfa913a441f1518036e92b5b3c372e448fc4e5bbeeb5c19",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_purrche_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_purrche_02": {
+    "file": "ef-growth-skill-icon_talent_purrche_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_purrche_02.avif",
+    "sha256": "d16346a918c260701048dd8ce865230c783a23e0e9499ca03801c8635ea5cc92",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_purrche_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_seraph_01": {
+    "file": "ef-growth-skill-icon_talent_seraph_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_seraph_01.avif",
+    "sha256": "eb3eab1850fcba31355dcbbd727c8571691e42872a771f2bae497429967ee1bd",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_seraph_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_seraph_02": {
+    "file": "ef-growth-skill-icon_talent_seraph_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_seraph_02.avif",
+    "sha256": "25de11bd1994cc712276bb6d2f656b9598fae8f079a7d2a4324b057607df0f3f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_seraph_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_tangtang_01": {
+    "file": "ef-growth-skill-icon_talent_tangtang_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_tangtang_01.avif",
+    "sha256": "e3196626fa0af7840282b4367b1cf6bd6aaff5576b0a4652fb2594c4c3d1d963",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_tangtang_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_tangtang_02": {
+    "file": "ef-growth-skill-icon_talent_tangtang_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_tangtang_02.avif",
+    "sha256": "fc3a5a5f52257373bf5f4862452677bdea83fc113e5457f5a8d58ec5305879be",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_tangtang_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_typhoea_01": {
+    "file": "ef-growth-skill-icon_talent_typhoea_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_typhoea_01.avif",
+    "sha256": "b9998837fd7cdc6211c8ab7da70193a6a3e94583e911604f195a6417d91f6f65",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_typhoea_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_typhoea_02": {
+    "file": "ef-growth-skill-icon_talent_typhoea_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_typhoea_02.avif",
+    "sha256": "963c13f5b92afff70d5355ec47538d4d1d67904d8630bc09dfb7e230b66b229a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_typhoea_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_whiten_01": {
+    "file": "ef-growth-skill-icon_talent_whiten_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_whiten_01.avif",
+    "sha256": "99dba5a65ebb9ebfb2379390e36bdba997cd369760c4cdee5f957de241e15abc",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_whiten_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_whiten_02": {
+    "file": "ef-growth-skill-icon_talent_whiten_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_whiten_02.avif",
+    "sha256": "a179169dc26719a3e93efb5215b1462ca0ec9fd790e9cc9aa1c2f8c8db005fd4",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_whiten_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_wolfgd_01": {
+    "file": "ef-growth-skill-icon_talent_wolfgd_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_wolfgd_01.avif",
+    "sha256": "2dd5ef794b9aa41e4829b986eca3f255660ae9cc71a2528a40b3253b133644aa",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_wolfgd_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_wolfgd_02": {
+    "file": "ef-growth-skill-icon_talent_wolfgd_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_wolfgd_02.avif",
+    "sha256": "bba859421c6b6a51ce6427fbf9963a8aeb624a203cd9140497f316d4dbe689d5",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_wolfgd_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_wulfa_01": {
+    "file": "ef-growth-skill-icon_talent_wulfa_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_wulfa_01.avif",
+    "sha256": "677be6b3deb4f5b8384a3be0dce36a34ff848ab0b179eb6158c9adf31de94b9a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_wulfa_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_wulfa_02": {
+    "file": "ef-growth-skill-icon_talent_wulfa_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_wulfa_02.avif",
+    "sha256": "0055f4a8521704281b9a378efe592bc89b8fc697bb4ac53425750752d25c09a3",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_wulfa_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_yvonne_01": {
+    "file": "ef-growth-skill-icon_talent_yvonne_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_yvonne_01.avif",
+    "sha256": "21f30b81fbda88339664df5103bc338990fb270014a8ddd9eb7d83eb9d3997a0",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_yvonne_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_yvonne_02": {
+    "file": "ef-growth-skill-icon_talent_yvonne_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_yvonne_02.avif",
+    "sha256": "4c2ec64e02c16d89eacdd98968a6d5c47db8b14972ea00614c4bc901f4047e25",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_yvonne_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_zhuangfy_01": {
+    "file": "ef-growth-skill-icon_talent_zhuangfy_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_zhuangfy_01.avif",
+    "sha256": "45c7dc07a2742b70671a4ba8fc065509ce5d1c16e49de080e022d2eee1ab5df6",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_zhuangfy_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_talent_zhuangfy_02": {
+    "file": "ef-growth-skill-icon_talent_zhuangfy_02.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_talent_zhuangfy_02.avif",
+    "sha256": "364616221ed822bf2e40c3d6e6593333cea8622e97326a97361fe4c7c1e441c8",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_talent_zhuangfy_02",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_aglina_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_aglina_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_aglina_01.avif",
+    "sha256": "41bc6b72e1d3c09c1d73d089ba947b6a161ca5513ba50434be06d708eac68a76",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_aglina_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_antal_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_antal_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_antal_01.avif",
+    "sha256": "933074c2a8d4f49a26525f464ca3eebd4312ec9c1bbdc4708cae80ae2aa95e84",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_antal_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_ardelia_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_ardelia_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_ardelia_01.avif",
+    "sha256": "292bfcc3e22fc203d6da58e9dc716989208d5b7cb2bbd17c20fbaa427edfdfc6",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_ardelia_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_aurora_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_aurora_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_aurora_01.avif",
+    "sha256": "3e6a831a48c587af9d2d06d93f900c73e70d2cf5ea616e404ae8036c690a7873",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_aurora_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_avywen_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_avywen_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_avywen_01.avif",
+    "sha256": "75841f6b0b2df3f88937dd898298ad0168aae0491d1b06b8848d815d501946f9",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_avywen_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_azrila_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_azrila_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_azrila_01.avif",
+    "sha256": "150df2ad25a649d3aaeb1265808559fc0f0f7d553882ecfc16d2389af3098deb",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_azrila_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_bounda_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_bounda_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_bounda_01.avif",
+    "sha256": "a7fc68b8dfd975fd8edba7aa1f65e352e1ccbba0130435d04e730e46c58462e8",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_bounda_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_camille_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_camille_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_camille_01.avif",
+    "sha256": "6f40dbd53410aee6e77378f5afbe83e0f229432956156e2d0df0cbd033b53b4b",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_camille_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_chen_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_chen_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_chen_01.avif",
+    "sha256": "953cd9800557c31828b0fa364a95b8e1041ab655a61d0e453a922e05c3c3373b",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_chen_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_dapan_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_dapan_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_dapan_01.avif",
+    "sha256": "d7705ef3c05d71f49b32c12d7d224669f8211d1ea18b701a4f75eafbeea8ea62",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_dapan_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_deepfin_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_deepfin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_deepfin_01.avif",
+    "sha256": "ffba14a423e625d8f5e73039508ddf74547a19db838cf45522029a75eab7b6ab",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_deepfin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_endmin_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_endmin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_endmin_01.avif",
+    "sha256": "25d67653aeb638a0aa0f3013ff2754fe120e91a2ef1177c786f45026433965ca",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_endmin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_ikut_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_ikut_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_ikut_01.avif",
+    "sha256": "3e1f4fdad88ab5ea9dfb9623f499be72be30059782bdc75a61e629b2b45130a6",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_ikut_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_karin_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_karin_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_karin_01.avif",
+    "sha256": "89ef0332f945a678ee9bd3c91f8b1a111a8bf2eef61ad2a4c1d2f38d7565f0d5",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_karin_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_laevat_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_laevat_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_laevat_01.avif",
+    "sha256": "3463127ed6f6eb7a06252f90fc96c5124373adfb91bfbd48c0bf547a3542c5cf",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_laevat_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_lastrite_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_lastrite_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_lastrite_01.avif",
+    "sha256": "4497cfdaed6fc8af2053da7cfb4e5ab3200338ad7d131dfa17ca3262ce7802be",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_lastrite_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_lifeng_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_lifeng_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_lifeng_01.avif",
+    "sha256": "47324d354e28af37ad5d89639451ea27f213495f34921cb36114f4368470fabf",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_lifeng_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_liino_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_liino_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_liino_01.avif",
+    "sha256": "07338e14a105e046371c14f02e1d621b6fb64b70458a82ee0cff6b56e324408d",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_liino_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_lizhiyan_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_lizhiyan_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_lizhiyan_01.avif",
+    "sha256": "6c20698668377af3007db7d009d472f9921e00edd461f0668821b92329ced71a",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_lizhiyan_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_meurs_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_meurs_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_meurs_01.avif",
+    "sha256": "e94d512527f82accc2a3801922b14e72a71e66002224189e9f276c6aafadc031",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_meurs_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_mifu_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_mifu_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_mifu_01.avif",
+    "sha256": "c1ea5a82c0a597552f0df38e86474d65104dc08c93db35d8a5c6f6d0aced5222",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_mifu_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_pelica_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_pelica_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_pelica_01.avif",
+    "sha256": "4ad5e71fccfd8a00657f6df48cf583f4846c8cf9d6c8a22a2e6cf2ac73de427b",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_pelica_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_pograni_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_pograni_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_pograni_01.avif",
+    "sha256": "accbde65508aaf2af4c21dfcb06f6d4f24d655a19d58702dd62f18e587d062c2",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_pograni_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_purrche_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_purrche_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_purrche_01.avif",
+    "sha256": "77f844a0d29ed326698308c0707cc77b6caa421cf546369db2c2712261f55f0d",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_purrche_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_seraph_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_seraph_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_seraph_01.avif",
+    "sha256": "03022eded282c8e43b77beba3f8a2d944a35778b79292cf56cc0e6966e08646b",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_seraph_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_tangtang_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_tangtang_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_tangtang_01.avif",
+    "sha256": "1c066a5908a44b924c6dc07678a1828a9ce9dda41f8e2cd61775abb9719ac077",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_tangtang_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_typhoea_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_typhoea_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_typhoea_01.avif",
+    "sha256": "db52cf9e0f454742455c12e878ac4ec32f10e14616985f6aab06c3a5027cbed3",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_typhoea_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_whiten_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_whiten_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_whiten_01.avif",
+    "sha256": "77787f04f328ebbe02c76366a6a4872d306bd28df744b9f89a6a5752a362cc78",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_whiten_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_wolfgd_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_wolfgd_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_wolfgd_01.avif",
+    "sha256": "d5106d6dc9c2d48a4b29b09ff440e2133d555db2028a510ec4cc2bc50c96407f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_wolfgd_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_wulfa_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_wulfa_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_wulfa_01.avif",
+    "sha256": "249897125edde0144115eb456f8463891d72c4db2ae61ef8489c1f91c81b82ee",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_wulfa_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_yvonne_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_yvonne_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_yvonne_01.avif",
+    "sha256": "fd323b3a01e5fd33c3edcf0758eaf2dc254873eb645f04003c441467e039451f",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_yvonne_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-skill-icon_ultimate_skill_zhuangfy_01": {
+    "file": "ef-growth-skill-icon_ultimate_skill_zhuangfy_01.avif",
+    "url": "https://raw.githubusercontent.com/cmyyx/cep/286962b95408078ca91c99dece748d74166e74b1/public/images/wiki/skills/icon_ultimate_skill_zhuangfy_01.avif",
+    "sha256": "84cbb6e32b2cacd8c6dafa8063fd2e7526ba866640aa361460da4ec378678fc7",
+    "sourceKind": "game-asset-mirror",
+    "iconId": "icon_ultimate_skill_zhuangfy_01",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-group-attribute": {
+    "file": "ef-growth-group-attribute.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/controller-D45F8z-s.js",
+    "moduleSha256": "7fa672c4bca96e4dec345cd56a18d0e0357afabe0d9fe02ce62eaf913ce1eec5",
+    "property": "ability",
+    "sha256": "40545498c91bd42b0d9dfd7a7aa54e673901fa6206581749aebf73d7f9330c9b",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-group-talent": {
+    "file": "ef-growth-group-talent.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/controller-D45F8z-s.js",
+    "moduleSha256": "7fa672c4bca96e4dec345cd56a18d0e0357afabe0d9fe02ce62eaf913ce1eec5",
+    "property": "combat",
+    "sha256": "597187efd5b7a7fd25e4cc9c0a72af3e1f250057049da52dfe735fb624bc75a4",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-group-logistics": {
+    "file": "ef-growth-group-logistics.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/controller-D45F8z-s.js",
+    "moduleSha256": "7fa672c4bca96e4dec345cd56a18d0e0357afabe0d9fe02ce62eaf913ce1eec5",
+    "property": "cultivation",
+    "sha256": "2884b12a564ae35a21ac76e066a89006141229f11359e754996f1d867b57c4d9",
+    "checkedAt": "2026-10-06"
+  },
+  "ef-growth-confirm-texture": {
+    "file": "ef-growth-confirm-texture.png",
+    "module": "https://assets.skland.com/_static_assets/game-tools/dist-B--VuxvI.js",
+    "moduleSha256": "003d4b37ac6f8eac3f2543a2efa94c409689228f5e4e81d432876355af7f03c0",
+    "variable": "at",
+    "sha256": "7098df3e48b7f9d91996185ac8825b54bb2e5390ec340b642d637a04ef61dc62",
+    "checkedAt": "2026-10-06"
   }
 }

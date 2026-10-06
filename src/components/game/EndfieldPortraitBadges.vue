@@ -5,8 +5,9 @@ import { endfieldPortraitBadge } from '@/common/overviewAssets'
 import { useOverviewFormat } from '@/composables/useOverviewFormat'
 import OverviewArtwork from './OverviewArtwork.vue'
 const props = defineProps<{
-  level: number | null
+  level?: number | null
   element?: string | null
+  profession?: string | null
   potential?: number | null
 }>()
 const { t } = useI18n()
@@ -14,6 +15,7 @@ const { number } = useOverviewFormat()
 const badges = computed(() =>
   [
     { kind: 'element' as const, value: props.element, label: props.element },
+    { kind: 'profession' as const, value: props.profession, label: props.profession },
     {
       kind: 'potential' as const,
       value: props.potential,
@@ -40,7 +42,7 @@ const badges = computed(() =>
     <OverviewArtwork v-if="badge.art" :art="badge.art" />
     <span v-else class="badge-fallback">{{ badge.value }}</span>
   </span>
-  <span class="member-level">{{ number(level) }}</span>
+  <span v-if="level !== undefined" class="member-level">{{ number(level) }}</span>
 </template>
 <style scoped>
 .member-level {
@@ -68,6 +70,11 @@ const badges = computed(() =>
 .member-element {
   top: 2px;
   left: 2px;
+}
+.member-profession {
+  top: calc(27% + 4px);
+  left: 2px;
+  pointer-events: auto;
 }
 .member-potential {
   bottom: 1px;

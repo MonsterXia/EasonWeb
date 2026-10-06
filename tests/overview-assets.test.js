@@ -16,9 +16,9 @@ const { metricArt, facilityArt, sectionArt, endfieldRarityColor } = await vite.s
   '/src/common/overviewAssets.ts',
 )
 
-test('overview artwork is checked in, pinned and valid PNG, with no orphan assets', async () => {
+test('overview artwork is checked in, pinned and valid PNG or AVIF, with no orphan assets', async () => {
   assert.deepEqual(
-    (await readdir(root)).filter((x) => x.endsWith('.png')).sort(),
+    (await readdir(root)).filter((x) => /\.(png|avif)$/.test(x)).sort(),
     Object.values(sources)
       .map((x) => x.file)
       .sort(),
@@ -26,8 +26,27 @@ test('overview artwork is checked in, pinned and valid PNG, with no orphan asset
   for (const source of Object.values(sources)) {
     const data = await readFile(new URL(source.file, root))
     assert.equal(createHash('sha256').update(data).digest('hex'), source.sha256)
-    assert.equal(data.toString('hex', 0, 8), '89504e470d0a1a0a')
-    assert.ok(data.readUInt32BE(16) > 0 && data.readUInt32BE(20) > 0)
+    if (source.file.endsWith('.png')) {
+      assert.equal(data.toString('hex', 0, 8), '89504e470d0a1a0a')
+      assert.ok(data.readUInt32BE(16) > 0 && data.readUInt32BE(20) > 0)
+    } else {
+      assert.equal(data.toString('ascii', 4, 8), 'ftyp')
+      assert.ok(data.subarray(8, 32).includes(Buffer.from('avif')))
+    }
+    if (source.sourceKind === 'game-asset-mirror') {
+      if (source.url.startsWith('https://data.akedata.wiki/')) {
+        assert.match(
+          source.url,
+          /^https:\/\/data\.akedata\.wiki\/public\/images\/assets\/beyond\/dynamicassets\/gameplay\/ui\/sprites\/itemiconbig\/item_expcard_(2_[12]|stage2_low)\.png$/,
+        )
+        continue
+      }
+      assert.match(
+        source.url,
+        /^https:\/\/raw\.githubusercontent\.com\/cmyyx\/cep\/286962b95408078ca91c99dece748d74166e74b1\/public\/images\/(weapon|items|wiki\/skills|wiki\/logistics|panel-preview)\/[\w-]+\.avif$/,
+      )
+      continue
+    }
     assert.match(
       source.url ?? source.module,
       /^https:\/\/(bbs\.hycdn\.cn|web\.hycdn\.cn|assets\.skland\.com|media\.prts\.wiki)\//,

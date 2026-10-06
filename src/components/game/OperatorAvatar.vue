@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-const props = defineProps<{ name: string; src?: string; fallbackSrc?: string }>()
+const props = defineProps<{
+  name: string
+  src?: string
+  fallbackSrc?: string
+  fit?: 'cover' | 'contain'
+}>()
 const loaded = ref(false)
 const failed = ref<string[]>([])
 const current = computed(() =>
@@ -29,7 +34,7 @@ function imageLoaded(event: Event) {
 }
 </script>
 <template>
-  <span class="operator-avatar" aria-hidden="true">
+  <span class="operator-avatar" :class="{ contain: fit === 'contain' }" aria-hidden="true">
     <span v-if="!loaded" class="operator-initial">{{ name.slice(0, 1) }}</span>
     <img
       v-if="current"
@@ -71,6 +76,9 @@ function imageLoaded(event: Event) {
 }
 .operator-avatar img.loaded {
   opacity: 1;
+}
+.operator-avatar.contain img {
+  object-fit: contain;
 }
 .operator-initial {
   font-size: 15px;
